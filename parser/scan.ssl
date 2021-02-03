@@ -50,9 +50,20 @@ Output :
         %   Tokens pDiv through pRepeat are keywords which will be 
         %   separated from user defined identifiers by the Screener.
         %   This Scanner treats them all as identifiers.
-        pDiv 
+        pChoose
+        pElseIf
+        pFun
+        pIs
+        pLike
+        pPkg
+        pPublic
+        pUsing
+        pVal
+        pWhen
+        % All of the above keyword tokens were added
+        pDiv                %To be removed?
         firstKeywordToken = pDiv
-        pMod
+        pMod                %To be removed?
         pOr
         pAnd
         pNot
@@ -60,18 +71,18 @@ Output :
         pElse
         pOf
         pEnd
-        pUntil
-        pDo
-        pArray
+        pUntil              %To be removed?
+        pDo                 %To be removed?
+        pArray              %To be removed?
         pFile
-        pProgram
-        pConst
+        pProgram            %To be removed?
+        pConst              %To be removed?
         pVar
-        pType
-        pProcedure
-        pBegin
+        pType               %To be removed?
+        pProcedure          %To be removed?
+        pBegin              %To be removed?
         pIf
-        pCase
+        pCase               %To be removed?
         pWhile
         pRepeat
         lastKeywordToken = pRepeat
@@ -89,6 +100,18 @@ Output :
 
         % Non-compound tokens - 
         %   These tokens simply represent themselves.
+        pSlash
+        pPercent
+        pHash
+        pBar
+        pDoubleBar
+        pPlusEquals
+        pMinusEquals
+        pStarEquals
+        pSlashEquals
+        pPercentEquals
+        pDoubleEquals
+        % All of the above syntax tokens were added
         pNewLine
         pEndFile
         pPlus
