@@ -1,0 +1,5 @@
+# File created by finder on macOS
+.DS_Store
+
+# Bin outputs from the compiler, changes on every run
+**/*.out
