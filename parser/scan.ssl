@@ -26,6 +26,7 @@ Input :
         lComma          ','
         lSemicolon      ';'
         lQuote
+        lSlash          '/'
         lBackslash
         lLeftAngle      '<'
         lRightAngle     '>'
@@ -147,12 +148,7 @@ Scan :
             | ';':
                 .pSemicolon
             | '(':
-                [
-                    | '*':
-                        @AlternateComment
-                    | *:
-                        .pLeftParen
-                ]
+                .pLeftParen
             | ')':
                 .pRightParen
             | '[':
@@ -209,7 +205,7 @@ Scan :
                     | *:
                         .pGreater
                 ]
-            | '{':
+            | '/':
                 @Comment
             | '*':
                 .pStar
@@ -277,24 +273,32 @@ StringLiteral :
 Comment :
         % Discard the contents of a comment
 
+        [
+            | '/':
+                @SingleLineComment
+            | '*':
+                @MultiLineComment
+            | *:        % any other character is not the start of a valid comment, illegal character
+                #eIllegalChar
+        ];
+SingleLineComment :
+        % Discard a single line comment
         {[
-            | '}':
-                >
-            | lNewLine:
-                .pNewLine
-            | lEndFile:         % comment must be closed before EOF
-                #eCommentEOF
+            | lEndFile:         % if the file ends, emit pEndFile and return
                 .pEndFile
                 >
-            | *:        % comment may contain any other character
+            | lNewLine:         % if the line ends, emit pNewLine and return
+                .pNewLine
+                >
+            | *:                % all other characters are part of the comment, discard them
                 ?
         ]};
-
-AlternateComment :
+MultiLineComment :
+        % Discard a multiline comment
         {[
             | '*':
                 [
-                    | ')':
+                    | '/':
                         >
                     | *:
                 ]
