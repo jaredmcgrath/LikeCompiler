@@ -100,17 +100,17 @@ Output :
 
         % Non-compound tokens - 
         %   These tokens simply represent themselves.
-        pSlash
-        pPercent
-        pHash
-        pBar
-        pDoubleBar
-        pPlusEquals
-        pMinusEquals
-        pStarEquals
-        pSlashEquals
-        pPercentEquals
-        pDoubleEquals
+        pSlash          %Confused about how to implement
+        pPercent        %Done
+        pHash           %Done
+        pBar            %Done
+        pDoubleBar      %Done
+        pPlusEquals     %Done
+        pMinusEquals    %Done
+        pStarEquals     %Done
+        pSlashEquals    %Done
+        pPercentEquals  %Done
+        pDoubleEquals   %Done
         % All of the above syntax tokens were added
         pNewLine
         pEndFile
@@ -198,13 +198,29 @@ Scan :
                     | *:
                 ]
             | '=':
-                .pEquals
+                [
+                    | '=':
+                        .pDoubleEquals
+                    | *:
+                        .pEquals
+                ]
+                
             | '+':
-                .pPlus
+                [
+                    | '='
+                        .pPlusEquals
+                    | *:
+                        .pPlus
+                ]
             | lQuote:
                 @StringLiteral
             | '-':
-                .pMinus
+                [
+                    | '='
+                        .pMinusEquals
+                    | *:
+                        .pMinus
+                ]
             | '.':
                 [
                     | '.':
@@ -229,9 +245,35 @@ Scan :
                         .pGreater
                 ]
             | '/':
-                @Comment
+                [
+                    | '=':
+                        .pSlashEquals
+                    | *:                    %Not sure about this (Should we do .pSlash before calling Comment like this?)
+                        @Comment    
+                ]
             | '*':
-                .pStar
+                [
+                    | '=':
+                        .pStarEquals
+                    | *:
+                        .pStar
+                ]
+            | '%':
+                [
+                    | '=':
+                        .pPercentEquals
+                    | *:
+                        .pPercent
+                ]
+            | '#':
+                .pHash
+            | '|':
+                [
+                    | '|':
+                        pDoubleBar
+                    | *:
+                        pBar
+                ]
             | lNewPage:
             | lEndFile:
                 .pEndFile
