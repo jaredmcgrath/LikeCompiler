@@ -12,6 +12,7 @@
 %     unclosed literals, literals that cross a line boundary,
 %     illegal characters and integers followed by identifiers with 
 %     no separator between them.
+   
 
 Input : 
         lLetter 
@@ -25,9 +26,13 @@ Input :
         lDot            '.'
         lComma          ','
         lSemicolon      ';'
-        lQuote
-        lSlash          '/'
+        lQuote          '"'     % updated existing character class to double quote
+        lSlash          '/'     % slash character class added
         lBackslash
+        lPercent        '%'     % percent character class added
+        lHash           '#'     % hash character class added
+        lBang           '!'     % bang character class added
+        lBar            '|'     % bar character class added
         lLeftAngle      '<'
         lRightAngle     '>'
         lLeftParen      '('
