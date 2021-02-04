@@ -203,13 +203,28 @@ Scan :
                     | *:
                 ]
             | '=':
-                .pEquals
+                [
+                    | '=':
+                        .pDoubleEquals
+                    |*:
+                        .pEquals
+                ]
             | '+':
-                .pPlus
+                [
+                    | '=':
+                        .pPlusEquals
+                    |*:
+                        .pPlus
+                ]
             | lQuote:
                 @StringLiteral
             | '-':
-                .pMinus
+                [
+                    | '=':
+                        .pMinusEquals
+                    |*:
+                        .pMinus
+                ]
             | '.':
                 [
                     | '.':
@@ -217,10 +232,13 @@ Scan :
                     | *:
                         .pDot
                 ]
+            | '!':
+                [
+                    | '=':
+                        .pNotEqual
+                ]
             | '<':
                 [
-                    | '>':
-                        .pNotEqual
                     | '=':
                         .pLessEqual
                     | *:
@@ -234,9 +252,39 @@ Scan :
                         .pGreater
                 ]
             | '/':
-                @Comment
+                [
+                    | '=':
+                        .pSlashEquals
+                    | '/': 
+                        @SingleLineComment
+                    | '*':
+                        @MultiLineComment
+                    | *:
+                        .pSlash % need to implement pDiv somewhere
+                ]
             | '*':
-                .pStar
+                [
+                    | '=':
+                        .pStarEquals
+                    |*:
+                        .pStar
+                ]
+            | '%':
+                [
+                    | '=':
+                        .pPercentEquals
+                    |*:
+                        .pPercent
+                ]
+            | '#':
+                .pHash
+            | '|':
+                [
+                    | '|':
+                        .pDoubleBar
+                    |*:
+                        .pBar
+                ]
             | lNewPage:
             | lEndFile:
                 .pEndFile
@@ -298,17 +346,6 @@ StringLiteral :
                 oBufferSave
         ]};
 
-Comment :
-        % Discard the contents of a comment
-
-        [
-            | '/':
-                @SingleLineComment
-            | '*':
-                @MultiLineComment
-            | *:        % any other character is not the start of a valid comment, illegal character
-                #eIllegalChar
-        ];
 SingleLineComment :
         % Discard a single line comment
         {[
