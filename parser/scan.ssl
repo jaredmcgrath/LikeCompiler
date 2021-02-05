@@ -12,6 +12,7 @@
 %     unclosed literals, literals that cross a line boundary,
 %     illegal characters and integers followed by identifiers with 
 %     no separator between them.
+   
 
 Input : 
         lLetter 
@@ -25,9 +26,13 @@ Input :
         lDot            '.'
         lComma          ','
         lSemicolon      ';'
-        lQuote
-        lSlash          '/'
+        lQuote          '"'     % updated existing character class to double quote
+        lSlash          '/'     % slash character class added
         lBackslash
+        lPercent        '%'     % percent character class added
+        lHash           '#'     % hash character class added
+        lBang           '!'     % bang character class added
+        lBar            '|'     % bar character class added
         lLeftAngle      '<'
         lRightAngle     '>'
         lLeftParen      '('
@@ -198,13 +203,28 @@ Scan :
                     | *:
                 ]
             | '=':
-                .pEquals
+                [
+                    | '=':
+                        .pDoubleEquals
+                    |*:
+                        .pEquals
+                ]
             | '+':
-                .pPlus
+                [
+                    | '=':
+                        .pPlusEquals
+                    |*:
+                        .pPlus
+                ]
             | lQuote:
                 @StringLiteral
             | '-':
-                .pMinus
+                [
+                    | '=':
+                        .pMinusEquals
+                    |*:
+                        .pMinus
+                ]
             | '.':
                 [
                     | '.':
@@ -212,10 +232,13 @@ Scan :
                     | *:
                         .pDot
                 ]
+            | '!':
+                [
+                    | '=':
+                        .pNotEqual
+                ]
             | '<':
                 [
-                    | '>':
-                        .pNotEqual
                     | '=':
                         .pLessEqual
                     | *:
@@ -229,9 +252,39 @@ Scan :
                         .pGreater
                 ]
             | '/':
-                @Comment
+                [
+                    | '=':
+                        .pSlashEquals
+                    | '/': 
+                        @SingleLineComment
+                    | '*':
+                        @MultiLineComment
+                    | *:
+                        .pSlash % need to implement pDiv somewhere
+                ]
             | '*':
-                .pStar
+                [
+                    | '=':
+                        .pStarEquals
+                    |*:
+                        .pStar
+                ]
+            | '%':
+                [
+                    | '=':
+                        .pPercentEquals
+                    |*:
+                        .pPercent
+                ]
+            | '#':
+                .pHash
+            | '|':
+                [
+                    | '|':
+                        .pDoubleBar
+                    |*:
+                        .pBar
+                ]
             | lNewPage:
             | lEndFile:
                 .pEndFile
@@ -293,17 +346,6 @@ StringLiteral :
                 oBufferSave
         ]};
 
-Comment :
-        % Discard the contents of a comment
-
-        [
-            | '/':
-                @SingleLineComment
-            | '*':
-                @MultiLineComment
-            | *:        % any other character is not the start of a valid comment, illegal character
-                #eIllegalChar
-        ];
 SingleLineComment :
         % Discard a single line comment
         {[
