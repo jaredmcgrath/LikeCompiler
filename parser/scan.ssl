@@ -260,7 +260,7 @@ Scan :
                     | '*':
                         @MultiLineComment
                     | *:
-                        .pSlash % need to implement pDiv somewhere
+                        .pSlash 
                 ]
             | '*':
                 [
