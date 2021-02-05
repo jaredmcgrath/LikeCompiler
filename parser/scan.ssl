@@ -105,17 +105,17 @@ Output :
 
         % Non-compound tokens - 
         %   These tokens simply represent themselves.
-        pSlash
-        pPercent
-        pHash
-        pBar
-        pDoubleBar
-        pPlusEquals
-        pMinusEquals
-        pStarEquals
-        pSlashEquals
-        pPercentEquals
-        pDoubleEquals
+        pSlash          %Confused about how to implement
+        pPercent        %Done
+        pHash           %Done
+        pBar            %Done
+        pDoubleBar      %Done
+        pPlusEquals     %Done
+        pMinusEquals    %Done
+        pStarEquals     %Done
+        pSlashEquals    %Done
+        pPercentEquals  %Done
+        pDoubleEquals   %Done
         % All of the above syntax tokens were added
         pNewLine
         pEndFile
