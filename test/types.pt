@@ -10,6 +10,6 @@ begin
     begin
         write (i); writeln;
     end;
-    c := '4';
-    write ('        ',c,'2'); writeln;
+    c := "4";
+    write ("        ",c,"2"); writeln;
 end.
