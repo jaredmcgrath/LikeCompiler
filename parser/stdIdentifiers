@@ -5,6 +5,17 @@
 %   These must be in the exact same order as the keyword token definitions 
 %   in the Output section of scan.ssl and the Input section of parser.ssl
 
+choose
+elseIf
+fun
+is
+like
+pkg
+public
+using
+val
+when
+% All the above were added
 or
 and
 not
@@ -17,17 +28,6 @@ var
 if
 while
 repeat
-% New Keywords (Travis)
-choose
-elseif
-fun
-is
-like
-pkg
-public
-using
-val
-when
 
 % End of keywords
 
