@@ -56,6 +56,7 @@ Output :
         %   separated from user defined identifiers by the Screener.
         %   This Scanner treats them all as identifiers.
         pChoose
+        firstKeywordToken = pChoose
         pElseIf
         pFun
         pIs
@@ -66,9 +67,6 @@ Output :
         pVal
         pWhen
         % All of the above keyword tokens were added
-        pDiv                %To be removed?
-        firstKeywordToken = pDiv
-        pMod                %To be removed?
         pOr
         pAnd
         pNot
@@ -76,18 +74,9 @@ Output :
         pElse
         pOf
         pEnd
-        pUntil              %To be removed?
-        pDo                 %To be removed?
-        pArray              %To be removed?
         pFile
-        pProgram            %To be removed?
-        pConst              %To be removed?
         pVar
-        pType               %To be removed?
-        pProcedure          %To be removed?
-        pBegin              %To be removed?
         pIf
-        pCase               %To be removed?
         pWhile
         pRepeat
         lastKeywordToken = pRepeat
