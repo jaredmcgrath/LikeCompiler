@@ -57,7 +57,7 @@ Output :
         %   This Scanner treats them all as identifiers.
         pChoose
         firstKeywordToken = pChoose
-        pElseIf
+        pElseif
         pFun
         pIs
         pLike

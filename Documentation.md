@@ -1,5 +1,11 @@
 # Phase 1 Documentation
 
+## Keywords
+
+Keywords [array, begin, case, const, div, do, mod, procedure, program, type, until] were removed and [choose, elseif, fun, is, like, pkg, public, using, val, when] were added. This was accomplished by editing the stdIdentifiers file in the parser subdirectory. Corresponding tokens were added/removed in scan.ssl as well (pChoose for the choose keyword).
+
+Predefined identifiers were changed as well, [get, getln, put, putln] were added while [read, readln, write, writeln] were removed.
+
 ## Character Classes
 
 Five new character classes were added to scan.ssl for the new Like inputs, and the existing lQuote class was changed to recognize double quotes rather than single. The following table describes the new Like inputs and their corresponding character class name. Character classes were added and altered in scan.ssl in the input declaration. 

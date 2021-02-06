@@ -6,7 +6,7 @@
 %   in the Output section of scan.ssl and the Input section of parser.ssl
 
 choose
-elseIf
+elseif
 fun
 is
 like

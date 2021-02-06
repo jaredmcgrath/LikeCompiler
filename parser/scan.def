@@ -40,7 +40,7 @@
         { Output Tokens }
         pChoose = 0;
         firstKeywordToken = 0;
-        pElseIf = 1;
+        pElseif = 1;
         pFun = 2;
         pIs = 3;
         pLike = 4;
