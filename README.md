@@ -4,6 +4,11 @@ CMPE 458 "Like" Compiler. All documentation files are written in Markdown.
 ## Group
 cisc458n
 
+## Structure
+All source code written by this group is in `/src`
+
+All test files along with their outputs and descriptions are in `/testSuite`
+
 ## Members
 
 <table>
