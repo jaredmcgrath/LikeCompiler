@@ -31,5 +31,22 @@
 <td></td>
 <td></td>
 <td></td>
+</tr>
+
+<tr>
+<td>stringTest.pt</td>
+<td>Test the parsing of Like-style strings</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>comments.pt</td>
+<td>Test the parsing of single line and multi-line comments</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
 
 </table>

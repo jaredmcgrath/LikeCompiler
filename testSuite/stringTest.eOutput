@@ -1,0 +1,9 @@
+  .pStringLiteral
+  % Output token text 'foo'
+ .pNewLine
+  .pStringLiteral
+  % Output token text '"foo"'
+ .pNewLine
+  .pStringLiteral
+  % Output token text ''
+ .pEndFile
