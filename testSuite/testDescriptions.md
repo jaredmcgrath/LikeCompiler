@@ -25,4 +25,11 @@
 <td>.pSlash .pSlashEquals .pPercent pPercentEquals .pHash .pBar .pDoubleBar .pNotEqual</td>
 </tr>
 
+<tr>
+<td>nonCompoundTokens.pt</td>
+<td>Ensure Non-Compound Tokens are outputted as expected</td>
+<td></td>
+<td></td>
+<td></td>
+
 </table>
