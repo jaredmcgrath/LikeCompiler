@@ -1,0 +1,25 @@
+ 
+ % Output token for /
+ .pSlash
+ .pNewLine
+ % Output token for /=
+ .pSlashEquals
+ .pNewLine
+ % Output token for %
+ .pPercent
+ .pNewLine
+ % Output token for %=
+ .pPercentEquals
+ .pNewLine
+ % Output token for #
+ .pHash
+ .pNewLine
+ % Output token for |
+ .pBar
+ .pNewLine
+ % Output token for ||
+ .pDoubleBar
+ .pNewLine
+ % Output token for !=
+ .pNotEqual
+ .pEndFile

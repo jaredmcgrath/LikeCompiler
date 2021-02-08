@@ -21,8 +21,8 @@
 <td>charclasses.pt</td>
 <td>Ensure the new Like character classes are recognized by the scanner and output the correct token for the parser.</td>
 <td>Forces newly added tokens through the screener to ensure character class is identified, and then through the scanner to recognize the token.</td>
-<td>.pSlash .pSlashEquals .pPercent pPercentEquals .pHash .pBar .pDoubleBar .pNotEqual</td>
-<td>.pSlash .pSlashEquals .pPercent pPercentEquals .pHash .pBar .pDoubleBar .pNotEqual</td>
+<td> .pSlash .pNewLine .pSlashEquals .pNewLine .pPercent .pNewLine .pPercentEquals .pNewLine .pHash .pNewLine .pBar .pNewLine .pDoubleBar .pNewLine .pNotEqual .pEndFile</td>
+<td> .pSlash .pNewLine .pSlashEquals .pNewLine .pPercent .pNewLine .pPercentEquals .pNewLine .pHash .pNewLine .pBar .pNewLine .pDoubleBar .pNewLine .pNotEqual .pEndFile</td>
 </tr>
 
 <tr>
