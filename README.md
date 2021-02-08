@@ -19,3 +19,25 @@ cisc458n
 <td>16jtm2</td>
 </tr>
 </table>
+
+<tr>
+<td>Travis Cossarini</td>
+<td>20047244</td>
+<td>16tjc3</td>
+</tr>
+</table>
+
+<tr>
+<td>Alex Ingham</td>
+<td>20054078</td>
+<td>16adwi</td>
+</tr>
+</table>
+
+
+<tr>
+<td>Nicole Ooi</td>
+<td>20060957</td>
+<td>16nmxo</td>
+</tr>
+</table>
