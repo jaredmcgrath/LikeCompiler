@@ -1,5 +1,7 @@
 # Test Descriptions
 
+For concision, some tokens not relevant to each test were omitted from the expected/actual output. See the corresponding `.eOutput` files for full output.
+
 <table>
 <tr>
 <th>File Name</th>
@@ -48,17 +50,43 @@
 <tr>
 <td>stringTest.pt</td>
 <td>Test the parsing of Like-style strings</td>
-<td></td>
-<td></td>
-<td></td>
+<td>Incomplete program with 3 string literals</td>
+<td>  .pStringLiteral
+  % Output token text 'foo'
+  .pStringLiteral
+  % Output token text '"foo"'
+  .pStringLiteral
+  % Output token text ''</td>
+<td>  .pStringLiteral
+  % Output token text 'foo'
+  .pStringLiteral
+  % Output token text '"foo"'
+  .pStringLiteral
+  % Output token text ''</td>
 </tr>
 
 <tr>
 <td>comments.pt</td>
 <td>Test the parsing of single line and multi-line comments</td>
-<td></td>
-<td></td>
-<td></td>
+<td>Incomplete program with some examples of comments. Output demonstrates the correct number of .pNewline tokens are emitted</td>
+<td>  .pNewLine
+ .pNewLine
+  .pNewLine
+  .pNewLine
+  .pNewLine
+  .pNewLine
+  .pNewLine
+ .pNewLine
+ .pEndFile</td>
+<td>  .pNewLine
+ .pNewLine
+  .pNewLine
+  .pNewLine
+  .pNewLine
+  .pNewLine
+  .pNewLine
+ .pNewLine
+ .pEndFile</td>
 </tr>
 
 </table>
