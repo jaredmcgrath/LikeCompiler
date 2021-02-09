@@ -25,7 +25,7 @@
  .pPercent
  .pHash
  .pOrBar
- .pDoubleBar
+ .pDoubleOrBar
  .pPlusEquals
  .pMinusEquals
  .pStarEquals
@@ -36,7 +36,7 @@
  .pPercent
  .pHash
  .pOrBar
- .pDoubleBar
+ .pDoubleOrBar
  .pPlusEquals
  .pMinusEquals
  .pStarEquals

@@ -98,7 +98,7 @@ Output :
         pPercent        %Done
         pHash           %Done
         pOrBar            %Done
-        pDoubleBar      %Done
+        pDoubleOrBar      %Done
         pPlusEquals     %Done
         pMinusEquals    %Done
         pStarEquals     %Done
@@ -270,7 +270,7 @@ Scan :
             | '|':
                 [
                     | '|':
-                        .pDoubleBar
+                        .pDoubleOrBar
                     |*:
                         .pOrBar
                 ]

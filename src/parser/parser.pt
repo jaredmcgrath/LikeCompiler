@@ -129,7 +129,7 @@ program ScannerParser(output, stdIdentifiers, scanSsl, parseSsl, source, parseSt
         pPercent = 26;
         pHash = 27;
         pOrBar = 28;
-        pDoubleBar = 29;
+        pDoubleOrBar = 29;
         pPlusEquals = 30;
         pMinusEquals = 31;
         pStarEquals = 32;
