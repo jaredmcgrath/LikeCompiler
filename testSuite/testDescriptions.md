@@ -24,7 +24,7 @@
 <td>  .pSlash
  .pPercent
  .pHash
- .pBar
+ .pOrBar
  .pDoubleBar
  .pPlusEquals
  .pMinusEquals
@@ -35,7 +35,7 @@
 <td> .pSlash
  .pPercent
  .pHash
- .pBar
+ .pOrBar
  .pDoubleBar
  .pPlusEquals
  .pMinusEquals

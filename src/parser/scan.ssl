@@ -97,7 +97,7 @@ Output :
         pSlash          %Confused about how to implement
         pPercent        %Done
         pHash           %Done
-        pBar            %Done
+        pOrBar            %Done
         pDoubleBar      %Done
         pPlusEquals     %Done
         pMinusEquals    %Done
@@ -272,7 +272,7 @@ Scan :
                     | '|':
                         .pDoubleBar
                     |*:
-                        .pBar
+                        .pOrBar
                 ]
             | lNewPage:
             | lEndFile:

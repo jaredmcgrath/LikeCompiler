@@ -70,7 +70,7 @@
         pSlash = 25;
         pPercent = 26;
         pHash = 27;
-        pBar = 28;
+        pOrBar = 28;
         pDoubleBar = 29;
         pPlusEquals = 30;
         pMinusEquals = 31;
