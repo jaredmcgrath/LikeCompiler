@@ -161,6 +161,8 @@ Block :
         % appear only in the order consts, types, vars, procedures.
         % We allow arbitrary intermixing of these instead to preserve
         % programmer sanity.
+
+        %not sure how to change this yet
         {[
             | 'const':
                 .sConst
@@ -180,7 +182,7 @@ Block :
             | *:
                 >
         ]}
-        'begin'
+        %removed begin acceptance
         @BeginStmt;
 
 ConstantDefinitions :
@@ -312,24 +314,6 @@ ProcedureHeading :
         ';'
         .sParmEnd;
 
-Statement :
-        [
-            | pIdentifier:
-                @AssignmentOrCallStmt
-            | 'begin':
-                @BeginStmt
-            | 'if':
-                @IfStmt
-            | 'while':
-                @WhileStmt
-            | 'case':
-                @CaseStmt
-            | 'repeat':
-                @RepeatStmt
-            | *:
-                .sNullStmt
-        ];
-
 AssignmentOrCallStmt :
         [
             | ':=':
@@ -382,25 +366,30 @@ CallStmt :
 BeginStmt :
         .sBegin
         {
-            @Statement
+            @Block
             [
                 | ';':
-                | 'end':
+                | 'end': %must remove remove end acceptance! but how do i know it's ending now
                     .sEnd
                     >
             ]
         };
 
-IfStmt :
+IfStmt : 
         .sIfStmt
         @Expression
         .sExpnEnd
         'then'  .sThen
-        @Statement
+        @Block
         [
+            | 'elseif': % do not add new token, option b
+            % not sure how to handle this since i still dont understand Block 
+                .sElse
+                @Block
+
             | 'else':
                 .sElse
-                @Statement
+                @Block
             | *:
         ];
 
