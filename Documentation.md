@@ -46,6 +46,53 @@ Five new character classes were added to scan.ssl for the new Like inputs, and t
 </tr>
 </table>
 
+## Syntax Tokens
+The following new Like symbols were added to `scan.ssl`:
+<table>
+<tr>
+<th>Symbol</th>
+<th>Syntax token</th>
+</tr>
+
+<tr>
+<td>||</td>
+<td>pDoubleOrBar</td>
+</tr>
+
+<tr>
+<td>+=</td>
+<td>pPlusEquals</td>
+</tr>
+
+<tr>
+<td>-=</td>
+<td>pMinusEquals</td>
+</tr>
+
+<tr>
+<td>*=</td>
+<td>pStarEquals</td>
+</tr>
+
+<tr>
+<td>/=</td>
+<td>pSlashEquals</td>
+</tr>
+
+<tr>
+<td>%=</td>
+<td>pPercentEquals</td>
+</tr>
+
+<tr>
+<td>==</td>
+<td>pDoubleEquals</td>
+</tr>
+</table>
+Rules were added in order to emit these new syntax tokens when appropriate.
+<br>
+<br>
+
 The initialization of the character class map was changed in the Initialize procedure of parser.pt. The map at indices corresponding to the ASCII codes of the new characters were initialized with the name of the character class using the 'ord' function. These changes allow the new characters to be pre-screened into character classes and further, scanned as legal tokens within the Like language. 
 
 ## Strings
