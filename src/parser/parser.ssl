@@ -17,9 +17,18 @@ Input :
         % Keywords must be first both here and in stdIdentifiers,
         % and they must appear in the exact same order
 
-        pDiv                    'div'
-        firstKeywordToken = pDiv
-        pMod                    'mod'
+        pChoose
+        firstKeywordToken = pChoose
+        pElseif
+        pFun
+        pIs
+        pLike
+        pPkg
+        pPublic
+        pUsing
+        pVal
+        pWhen
+        % All of the above keyword tokens were added
         pOr                     'or'
         pAnd                    'and'
         pNot                    'not'
@@ -27,18 +36,9 @@ Input :
         pElse                   'else'
         pOf                     'of'
         pEnd                    'end'
-        pUntil                  'until'
-        pDo                     'do'
-        pArray                  'array'
         pFile                   'file'
-        pProgram                'program'
-        pConst                  'const'
         pVar                    'var'
-        pType                   'type'
-        pProcedure              'procedure'
-        pBegin                  'begin'
         pIf                     'if'
-        pCase                   'case'
         pWhile                  'while'
         pRepeat                 'repeat'
         lastKeywordToken = pRepeat 
@@ -56,6 +56,18 @@ Input :
 
         % Non-compound tokens - 
         %   These tokens simply represent themselves.
+        pSlash                  '/'
+        pPercent                '%'
+        pHash                   '#'
+        pOrBar                  '|'
+        pDoubleOrBar            '||'
+        pPlusEquals             '+='
+        pMinusEquals            '-='
+        pStarEquals             '*='
+        pSlashEquals            '/='
+        pPercentEquals          '%='
+        pDoubleEquals           '=='
+        % All of the above syntax tokens were added
         pNewLine
         pEndFile
         pPlus                   '+'
@@ -67,7 +79,7 @@ Input :
         pSemicolon              ';'
         pColon                  ':'
         pEquals                 '='
-        pNotEqual               '<>'
+        pNotEqual               '!='        %Changed to != from <>
         pLess                   '<'
         pLessEqual              '<='
         pGreaterEqual           '>='
@@ -91,7 +103,7 @@ Output :
         sParmBegin
         sParmEnd
         sConst
-        sType
+        sLike       % Changed from sType to sLike
         sVar
         sProcedure
         sBegin
@@ -132,6 +144,15 @@ Output :
         sAnd
         sNot
         sNewLine
+        % All output tokens below were added (aside from sEndOfFile)
+        sPackage
+        sPublic
+        sConcatenate
+        sRepeatString
+        sSubstring
+        sLength
+        sInitialValue
+        sCaseElse
         sEndOfFile
         lastSemanticToken = sEndOfFile;
 
