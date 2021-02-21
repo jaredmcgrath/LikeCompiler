@@ -178,31 +178,46 @@ Program :
         ';'  @Block  '.';
 
 Block :
+        % Merged statement and beginStmt rule into block rule -T 
         % Strictly speaking, standard Pascal requires that declarations
         % appear only in the order consts, types, vars, procedures.
         % We allow arbitrary intermixing of these instead to preserve
         % programmer sanity.
+        .sBegin
         {[
-            | 'const':
+            | 'const': % Will need to change as 'const' has been removed -> change to 'val'?
                 .sConst
                 @ConstantDefinitions
-            | 'type':
+            | 'type': % Will need to change as 'type' has been removed
                 .sType
                 @TypeDefinitions
             | 'var':
                 .sVar
                 @VariableDeclarations
-            | 'procedure':
+            | 'procedure': % Will need to change as 'procedure' has been removed
                 .sProcedure
                 % procedure name
                 pIdentifier  .sIdentifier
                 @ProcedureHeading
                 @Block  ';'
-            | *:
+            [ % Merged statement rule below
+                | pIdentifier:
+                @AssignmentOrCallStmt
+                | 'if':
+                    @IfStmt
+                | 'while':
+                    @WhileStmt
+                | 'case': % Will need to change as 'case' has been removed
+                    @CaseStmt
+                | 'repeat':
+                    @RepeatStmt
+                | *:
+                    .sNullStmt
+            ]
+            | ';':
                 >
         ]}
-        'begin'
-        @BeginStmt;
+        .sEnd;
 
 ConstantDefinitions :
         % Accept one or more named constant definitions
@@ -333,24 +348,6 @@ ProcedureHeading :
         ';'
         .sParmEnd;
 
-Statement :
-        [
-            | pIdentifier:
-                @AssignmentOrCallStmt
-            | 'begin':
-                @BeginStmt
-            | 'if':
-                @IfStmt
-            | 'while':
-                @WhileStmt
-            | 'case':
-                @CaseStmt
-            | 'repeat':
-                @RepeatStmt
-            | *:
-                .sNullStmt
-        ];
-
 AssignmentOrCallStmt :
         [
             | ':=':
@@ -399,18 +396,6 @@ CallStmt :
             | *:        % no actual parameters
         ]
         .sParmEnd;
-
-BeginStmt :
-        .sBegin
-        {
-            @Statement
-            [
-                | ';':
-                | 'end':
-                    .sEnd
-                    >
-            ]
-        };
 
 IfStmt :
         .sIfStmt
