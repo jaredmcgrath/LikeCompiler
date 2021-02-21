@@ -164,16 +164,16 @@ Block :
         % programmer sanity.
         .sBegin
         {[
-            | 'const':
+            | 'const': % Will need to change as 'const' has been removed -> change to 'val'?
                 .sConst
                 @ConstantDefinitions
-            | 'type':
+            | 'type': % Will need to change as 'type' has been removed
                 .sType
                 @TypeDefinitions
             | 'var':
                 .sVar
                 @VariableDeclarations
-            | 'procedure':
+            | 'procedure': % Will need to change as 'procedure' has been removed
                 .sProcedure
                 % procedure name
                 pIdentifier  .sIdentifier
@@ -186,7 +186,7 @@ Block :
                     @IfStmt
                 | 'while':
                     @WhileStmt
-                | 'case':
+                | 'case': % Will need to change as 'case' has been removed
                     @CaseStmt
                 | 'repeat':
                     @RepeatStmt
