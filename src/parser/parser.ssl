@@ -185,6 +185,9 @@ Block :
         % programmer sanity.
         .sBegin
         {[
+            | 'pkg': % Added pkg identifier here
+                .sPackage
+                @Package
             | 'const': % Will need to change as 'const' has been removed -> change to 'val'?
                 .sConst
                 @ConstantDefinitions
@@ -218,6 +221,19 @@ Block :
                 >
         ]}
         .sEnd;
+
+Package :
+        % Package rule handle parsing of Like pkg
+        % Assumes that 'pkg' has been identified and sPackage has already been emitted
+        
+        % Parse identifier (package name)
+        pIdentifier .sIdentifier
+        pIs
+        @Block
+        % Block will have emitted sBegin, DeclarationsAndStatements, and sEnd,
+        % but we still need to ensure the 'end;' terminates the pkg
+        pEnd
+        pSemicolon
 
 ConstantDefinitions :
         % Accept one or more named constant definitions

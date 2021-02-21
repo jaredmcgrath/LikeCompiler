@@ -112,3 +112,17 @@ The existing `Comment` and `AlternateComment` rules in `parser/scan.ssl` were re
 ```
 
 The `Scan` rule was also adjusted to support these changes by first removing the old style `AlternateComment` and then by adding calls to the new comment rules for the `/` character.
+
+# Phase 2 Documentation
+
+## Packages
+
+Packages were implemented by adding input choice of `'pkg'` to the `Block` rule in `parser.ssl`. This choice calls the new `Package` rule, which fully parses out any package based on the project specification, e.g.
+
+```like
+pkg package_name is
+  // Package statements and declarations here
+end;
+```
+
+Keyword identifier tokens were used to parse the package structure correctly, including `pIs`, `pEnd`, and `pSemicolon`.

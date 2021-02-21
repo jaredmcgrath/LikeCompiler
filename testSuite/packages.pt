@@ -1,0 +1,5 @@
+program testProgram (output);
+
+pkg myPackage1 is
+  // here is my amazing package
+end;
