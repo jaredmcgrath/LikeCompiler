@@ -179,21 +179,21 @@ Block :
                 pIdentifier  .sIdentifier
                 @ProcedureHeading
                 @Block  ';'
-            [ % Merged statement rule below
-                | pIdentifier:
-                @AssignmentOrCallStmt
-                | 'if':
-                    @IfStmt
-                | 'while':
-                    @WhileStmt
-                | 'case': % Will need to change as 'case' has been removed
-                    @CaseStmt
-                | 'repeat':
-                    @RepeatStmt
-                | *:
-                    .sNullStmt
-            ]
+                % Merged statement rule below
+            | pIdentifier:
+            @AssignmentOrCallStmt
+            | 'if':
+                @IfStmt
+            | 'while':
+                @WhileStmt
+            | 'case': % Will need to change as 'case' has been removed
+                @CaseStmt
+            | 'repeat':
+                @RepeatStmt
+            | *:
+                .sNullStmt
             | ';':
+            | *:
                 >
         ]}
         .sEnd;
