@@ -1,0 +1,11 @@
+program testProgram (output);
+
+var i = 5;
+
+repeat while i > 0
+  i = i - 1;
+end;
+
+repeat
+  i = i + 2
+while i < 10;
