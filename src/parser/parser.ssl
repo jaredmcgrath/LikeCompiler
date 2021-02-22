@@ -181,7 +181,7 @@ Block :
                 @Block  ';'
                 % Merged statement rule below
             | pIdentifier:
-            @AssignmentOrCallStmt
+                @AssignmentOrCallStmt
             | 'if':
                 @IfStmt
             | 'while':
