@@ -1,6 +1,6 @@
-program testProgram (output);
+using output;
 
-val i = 1;
+var i = 1;
 
 choose i of
   when 0, -1 then
