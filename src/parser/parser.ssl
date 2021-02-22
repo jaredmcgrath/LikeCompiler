@@ -210,8 +210,8 @@ Block :
                     @IfStmt
                 | 'while':
                     @WhileStmt
-                | 'case': % Will need to change as 'case' has been removed
-                    @CaseStmt
+                | 'choose': % Changed from 'case' to Like's 'choose'
+                    @ChooseStmt
                 | 'repeat':
                     @RepeatStmt
                 | *:
@@ -426,33 +426,44 @@ IfStmt :
             | *:
         ];
 
-CaseStmt :
+ChooseStmt :
+        % Choose statement replaces the PT case statement.
+        % Assumes the 'choose' keyword has already been consumed
         .sCaseStmt
         @Expression
         .sExpnEnd
-        'of'
-        @CaseAlternative
+        pOf
+
+        % We know there will be at least one ChooseAlternative following 'of'
+        pWhen
+        @ChooseAlternative
+
+        % Parse 0 or more extra ChooseAlternatives
         {[
-            | ';':
-                % since case alternatives cannot be null, allow
-                % for the common situation of an extra semicolon
-                % at the end of the list of case alternatives.
-                [
-                    | 'end':
-                        >
-                    | *:
-                        @CaseAlternative
-                ]
-            | 'end':
+            | pWhen: % If we encounter another 'when', there must be another ChooseAlternative
+                @ChooseAlternative
+            | *:
+                .sCaseEnd
                 >
         ]}
-        .sCaseEnd;
 
-CaseAlternative :
-        % A case alternative is a statement labelled by
+        % Parse the optional else alternative
+        [
+            | pElse:
+                .sCaseElse
+                @Block
+        ]
+
+        % Make sure we parse a proper ending to the choose
+        pEnd
+        pSemicolon;
+
+ChooseAlternative :
+        % A choose alternative is a Block labelled by
         % one or more optionally signed integer constants
-
+        % We assume the 'when' has already been consumed
         {
+            % I'm assuming the const values in choose must still be of this type
             @OptionallySignedIntegerConstant
             [
                 | ',':
@@ -461,7 +472,9 @@ CaseAlternative :
             ]
         }
         .sLabelEnd
-        ':'  @Statement;
+        pThen
+        % This is now a Block. Block will handle the emission of sBegin and sEnd
+        @Block;
 
 WhileStmt :
         .sWhileStmt
