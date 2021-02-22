@@ -203,24 +203,23 @@ Block :
                 pIdentifier  .sIdentifier
                 @ProcedureHeading
                 @Block  ';'
-            [ % Merged statement rule below
-                | pIdentifier:
-                    @AssignmentOrCallStmt
-                | 'if':
-                    @IfStmt
-                | 'choose': % Changed from 'case' to Like's 'choose'
-                    @ChooseStmt
-                | 'repeat': % We have 'repeat while <cond> ...' = WhileStmt and 'repeat ... while <cond>' = RepeatStmt
-                    [
-                        | pWhile:
-                            @WhileStmt
-                        | *:
-                            @RepeatStmt
-                    ]
-                | *:
-                    .sNullStmt
-            ]
+            % Merged statement rule below, with changes for 'choose' and 'repeat'
+            | pIdentifier:
+                @AssignmentOrCallStmt
+            | 'if':
+                @IfStmt
+            | 'choose': % Changed from 'case' to Like's 'choose'
+                @ChooseStmt
+            | 'repeat': % We have 'repeat while <cond> ...' = WhileStmt and 'repeat ... while <cond>' = RepeatStmt
+                [
+                    | pWhile:
+                        @WhileStmt
+                    | *:
+                        @RepeatStmt
+                ]
             | ';':
+                .sNullStmt
+            | *:
                 >
         ]}
         .sEnd;
