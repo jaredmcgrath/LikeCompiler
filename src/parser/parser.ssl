@@ -421,18 +421,21 @@ IfStmt :
         @Expression
         .sExpnEnd
         'then'  .sThen
-        @Block
-        [
+        @Block %get sBegin for the if stmt
+        {[
             | 'elseif': % do not add new token, option b
-            % not sure how to handle this since i still dont understand Block 
                 .sElse
-                @Block
+                @Block %get the begin and end and statements and declaration handling
+                @IfStmt %treat like nested if statement, come back to this function
 
             | 'else':
                 .sElse
                 @Block
-            | *:
-        ];
+
+            | 'end': %need to have an end after elses
+                ';'
+                >
+        ]};
 
 ChooseStmt :
         % Choose statement replaces the PT case statement.
