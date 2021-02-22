@@ -205,15 +205,18 @@ Block :
                 @Block  ';'
             [ % Merged statement rule below
                 | pIdentifier:
-                @AssignmentOrCallStmt
+                    @AssignmentOrCallStmt
                 | 'if':
                     @IfStmt
-                | 'while':
-                    @WhileStmt
                 | 'choose': % Changed from 'case' to Like's 'choose'
                     @ChooseStmt
-                | 'repeat':
-                    @RepeatStmt
+                | 'repeat': % We have 'repeat while <cond> ...' = WhileStmt and 'repeat ... while <cond>' = RepeatStmt
+                    [
+                        | pWhile:
+                            @WhileStmt
+                        | *:
+                            @RepeatStmt
+                    ]
                 | *:
                     .sNullStmt
             ]
@@ -480,22 +483,30 @@ WhileStmt :
         .sWhileStmt
         @Expression
         .sExpnEnd
-        'do'
-        @Statement;
+        % Previous Statement -> Block
+        @Block
+        % Handle the end stuff (I'm starting to rethink if this is necessary?)
+        pEnd
+        pSemicolon;
 
 RepeatStmt :
         .sRepeatStmt
-        {
-            @Statement
-            [
-                | ';':
-                | 'until':
-                    .sRepeatEnd
-                    >
-            ]
-        }
+        % Commenting out, since I feel like there's no way this works properly
+        % {
+        %     @Statement
+        %     [
+        %         | ';':
+        %         | 'until':
+        %             .sRepeatEnd
+        %             >
+        %     ]
+        % }
+        @Block
+        pWhile
         @Expression
-        .sExpnEnd;
+        .sNot
+        .sExpnEnd
+        pSemicolon;
 
 Expression :
         @SimpleExpression
