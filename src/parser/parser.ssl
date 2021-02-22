@@ -190,9 +190,8 @@ Block :
                 @CaseStmt
             | 'repeat':
                 @RepeatStmt
-            | *:
-                .sNullStmt
             | ';':
+                .sNullStmt
             | *:
                 >
         ]}
