@@ -490,20 +490,10 @@ WhileStmt :
 
 RepeatStmt :
         .sRepeatStmt
-        % Commenting out, since I feel like there's no way this works properly
-        % {
-        %     @Statement
-        %     [
-        %         | ';':
-        %         | 'until':
-        %             .sRepeatEnd
-        %             >
-        %     ]
-        % }
-        @Block
+        @Block % Block will return when it encounters 'while', after emitting sBegin and sEnd 
         pWhile
         @Expression
-        .sNot
+        .sNot % We negate the expression since sRepeatStmt terminates loop on true expression
         .sExpnEnd
         pSemicolon;
 
@@ -541,6 +531,10 @@ SimpleExpression :
                 @Term  .sSubtract
             | 'or':
                 .sInfixOr  @Term  .sOr
+            | '||': % Added string repeat operator
+                @Term .sRepeatString
+            | '|': # Added string concatenation operator
+                @Term .sConcatenate
             | *:
                 >
         ]};
@@ -550,9 +544,19 @@ Term :
         {[
             | '*':
                 @Factor  .sMultiply
-            | 'div':
-                @Factor  .sDivide
-            | 'mod':
+            % For '/', it's either integer division or substring
+            | '/':
+                % unit following '/' will be Factor in either case
+                @Factor
+                [
+                    % If following token is ':', then it must be substring
+                    | ':':
+                        @Factor .sSubstring
+                    % Anything else means this was integer division
+                    | *:
+                        .sDivide
+                ]
+            | '%':
                 @Factor  .sModulus
             | 'and':
                 .sInfixAnd  @Factor  .sAnd
@@ -572,6 +576,9 @@ Factor :
             | 'not':
                 @Factor
                 .sNot
+            | '#': % Added string length operator
+                @Factor
+                .sLength
             | pStringLiteral:
                 .sStringLiteral
             | 'file':

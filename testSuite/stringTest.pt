@@ -1,3 +1,6 @@
-"foo"
-"\"foo\""
-""
+using output;
+
+var concat = "abc" | "def";
+var repeat = "abc" || 3;
+var substr = "hello123" / 1 : 5;
+var len = #"long string";
