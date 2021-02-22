@@ -498,7 +498,7 @@ RepeatStmt :
         .sRepeatStmt
         % Commenting out, since I feel like there's no way this works properly
         % {
-        %     @Statement
+        %     @Block
         %     [
         %         | ';':
         %         | 'until':
