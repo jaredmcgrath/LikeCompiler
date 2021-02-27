@@ -426,7 +426,7 @@ IfStmt :
             | 'elseif': % do not add new token, option b
                 .sElse
                 @Block %get the begin and end and statements and declaration handling
-                @IfStmt %treat like nested if statement, come back to this function
+                @IfStmt %treat like nested if statement, recursively call this function
 
             | 'else':
                 .sElse
@@ -434,6 +434,8 @@ IfStmt :
 
             | 'end': %need to have an end after elses
                 ';'
+                >
+            |*: % default for errors, must exit so it's not infinite
                 >
         ]};
 
