@@ -1,0 +1,25 @@
+Group: cisc458n
+Phase 1 Total Mark: 8/10
+TA: Dimitrios Economou d.economou@queensu.ca
+
+Documentation
+Mark: 1.5/2
+- Good documentation overall.
+- Consider organizing the changelog documentation at the top level by where the changes are located (then the "how" and "why" -- see tutorial 3).
+- Does not list all of your changes (-0.25).
+- Lack of explanation for why the changes are made (-0.25)
+
+Structure and Clarity
+Mark: 3.75/4
+- No comments for changes in `parser.pt`. There's also a lack of comments for changes in `scan.ssl`. Comment on all notable changes to highlight them (-0.25).
+- I recommend not changing rule names if it's unnecessary (e.g. `Comment` and `AlternateComment`).
+
+Testing and Correctness
+Mark: 2.75/4
+- The test suite documentation `testDescriptions.md` is inconsistent with the test files (-0.25). E.g. `keywords.pt` has old PT keywords, but this isn't mentioned in the documentation.
+- Never mix positive tests and negative tests in one test file (-0.5).
+- The semicolons in `keywords.pt` are not needed.
+- Did not remove old PT `.` and `..`. This can be handled in the parser phase, but it should be documented here.
+- Did not remove old PT `:=` (-0.25).
+- `!` by itself should either emit `#eIllegalCharacter` or emit `pBand` to be handled by the parser (but this decision, if it is made, needs to be documented in this phase); instead, `parser.pt` throws an error (-0.25).
+- Comment and string testing could be more exhaustive. Generally, you need more negative tests.
