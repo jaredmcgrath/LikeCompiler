@@ -23,7 +23,6 @@ Input :
         lStar           '*'
         lColon          ':'
         lEquals         '='
-        lDot            '.'
         lComma          ','
         lSemicolon      ';'
         lQuote          '"'     % updated existing character class to double quote
