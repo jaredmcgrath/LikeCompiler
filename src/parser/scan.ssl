@@ -23,7 +23,6 @@ Input :
         lStar           '*'
         lColon          ':'
         lEquals         '='
-        lDot            '.'
         lComma          ','
         lSemicolon      ';'
         lQuote          '"'     % updated existing character class to double quote
@@ -111,8 +110,6 @@ Output :
         pPlus
         pMinus
         pStar
-        pColonEquals
-        pDot
         pComma
         pSemicolon
         pColon
@@ -126,8 +123,7 @@ Output :
         pRightParen
         pLeftBracket
         pRightBracket
-        pDotDot
-        lastSyntaxToken = pDotDot;
+        lastSyntaxToken = pRightBracket;
 
 Error :
         eIllegalChar = 5
@@ -175,12 +171,7 @@ Scan :
             | ',':
                 .pComma
             | ':':
-                [
-                    | '=':
-                        .pColonEquals
-                    | *:
-                        .pColon
-                ]
+                .pColon
             | lDigit:
                 oBufferSave
                 @Integer
@@ -214,17 +205,12 @@ Scan :
                     |*:
                         .pMinus
                 ]
-            | '.':
-                [
-                    | '.':
-                        .pDotDot
-                    | *:
-                        .pDot
-                ]
             | '!':
                 [
                     | '=':
                         .pNotEqual
+                    |*:
+                        .eIllegalChar
                 ]
             | '<':
                 [
