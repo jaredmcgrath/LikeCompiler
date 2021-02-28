@@ -73,8 +73,6 @@ Input :
         pPlus                   '+'
         pMinus                  '-'
         pStar                   '*'
-        pColonEquals            ':='
-        pDot                    '.'
         pComma                  ','
         pSemicolon              ';'
         pColon                  ':'
@@ -88,8 +86,7 @@ Input :
         pRightParen             ')'
         pLeftBracket            '['
         pRightBracket           ']'
-        pDotDot                 '..'
-        lastSyntaxToken = pDotDot;
+        lastSyntaxToken = pRightBracket;
 
 Output :
         sIdentifier 
@@ -159,6 +156,7 @@ Output :
 
 rules
 
+% Updated program rule, brackets and keyword 'using' added -T
 Program :
         'using'  .sProgram
         % program name
@@ -178,7 +176,7 @@ Program :
         ';'  @Block  '.';
 
 Block :
-        % Merged statement and beginStmt rule into block rule -T 
+        % Merged statement and beginStmt rule into block rule -T
         % Strictly speaking, standard Pascal requires that declarations
         % appear only in the order consts, types, vars, procedures.
         % We allow arbitrary intermixing of these instead to preserve
@@ -194,11 +192,25 @@ Block :
             | 'var':
                 .sVar
                 @VariableDeclarations
-            | 'procedure': % Will need to change as 'procedure' has been removed
+            | 'public': % Allows for optional public identifier
+                [ 
+                    |'fun' :
+                        .sProcedure
+                        % procedure name
+                        pIdentifier  .sIdentifier
+                        .sPublic % Emit token here, as per phase 2 spec
+                        @ProcedureHeading
+                        pIs
+                        @Block  ';'
+                    | *:
+                        % Emit error token here? Not sure which one
+                ]
+            | 'fun': % changed from procedure to function for like, left procedure token to minimize semantic phase changes
                 .sProcedure
                 % procedure name
                 pIdentifier  .sIdentifier
                 @ProcedureHeading
+                pIs  
                 @Block  ';'
             % Merged statement rule below, with changes for 'choose' and 'repeat'
             | pIdentifier:
@@ -319,7 +331,7 @@ LikeClause :    % Rule that allows for an array to be declared with bounds
         ]
 
 ProcedureHeading :
-        % Accept zero or more procedure formal parameter declarations.
+        % Accept zero or more procedure formal parameter declarations, separated by commas
         [
             | '(':
                 {
@@ -331,7 +343,7 @@ ProcedureHeading :
                         | *:
                             pIdentifier  .sIdentifier
                     ]
-                    ':'
+                    ',' % Changed from : to , to match like specification
                     % type identifier
                     pIdentifier  .sIdentifier
                     [
@@ -431,23 +443,13 @@ IfStmt :
         @Expression
         .sExpnEnd
         'then'  .sThen
-        @Block %get sBegin for the if stmt
-        {[
-            | 'elseif': % do not add new token, option b
-                .sElse
-                @Block %get the begin and end and statements and declaration handling
-                @IfStmt %treat like nested if statement, recursively call this function
-
+        @Statement
+        [
             | 'else':
                 .sElse
-                @Block
-
-            | 'end': %need to have an end after elses
-                ';'
-                >
-            |*: % default for errors, must exit so it's not infinite
-                >
-        ]};
+                @Statement
+            | *:
+        ];
 
 ChooseStmt :
         % Choose statement replaces the PT case statement.

@@ -10,32 +10,31 @@
         lStar = 4;
         lColon = 5;
         lEquals = 6;
-        lDot = 7;
-        lComma = 8;
-        lSemicolon = 9;
-        lQuote = 10;
-        lSlash = 11;
-        lBackslash = 12;
-        lPercent = 13;
-        lHash = 14;
-        lBang = 15;
-        lBar = 16;
-        lLeftAngle = 17;
-        lRightAngle = 18;
-        lLeftParen = 19;
-        lRightParen = 20;
-        lLeftBracket = 21;
-        lRightBracket = 22;
-        lLeftBrace = 23;
-        lRightBrace = 24;
-        lBlank = 25;
-        lIllegal = 26;
-        lNewLine = 27;
-        lCarriageReturn = 28;
-        lTab = 29;
-        lNewPage = 30;
-        lEndFile = 31;
-        lastCharClass = 31;
+        lComma = 7;
+        lSemicolon = 8;
+        lQuote = 9;
+        lSlash = 10;
+        lBackslash = 11;
+        lPercent = 12;
+        lHash = 13;
+        lBang = 14;
+        lBar = 15;
+        lLeftAngle = 16;
+        lRightAngle = 17;
+        lLeftParen = 18;
+        lRightParen = 19;
+        lLeftBracket = 20;
+        lRightBracket = 21;
+        lLeftBrace = 22;
+        lRightBrace = 23;
+        lBlank = 24;
+        lIllegal = 25;
+        lNewLine = 26;
+        lCarriageReturn = 27;
+        lTab = 28;
+        lNewPage = 29;
+        lEndFile = 30;
+        lastCharClass = 30;
 
         { Output Tokens }
         pChoose = 0;
@@ -83,23 +82,20 @@
         pPlus = 38;
         pMinus = 39;
         pStar = 40;
-        pColonEquals = 41;
-        pDot = 42;
-        pComma = 43;
-        pSemicolon = 44;
-        pColon = 45;
-        pEquals = 46;
-        pNotEqual = 47;
-        pLess = 48;
-        pLessEqual = 49;
-        pGreaterEqual = 50;
-        pGreater = 51;
-        pLeftParen = 52;
-        pRightParen = 53;
-        pLeftBracket = 54;
-        pRightBracket = 55;
-        pDotDot = 56;
-        lastSyntaxToken = 56;
+        pComma = 41;
+        pSemicolon = 42;
+        pColon = 43;
+        pEquals = 44;
+        pNotEqual = 45;
+        pLess = 46;
+        pLessEqual = 47;
+        pGreaterEqual = 48;
+        pGreater = 49;
+        pLeftParen = 50;
+        pRightParen = 51;
+        pLeftBracket = 52;
+        pRightBracket = 53;
+        lastSyntaxToken = 53;
 
         { Input/Output Tokens }
 
@@ -116,14 +112,14 @@
 
         { S/SL Rule Table Addresses } {
         Scan = 0;
-        Identifier = 307;
-        Integer = 324;
-        StringLiteral = 339;
-        SingleLineComment = 391;
-        MultiLineComment = 414;
+        Identifier = 281;
+        Integer = 298;
+        StringLiteral = 313;
+        SingleLineComment = 365;
+        MultiLineComment = 388;
         }
 
         { S/SL Table Parameters }
-        sslTblSize = 450;
+        sslTblSize = 424;
         minSslTableValue = -32767;
         maxSslTableValue = 32767;
