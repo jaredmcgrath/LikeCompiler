@@ -134,3 +134,29 @@ Choose statement was implemented by renaming `CaseStmt` rule to `ChooseStmt` rul
 ## Repeat While
 
 TODO: Write this after finalizing the implementation
+
+## Else-if
+
+Else-if clauses were implemented by revising the `IfStmt` rule to recognize the 'elseif' token. No new semantic tokens were used - it was implemented to output a token stream equivalent to nested if statements. 
+
+An `elseif`, `end` and default option were added to the selection block. `elseif` was added to recognize the new Like way of forming if statements. If the input token is an `elseif`, an `sElse` token is emitted, the `Block` rule is called, and the `IfStmt` rule is recursively called. This is similar to a nested if statement, with the `sElse` token representing the outer else enclosing an inner if that will be emitted by calling `IfStmt` recursively. The `Block` rule is called to emit the begin and end semantic tokens, to enclose the simulated if statement that will be parsed by the recursive call to `IfStmt` immediately after. This is shown below:
+
+```
+| 'elseif': %treat as nested if
+  .sElse
+  @Block %emits sBegin and sEnd
+  @IfStmt %parse "inner if"
+
+```
+
+The `else` option was not changed as the emitted token, `sElse` remains the same in Like as in Pascal.
+
+The `end` option was added to recognize the end of an if statement block. Within this option a semicolon is expected as the next input because Like includes semicolons as part of statements and declarations. Upon accepting a semicolon, the rule will exit as the if statement is concluded by the semicolon. This is shown below:
+
+```
+| 'end':
+  ';'
+  >
+```
+
+The default option was added to allow exiting of the recursive loop during recovery mode. Without this option, an incorrect if statement with no terminating `end` will run the loop in `IfStmt` infinitely.
