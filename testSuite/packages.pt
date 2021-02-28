@@ -1,0 +1,6 @@
+using output;
+
+pkg myPackage1 is
+  // here is my amazing package
+  public val myVal = 1;
+end;

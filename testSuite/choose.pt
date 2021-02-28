@@ -1,0 +1,17 @@
+using output;
+
+var i = 1;
+
+choose i of
+  when 0, -1 then
+    // Block 1
+  when +2 then
+    // Block 2
+  else
+    // Else blocks
+end;
+
+choose i of
+  when 10 then
+    //block 1
+end;

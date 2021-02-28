@@ -17,9 +17,18 @@ Input :
         % Keywords must be first both here and in stdIdentifiers,
         % and they must appear in the exact same order
 
-        pDiv                    'div'
-        firstKeywordToken = pDiv
-        pMod                    'mod'
+        pChoose
+        firstKeywordToken = pChoose
+        pElseif
+        pFun
+        pIs
+        pLike
+        pPkg
+        pPublic
+        pUsing
+        pVal
+        pWhen
+        % All of the above keyword tokens were added
         pOr                     'or'
         pAnd                    'and'
         pNot                    'not'
@@ -27,18 +36,9 @@ Input :
         pElse                   'else'
         pOf                     'of'
         pEnd                    'end'
-        pUntil                  'until'
-        pDo                     'do'
-        pArray                  'array'
         pFile                   'file'
-        pProgram                'program'
-        pConst                  'const'
         pVar                    'var'
-        pType                   'type'
-        pProcedure              'procedure'
-        pBegin                  'begin'
         pIf                     'if'
-        pCase                   'case'
         pWhile                  'while'
         pRepeat                 'repeat'
         lastKeywordToken = pRepeat 
@@ -56,6 +56,18 @@ Input :
 
         % Non-compound tokens - 
         %   These tokens simply represent themselves.
+        pSlash                  '/'
+        pPercent                '%'
+        pHash                   '#'
+        pOrBar                  '|'
+        pDoubleOrBar            '||'
+        pPlusEquals             '+='
+        pMinusEquals            '-='
+        pStarEquals             '*='
+        pSlashEquals            '/='
+        pPercentEquals          '%='
+        pDoubleEquals           '=='
+        % All of the above syntax tokens were added
         pNewLine
         pEndFile
         pPlus                   '+'
@@ -67,7 +79,7 @@ Input :
         pSemicolon              ';'
         pColon                  ':'
         pEquals                 '='
-        pNotEqual               '<>'
+        pNotEqual               '!='        %Changed to != from <>
         pLess                   '<'
         pLessEqual              '<='
         pGreaterEqual           '>='
@@ -91,7 +103,7 @@ Output :
         sParmBegin
         sParmEnd
         sConst
-        sType
+        sLike       % Changed from sType to sLike
         sVar
         sProcedure
         sBegin
@@ -132,6 +144,15 @@ Output :
         sAnd
         sNot
         sNewLine
+        % All output tokens below were added (aside from sEndOfFile)
+        sPackage
+        sPublic
+        sConcatenate
+        sRepeatString
+        sSubstring
+        sLength
+        sInitialValue
+        sCaseElse
         sEndOfFile
         lastSemanticToken = sEndOfFile;
 
@@ -139,11 +160,11 @@ Output :
 rules
 
 Program :
-        'program'  .sProgram
+        'using'  .sProgram
         % program name
         pIdentifier
         % program parameters
-        '('
+        '{'
         {
             pIdentifier  .sIdentifier
             [
@@ -152,36 +173,69 @@ Program :
                     >
             ]
         }
-        ')'
+        '}'
         .sParmEnd
         ';'  @Block  '.';
 
 Block :
+        % Merged statement and beginStmt rule into block rule -T 
         % Strictly speaking, standard Pascal requires that declarations
         % appear only in the order consts, types, vars, procedures.
         % We allow arbitrary intermixing of these instead to preserve
         % programmer sanity.
+        .sBegin
         {[
-            | 'const':
+            | 'pkg': % Added pkg identifier here
+                .sPackage
+                @Package
+            | 'const': % Will need to change as 'const' has been removed -> change to 'val'?
                 .sConst
                 @ConstantDefinitions
-            | 'type':
+            | 'type': % Will need to change as 'type' has been removed
                 .sType
                 @TypeDefinitions
             | 'var':
                 .sVar
                 @VariableDeclarations
-            | 'procedure':
+            | 'procedure': % Will need to change as 'procedure' has been removed
                 .sProcedure
                 % procedure name
                 pIdentifier  .sIdentifier
                 @ProcedureHeading
                 @Block  ';'
+            % Merged statement rule below, with changes for 'choose' and 'repeat'
+            | pIdentifier:
+                @AssignmentOrCallStmt
+            | 'if':
+                @IfStmt
+            | 'choose': % Changed from 'case' to Like's 'choose'
+                @ChooseStmt
+            | 'repeat': % We have 'repeat while <cond> ...' = WhileStmt and 'repeat ... while <cond>' = RepeatStmt
+                [
+                    | pWhile:
+                        @WhileStmt
+                    | *:
+                        @RepeatStmt
+                ]
+            | ';':
+                .sNullStmt
             | *:
                 >
         ]}
-        'begin'
-        @BeginStmt;
+        .sEnd;
+
+Package :
+        % Package rule handle parsing of Like pkg
+        % Assumes that 'pkg' has been identified and sPackage has already been emitted
+        
+        % Parse identifier (package name)
+        pIdentifier .sIdentifier
+        pIs
+        @Block
+        % Block will have emitted sBegin, DeclarationsAndStatements, and sEnd,
+        % but we still need to ensure the 'end;' terminates the pkg
+        pEnd
+        pSemicolon
 
 ConstantDefinitions :
         % Accept one or more named constant definitions
@@ -312,24 +366,6 @@ ProcedureHeading :
         ';'
         .sParmEnd;
 
-Statement :
-        [
-            | pIdentifier:
-                @AssignmentOrCallStmt
-            | 'begin':
-                @BeginStmt
-            | 'if':
-                @IfStmt
-            | 'while':
-                @WhileStmt
-            | 'case':
-                @CaseStmt
-            | 'repeat':
-                @RepeatStmt
-            | *:
-                .sNullStmt
-        ];
-
 AssignmentOrCallStmt :
         [
             | ':=':
@@ -379,18 +415,6 @@ CallStmt :
         ]
         .sParmEnd;
 
-BeginStmt :
-        .sBegin
-        {
-            @Statement
-            [
-                | ';':
-                | 'end':
-                    .sEnd
-                    >
-            ]
-        };
-
 IfStmt :
         .sIfStmt
         @Expression
@@ -404,33 +428,44 @@ IfStmt :
             | *:
         ];
 
-CaseStmt :
+ChooseStmt :
+        % Choose statement replaces the PT case statement.
+        % Assumes the 'choose' keyword has already been consumed
         .sCaseStmt
         @Expression
         .sExpnEnd
-        'of'
-        @CaseAlternative
+        pOf
+
+        % We know there will be at least one ChooseAlternative following 'of'
+        pWhen
+        @ChooseAlternative
+
+        % Parse 0 or more extra ChooseAlternatives
         {[
-            | ';':
-                % since case alternatives cannot be null, allow
-                % for the common situation of an extra semicolon
-                % at the end of the list of case alternatives.
-                [
-                    | 'end':
-                        >
-                    | *:
-                        @CaseAlternative
-                ]
-            | 'end':
+            | pWhen: % If we encounter another 'when', there must be another ChooseAlternative
+                @ChooseAlternative
+            | *:
+                .sCaseEnd
                 >
         ]}
-        .sCaseEnd;
 
-CaseAlternative :
-        % A case alternative is a statement labelled by
+        % Parse the optional else alternative
+        [
+            | pElse:
+                .sCaseElse
+                @Block
+        ]
+
+        % Make sure we parse a proper ending to the choose
+        pEnd
+        pSemicolon;
+
+ChooseAlternative :
+        % A choose alternative is a Block labelled by
         % one or more optionally signed integer constants
-
+        % We assume the 'when' has already been consumed
         {
+            % I'm assuming the const values in choose must still be of this type
             @OptionallySignedIntegerConstant
             [
                 | ',':
@@ -439,35 +474,35 @@ CaseAlternative :
             ]
         }
         .sLabelEnd
-        ':'  @Statement;
+        pThen
+        % This is now a Block. Block will handle the emission of sBegin and sEnd
+        @Block;
 
 WhileStmt :
         .sWhileStmt
         @Expression
         .sExpnEnd
-        'do'
-        @Statement;
+        % Previous Statement -> Block
+        @Block
+        % Handle the end stuff (I'm starting to rethink if this is necessary?)
+        pEnd
+        pSemicolon;
 
 RepeatStmt :
         .sRepeatStmt
-        {
-            @Statement
-            [
-                | ';':
-                | 'until':
-                    .sRepeatEnd
-                    >
-            ]
-        }
+        @Block % Block will return when it encounters 'while', after emitting sBegin and sEnd 
+        pWhile
         @Expression
-        .sExpnEnd;
+        .sNot % We negate the expression since sRepeatStmt terminates loop on true expression
+        .sExpnEnd
+        pSemicolon;
 
 Expression :
         @SimpleExpression
         [
             | '=':
                 @SimpleExpression  .sEq
-            | '<>':
+            | '!=':
                 @SimpleExpression  .sNE
             | '<':
                 @SimpleExpression  .sLT
@@ -496,6 +531,10 @@ SimpleExpression :
                 @Term  .sSubtract
             | 'or':
                 .sInfixOr  @Term  .sOr
+            | '||': % Added string repeat operator
+                @Term .sRepeatString
+            | '|': # Added string concatenation operator
+                @Term .sConcatenate
             | *:
                 >
         ]};
@@ -505,9 +544,19 @@ Term :
         {[
             | '*':
                 @Factor  .sMultiply
-            | 'div':
-                @Factor  .sDivide
-            | 'mod':
+            % For '/', it's either integer division or substring
+            | '/':
+                % unit following '/' will be Factor in either case
+                @Factor
+                [
+                    % If following token is ':', then it must be substring
+                    | ':':
+                        @Factor .sSubstring
+                    % Anything else means this was integer division
+                    | *:
+                        .sDivide
+                ]
+            | '%':
                 @Factor  .sModulus
             | 'and':
                 .sInfixAnd  @Factor  .sAnd
@@ -527,6 +576,9 @@ Factor :
             | 'not':
                 @Factor
                 .sNot
+            | '#': % Added string length operator
+                @Factor
+                .sLength
             | pStringLiteral:
                 .sStringLiteral
             | 'file':
