@@ -362,41 +362,40 @@ AssignmentOrCallStmt :
                 ']'  ':='
                 @Expression
                 .sExpnEnd
-            | *:
-                @CallStmt
-        ];
-
-ShortFormAssignmentStmt :   % Added rules to handle short form assignment (ex. i += 10)
-        .sAssignmentStmt
-        [
             | '+=':
+                .sAssignmentStmt
                 .sIdentifier
                 .sIdentifier
                 @Expression
                 .sExpnEnd
             | '-=':
+                .sAssignmentStmt
                 .sIdentifier
                 .sIdentifier
                 @Expression
                 .sExpnEnd
             | '*=':
+                .sAssignmentStmt
                 .sIdentifier
                 .sIdentifier
                 @Expression
                 .sExpnEnd
             | '/=':
+                .sAssignmentStmt
                 .sIdentifier
                 .sIdentifier
                 @Expression
                 .sExpnEnd
             | '%=':
+                .sAssignmentStmt
                 .sIdentifier
                 .sIdentifier
                 @Expression
                 .sExpnEnd
-
             | *:
+                @CallStmt
         ];
+
 
 CallStmt :
         .sCallStmt
