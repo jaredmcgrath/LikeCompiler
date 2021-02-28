@@ -346,7 +346,7 @@ ProcedureHeading :
         ';'
         .sParmEnd;
 
-AssignmentOrCallStmt :
+AssignmentOrCallStmt :          % Added short form assignment rules
         [
             | ':=':
                 .sAssignmentStmt
