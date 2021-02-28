@@ -210,7 +210,7 @@ Scan :
                     | '=':
                         .pNotEqual
                     |*:
-                        .eIllegalChar
+                        #eIllegalChar
                 ]
             | '<':
                 [
