@@ -73,8 +73,6 @@ Input :
         pPlus                   '+'
         pMinus                  '-'
         pStar                   '*'
-        pColonEquals            ':='
-        pDot                    '.'
         pComma                  ','
         pSemicolon              ';'
         pColon                  ':'
@@ -88,8 +86,7 @@ Input :
         pRightParen             ')'
         pLeftBracket            '['
         pRightBracket           ']'
-        pDotDot                 '..'
-        lastSyntaxToken = pDotDot;
+        lastSyntaxToken = pRightBracket;
 
 Output :
         sIdentifier 
@@ -199,20 +196,24 @@ Block :
                 .sVar
                 @VariableDeclarations
             | 'public': % Allows for optional public identifier
-                [ 'fun' :
-                    .sProcedure
-                    % procedure name
-                    pIdentifier  .sIdentifier
-                    .sPublic % Emit token here, as per phase 2 spec
-                    @ProcedureHeading
-                    @Block  ';'
+                [ 
+                    |'fun' :
+                        .sProcedure
+                        % procedure name
+                        pIdentifier  .sIdentifier
+                        .sPublic % Emit token here, as per phase 2 spec
+                        @ProcedureHeading
+                        pIs
+                        @Block  ';'
+                    | *:
+                        % Emit error token here? Not sure which one
                 ]
-                
             | 'fun': % changed from procedure to function for like, left procedure token to minimize semantic phase changes
                 .sProcedure
                 % procedure name
                 pIdentifier  .sIdentifier
                 @ProcedureHeading
+                pIs  
                 @Block  ';'
             % Merged statement rule below, with changes for 'choose' and 'repeat'
             | pIdentifier:
@@ -431,23 +432,13 @@ IfStmt :
         @Expression
         .sExpnEnd
         'then'  .sThen
-        @Block %get sBegin for the if stmt
-        {[
-            | 'elseif': % do not add new token, option b
-                .sElse
-                @Block %get the begin and end and statements and declaration handling
-                @IfStmt %treat like nested if statement, recursively call this function
-
+        @Statement
+        [
             | 'else':
                 .sElse
-                @Block
-
-            | 'end': %need to have an end after elses
-                ';'
-                >
-            |*: % default for errors, must exit so it's not infinite
-                >
-        ]};
+                @Statement
+            | *:
+        ];
 
 ChooseStmt :
         % Choose statement replaces the PT case statement.
@@ -513,7 +504,7 @@ RepeatStmt :
         .sRepeatStmt
         % Commenting out, since I feel like there's no way this works properly
         % {
-        %     @Block
+        %     @Statement
         %     [
         %         | ';':
         %         | 'until':
@@ -571,9 +562,9 @@ Term :
         {[
             | '*':
                 @Factor  .sMultiply
-            | 'div':
+            | '/': % Changed from div 
                 @Factor  .sDivide
-            | 'mod':
+            | '%': % Changed from mod 
                 @Factor  .sModulus
             | 'and':
                 .sInfixAnd  @Factor  .sAnd
