@@ -1,0 +1,5 @@
+program testProgram (output);
+
+var i = 0;
+i += 10;        % The following two statements should have the same output semantic token stream
+i = i + 10;

@@ -366,6 +366,38 @@ AssignmentOrCallStmt :
                 @CallStmt
         ];
 
+ShortFormAssignmentStmt :   % Added rules to handle short form assignment (ex. i += 10)
+        .sAssignmentStmt
+        [
+            | '+=':
+                .sIdentifier
+                .sIdentifier
+                @Expression
+                .sExpnEnd
+            | '-=':
+                .sIdentifier
+                .sIdentifier
+                @Expression
+                .sExpnEnd
+            | '*=':
+                .sIdentifier
+                .sIdentifier
+                @Expression
+                .sExpnEnd
+            | '/=':
+                .sIdentifier
+                .sIdentifier
+                @Expression
+                .sExpnEnd
+            | '%=':
+                .sIdentifier
+                .sIdentifier
+                @Expression
+                .sExpnEnd
+
+            | *:
+        ];
+
 CallStmt :
         .sCallStmt
         .sIdentifier    % procedure identifier accepted in the Statement rule
