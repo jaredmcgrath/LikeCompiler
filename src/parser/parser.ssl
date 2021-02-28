@@ -420,13 +420,23 @@ IfStmt :
         @Expression
         .sExpnEnd
         'then'  .sThen
-        @Statement
-        [
+        @Block %get sBegin for the if stmt
+        {[
+            | 'elseif': % do not add new token, option b
+                .sElse
+                @Block %get the begin and end and statements and declaration handling
+                @IfStmt %treat like nested if statement, recursively call this function
+
             | 'else':
                 .sElse
-                @Statement
-            | *:
-        ];
+                @Block
+
+            | 'end': %need to have an end after elses
+                ';'
+                >
+            |*: % default for errors, must exit so it's not infinite
+                >
+        ]};
 
 ChooseStmt :
         % Choose statement replaces the PT case statement.
