@@ -1,0 +1,5 @@
+program testProgram (output);
+
+var x = 1;
+
+var x : like 1;

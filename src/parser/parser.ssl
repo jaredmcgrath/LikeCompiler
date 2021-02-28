@@ -191,9 +191,6 @@ Block :
             | 'const': % Will need to change as 'const' has been removed -> change to 'val'?
                 .sConst
                 @ConstantDefinitions
-            | 'type': % Will need to change as 'type' has been removed
-                .sType
-                @TypeDefinitions
             | 'var':
                 .sVar
                 @VariableDeclarations
@@ -240,11 +237,11 @@ Package :
 ConstantDefinitions :
         % Accept one or more named constant definitions
         pIdentifier  .sIdentifier
-        '=' @ConstantValue ';'
+        '=' @ConstantValue ','                      %Modified to separate by commas
         {[
             | pIdentifier:
                 .sIdentifier
-                '=' @ConstantValue ';'
+                '=' @ConstantValue ','
             | *:
                 >
         ]};
@@ -272,48 +269,7 @@ UnsignedIntegerConstant :
                 .sInteger
         ];
 
-TypeDefinitions :
-        % Accept one or more named type definitions.
-        pIdentifier  .sIdentifier
-        '='  @TypeBody  ';'
-        {[
-            | pIdentifier:
-                .sIdentifier
-                '='  @TypeBody  ';'
-            | *:
-                >
-        ]};
-
-TypeBody :
-        [
-            | 'array':
-                .sArray
-                '['  @SimpleType  ']'
-                'of'  @SimpleType
-            | 'file':
-                .sFile
-                'of'  @SimpleType
-            | *:
-                @SimpleType
-        ];
-
-SimpleType :
-        % A simple type is a named type (possibly predefined)
-        % or a subrange type specification
-        [
-            | pIdentifier:
-                .sIdentifier
-                [
-                    | '..':
-                        .sRange         %% this may be unnecessary
-                        @OptionallySignedIntegerConstant
-                    | *:
-                ]
-            | *:
-                @OptionallySignedIntegerConstant
-                '..'  .sRange
-                @OptionallySignedIntegerConstant
-        ];
+%Removed parsing of PT type defenitions: TypeDefenitions TypeBody and SimpleType
 
 OptionallySignedIntegerConstant :
         [
@@ -328,15 +284,39 @@ OptionallySignedIntegerConstant :
 
 VariableDeclarations :
         % Accept one or more variable declarations.
-        pIdentifier  .sIdentifier
-        ':'  @TypeBody  ';'
-        {[
+        pIdentifier  .sIdentifier                       % Changed to only allow for 1 variable, rather than a list
+        [
             | pIdentifier:
                 .sIdentifier
-                ':'  @TypeBody  ';'
+                ':'  @ValueOrLike ';'         % Removed call to TypeBody, changed to ValueOrLike
             | *:
                 >
-        ]};
+        ];
+
+ValueOrLike :
+        % Like uses either an initial value or a like clause to specify the variables type
+        [
+            | 'like':           %Should this be pLike instead?
+                .sIdentifier
+            | *:                    % Need to fix this as it should check if it is actually an acceptable value
+                .sInitialValue
+                @Expression
+                .sExpnEnd
+        ];
+
+LikeClause :    % Rule that allows for an array to be declared with bounds
+        pIdentifier  .sIdentifier  
+        [
+            | '[':
+                .sArray
+                @ConstantValue ']'
+            | 'like':
+                .sLike
+            | 'file':
+                .sFile
+            | *:
+                >
+        ]
 
 ProcedureHeading :
         % Accept zero or more procedure formal parameter declarations.
@@ -366,7 +346,7 @@ ProcedureHeading :
         ';'
         .sParmEnd;
 
-AssignmentOrCallStmt :
+AssignmentOrCallStmt :          % Added short form assignment rules
         [
             | ':=':
                 .sAssignmentStmt
@@ -382,9 +362,40 @@ AssignmentOrCallStmt :
                 ']'  ':='
                 @Expression
                 .sExpnEnd
+            | '+=':
+                .sAssignmentStmt
+                .sIdentifier
+                .sIdentifier
+                @Expression
+                .sExpnEnd
+            | '-=':
+                .sAssignmentStmt
+                .sIdentifier
+                .sIdentifier
+                @Expression
+                .sExpnEnd
+            | '*=':
+                .sAssignmentStmt
+                .sIdentifier
+                .sIdentifier
+                @Expression
+                .sExpnEnd
+            | '/=':
+                .sAssignmentStmt
+                .sIdentifier
+                .sIdentifier
+                @Expression
+                .sExpnEnd
+            | '%=':
+                .sAssignmentStmt
+                .sIdentifier
+                .sIdentifier
+                @Expression
+                .sExpnEnd
             | *:
                 @CallStmt
         ];
+
 
 CallStmt :
         .sCallStmt
