@@ -17,18 +17,18 @@ Input :
         % Keywords must be first both here and in stdIdentifiers,
         % and they must appear in the exact same order
 
-        pChoose
+        pChoose                 'choose'    
         firstKeywordToken = pChoose
-        pElseif
-        pFun
-        pIs
-        pLike
-        pPkg
-        pPublic
-        pUsing
-        pVal
-        pWhen
-        % All of the above keyword tokens were added
+        pElseif                 'elseif'        
+        pFun                    'fun'
+        pIs                     'is'
+        pLike                   'like'
+        pPkg                    'pkg'
+        pPublic                 'public'
+        pUsing                  'using'
+        pVal                    'val'
+        pWhen                   'when'
+        % All of the above keyword tokens were added with associated symbols
         pOr                     'or'
         pAnd                    'and'
         pNot                    'not'
@@ -77,7 +77,7 @@ Input :
         pSemicolon              ';'
         pColon                  ':'
         pEquals                 '='
-        pNotEqual               '!='        %Changed to != from <>
+        pNotEqual               '!='        % Changed to != from <>
         pLess                   '<'
         pLessEqual              '<='
         pGreaterEqual           '>='
@@ -159,10 +159,7 @@ rules
 % Updated program rule, brackets and keyword 'using' added -T
 Program :
         'using'  .sProgram
-        % program name
-        pIdentifier
         % program parameters
-        '{'
         {
             pIdentifier  .sIdentifier
             [
@@ -171,9 +168,8 @@ Program :
                     >
             ]
         }
-        '}'
         .sParmEnd
-        ';'  @Block  '.';
+        ';'  @Block ;
 
 Block :
         % Merged statement and beginStmt rule into block rule -T
@@ -186,15 +182,23 @@ Block :
             | 'pkg': % Added pkg identifier here
                 .sPackage
                 @Package
-            | 'const': % Will need to change as 'const' has been removed -> change to 'val'?
+            | 'val':        % Changed const to val
                 .sConst
                 @ConstantDefinitions
             | 'var':
                 .sVar
                 @VariableDeclarations
             | 'public': % Allows for optional public identifier
-                [ 
-                    |'fun' :
+                [
+                    | 'var' :                       % If no cases match, syntax recovery will assume 'var' 
+                        .sVar
+                        @VariableDeclarations
+                        .sPublic 
+                    | 'val' :
+                        .sConst
+                        @ConstantDefinitions
+                        .sPublic
+                    | 'fun' :
                         .sProcedure
                         % procedure name
                         pIdentifier  .sIdentifier
@@ -202,8 +206,6 @@ Block :
                         @ProcedureHeading
                         pIs
                         @Block  ';'
-                    | *:
-                        % Emit error token here? Not sure which one
                 ]
             | 'fun': % changed from procedure to function for like, left procedure token to minimize semantic phase changes
                 .sProcedure
@@ -244,12 +246,12 @@ Package :
         % Block will have emitted sBegin, DeclarationsAndStatements, and sEnd,
         % but we still need to ensure the 'end;' terminates the pkg
         pEnd
-        pSemicolon
+        pSemicolon;
 
 ConstantDefinitions :
         % Accept one or more named constant definitions
         pIdentifier  .sIdentifier
-        '=' @ConstantValue ','                      %Modified to separate by commas
+        '=' @ConstantValue ','                      % Modified to separate by commas
         {[
             | pIdentifier:
                 .sIdentifier
@@ -295,72 +297,79 @@ OptionallySignedIntegerConstant :
         ];
 
 VariableDeclarations :
-        % Accept one or more variable declarations.
         pIdentifier  .sIdentifier                       % Changed to only allow for 1 variable, rather than a list
-        [
-            | pIdentifier:
-                .sIdentifier
-                ':'  @ValueOrLike ';'         % Removed call to TypeBody, changed to ValueOrLike
-            | *:
-                >
-        ];
+                @ValueOrLike         % Removed call to TypeBody, changed to ValueOrLike
+        ';'
+        ;
 
-ValueOrLike :
+ValueOrLike :       
         % Like uses either an initial value or a like clause to specify the variables type
         [
-            | 'like':           %Should this be pLike instead?
-                .sIdentifier
-            | *:                    % Need to fix this as it should check if it is actually an acceptable value
-                .sInitialValue
+            | '=':
+                .sInitialValue      % Need to emit sInitialValue
                 @Expression
-                .sExpnEnd
-        ];
+                .sExpnEnd 
+            | *:
+                [   
+                    | '[':                  % Checks for optional array bounds
+                        .sArray
+                        @ConstantValue ']' 
+                    | *:
+                ]
+                ':'
+                [
+                    | 'file':
+                        .sFile
+                    | *:
+                ]
+                @LikeClause         % Call LikeClause
+        ]
+        ;
 
 LikeClause :    % Rule that allows for an array to be declared with bounds
-        pIdentifier  .sIdentifier  
-        [
-            | '[':
-                .sArray
-                @ConstantValue ']'
-            | 'like':
-                .sLike
-            | 'file':
-                .sFile
-            | *:
-                >
-        ]
+        'like'
+        .sLike
+        @ConstantValue      % This handles a variable or a constant value
+        ;
+
 
 ProcedureHeading :
         % Accept zero or more procedure formal parameter declarations, separated by commas
         [
-            | '(':
-                {
-                    % formal parameter identifier
+            | '(':                  % Open bracket expects one or more parameters, accept the first parameter always
+                [
+                    | 'var':
+                        pIdentifier  .sIdentifier
+                        .sVar
+                    | *:
+                        pIdentifier  .sIdentifier
+                ]
+                ':'     % Like statement is always preceded by colon
+                @LikeClause
+                {                       % Loop to accept second (or more) parameter(s)
                     [
-                        | 'var':
-                            pIdentifier  .sIdentifier
-                            .sVar
-                        | *:
-                            pIdentifier  .sIdentifier
-                    ]
-                    ',' % Changed from : to , to match like specification
-                    % type identifier
-                    pIdentifier  .sIdentifier
-                    [
-                        | ';':
+                        | ',':
+                            [
+                                | 'var':
+                                    pIdentifier  .sIdentifier
+                                    .sVar
+                                | *:
+                                    pIdentifier  .sIdentifier
+                            ]
+                            ':'     % Like statement is always preceded by colon
+                            @LikeClause  
                         | *:
                             >
                     ]
                 }
-                ')'
-            | *:
+                ')'             % If there were parameters, accept close bracket
+            | *:                % If there were no paremeters, exit
         ]
-        ';'
         .sParmEnd;
 
 AssignmentOrCallStmt :          % Added short form assignment rules
         [
-            | ':=':
+            | '=':                  % Changed := to =
                 .sAssignmentStmt
                 .sIdentifier    % identifier accepted in the Statement rule
                 @Expression
@@ -371,10 +380,10 @@ AssignmentOrCallStmt :          % Added short form assignment rules
                 .sSubscript
                 @Expression
                 .sExpnEnd
-                ']'  ':='
+                ']'  '='
                 @Expression
                 .sExpnEnd
-            | '+=':
+            | '+=':                 % Added all choices below
                 .sAssignmentStmt
                 .sIdentifier
                 .sIdentifier
@@ -523,7 +532,7 @@ RepeatStmt :
 Expression :
         @SimpleExpression
         [
-            | '=':
+            | '==':
                 @SimpleExpression  .sEq
             | '!=':
                 @SimpleExpression  .sNE
@@ -554,9 +563,9 @@ SimpleExpression :
                 @Term  .sSubtract
             | 'or':
                 .sInfixOr  @Term  .sOr
-            | '||': % Added string repeat operator
+            | '||':                         % Added string repeat operator
                 @Term .sRepeatString
-            | '|': # Added string concatenation operator
+            | '|':                          % Added string concatenation operator
                 @Term .sConcatenate
             | *:
                 >
