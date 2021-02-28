@@ -135,9 +135,12 @@ Choose statement was implemented by renaming `CaseStmt` rule to `ChooseStmt` rul
 
 TODO: Write this after finalizing the implementation
 
+## Statement Sequences
+`IfStmt` was revised to call the modified `Block` rule rather than the old `Statement` rule. This is because the `Statement` and `Block` rule from Pascal were combined and revised to form the `Block` rule. The new `Block` rule is called after emitting `sThen` to a) enclose the declarations and statements with `sBegin` and `sEnd` and to b) parse the declarations and statements within the if block. This allows the semantic phase to believe it is still handling regular PT while allowing for multiple statements and declarations in a single block, unlike in PT Pascal.
+
 ## Else-if
 
-Else-if clauses were implemented by revising the `IfStmt` rule to recognize the 'elseif' token. No new semantic tokens were used - it was implemented to output a token stream equivalent to nested if statements. 
+Else-if clauses were implemented by revising the `IfStmt` rule to recognize the 'elseif' token. No new semantic tokens were used - it was implemented to output a token stream equivalent to nested if statements. The choice block is nested within a loop to allow for chained else-if clauses - which are allowed in the Like language.
 
 An `elseif`, `end` and default option were added to the selection block. `elseif` was added to recognize the new Like way of forming if statements. If the input token is an `elseif`, an `sElse` token is emitted, the `Block` rule is called, and the `IfStmt` rule is recursively called. This is similar to a nested if statement, with the `sElse` token representing the outer else enclosing an inner if that will be emitted by calling `IfStmt` recursively. The `Block` rule is called to emit the begin and end semantic tokens, to enclose the simulated if statement that will be parsed by the recursive call to `IfStmt` immediately after. This is shown below:
 
@@ -159,4 +162,4 @@ The `end` option was added to recognize the end of an if statement block. Within
   >
 ```
 
-The default option was added to allow exiting of the recursive loop during recovery mode. Without this option, an incorrect if statement with no terminating `end` will run the loop in `IfStmt` infinitely.
+The default option was added to allow exiting of the recursive loop during recovery mode. Without this option, an incorrect if statement with no terminating `end` will run the loop in `IfStmt` infinitely due to the recursive call in the first alternative.
