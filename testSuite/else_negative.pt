@@ -1,3 +1,4 @@
+using output;
 else
-    x = 1;
+    y = 1;
 end;
