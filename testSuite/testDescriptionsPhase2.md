@@ -109,16 +109,130 @@
 <td>declarations_positive.pt</td>
 <td>Ensures that variable declarations using 'like' keyword are working properly</td>
 <td>Runs various variable declarations with and without the 'like' keyword</td>
-<td></td>
-<td></td>
+<td> .sProgram
+ .sIdentifier
+ .sParmEnd
+ % .sNewLine
+ % .sNewLine
+  .sBegin
+  .sVar
+   .sIdentifier
+    .sInitialValue
+        .sInteger
+    .sExpnEnd
+   % .sNewLine
+   % .sNewLine
+  .sVar
+   .sIdentifier
+     .sLike
+      .sInteger
+   % .sNewLine
+   % .sNewLine
+  .sVar
+   .sIdentifier
+    .sArray
+     .sInteger
+     .sLike
+      .sInteger
+   % .sNewLine
+   % .sNewLine
+  .sVar
+   .sIdentifier
+    .sFile
+     .sLike
+      .sIdentifier
+  .sEnd</td>
+<td> .sProgram
+ .sIdentifier
+ .sParmEnd
+ % .sNewLine
+ % .sNewLine
+  .sBegin
+  .sVar
+   .sIdentifier
+    .sInitialValue
+        .sInteger
+    .sExpnEnd
+   % .sNewLine
+   % .sNewLine
+  .sVar
+   .sIdentifier
+     .sLike
+      .sInteger
+   % .sNewLine
+   % .sNewLine
+  .sVar
+   .sIdentifier
+    .sArray
+     .sInteger
+     .sLike
+      .sInteger
+   % .sNewLine
+   % .sNewLine
+  .sVar
+   .sIdentifier
+    .sFile
+     .sLike
+      .sIdentifier
+  .sEnd</td>
 </tr>
 
 <tr>
 <td>declarations_negative.pt</td>
 <td>Ensures that variable declarations using 'like' keyword are working properly</td>
 <td>Runs variable declarations without a size specified for arrays and without essential 'like' statementkeywords</td>
-<td></td>
-<td></td>
+<td> .sProgram
+ .sIdentifier
+ .sParmEnd
+ % .sNewLine
+ % .sNewLine
+  .sBegin
+  .sVar
+   .sIdentifier
+     .sLike
+      .sInteger
+   % .sNewLine
+   % .sNewLine
+  .sVar
+   .sIdentifier
+    .sArray
+     .sInteger
+     .sLike
+      .sInteger
+   % .sNewLine
+   % .sNewLine
+  .sVar
+   .sIdentifier
+    .sFile
+     .sLike
+      .sInteger
+  .sEnd</td>
+<td> .sProgram
+ .sIdentifier
+ .sParmEnd
+ % .sNewLine
+ % .sNewLine
+  .sBegin
+  .sVar
+   .sIdentifier
+     .sLike
+      .sInteger
+   % .sNewLine
+   % .sNewLine
+  .sVar
+   .sIdentifier
+    .sArray
+     .sInteger
+     .sLike
+      .sInteger
+   % .sNewLine
+   % .sNewLine
+  .sVar
+   .sIdentifier
+    .sFile
+     .sLike
+      .sInteger
+  .sEnd</td>
 </tr>
 
 <tr>
@@ -136,7 +250,7 @@
 <td></td>
 
 <tr>
-<td>token_defenitions.pt</td>
+<td>token_defenitions_positive.pt</td>
 <td>Ensures that all tokens are properly emitted, whether their keyword is used, or the associated symbol</td>
 <td>Runs through each token as well as it's symbol</td>
 <td></td>
