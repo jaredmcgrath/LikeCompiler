@@ -1,2 +1,2 @@
-using output ident1, ident2;
+using output, ident1, ident2;
 var T: like 1;
