@@ -104,4 +104,119 @@
 <td></td>
 <td></td>
 </tr>
+
+<tr>
+<td>program.pt</td>
+<td>Ensures that Like main program yields the correct sequence of tokens</td>
+<td>Declares a program with a single assignment inside</td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<th>programMultiParam.pt</th>
+<th>Ensures that Like program yields the correct sequence of tokens for multiple parameters</th>
+<th>Declares a program with mutliple parameters with a single assignment inside</th>
+<th></th>
+<th></th>
+
+<tr>
+<th>program1Param.pt</th>
+<th>Ensures that Like program yields the correct sequence of tokens for a single parameter</th>
+<th>Declares a program with a single parameter with a single assignment inside</th>
+<th>Expected Output</th>
+<th>Actual Output</th>
+
+<tr>
+<th>routinesBasic.pt</th>
+<th>Ensures that a simple routine declaration yields the proper tokens</th>
+<th>Declares a routine with a single declaration inside</th>
+<th>sProcedure
+sIdentifier
+sParmEnd
+sBegin
+DECLARATIONS
+sEnd</th>
+<th>Actual Output</th>
+
+<tr>
+<th>routinesBasic1Param.pt</th>
+<th>Ensures that a simple routine declaration with 1 parameter yields the proper tokens</th>
+<th>Declares a routine with a single declaration with 1 parameter inside</th>
+<th>sProcedure
+sIdentifier
+sPublic
+sParmEnd
+sBegin
+DECLARATIONS
+sEnd</th>
+<th>Actual Output</th>
+
+<tr>
+<th>routinesPublic1Param.pt</th>
+<th>Ensures that a simple public routine declaration with 1 parameter yields the proper tokens</th>
+<th>Declares a public routine with a single declaration inside and 1 parameter</th>
+<th>sProcedure
+sIdentifier
+sPublic
+sParmEnd
+sBegin
+DECLARATIONS
+sEnd</th>
+<th>Actual Output</th>
+
+<tr>
+<th>routinesPublicMultiParam.pt</th>
+<th>Ensures that a simple public routine declaration with multiple parameters yields the proper tokens</th>
+<th>Declares a public routine with a single declaration inside and multiple parameters</th>
+<th>sProcedure
+sIdentifier
+sPublic
+sParmEnd
+sBegin
+DECLARATIONS
+sEnd</th>
+<th>Actual Output</th>
+
+<tr>
+<th>routinesPublicMultiParam.pt</th>
+<th>Ensures that a simple routine declaration with multiple parameters yields the proper tokens</th>
+<th>Declares a public with a single declaration inside and multiple parameters</th>
+<th>sProcedure
+sIdentifier
+sPublic
+sParmEnd
+sBegin
+DECLARATIONS
+sEnd</th>
+<th>Actual Output</th>
+
+<tr>
+<th>NAME</th>
+<th>Purpose</th>
+<th>Function</th>
+<th>Expected Output</th>
+<th>Actual Output</th>
+
+<tr>
+<th>File Name</th>
+<th>Purpose</th>
+<th>Function</th>
+<th>Expected Output</th>
+<th>Actual Output</th>
+
+<tr>
+<th>File Name</th>
+<th>Purpose</th>
+<th>Function</th>
+<th>Expected Output</th>
+<th>Actual Output</th>
+
+<tr>
+<th>File Name</th>
+<th>Purpose</th>
+<th>Function</th>
+<th>Expected Output</th>
+<th>Actual Output</th>
+
 </table>
