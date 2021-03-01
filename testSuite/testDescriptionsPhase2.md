@@ -104,4 +104,42 @@
 <td></td>
 <td></td>
 </tr>
+
+<tr>
+<td>declarations_positive.pt</td>
+<td>Ensures that variable declarations using 'like' keyword are working properly</td>
+<td>Runs various variable declarations with and without the 'like' keyword</td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>declarations_negative.pt</td>
+<td>Ensures that variable declarations using 'like' keyword are working properly</td>
+<td>Runs variable declarations without a size specified for arrays and without essential 'like' statementkeywords</td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>shortFormAssignment_positive.pt</td>
+<td>Ensures that short form assignments and associated arithmetic operations are  as expected</td>
+<td>Runs all of the short form assignments as well as the equivalent assignment and operation statements to compare expected outputs</td>
+<td></td>
+<td></td>
+
+<tr>
+<td>shortFormAssignment_negative.pt</td>
+<td>Ensures that short form assignments that are not syntactically correct output as expected</td>
+<td>Runs all of the short form assignments with the assignment operator in the wrong spot</td>
+<td></td>
+<td></td>
+
+<tr>
+<td>token_defenitions.pt</td>
+<td>Ensures that all tokens are properly emitted, whether their keyword is used, or the associated symbol</td>
+<td>Runs through each token as well as it's symbol</td>
+<td></td>
+<td></td>
+
 </table>
