@@ -205,7 +205,8 @@ Block :
                         .sPublic % Emit token here, as per phase 2 spec
                         @ProcedureHeading
                         pIs
-                        @Block  ';'
+                        @Block  
+                        'end' ';'
                 ]
             | 'fun': % changed from procedure to function for like, left procedure token to minimize semantic phase changes
                 .sProcedure
@@ -213,7 +214,8 @@ Block :
                 pIdentifier  .sIdentifier
                 @ProcedureHeading
                 pIs  
-                @Block  ';'
+                @Block
+                'end' ';'
             % Merged statement rule below, with changes for 'choose' and 'repeat'
             | pIdentifier:
                 @AssignmentOrCallStmt
@@ -258,7 +260,8 @@ ConstantDefinitions :
                 '=' @ConstantValue ','
             | *:
                 >
-        ]};
+        ]}
+        ';';
 
 ConstantValue :
         [
@@ -298,7 +301,7 @@ OptionallySignedIntegerConstant :
 
 VariableDeclarations :
         pIdentifier  .sIdentifier                       % Changed to only allow for 1 variable, rather than a list
-                @ValueOrLike         % Removed call to TypeBody, changed to ValueOrLike
+        @ValueOrLike         % Removed call to TypeBody, changed to ValueOrLike
         ';'
         ;
 
@@ -337,27 +340,11 @@ ProcedureHeading :
         % Accept zero or more procedure formal parameter declarations, separated by commas
         [
             | '(':                  % Open bracket expects one or more parameters, accept the first parameter always
-                [
-                    | 'var':
-                        pIdentifier  .sIdentifier
-                        .sVar
-                    | *:
-                        pIdentifier  .sIdentifier
-                ]
-                ':'     % Like statement is always preceded by colon
-                @LikeClause
+                @ParameterDeclaration
                 {                       % Loop to accept second (or more) parameter(s)
                     [
                         | ',':
-                            [
-                                | 'var':
-                                    pIdentifier  .sIdentifier
-                                    .sVar
-                                | *:
-                                    pIdentifier  .sIdentifier
-                            ]
-                            ':'     % Like statement is always preceded by colon
-                            @LikeClause  
+                            @ParameterDeclaration
                         | *:
                             >
                     ]
@@ -366,6 +353,18 @@ ProcedureHeading :
             | *:                % If there were no paremeters, exit
         ]
         .sParmEnd;
+
+ParameterDeclaration:
+        [
+            | 'var':
+                pIdentifier  .sIdentifier
+                .sVar
+            | *:
+                pIdentifier  .sIdentifier
+        ]
+        ':'     % Like statement is always preceded by colon
+        @LikeClause;
+
 
 AssignmentOrCallStmt :          % Added short form assignment rules
         [
@@ -388,34 +387,40 @@ AssignmentOrCallStmt :          % Added short form assignment rules
                 .sIdentifier
                 .sIdentifier
                 @Expression
+                .sAdd
                 .sExpnEnd
             | '-=':
                 .sAssignmentStmt
                 .sIdentifier
                 .sIdentifier
                 @Expression
+                .sSubtract
                 .sExpnEnd
             | '*=':
                 .sAssignmentStmt
                 .sIdentifier
                 .sIdentifier
                 @Expression
+                .sMultiply
                 .sExpnEnd
             | '/=':
                 .sAssignmentStmt
                 .sIdentifier
                 .sIdentifier
                 @Expression
+                .sDivide
                 .sExpnEnd
             | '%=':
                 .sAssignmentStmt
                 .sIdentifier
                 .sIdentifier
                 @Expression
+                .sModulus
                 .sExpnEnd
             | *:
                 @CallStmt
-        ];
+        ]
+        ';';
 
 
 CallStmt :
@@ -539,7 +544,8 @@ RepeatStmt :
         @Expression
         .sNot % We negate the expression since sRepeatStmt terminates loop on true expression
         .sExpnEnd
-        pSemicolon;
+        pSemicolon
+        .sRepeatEnd;
 
 Expression :
         @SimpleExpression
