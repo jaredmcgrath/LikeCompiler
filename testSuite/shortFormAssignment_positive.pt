@@ -2,7 +2,6 @@ program testProgram (output);
 
 var i = 0;
 
-% The following pairs of statements should have the same output semantic token stream
 i += 10;        
 i = i + 10;
 

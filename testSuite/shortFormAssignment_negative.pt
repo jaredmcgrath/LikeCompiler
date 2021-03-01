@@ -2,7 +2,6 @@ program testProgram (output);
 
 var i = 0;
 
-% The following statements should not work due to the assignment operator being on the wrong side
 i =+ 10;        
 
 i =- 10;

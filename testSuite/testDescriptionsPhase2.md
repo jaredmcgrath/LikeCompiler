@@ -239,15 +239,307 @@
 <td>shortFormAssignment_positive.pt</td>
 <td>Ensures that short form assignments and associated arithmetic operations are  as expected</td>
 <td>Runs all of the short form assignments as well as the equivalent assignment and operation statements to compare expected outputs</td>
-<td></td>
-<td></td>
+<td> .sProgram
+ .sIdentifier
+ .sParmEnd
+ % .sNewLine
+ % .sNewLine
+  .sBegin
+  .sVar
+   .sIdentifier
+    .sInitialValue
+        .sInteger
+    .sExpnEnd
+   % .sNewLine
+   % .sNewLine
+   .sAssignmentStmt
+   .sIdentifier
+   .sIdentifier
+       .sInteger
+   .sAdd
+   .sExpnEnd
+   % .sNewLine
+   .sAssignmentStmt
+   .sIdentifier
+       .sIdentifier
+       .sInteger
+     .sAdd
+   .sExpnEnd
+   % .sNewLine
+   % .sNewLine
+   .sAssignmentStmt
+   .sIdentifier
+   .sIdentifier
+       .sInteger
+   .sSubtract
+   .sExpnEnd
+   % .sNewLine
+   .sAssignmentStmt
+   .sIdentifier
+       .sIdentifier
+       .sInteger
+     .sSubtract
+   .sExpnEnd
+   % .sNewLine
+   % .sNewLine
+   .sAssignmentStmt
+   .sIdentifier
+       .sInteger
+   .sExpnEnd
+   % .sNewLine
+   % .sNewLine
+   .sAssignmentStmt
+   .sIdentifier
+   .sIdentifier
+       .sInteger
+   .sDivide
+   .sExpnEnd
+   % .sNewLine
+   .sAssignmentStmt
+   .sIdentifier
+       .sIdentifier
+       .sInteger
+      .sDivide
+   .sExpnEnd
+   % .sNewLine
+   % .sNewLine
+   .sAssignmentStmt
+   .sIdentifier
+       .sInteger
+   .sExpnEnd
+   % .sNewLine
+   % .sNewLine
+   .sAssignmentStmt
+   .sIdentifier
+   .sIdentifier
+       .sInteger
+   .sMultiply
+   .sExpnEnd
+   % .sNewLine
+   .sAssignmentStmt
+   .sIdentifier
+       .sIdentifier
+       .sInteger
+      .sMultiply
+   .sExpnEnd
+   % .sNewLine
+   % .sNewLine
+   .sAssignmentStmt
+   .sIdentifier
+       .sInteger
+   .sExpnEnd
+   % .sNewLine
+   % .sNewLine
+   .sAssignmentStmt
+   .sIdentifier
+   .sIdentifier
+       .sInteger
+   .sModulus
+   .sExpnEnd
+   % .sNewLine
+   .sAssignmentStmt
+   .sIdentifier
+       .sIdentifier
+       .sInteger
+      .sModulus
+   .sExpnEnd
+  .sEnd</td>
+<td> .sProgram
+ .sIdentifier
+ .sParmEnd
+ % .sNewLine
+ % .sNewLine
+  .sBegin
+  .sVar
+   .sIdentifier
+    .sInitialValue
+        .sInteger
+    .sExpnEnd
+   % .sNewLine
+   % .sNewLine
+   .sAssignmentStmt
+   .sIdentifier
+   .sIdentifier
+       .sInteger
+   .sAdd
+   .sExpnEnd
+   % .sNewLine
+   .sAssignmentStmt
+   .sIdentifier
+       .sIdentifier
+       .sInteger
+     .sAdd
+   .sExpnEnd
+   % .sNewLine
+   % .sNewLine
+   .sAssignmentStmt
+   .sIdentifier
+   .sIdentifier
+       .sInteger
+   .sSubtract
+   .sExpnEnd
+   % .sNewLine
+   .sAssignmentStmt
+   .sIdentifier
+       .sIdentifier
+       .sInteger
+     .sSubtract
+   .sExpnEnd
+   % .sNewLine
+   % .sNewLine
+   .sAssignmentStmt
+   .sIdentifier
+       .sInteger
+   .sExpnEnd
+   % .sNewLine
+   % .sNewLine
+   .sAssignmentStmt
+   .sIdentifier
+   .sIdentifier
+       .sInteger
+   .sDivide
+   .sExpnEnd
+   % .sNewLine
+   .sAssignmentStmt
+   .sIdentifier
+       .sIdentifier
+       .sInteger
+      .sDivide
+   .sExpnEnd
+   % .sNewLine
+   % .sNewLine
+   .sAssignmentStmt
+   .sIdentifier
+       .sInteger
+   .sExpnEnd
+   % .sNewLine
+   % .sNewLine
+   .sAssignmentStmt
+   .sIdentifier
+   .sIdentifier
+       .sInteger
+   .sMultiply
+   .sExpnEnd
+   % .sNewLine
+   .sAssignmentStmt
+   .sIdentifier
+       .sIdentifier
+       .sInteger
+      .sMultiply
+   .sExpnEnd
+   % .sNewLine
+   % .sNewLine
+   .sAssignmentStmt
+   .sIdentifier
+       .sInteger
+   .sExpnEnd
+   % .sNewLine
+   % .sNewLine
+   .sAssignmentStmt
+   .sIdentifier
+   .sIdentifier
+       .sInteger
+   .sModulus
+   .sExpnEnd
+   % .sNewLine
+   .sAssignmentStmt
+   .sIdentifier
+       .sIdentifier
+       .sInteger
+      .sModulus
+   .sExpnEnd
+  .sEnd</td>
 
 <tr>
 <td>shortFormAssignment_negative.pt</td>
 <td>Ensures that short form assignments that are not syntactically correct output as expected</td>
 <td>Runs all of the short form assignments with the assignment operator in the wrong spot</td>
-<td></td>
-<td></td>
+<td> .sProgram
+ .sIdentifier
+ .sParmEnd
+ % .sNewLine
+ % .sNewLine
+  .sBegin
+  .sVar
+   .sIdentifier
+    .sInitialValue
+        .sInteger
+    .sExpnEnd
+   % .sNewLine
+   % .sNewLine
+   .sAssignmentStmt
+   .sIdentifier
+       .sInteger
+   .sExpnEnd
+   % .sNewLine
+   % .sNewLine
+   .sAssignmentStmt
+   .sIdentifier
+       .sInteger
+     .sNegate
+   .sExpnEnd
+   % .sNewLine
+   % .sNewLine
+   .sAssignmentStmt
+   .sIdentifier
+       .sIdentifier
+   .sExpnEnd
+   % .sNewLine
+   % .sNewLine
+   .sAssignmentStmt
+   .sIdentifier
+       .sIdentifier
+   .sExpnEnd
+   % .sNewLine
+   % .sNewLine
+   .sAssignmentStmt
+   .sIdentifier
+       .sIdentifier
+   .sExpnEnd
+  .sEnd</td>
+<td> .sProgram
+ .sIdentifier
+ .sParmEnd
+ % .sNewLine
+ % .sNewLine
+  .sBegin
+  .sVar
+   .sIdentifier
+    .sInitialValue
+        .sInteger
+    .sExpnEnd
+   % .sNewLine
+   % .sNewLine
+   .sAssignmentStmt
+   .sIdentifier
+       .sInteger
+   .sExpnEnd
+   % .sNewLine
+   % .sNewLine
+   .sAssignmentStmt
+   .sIdentifier
+       .sInteger
+     .sNegate
+   .sExpnEnd
+   % .sNewLine
+   % .sNewLine
+   .sAssignmentStmt
+   .sIdentifier
+       .sIdentifier
+   .sExpnEnd
+   % .sNewLine
+   % .sNewLine
+   .sAssignmentStmt
+   .sIdentifier
+       .sIdentifier
+   .sExpnEnd
+   % .sNewLine
+   % .sNewLine
+   .sAssignmentStmt
+   .sIdentifier
+       .sIdentifier
+   .sExpnEnd
+  .sEnd</td>
 
 <tr>
 <td>token_defenitions_positive.pt</td>
