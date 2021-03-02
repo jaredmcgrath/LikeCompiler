@@ -20,7 +20,7 @@
 <td>baseProgram_negative.pt</td>
 <td>Test program syntax</td>
 <td>Example of an incorrect program keyword, from old PT syntax.</td>
-<td>baseProgram_negative.pt.eOutput</td><td></td>
+<td>baseProgram_negative.pt.eOutput</td><td>Syntax error at line 1 due to incorrect routine keyword</td>
 </tr>
 
 <tr>
@@ -34,7 +34,7 @@
 <td>program_negative_no_params.pt</td>
 <td>Ensure error is emitted when no parameters supplied to program after 'using'</td>
 <td>Declares an invalid program consisting only of 'using;'</td>
-<td>program_negative_no_params.pt.eOutput</td><td></td>
+<td>program_negative_no_params.pt.eOutput</td><td>Syntax error @ line 1 of file due to no params</td>
 </tr>
 
 <tr>
@@ -69,14 +69,14 @@
 <td>routinesBasic_negative.pt</td>
 <td>Test routines syntax</td>
 <td>Example of an incorrect routine declatation, from old PT syntax.</td>
-<td>routinesBasic_negative.pt.eOutput</td><td></td>
+<td>routinesBasic_negative.pt.eOutput</td><td>Syntax error @ line 2 due to incorrect routine declaration using old PT syntax</td>
 </tr>
 
 <tr>
 <td>routinesBasicParameters_negative.pt</td>
 <td>Test routines syntax</td>
 <td>Example of an incorrect routine declatation with parameters separated by semicolons, from old PT syntax. This can be seen from the syntax error emitted in output file</td>
-<td>routinesBasicParameters_negative.pt.eOutput</td><td></td>
+<td>routinesBasicParameters_negative.pt.eOutput</td><td>Syntax error @ line 2 due to ';' separation of parameters instead of commas</td>
 </tr>
 
 <tr>
@@ -111,14 +111,14 @@
 <td>routinesNoEnd_negative.pt</td>
 <td>Ensures that the parser will not add an sEnd token if there is not the requisite end statement in the routine</td>
 <td>Declares a routine with no end and a single declaration</td>
-<td>routinesNoEnd_negative.pt.eOutput</td><td></td>
+<td>routinesNoEnd_negative.pt.eOutput</td><td>Error @ line 4 of file due to missing end statement for routine</td>
 </tr>
 
 <tr>
 <td>routinesPublicNoEnd_negative.pt</td>
 <td>Ensures that the parser will not add an sEnd token if there is not the requisite end statement in the routine</td>
 <td>Declares a public routine with no end and a single declaration</td>
-<td>routinesPublicNoEnd_negative.pt.eOutput</td><td></td>
+<td>routinesPublicNoEnd_negative.pt.eOutput</td><td>Error @ line 4 of file due to missing end statement for routine</td>
 </tr>
 
 <tr>
@@ -377,21 +377,21 @@
 <td>operatorSyntaxTest1_negative.pt</td>
 <td>Test to ensure old div and mod operators no longer work</td>
 <td>Small program that uses keyword div and mod as variables, showing that they are no longer treated as division and modulo</td>
-<td>operatorSyntaxTest1_negative.pt.eOutput</td><td></td>
+<td>operatorSyntaxTest1_negative.pt.eOutput</td><td>No errors present due to proper var syntax. Would not be possible is div and mod were treated as operands</td>
 </tr>
 
 <tr>
 <td>operatorSyntaxTest2_negative.pt</td>
 <td>Test old PT equality operator</td>
 <td>If statement with old "=" equality operator</td>
-<td>operatorSyntaxTest2_negative.pt.eOutput</td><td></td>
+<td>operatorSyntaxTest2_negative.pt.eOutput</td><td>Error @ line 5 due to incorrect use of "=" operand on Like spec.</td>
 </tr>
 
 <tr>
 <td>operatorSyntaxTest3_negative.pt</td>
 <td>Test old pt NE operator</td>
 <td>If statement with old "<>" equality operator</td>
-<td>operatorSyntaxTest3_negative.pt.eOutput</td><td></td>
+<td>operatorSyntaxTest3_negative.pt.eOutput</td><td>Error @ line 5 due to incorrect use of "<>".</td>
 </tr>
 
 </table>
