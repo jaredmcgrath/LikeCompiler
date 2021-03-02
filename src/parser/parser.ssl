@@ -355,11 +355,12 @@ ProcedureHeading :
         .sParmEnd;
 
 ParameterDeclaration:
+    % Handles the parsing of each parameter in a given Procedureheading
         [
-            | 'var':
+            | 'var': % Variable case
                 pIdentifier  .sIdentifier
                 .sVar
-            | *:
+            | *: % Val case
                 pIdentifier  .sIdentifier
         ]
         ':'     % Like statement is always preceded by colon

@@ -115,6 +115,22 @@ The `Scan` rule was also adjusted to support these changes by first removing the
 
 # Phase 2 Documentation
 
+## Programs
+
+In order to allow for intermixed statements and declarations in Like, the `Statement` and `BeginStmt` rules alternatives were merged into the `Block` rule. 
+
+The `Program` rule was modified in order to meet the new like specification. Specifically, changing the keyword to `'using'` and remvoing the encasing round brackets `'( ... )'` from PT. Additionally, the `'.'` operator at the end of the `Program` rule was removed as it is no longer used. The program name `pIdentifier` was also removed as it is not part of the Like language spec.
+
+## Routines
+
+The `ProcedureHeading` rule was changed to allow for comma separation between parameters, instead of the semicolon separators from PT. This rule accepts zero of more parameter declarations.
+
+In the `Block` rule, an alterative was created to deal with the optional `'public'` qualifier for routines, as well as others such as vars etc. (discussed below). The `pPublic` token is emitted in the proper sequence as per the Like specification doumentation. The emission of the `sBegin` and `sEnd` tokens was retained in order to minimize changes to the semantic phase, though the parsing of the `begin` and `end` tokens was removed.
+
+The `procedure` alternative within the `Block` rule was changed to `fun` in order to comply with Like language specification. In addition, the alternative includes the parsing of a `pIs` token.
+
+`ParameterDeclaration` rule was added in order to make rules more modular. This rule handles the parsing of each parameter and is called from the `ProcedureHeading` rule for each parameter in a given routines procedure heading. The `LikeClause` rule is then called in order to parse each like clause.
+
 ## Packages
 
 Packages were implemented by adding input choice of `'pkg'` to the `Block` rule in `parser.ssl`. This choice calls the new `Package` rule, which fully parses out any package based on the project specification, e.g.
@@ -180,3 +196,12 @@ The `end` option was added to recognize the end of an if statement block. Within
 ```
 
 The default option was added to allow exiting of the recursive loop during recovery mode. Without this option, an incorrect if statement with no terminating `end` will run the loop in `IfStmt` infinitely due to the recursive call in the first alternative.
+
+## Operator Syntax
+
+PT operator syntax was altered slightly to comply with Like language specification. Specifically:
+<ul>
+<li>div -> \
+<li>mod -> %
+<li>:= -> ==
+<li><> -> !=
