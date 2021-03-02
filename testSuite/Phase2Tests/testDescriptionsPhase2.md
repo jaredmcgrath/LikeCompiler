@@ -251,126 +251,152 @@
 <td>choose_negative_misplaced_then.pt</td>
 <td>Test behaviour of a choose statement lacking 'then' following 'when ...' or unneeded 'then' following 'else'</td>
 <td>Choose statement with no then after 'when', and extra 'then' following 'else'</td>
-<td>choose_negative_misplaced_then.pt.eOutput</td><td></td>
+<td>choose_negative_misplaced_then.pt.eOutput</td>
+<td>Error @ lines 6, 8: missing 'then', 10: unexpected 'then'</td>
 </tr>
 
 <tr>
 <td>choose_negative_no_cases.pt</td>
 <td>Test behaviour of a choose statement without any cases</td>
 <td>Choose statement without any 'when' cases in body</td>
-<td>choose_negative_no_cases.pt.eOutput</td><td></td>
+<td>choose_negative_no_cases.pt.eOutput</td>
+<td>Error @ lines 5/6: missing 'when'</td>
 </tr>
 
 <tr>
 <td>choose_negative_no_end.pt</td>
 <td>Test behaviour of choose statement with no 'end;' terminating the statement</td>
 <td>A choose statement with a single 'when' case and nothing following (i.e. pEndFile)</td>
-<td>choose_negative_no_end.pt.eOutput</td><td></td>
+<td>choose_negative_no_end.pt.eOutput</td>
+<td>Error @ line 8: missing 'end;'</td>
 </tr>
 
 <tr>
 <td>choose_negative_no_expression.pt</td>
 <td>Test behaviour of choose statement without an expression following 'choose'</td>
 <td>Choose statement with no expression or 'of' following 'choose', followed by multiple 'when' cases</td>
-<td>choose_negative_no_expression.pt.eOutput</td><td></td>
+<td>choose_negative_no_expression.pt.eOutput</td>
+<td>Error @ line 5: missing expression, 'of'</td>
 </tr>
 
 <tr>
 <td>choose_negative_when_outside_choose.pt</td>
 <td>Test behaviour of a 'when' clause outside of a choose statement</td>
 <td>A when statement that isn't inside a choose</td>
-<td>choose_negative_when_outside_choose.pt.eOutput</td><td></td>
+<td>choose_negative_when_outside_choose.pt.eOutput</td>
+<td>Error @ line 5: unexpected 'when'</td>
 </tr>
 
 <tr>
 <td>choose_positive.pt</td>
 <td>Test behaviour of valid choose statements, with or without default case</td>
 <td>Two choose statements: first with multiple 'when' and an 'else', second with a single 'when'</td>
-<td>choose_positive.pt.eOutput</td><td></td>
+<td>choose_positive.pt.eOutput</td>
+<td></td>
 </tr>
 
 <tr>
 <td>packages_negative_name_is.pt</td>
 <td>Test 'pkg' that lacks a name and the 'is' </td>
 <td>A single 'pkg' without identifier or 'is' following 'pkg'. Valid package contents follow</td>
-<td>packages_negative_name_is.pt.eOutput</td><td></td>
+<td>packages_negative_name_is.pt.eOutput</td>
+<td>Error @ 3: missing identifier, 'is'</td>
 </tr>
 
 <tr>
 <td>packages_negative_no_end.pt</td>
 <td>Test 'pkg' that doesn't have an 'end;' to terminate it </td>
 <td>A 'pkg' without proper 'end;' to end it, followed by code that should be outside the package</td>
-<td>packages_negative_no_end.pt.eOutput</td><td></td>
+<td>packages_negative_no_end.pt.eOutput</td>
+<td>Error @ 9: missing 'end;'</td>
 </tr>
 
 <tr>
 <td>packages_positive.pt</td>
 <td>Test parsing of valid packages (empty or non-empty) within a small program</td>
 <td>A package with mixed public/non-public members, then a val outside any package, then an empty package</td>
-<td>packages_positive.pt.eOutput</td><td></td>
+<td>packages_positive.pt.eOutput</td>
+<td></td>
 </tr>
 
 <tr>
 <td>repeatWhile_negative_no_condition.pt</td>
 <td>Test parsing of repeat ... while statement without a condition following the 'while'</td>
 <td>Small program with invalid repeat while loop, lacking condition after 'while'</td>
-<td>repeatWhile_negative_no_condition.pt.eOutput</td><td></td>
+<td>repeatWhile_negative_no_condition.pt.eOutput</td>
+<td>Error @ 7: missing expression</td>
 </tr>
 
 <tr>
 <td>repeatWhile_positive.pt</td>
 <td>Test parsing of valid repeat ... while statement with regular or (almost) empty bodies</td>
 <td>Two while loops: one with a condition and body that will terminate, and one that would loop forever (empty body)</td>
-<td>repeatWhile_positive.pt.eOutput</td><td></td>
+<td>repeatWhile_positive.pt.eOutput</td>
+<td></td>
+</tr>
+
+<tr>
+<td>while_negative_no_body.pt</td>
+<td>Test parsing of repeat while ... statement without anything after 'while'</td>
+<td>Small program with invalid repeat while loop. No condition or block following 'while'</td>
+<td>while_negative_no_condition.pt.eOutput</td>
+<td>Error @ 3: missing expression</td>
 </tr>
 
 <tr>
 <td>while_negative_no_condition.pt</td>
 <td>Test parsing of repeat while ... statement without a condition following the 'while'</td>
 <td>Small program with invalid repeat while loop, lacking condition after 'while', which jumps directly into loop body</td>
-<td>while_negative_no_condition.pt.eOutput</td><td></td>
+<td>while_negative_no_condition.pt.eOutput</td>
+<td>Error @ 5: missing expression</td>
 </tr>
 
 <tr>
 <td>while_negative_no_end.pt</td>
 <td>Test parsing of repeat while ... loop which lacks the 'end;' to terminate the Block</td>
 <td>Small program with invalid while loop (lacks 'end;'), followed by code that would otherwise be outside of the loop body</td>
-<td>while_negative_no_end.pt.eOutput</td><td></td>
+<td>while_negative_no_end.pt.eOutput</td>
+<td>Error @ 7: missing 'end;'</td>
 </tr>
 
 <tr>
 <td>while_positive.pt</td>
 <td>Test parsing of valid repeat while ... statement with regular or (almost) empty bodies</td>
 <td>Two while loops: one with a condition and body that will terminate, and one that would loop forever (empty body)</td>
-<td>while_positive.pt.eOutput</td><td></td>
+<td>while_positive.pt.eOutput</td>
+<td></td>
 </tr>
 
 <tr>
 <td>str_ops_negative_bad_operand.pt</td>
 <td>Test parsing of all string operations when one of the operands is an invalid type. Should be parsed without syntax error</td>
 <td>Example of each string operation (4 total) with the type of one operand being incorrect</td>
-<td>str_ops_negative_bad_operand.pt.eOutput</td><td></td>
+<td>str_ops_negative_bad_operand.pt.eOutput</td>
+<td>No errors, but operand types don't comply with expected types (not dealt with in parser)</td>
 </tr>
 
 <tr>
 <td>str_ops_negative_missing_operand.pt</td>
 <td>Test parsing of all string operations when one of the operands is missing</td>
 <td>Example of each string operation (4 total) with the last operand missing from the statement</td>
-<td>str_ops_negative_missing_operand.pt.eOutput</td><td></td>
+<td>str_ops_negative_missing_operand.pt.eOutput</td>
+<td>Error @ lines 5, 6, 7, 8: missing expressions (operands)</td>
 </tr>
 
 <tr>
 <td>str_ops_positive.pt</td>
 <td>Test parsing of all string operations</td>
 <td>Example of each string operation (4 total) in a valid program</td>
-<td>str_ops_positive.pt.eOutput</td><td></td>
+<td>str_ops_positive.pt.eOutput</td>
+<td></td>
 </tr>
 
 <tr>
 <td>fullProgram.pt</td>
 <td>Test parsing of as many phase 2 parser modifications in a single program</td>
 <td>One large program that should be parsed without error</td>
-<td>fullProgram.pt.eOutput</td><td></td>
+<td>fullProgram.pt.eOutput</td>
+<td></td>
 </tr>
 
 <tr>
