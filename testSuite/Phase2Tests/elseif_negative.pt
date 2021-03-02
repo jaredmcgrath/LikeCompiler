@@ -4,10 +4,3 @@ var y : like 1;
 elseif x == 1 then
     y = 1;
 end;
-
-/* in the output,
-the parser will not recognize elseif
-in the Block rule and will 
-exit the program through the default case,
-terminating it with an sEnd token
-*/

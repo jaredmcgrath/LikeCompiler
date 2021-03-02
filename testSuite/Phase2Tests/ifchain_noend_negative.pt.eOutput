@@ -333,17 +333,6 @@ Choice tag 16 (not matched)
 Table index 613;  Operation 5;  Argument 16
 Input token accepted 16;  Line 8;  Next input token 42
 Table index 615;  Operation 5;  Argument 42
-Output token emitted 47
-Output token emitted 47
-Output token emitted 47
-Output token emitted 47
-Output token emitted 47
-Output token emitted 47
-Output token emitted 47
-Output token emitted 47
-Output token emitted 47
-Output token emitted 47
-Output token emitted 47
 Input token accepted 42;  Line 8;  Next input token 37
 Table index 617;  Operation 1;  Argument 8
 Table index 123;  Operation 4;  Argument 45
@@ -357,7 +346,7 @@ Table index 173;  Operation 1;  Argument 5
 Table index 586;  Operation 7;  Argument 21
 Choice tag 37 (not matched)
 Table index 613;  Operation 5;  Argument 16
-scan/parse error, line 19: unexpected end of file
+scan/parse error, line 8: unexpected end of file
 translation aborted
 ### END OF PTC OUTPUT ###
  .sProgram
@@ -402,15 +391,4 @@ translation aborted
        .sExpnEnd
        % .sNewLine
       .sEnd
-     % .sNewLine
-     % .sNewLine
-     % .sNewLine
-     % .sNewLine
-     % .sNewLine
-     % .sNewLine
-     % .sNewLine
-     % .sNewLine
-     % .sNewLine
-     % .sNewLine
-     % .sNewLine
     .sEnd

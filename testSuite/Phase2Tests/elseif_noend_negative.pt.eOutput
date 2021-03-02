@@ -329,14 +329,6 @@ Table index 418;  Operation 4;  Argument 108
 Table index 527;  Operation 5;  Argument 42
 Output token emitted 47
 Output token emitted 47
-Output token emitted 47
-Output token emitted 47
-Output token emitted 47
-Output token emitted 47
-Output token emitted 47
-Output token emitted 47
-Output token emitted 47
-Output token emitted 47
 Input token accepted 42;  Line 7;  Next input token 37
 Table index 529;  Operation 1;  Argument 8
 Table index 119;  Operation 4;  Argument 49
@@ -350,7 +342,7 @@ Table index 173;  Operation 1;  Argument 5
 Table index 586;  Operation 7;  Argument 21
 Choice tag 37 (not matched)
 Table index 613;  Operation 5;  Argument 16
-scan/parse error, line 17: unexpected end of file
+scan/parse error, line 9: unexpected end of file
 translation aborted
 ### END OF PTC OUTPUT ###
  .sProgram
@@ -396,14 +388,6 @@ translation aborted
       .sIdentifier
           .sInteger
       .sExpnEnd
-      % .sNewLine
-      % .sNewLine
-      % .sNewLine
-      % .sNewLine
-      % .sNewLine
-      % .sNewLine
-      % .sNewLine
-      % .sNewLine
       % .sNewLine
       % .sNewLine
      .sEnd
