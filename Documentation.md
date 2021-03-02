@@ -130,6 +130,14 @@ In the `Block` rule, an alterative was created to deal with the optional `'publi
 The `procedure` alternative within the `Block` rule was changed to `fun` in order to comply with Like language specification. In addition, the alternative includes the parsing of a `pIs` token.
 
 `ParameterDeclaration` rule was added in order to make rules more modular. This rule handles the parsing of each parameter and is called from the `ProcedureHeading` rule for each parameter in a given routines procedure heading. The `LikeClause` rule is then called in order to parse each like clause.
+## Token Defenitions
+All necessary token defenitions were added to `parser.ssl`, with their assoicated symbols. Notable changes included changing pNotEqual to '!=' instead of '<>', as well as changing sType to sLike. These changes are highlighted by comments in `parser.ssl`.
+
+## Declarations
+The parsing of the following PT type defenitions were removed: `TypeDefenitions`, `TypeBody` and `SimpleType` rules. The `ConstantDefenitions` rule was modified to handle comma separated lists. A new rule called `LikeClause` was created and allows for an array bound followed by a colon, and optional file keyword, the keyword like, and a variable or constant.
+
+## Short Form Assignments
+The parsing of the 'Like' short form assignment statements: +=, -=, *=, /= and %= was added. This was done by outputting the semantic toekn stream for a regular assignment so the semantic phase won't have to handle short form assignments. These changes can be seen in `parser.ssl` under the `AssignmentOrCallStmt` rule, with comments highlighting notable information. Finally, the ':=' symbol was changed to '=' for assignment.
 
 ## Packages
 

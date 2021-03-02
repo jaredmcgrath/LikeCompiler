@@ -1,0 +1,7 @@
+using output;
+
+var y : like '';
+
+var z [] : like 1;
+
+var a : file output;
