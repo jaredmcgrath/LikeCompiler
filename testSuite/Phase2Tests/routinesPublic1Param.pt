@@ -1,0 +1,4 @@
+using output;
+public fun F (var X : like 7) is
+    var T: like 1;
+end;
