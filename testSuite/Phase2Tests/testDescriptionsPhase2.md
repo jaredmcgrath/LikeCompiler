@@ -5,63 +5,55 @@
 <th>File Name</th>
 <th>Purpose</th>
 <th>Function</th>
-<th>Expected Output</th>
-<th>Actual Output</th>
+<th>Expected Output Filename</th>
 </tr>
 
 <tr>
 <td>program.pt</td>
 <td>Ensures that Like main program yields the correct sequence of tokens</td>
 <td>Declares a program with a single assignment inside</td>
-<td></td>
-<td></td>
+<td>program.pt.eOutput</td>
 </tr>
 
 <tr>
 <td>program_negative_no_params.pt</td>
 <td>Ensure error is emitted when no parameters supplied to program after 'using'</td>
 <td>Declares an invalid program consisting only of 'using;'</td>
-<td></td>
-<td></td>
+<td>program_negative_no_params.pt.eOutput</td>
 </tr>
 
 <tr>
 <td>programs1Param.pt</td>
 <td>Ensures that Like program yields the correct sequence of tokens for a single parameter</td>
 <td>Declares a program with a single parameter with a single assignment inside</td>
-<td></td>
-<td></td>
+<td>programs1Param.pt.eOutput</td>
 </tr>
 
 <tr>
 <td>programsMultiParam.pt</td>
 <td>Ensures that Like program yields the correct sequence of tokens for multiple parameters</td>
 <td>Declares a program with mutliple parameters with a single assignment inside</td>
-<td></td>
-<td>
-</td>
+<td>programsMultiParam.pt.eOutput</td>
 </tr>
 
 <td>declarations_positive.pt</td>
 <td>Ensures that variable declarations using 'like' keyword are working properly</td>
 <td>Runs various variable declarations with and without the 'like' keyword</td>
-<td></td>
-<td></td>
+<td>declarations_positive.pt.eOutput</td>
 </tr>
 
 <tr>
 <td>routinesBasic.pt</td>
 <td>Ensures that a simple routine declaration yields the proper tokens</td>
 <td>Declares a routine with a single declaration inside</td>
-<td></td>
+<td>routinesBasic.pt.eOutput</td>
 </tr>
 
 <tr>
 <td>declarations_negative.pt</td>
 <td>Ensures that variable declarations using 'like' keyword are working properly</td>
 <td>Runs variable declarations without a size specified for arrays and without essential 'like' statementkeywords</td>
-<td></td>
-<td></td>
+<td>declarations_negative.pt.eOutput</td>
 </tr>
 
 <tr>
