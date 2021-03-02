@@ -28,4 +28,4 @@ cd Phase1Tests
 ./test-phase1.sh -L $pt_lib_path
 
 cd ../Phase2Tests
-./test-phase2.sh -L pt_lib_path
+./test-phase2.sh -L $pt_lib_path
