@@ -9,6 +9,20 @@
 </tr>
 
 <tr>
+<td>baseProgram.pt</td>
+<td>Base program testing with no declarations or any content in the body</td>
+<td>Empty program body declared</td>
+<td>baseProgram.pt.eOutput</td>
+</tr>
+
+<tr>
+<td>baseProgram_negative.pt</td>
+<td>Test program syntax</td>
+<td>Example of an incorrect program keyword, from old PT syntax.</td>
+<td>baseProgram_negative.pt.eOutput</td>
+</tr>
+
+<tr>
 <td>program.pt</td>
 <td>Ensures that Like main program yields the correct sequence of tokens</td>
 <td>Declares a program with a single assignment inside</td>
@@ -36,12 +50,6 @@
 <td>programsMultiParam.pt.eOutput</td>
 </tr>
 
-<td>declarations_positive.pt</td>
-<td>Ensures that variable declarations using 'like' keyword are working properly</td>
-<td>Runs various variable declarations with and without the 'like' keyword</td>
-<td>declarations_positive.pt.eOutput</td>
-</tr>
-
 <tr>
 <td>routinesBasic.pt</td>
 <td>Ensures that a simple routine declaration yields the proper tokens</td>
@@ -50,17 +58,24 @@
 </tr>
 
 <tr>
-<td>declarations_negative.pt</td>
-<td>Ensures that variable declarations using 'like' keyword are working properly</td>
-<td>Runs variable declarations without a size specified for arrays and without essential 'like' statementkeywords</td>
-<td>declarations_negative.pt.eOutput</td>
-</tr>
-
-<tr>
 <td>routinesPublic.pt</td>
 <td>Ensures that a simple public routine declaration yields the proper tokens</td>
 <td>Declares a public routine with a single declaration inside</td>
 <td>routinesPublic.pt.eOutput</td>
+</tr>
+
+<tr>
+<td>routinesBasic_negative.pt</td>
+<td>Test routines syntax</td>
+<td>Example of an incorrect routine declatation, from old PT syntax.</td>
+<td>routinesBasic_negative.pt.eOutput</td>
+</tr>
+
+<tr>
+<td>routinesBasicParameters_negative.pt</td>
+<td>Test routines syntax</td>
+<td>Example of an incorrect routine declatation with parameters separated by semicolons, from old PT syntax. This can be seen from the syntax error emitted in output file</td>
+<td>routinesBasicParameters_negative.pt.eOutput</td>
 </tr>
 
 <tr>
@@ -85,13 +100,6 @@
 </tr>
 
 <tr>
-<td>shortFormAssignment_positive.pt</td>
-<td>Ensures that short form assignments and associated arithmetic operations are  as expected</td>
-<td>Runs all of the short form assignments as well as the equivalent assignment and operation statements to compare expected outputs</td>
-<td>shortFormAssignment_positive.pt.eOutput</td>
-</tr>
-
-<tr>
 <td>routinesPublicMultiParam.pt</td>
 <td>Ensures that a simple routine declaration with multiple parameters yields the proper tokens</td>
 <td>Declares a public with a single declaration inside and multiple parameters</td>
@@ -106,17 +114,38 @@
 </tr>
 
 <tr>
-<td>shortFormAssignment_negative.pt</td>
-<td>Ensures that short form assignments that are not syntactically correct output as expected</td>
-<td>Runs all of the short form assignments with the assignment operator in the wrong spot, as well as a test to ensure that the old PT assignment statement '<>' is no longer valid</td>
-<td>shortFormAssignment_negative.pt.eOutput</td>
-</tr>
-
-<tr>
 <td>routinesPublicNoEnd_negative.pt</td>
 <td>Ensures that the parser will not add an sEnd token if there is not the requisite end statement in the routine</td>
 <td>Declares a public routine with no end and a single declaration</td>
 <td>routinesPublicNoEnd_negative.pt.eOutput</td>
+</tr>
+
+
+<td>declarations_positive.pt</td>
+<td>Ensures that variable declarations using 'like' keyword are working properly</td>
+<td>Runs various variable declarations with and without the 'like' keyword</td>
+<td>declarations_positive.pt.eOutput</td>
+</tr>
+
+<tr>
+<td>declarations_negative.pt</td>
+<td>Ensures that variable declarations using 'like' keyword are working properly</td>
+<td>Runs variable declarations without a size specified for arrays and without essential 'like' statementkeywords</td>
+<td>declarations_negative.pt.eOutput</td>
+</tr>
+
+<tr>
+<td>shortFormAssignment_positive.pt</td>
+<td>Ensures that short form assignments and associated arithmetic operations are  as expected</td>
+<td>Runs all of the short form assignments as well as the equivalent assignment and operation statements to compare expected outputs</td>
+<td>shortFormAssignment_positive.pt.eOutput</td>
+</tr>
+
+<tr>
+<td>shortFormAssignment_negative.pt</td>
+<td>Ensures that short form assignments that are not syntactically correct output as expected</td>
+<td>Runs all of the short form assignments with the assignment operator in the wrong spot, as well as a test to ensure that the old PT assignment statement '<>' is no longer valid</td>
+<td>shortFormAssignment_negative.pt.eOutput</td>
 </tr>
 
 <tr>
@@ -208,13 +237,6 @@
 <td>Ensures that only one else statement is allowed</td>
 <td>Runs an if followed by multiple else statements</td>
 <td>multiple_else_negative.pt.eOutput</td>
-</tr>
-
-<tr>
-<td>baseProgram.pt</td>
-<td>Base program testing with no declarations or any content in the body</td>
-<td>Empty program body declared</td>
-<td>baseProgram.pt.eOutput</td>
 </tr>
 
 <tr>
@@ -334,27 +356,6 @@
 <td>Test parsing of all string operations</td>
 <td>Example of each string operation (4 total) in a valid program</td>
 <td>str_ops_positive.pt.eOutput</td>
-</tr>
-
-<tr>
-<td>baseProgram_negative.pt</td>
-<td>Test program syntax</td>
-<td>Example of an incorrect program keyword, from old PT syntax.</td>
-<td>baseProgram_negative.pt.eOutput</td>
-</tr>
-
-<tr>
-<td>routinesBasic_negative.pt</td>
-<td>Test routines syntax</td>
-<td>Example of an incorrect routine declatation, from old PT syntax.</td>
-<td>routinesBasic_negative.pt.eOutput</td>
-</tr>
-
-<tr>
-<td>routinesBasicParameters_negative.pt</td>
-<td>Test routines syntax</td>
-<td>Example of an incorrect routine declatation with parameters separated by semicolons, from old PT syntax.</td>
-<td>routinesBasicParameters_negative.pt.eOutput</td>
 </tr>
 
 </table>
