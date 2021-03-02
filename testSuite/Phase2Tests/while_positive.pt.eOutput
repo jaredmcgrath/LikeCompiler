@@ -2,7 +2,6 @@
  .sIdentifier
  .sParmEnd
  % .sNewLine
- % .sNewLine
   .sBegin
   .sVar
    .sIdentifier
@@ -10,21 +9,27 @@
         .sInteger
     .sExpnEnd
    % .sNewLine
-   % .sNewLine
-  % .sNewLine
-   .sRepeatStmt
+   .sWhileStmt
+       .sIdentifier
+       % .sNewLine
+       .sInteger
+    .sGT
+   .sExpnEnd
     .sBegin
      .sAssignmentStmt
      .sIdentifier
          .sIdentifier
-         % .sNewLine
          .sInteger
-       .sAdd
+       .sSubtract
      .sExpnEnd
+     % .sNewLine
     .sEnd
-   .sRepeatEnd
-       .sIdentifier
-   .sNot
-   .sExpnEnd
    % .sNewLine
+   .sWhileStmt
+       .sIdentifier
+       .sInteger
+    .sLT
+   .sExpnEnd
+    .sBegin
+    .sEnd
   .sEnd

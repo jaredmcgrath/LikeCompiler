@@ -190,7 +190,7 @@ Both types of loop statements were implemented by modifying the `Block` rule and
 Then, to each of these respective rules the following changes were made:
 
 - The `WhileStmt` rule was modified to expect a `Block` following the expression. The `Block` handles the emission of `sBegin` and `sEnd`. Then `WhileStmt` expects a termination of the loop with `end;`
-- The `RepeatStmt` now expects a `Block` immediately following the `'repeat'`. Once the parser encounters the `'while'` within the `Block` rule, the rule falls through back to `RepeatStmt`, which expects input of form `while <expression>;`. Since we are emitting the recycled `sRepeatStmt` token (which terminates on a truthy expression), we need to negate the expression before ending it. To do this, `sNot` is emitted before `sExpnEnd`
+- The `RepeatStmt` now expects a `Block` immediately following the `'repeat'`. As the parser is parsing the `Block`, it will eventually encounter the `'while'`, which causes the parser to return to `RepeatStmt`. Following this, `sRepeatEnd` is emitted, then we expect the expression in `while <expression>;`. Since we are emitting the recycled `sRepeatStmt` token (which terminates on a truthy expression), we need to negate the expression before ending it. To do this, `sNot` is emitted before `sExpnEnd`
 
 ## String Type
 
@@ -199,7 +199,6 @@ The parsing of expressions was modified to recognize the new string operations (
 - Concatenate and repeat were implemented in the `SimpleExpression` rule, following integer addition. Both operations are properly converted to postfix
 - The substring operator (`a / b : c`) was implemented in `Term` rule following integer division. An input choice following `/` was required to differentiate between integer division (which doesn't have `:` following second `Factor`, `b`) and the substring operator itself. If `:` is encountered following the second `Factor`, `b`, then we expect a third `Factor`, `c`. After this, `sSubstring` is emitted in proper postfix notation
 - The unary string length operator was implemented in the `Factor` rule alongside boolean `not`. When `'#'` is encountered, the next token is expected to be a `Factor`. Then `sLength` is emitted in proper postfix notation
-TODO: Write this after finalizing the implementation
 
 ## Statement Sequences
 

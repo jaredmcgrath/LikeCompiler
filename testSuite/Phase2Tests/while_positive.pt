@@ -1,0 +1,6 @@
+using program;
+var i = 5;
+repeat while i > 0
+  i = i - 1;
+end;
+repeat while i < 10 end;

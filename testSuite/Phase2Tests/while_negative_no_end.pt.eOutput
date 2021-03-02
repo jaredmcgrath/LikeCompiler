@@ -12,19 +12,21 @@
    % .sNewLine
    % .sNewLine
   % .sNewLine
-   .sRepeatStmt
-    .sBegin
-     .sAssignmentStmt
-     .sIdentifier
-         .sIdentifier
-         % .sNewLine
-         .sInteger
-       .sAdd
-     .sExpnEnd
-    .sEnd
-   .sRepeatEnd
+   .sWhileStmt
        .sIdentifier
-   .sNot
    .sExpnEnd
+    .sBegin
+    .sEnd
    % .sNewLine
+   % .sNewLine
+  .sProcedure
+  .sIdentifier
+   .sParmEnd
+  % .sNewLine
+   .sBegin
+   .sConst
+    .sIdentifier
+     .sInteger
+    % .sNewLine
+   .sEnd
   .sEnd

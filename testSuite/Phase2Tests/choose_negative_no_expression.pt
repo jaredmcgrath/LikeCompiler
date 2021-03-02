@@ -1,0 +1,12 @@
+using output;
+
+var i = 1;
+
+choose
+  when 0, -1 then
+    i += 1;
+  when +2 then
+    i -= 1;
+  else
+    i *= 5;
+end;

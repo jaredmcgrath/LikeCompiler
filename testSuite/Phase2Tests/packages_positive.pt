@@ -1,12 +1,15 @@
 using output;
 
 pkg myPackage1 is
-  // here is my amazing package
+  val privateVal = 0;
   public val myVal = 1;
+  public var myVariable: like myVal;
   public fun myFunction is
-    var i = myVal * 2;
+    myVariable = myVal * 2;
   end;
 end;
+
+val outsidePkgVal = "";
 
 pkg emptyPkg is
 end;

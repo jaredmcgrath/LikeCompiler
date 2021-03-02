@@ -239,4 +239,141 @@
 <td></td>
 <td></td>
 </tr>
+
+<tr>
+<td>choose_negative_misplaced_then.pt</td>
+<td>Test behaviour of a choose statement lacking 'then' following 'when ...' or unneeded 'then' following 'else'</td>
+<td>Choose statement with no then after 'when', and extra 'then' following 'else'</td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>choose_negative_no_cases.pt</td>
+<td>Test behaviour of a choose statement without any cases</td>
+<td>Choose statement without any 'when' cases in body</td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>choose_negative_no_end.pt</td>
+<td>Test behaviour of choose statement with no 'end;' terminating the statement</td>
+<td>A choose statement with a single 'when' case and nothing following (i.e. pEndFile)</td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>choose_negative_no_expression.pt</td>
+<td>Test behaviour of choose statement without an expression following 'choose'</td>
+<td>Choose statement with no expression or 'of' following 'choose', followed by multiple 'when' cases</td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>choose_negative_when_outside_choose.pt</td>
+<td>Test behaviour of a 'when' clause outside of a choose statement</td>
+<td>A when statement that isn't inside a choose</td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>choose_positive.pt</td>
+<td>Test behaviour of valid choose statements, with or without default case</td>
+<td>Two choose statements: first with multiple 'when' and an 'else', second with a single 'when'</td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>packages_negative_name_is.pt</td>
+<td>Test 'pkg' that lacks a name and the 'is' </td>
+<td>A single 'pkg' without identifier or 'is' following 'pkg'. Valid package contents follow</td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>packages_negative_no_end.pt</td>
+<td>Test 'pkg' that doesn't have an 'end;' to terminate it </td>
+<td>A 'pkg' without proper 'end;' to end it, followed by code that should be outside the package</td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>packages_positive.pt</td>
+<td>Test parsing of valid packages (empty or non-empty) within a small program</td>
+<td>A package with mixed public/non-public members, then a val outside any package, then an empty package</td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>repeatWhile_negative_no_condition.pt</td>
+<td>Test parsing of repeat ... while statement without a condition following the 'while'</td>
+<td>Small program with invalid repeat while loop, lacking condition after 'while'</td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>repeatWhile_positive.pt</td>
+<td>Test parsing of valid repeat ... while statement with regular or (almost) empty bodies</td>
+<td>Two while loops: one with a condition and body that will terminate, and one that would loop forever (empty body)</td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>while_negative_no_condition.pt</td>
+<td>Test parsing of repeat while ... statement without a condition following the 'while'</td>
+<td>Small program with invalid repeat while loop, lacking condition after 'while', which jumps directly into loop body</td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>while_negative_no_end.pt</td>
+<td>Test parsing of repeat while ... loop which lacks the 'end;' to terminate the Block</td>
+<td>Small program with invalid while loop (lacks 'end;'), followed by code that would otherwise be outside of the loop body</td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>while_positive.pt</td>
+<td>Test parsing of valid repeat while ... statement with regular or (almost) empty bodies</td>
+<td>Two while loops: one with a condition and body that will terminate, and one that would loop forever (empty body)</td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>str_ops_negative_bad_operand.pt</td>
+<td>Test parsing of all string operations when one of the operands is an invalid type. Should be parsed without syntax error</td>
+<td>Example of each string operation (4 total) with the type of one operand being incorrect</td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>str_ops_negative_missing_operand.pt</td>
+<td>Test parsing of all string operations when one of the operands is missing</td>
+<td>Example of each string operation (4 total) with the last operand missing from the statement</td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>str_ops_positive.pt</td>
+<td>Test parsing of all string operations</td>
+<td>Example of each string operation (4 total) in a valid program</td>
+<td></td>
+<td></td>
+</tr>
+
 </table>

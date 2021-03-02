@@ -1,6 +1,8 @@
 using output;
 
-var concat = "abc";
-var repeat = "abc";
-var substr = "hello123" / 1 : ;
-var len = #;
+var myStr: like "potato";
+
+var concat = "abc" |;;
+myStr = "abc" || ;;         // This one is weird because default case in @ValueOrLike falls through to .sLike
+var substr = "hello123" / 1 : ;;
+var len = #;;

@@ -11,20 +11,20 @@
     .sExpnEnd
    % .sNewLine
    % .sNewLine
-  % .sNewLine
-   .sRepeatStmt
-    .sBegin
-     .sAssignmentStmt
-     .sIdentifier
-         .sIdentifier
-         % .sNewLine
-         .sInteger
-       .sAdd
-     .sExpnEnd
-    .sEnd
-   .sRepeatEnd
+   .sCaseStmt
        .sIdentifier
-   .sNot
    .sExpnEnd
+   % .sNewLine
+      .sInteger
+      % .sNewLine
+      .sInteger
+     .sNegate
+    .sLabelEnd
+     .sBegin
+     .sEnd
+   .sCaseEnd
+   .sCaseElse
+    .sBegin
+    .sEnd
    % .sNewLine
   .sEnd

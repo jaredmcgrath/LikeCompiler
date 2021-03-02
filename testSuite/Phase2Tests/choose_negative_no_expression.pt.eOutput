@@ -12,19 +12,23 @@
    % .sNewLine
    % .sNewLine
   % .sNewLine
-   .sRepeatStmt
-    .sBegin
-     .sAssignmentStmt
-     .sIdentifier
-         .sIdentifier
-         % .sNewLine
-         .sInteger
-       .sAdd
-     .sExpnEnd
-    .sEnd
-   .sRepeatEnd
+   .sCaseStmt
        .sIdentifier
-   .sNot
+   .sExpnEnd
+      .sIdentifier
+    .sLabelEnd
+     .sBegin
+     .sEnd
+   .sCaseEnd
+   .sCaseElse
+    .sBegin
+    .sEnd
+   % .sNewLine
+   .sAssignmentStmt
+   .sIdentifier
+   .sIdentifier
+       .sInteger
+   .sAdd
    .sExpnEnd
    % .sNewLine
   .sEnd

@@ -1,11 +1,6 @@
 using output;
-
-var i = 5;
-
-repeat while i > 0
-  i = i - 1;
-end;
-
+var i = -1;
 repeat
-  i = i + 2
+  i = i + 2;
 while i < 10;
+repeat ; while i > 0;

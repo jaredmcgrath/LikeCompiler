@@ -6,15 +6,27 @@
   .sBegin
   .sVar
    .sIdentifier
-    .sInitialValue
-        .sStringLiteral
-    .sExpnEnd
+     .sLike
+      .sStringLiteral
+   % .sNewLine
    % .sNewLine
   .sVar
    .sIdentifier
-     .sLike
-      .sInteger
-   % .sNewLine
+    .sInitialValue
+        .sStringLiteral
+        .sIdentifier
+      .sConcatenate
+    .sExpnEnd
+  % .sNewLine
+  .sNullStmt
+   .sAssignmentStmt
+   .sIdentifier
+       .sStringLiteral
+       .sIdentifier
+     .sRepeatString
+   .sExpnEnd
+  % .sNewLine
+  .sNullStmt
   .sVar
    .sIdentifier
     .sInitialValue
@@ -23,12 +35,14 @@
         .sIdentifier
        .sSubstring
     .sExpnEnd
-   % .sNewLine
+  % .sNewLine
+  .sNullStmt
   .sVar
    .sIdentifier
     .sInitialValue
          .sIdentifier
         .sLength
     .sExpnEnd
-   % .sNewLine
+  % .sNewLine
+  .sNullStmt
   .sEnd

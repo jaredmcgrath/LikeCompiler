@@ -529,7 +529,7 @@ WhileStmt :
         .sExpnEnd
         % Previous Statement -> Block
         @Block
-        % Handle the end stuff (I'm starting to rethink if this is necessary?)
+        % Handle the end stuff
         pEnd
         pSemicolon;
 
