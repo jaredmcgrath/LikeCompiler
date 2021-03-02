@@ -120,7 +120,7 @@
 <td>routinesPublicNoEnd_negative.pt.eOutput</td>
 </tr>
 
-
+<tr>
 <td>declarations_positive.pt</td>
 <td>Ensures that variable declarations using 'like' keyword are working properly</td>
 <td>Runs various variable declarations with and without the 'like' keyword</td>
