@@ -384,4 +384,28 @@
 <td></td>
 </tr>
 
+<tr>
+<td>baseProgram_negative.pt</td>
+<td>Test program syntax</td>
+<td>Example of an incorrect program keyword, from old PT syntax.</td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>routinesBasic_negative.pt</td>
+<td>Test routines syntax</td>
+<td>Example of an incorrect routine declatation, from old PT syntax.</td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>routinesBasicParameters_negative.pt</td>
+<td>Test routines syntax</td>
+<td>Example of an incorrect routine declatation with parameters separated by semicolons, from old PT syntax.</td>
+<td></td>
+<td></td>
+</tr>
+
 </table>

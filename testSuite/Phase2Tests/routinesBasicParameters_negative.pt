@@ -1,0 +1,3 @@
+using output;
+fun F (var X : like 7; var Y : like 14) is
+end;
