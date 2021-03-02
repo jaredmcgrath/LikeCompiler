@@ -7,11 +7,20 @@
   .sPackage
    .sIdentifier
    % .sNewLine
-   % .sNewLine
     .sBegin
     .sConst
      .sIdentifier
       .sInteger
+     % .sNewLine
+    .sConst
+     .sIdentifier
+      .sInteger
+     % .sNewLine
+    .sPublic
+    .sVar
+     .sIdentifier
+       .sLike
+        .sIdentifier
      % .sNewLine
     .sPublic
     .sProcedure
@@ -20,17 +29,21 @@
      .sParmEnd
     % .sNewLine
      .sBegin
-     .sVar
+      .sAssignmentStmt
       .sIdentifier
-       .sInitialValue
-           .sIdentifier
-           .sInteger
-          .sMultiply
-       .sExpnEnd
+          .sIdentifier
+          .sInteger
+         .sMultiply
+      .sExpnEnd
       % .sNewLine
      .sEnd
     % .sNewLine
     .sEnd
+   % .sNewLine
+   % .sNewLine
+  .sConst
+   .sIdentifier
+    .sStringLiteral
    % .sNewLine
    % .sNewLine
   .sPackage

@@ -30,4 +30,9 @@
       % .sNewLine
      .sEnd
     % .sNewLine
+    % .sNewLine
+    .sConst
+     .sIdentifier
+      .sInteger
+     % .sNewLine
     .sEnd
