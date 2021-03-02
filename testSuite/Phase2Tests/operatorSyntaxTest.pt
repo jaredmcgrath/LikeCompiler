@@ -1,0 +1,15 @@
+using output;
+fun F is
+    var z = 4;
+    var y = 2;
+    var x : like 9;
+    
+    x = z/y;
+    x = z%y;
+
+    if z == y then
+        // do nothing
+    elseif z != y then
+        // do nothing
+    end;
+end;
