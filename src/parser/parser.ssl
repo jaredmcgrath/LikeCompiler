@@ -253,15 +253,14 @@ Package :
 ConstantDefinitions :
         % Accept one or more named constant definitions
         pIdentifier  .sIdentifier
-        '=' @ConstantValue ','                      % Modified to separate by commas
+        '=' @ConstantValue                      % Modified to separate by commas
         {[
-            | pIdentifier:
-                .sIdentifier
-                '=' @ConstantValue ','
-            | *:
+            | ';':
                 >
-        ]}
-        ';';
+            | ',':
+                pIdentifier .sIdentifier
+                '=' @ConstantValue
+        ]};
 
 ConstantValue :
         [
