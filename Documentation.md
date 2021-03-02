@@ -157,34 +157,32 @@ TODO: Write this after finalizing the implementation
 
 ## Else-if
 
-Else-if clauses were implemented by revising the `IfStmt` rule to recognize the optional 'elseif' token and terminating 'end' token, along with the original tokens recognized. These changes were made in `parser.ssl`. No new semantic tokens were used - it was implemented to output a token stream equivalent to nested if statements. Before the optional `elseif` choice loop, the new `Block` rule is called rather than the old `Statement` rule. This is to parse sequences of declarations and statements which Like allows but Pascal did not. 
+Else-if clauses were implemented by revising the `IfStmt` rule to recognize the optional 'elseif' token and terminating 'end' token, along with the original tokens recognized. These changes were made in `parser.ssl`. No new semantic tokens were used - it was implemented to output a token stream equivalent to nested if statements.  
 
-The `elseif` choice block is nested within a loop to allow for chained else-if clauses - which are allowed in the Like language. If the input token is an `elseif`, an `sElse` token is emitted, `sBegin` is emitted, the `IfStmt` rule is recursively called and the `sEnd` token is emitted to close the elseif clause. This is similar to a nested if statement, with the `sElse` token representing the outer else enclosing an inner if that will be emitted by calling `IfStmt` recursively. The recursive call to `IfStmt` will include a call to `Block` which will handle the parsing of the declarations and statements. If there is no elseif clause, the loop is simply exited because elseif clauses are optional. This is shown below:
-
-```
-{[
-  | 'elseif':         
-      .sElse
-      .sBegin         
-      @IfStmt         
-      .sEnd
-  | *:                
-      >
-]}
+The following changes were made:
+1. Old `Statement` rule call before the choice block was replaced by a call to the `Block` rule - this occurs immediately after accepting `then` and emitting `sThen`. This is to handle the new statement and declaration sequences allowed in Like, along with other syntactic differences. 
+2. `elseif` option was added as the first alternative in the choice block. Else-if clauses were treated like nested if statements. If the input token is an `elseif`, an `sElse` and `sBegin` is emitted, and the `IfStmt` rule is recursively called. Then the `sEnd` token is emitted to close the elseif clause. This is similar to a nested if statement, with the `sElse` token representing the outer else enclosing an inner if that will be emitted by calling `IfStmt` recursively. The recursive call to `IfStmt` will include a call to `Block` which will handle the parsing of the declarations and statements. The `elseif` option precedes the `else` option because if an else statement is used, it would be at the end of the if block. This is shown below:
 
 ```
-
-The `else` choice block from the original parser follows the new elseif choice loop shown above. The original call to `Statement` is changed to a call to the new `Block` rule for Like. Else statements are optional and thus, if there is no `else` token the choice does nothing. The `else` choice block is not in a loop because multiple else statements are illegal in Like. 
-
+| 'elseif':         
+    .sElse
+    .sBegin         
+    @IfStmt         
+    .sEnd
 ```
-[                       
-    | 'else':
-        .sElse
-        @Block          
-    | *:
-]
+3. `else` option was retained in the choice block. The old call to `Statement` was changed to a call to the updated `Block`. Acceptance of `pEnd` and `pSemicolon` tokens follow the call to `Block` because in Like, if blocks are ended with "end;". If entering the `else` alternative, then we must expect an "end;" after because multiple else statements are not allowed. 
+
+```                     
+| 'else':
+    .sElse
+    @Block
+    pEnd pSemicolon          
+```
+4. If there are no else-if or else statements, then the default case is that the if statement is expected to be terminated with "end;". 
+```
+|*:
+    pEnd pSemicolon
 ```
 
-After the optional `elseif` and `else` choices, an `end` and `;` are expected. All if blocks are terminated by these tokens in Like. 
-
+# Phase 1 Corrections
 
