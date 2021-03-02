@@ -188,49 +188,49 @@
 <td>elseif_negative.pt</td>
 <td>Ensures that elseif blocks can only follow an if block</td>
 <td>Runs an elseif statement on its own</td>
-<td>elseif_negative.pt.eOutput</td><td>Syntax error at elseif shown in line 108 of the output file.</td>
+<td>elseif_negative.pt.eOutput</td><td>Syntax error at line 4 due to unexpected 'elseif' without preceding 'if'</td>
 </tr>
 
 <tr>
 <td>else_negative.pt</td>
 <td>Ensures that else blocks can only follow an if block</td>
 <td>Runs an else statement on its own</td>
-<td>else_negative.pt.eOutput</td><td>Syntax error at else shown in line 108 of the output file.</td>
+<td>else_negative.pt.eOutput</td><td>Syntax error at line 4 due to unexpected 'else' without preceding 'if'</td>
 </tr>
 
 <tr>
 <td>if_noend_negative.pt</td>
 <td>Ensures that `end;` must follow an if statement block</td>
 <td>Runs a single if statement without an end</td>
-<td>if_noend_negative.pt.eOutput</td><td>Syntax error at unexpected end of file shown in line 222 of the output file. This is because it was expecting an 'end;'</td>
+<td>if_noend_negative.pt.eOutput</td><td>Unexpected end of file error at line 5 since 'end;' is absent</td>
 </tr>
 
 <tr>
 <td>ifchain_noend_negative.pt</td>
 <td>Ensures that each if block has a corresponding `end;`</td>
 <td>Runs a chain of if statements with only an end after the last one</td>
-<td>ifchain_noend_negative.pt.eOutput</td><td>Syntax error at unexpected end of file shown in line 349 of the output file. The parser treated it like nested if statements, and was expecting another 'end;'.</td>
+<td>ifchain_noend_negative.pt.eOutput</td><td>Unexpected end of file error at line 8 since 'end;' is absent for "outer" if.</td>
 </tr>
 
 <tr>
 <td>elseif_noend_negative.pt</td>
 <td>Ensures that the elseif logical path still enforces an `end;` if it's not followed by an else or elseif</td>
 <td>Runs an if and elseif statement with no end</td>
-<td>elseif_noend_negative.pt.eOutput</td><td></td>
+<td>elseif_noend_negative.pt.eOutput</td><td>Unexpected end of file error at line 9 due to no 'end;'</td>
 </tr>
 
 <tr>
 <td>ifelse_noend_negative.pt</td>
 <td>Ensures that the else logical path enforces an `end;`</td>
 <td>Runs an if and else statement with no end</td>
-<td>ifelse_noend_negative.pt.eOutput</td><td></td>
+<td>ifelse_noend_negative.pt.eOutput</td><td>Unexpected end of file error at line 9 due to no 'end;'</td>
 </tr>
 
 <tr>
-<td>then_negative.pt</td>
+<td>ifthen_negative.pt</td>
 <td>Ensures that if and elseif expressions include a `then`</td>
 <td>Runs an if and elseif statement with no then</td>
-<td>then_negative.pt.eOutput</td><td></td>
+<td>then_negative.pt.eOutput</td><td>Syntax error at line 5 because it's expecting a 'then'</td>
 </tr>
 
 <tr>

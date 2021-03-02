@@ -4,9 +4,3 @@ var y : like 1;
 if x == 1
     y = 1;
 end;
-
-if x == 1
-    y = 1;
-elseif x == 2
-    y = 2;
-end;
