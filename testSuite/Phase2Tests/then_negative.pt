@@ -10,3 +10,10 @@ if x == 1
 elseif x == 2
     y = 2;
 end;
+
+/*No 'then' is included for any statement
+here. Within the IfStmt block, line 460 expects
+a then input token. This would trigger recovery mode
+and the parser will continue as if it did accept 'then',
+emitting sThen. The program would continue to be parsed, 
+as if the 'then' was there*/

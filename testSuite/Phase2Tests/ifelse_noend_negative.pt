@@ -5,3 +5,12 @@ if x == 1 then
     y = 1;
 else 
     y = 2;
+
+/*No end; is included here
+to terminate the if statement. The parser chooses 
+the default case within the IfStmt selector, 
+which expects pEnd and pSemicolon. 
+Since these aren't the next inputs, recovery mode
+is entered and the parser pretends it accepted those
+tokens and proceeds to terminate the IfStmt with
+sEnd and returns to Block to end the program*/

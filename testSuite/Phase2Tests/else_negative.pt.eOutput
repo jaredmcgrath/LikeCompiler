@@ -1,0 +1,16 @@
+ .sProgram
+ .sIdentifier
+ .sParmEnd
+ % .sNewLine
+  .sBegin
+  .sVar
+   .sIdentifier
+     .sLike
+      .sInteger
+   % .sNewLine
+  .sVar
+   .sIdentifier
+     .sLike
+      .sInteger
+   % .sNewLine
+  .sEnd
