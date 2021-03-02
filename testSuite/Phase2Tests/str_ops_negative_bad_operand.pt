@@ -1,0 +1,6 @@
+using output;
+
+var concat = "abc" | 3;
+var repeat = "abc" || "foo";
+var substr = "hello123" / 1 : "bar";
+var len = #25;
