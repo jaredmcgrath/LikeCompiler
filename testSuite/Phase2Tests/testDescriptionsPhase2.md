@@ -358,4 +358,11 @@
 <td>str_ops_positive.pt.eOutput</td>
 </tr>
 
+<tr>
+<td>fullProgram.pt</td>
+<td>Test parsing of as many phase 2 parser modifications in a single program</td>
+<td>One large program that should be parsed without error</td>
+<td>fullProgram.pt.eOutput</td>
+</tr>
+
 </table>

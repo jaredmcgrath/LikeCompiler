@@ -1,0 +1,48 @@
+using output;
+
+pkg myPkg is
+  val privateVal = "secret";
+  public var names[4] : like "hello";
+  public var z = "my string";
+  public val x = 3, y = 1;
+
+  public fun initialize is
+    names[1] = "nicole";
+    names[2] = "travis";
+    names[3] = "alex";
+    names[4] = "jared";
+  end;
+
+  public fun greet is
+    var i = 1;
+    repeat
+      putln("Hello " | names[i]);
+      i += 1;
+    while i < 5;
+  end;
+end;
+
+// Assuming this is how we access members of myPkg
+initialize;
+
+var myVar = 9;
+repeat while (myVar > 0) and (myVar < 15)
+  if myVar < 10 then
+    greet;
+    myVar = myVar + 3;
+  elseif myVar == 10 then
+    putln(z || x);
+    putln(z / y : 3);
+    myVar /= 2;
+  elseif myVar == 5 then
+    myVar -= 1;
+  else
+    putln(#z);
+    myVar %= 3;
+  end;
+end;
+
+/*
+ * Null statement
+ */
+;
