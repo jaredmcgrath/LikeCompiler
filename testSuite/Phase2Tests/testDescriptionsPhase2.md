@@ -234,6 +234,13 @@
 </tr>
 
 <tr>
+<td>elseifthen_negative.pt</td>
+<td>Ensures that if and elseif expressions include a `then`</td>
+<td>Runs an if and elseif statement with no then</td>
+<td>then_negative.pt.eOutput</td><td>Syntax error at line 7 because it's expecting a 'then'</td>
+</tr>
+
+<tr>
 <td>multiple_else_negative.pt</td>
 <td>Ensures that only one else statement is allowed</td>
 <td>Runs an if followed by multiple else statements</td>
