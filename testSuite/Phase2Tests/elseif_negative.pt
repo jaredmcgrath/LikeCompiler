@@ -1,3 +1,6 @@
+using output;
+var x;
+var y;
 elseif x == 1 then
     y = 1;
 end;
