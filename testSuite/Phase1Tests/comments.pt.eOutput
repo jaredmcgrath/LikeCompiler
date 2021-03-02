@@ -1,3 +1,322 @@
+Input token accepted 0;  Line 1;  Next scan token 10 "/"
+Table index 0;  Operation 7;  Argument 219
+Choice tag 10 (matched)
+Input token accepted 10;  Line 1;  Next scan token 10 "/"
+Table index 144;  Operation 7;  Argument 13
+Choice tag 10 (matched)
+Input token accepted 10;  Line 1;  Next scan token 24 " "
+Table index 150;  Operation 0;  Argument 365
+Table index 365;  Operation 7;  Argument 13
+Choice tag 24 (not matched)
+Table index 384;  Operation 6;  Argument 3
+Input token accepted 24;  Line 1;  Next scan token 0 "c"
+Table index 385;  Operation 3;  Argument 21
+Table index 365;  Operation 7;  Argument 13
+Choice tag 0 (not matched)
+Table index 384;  Operation 6;  Argument 3
+Input token accepted 0;  Line 1;  Next scan token 0 "o"
+Table index 385;  Operation 3;  Argument 21
+Table index 365;  Operation 7;  Argument 13
+Choice tag 0 (not matched)
+Table index 384;  Operation 6;  Argument 3
+Input token accepted 0;  Line 1;  Next scan token 0 "m"
+Table index 385;  Operation 3;  Argument 21
+Table index 365;  Operation 7;  Argument 13
+Choice tag 0 (not matched)
+Table index 384;  Operation 6;  Argument 3
+Input token accepted 0;  Line 1;  Next scan token 0 "m"
+Table index 385;  Operation 3;  Argument 21
+Table index 365;  Operation 7;  Argument 13
+Choice tag 0 (not matched)
+Table index 384;  Operation 6;  Argument 3
+Input token accepted 0;  Line 1;  Next scan token 0 "e"
+Table index 385;  Operation 3;  Argument 21
+Table index 365;  Operation 7;  Argument 13
+Choice tag 0 (not matched)
+Table index 384;  Operation 6;  Argument 3
+Input token accepted 0;  Line 1;  Next scan token 0 "n"
+Table index 385;  Operation 3;  Argument 21
+Table index 365;  Operation 7;  Argument 13
+Choice tag 0 (not matched)
+Table index 384;  Operation 6;  Argument 3
+Input token accepted 0;  Line 1;  Next scan token 0 "t"
+Table index 385;  Operation 3;  Argument 21
+Table index 365;  Operation 7;  Argument 13
+Choice tag 0 (not matched)
+Table index 384;  Operation 6;  Argument 3
+Input token accepted 0;  Line 1;  Next scan token 26
+Table index 385;  Operation 3;  Argument 21
+Table index 365;  Operation 7;  Argument 13
+Choice tag 26 (matched)
+Input token accepted 26;  Line 1;  Next scan token 10 "/"
+Table index 373;  Operation 8;  Argument 36
+Output token emitted 36
+Table index 375;  Operation 4;  Argument 11
+Table index 387;  Operation 1;  Argument 7
+Table index 152;  Operation 4;  Argument 14
+Table index 167;  Operation 4;  Argument 110
+Table index 278;  Operation 3;  Argument 279
+Table index 0;  Operation 7;  Argument 219
+Choice tag 10 (matched)
+Input token accepted 10;  Line 1;  Next scan token 4 "*"
+Table index 144;  Operation 7;  Argument 13
+Choice tag 4 (matched)
+Input token accepted 4;  Line 1;  Next scan token 24 " "
+Table index 154;  Operation 0;  Argument 388
+Table index 388;  Operation 7;  Argument 24
+Choice tag 24 (not matched)
+Table index 420;  Operation 6;  Argument 3
+Input token accepted 24;  Line 1;  Next scan token 0 "T"
+Table index 421;  Operation 3;  Argument 34
+Table index 388;  Operation 7;  Argument 24
+Choice tag 0 (not matched)
+Table index 420;  Operation 6;  Argument 3
+Input token accepted 0;  Line 1;  Next scan token 0 "h"
+Table index 421;  Operation 3;  Argument 34
+Table index 388;  Operation 7;  Argument 24
+Choice tag 0 (not matched)
+Table index 420;  Operation 6;  Argument 3
+Input token accepted 0;  Line 1;  Next scan token 0 "i"
+Table index 421;  Operation 3;  Argument 34
+Table index 388;  Operation 7;  Argument 24
+Choice tag 0 (not matched)
+Table index 420;  Operation 6;  Argument 3
+Input token accepted 0;  Line 1;  Next scan token 0 "s"
+Table index 421;  Operation 3;  Argument 34
+Table index 388;  Operation 7;  Argument 24
+Choice tag 0 (not matched)
+Table index 420;  Operation 6;  Argument 3
+Input token accepted 0;  Line 1;  Next scan token 24 " "
+Table index 421;  Operation 3;  Argument 34
+Table index 388;  Operation 7;  Argument 24
+Choice tag 24 (not matched)
+Table index 420;  Operation 6;  Argument 3
+Input token accepted 24;  Line 1;  Next scan token 0 "i"
+Table index 421;  Operation 3;  Argument 34
+Table index 388;  Operation 7;  Argument 24
+Choice tag 0 (not matched)
+Table index 420;  Operation 6;  Argument 3
+Input token accepted 0;  Line 1;  Next scan token 0 "s"
+Table index 421;  Operation 3;  Argument 34
+Table index 388;  Operation 7;  Argument 24
+Choice tag 0 (not matched)
+Table index 420;  Operation 6;  Argument 3
+Input token accepted 0;  Line 1;  Next scan token 24 " "
+Table index 421;  Operation 3;  Argument 34
+Table index 388;  Operation 7;  Argument 24
+Choice tag 24 (not matched)
+Table index 420;  Operation 6;  Argument 3
+Input token accepted 24;  Line 1;  Next scan token 0 "a"
+Table index 421;  Operation 3;  Argument 34
+Table index 388;  Operation 7;  Argument 24
+Choice tag 0 (not matched)
+Table index 420;  Operation 6;  Argument 3
+Input token accepted 0;  Line 1;  Next scan token 24 " "
+Table index 421;  Operation 3;  Argument 34
+Table index 388;  Operation 7;  Argument 24
+Choice tag 24 (not matched)
+Table index 420;  Operation 6;  Argument 3
+Input token accepted 24;  Line 1;  Next scan token 0 "c"
+Table index 421;  Operation 3;  Argument 34
+Table index 388;  Operation 7;  Argument 24
+Choice tag 0 (not matched)
+Table index 420;  Operation 6;  Argument 3
+Input token accepted 0;  Line 1;  Next scan token 0 "o"
+Table index 421;  Operation 3;  Argument 34
+Table index 388;  Operation 7;  Argument 24
+Choice tag 0 (not matched)
+Table index 420;  Operation 6;  Argument 3
+Input token accepted 0;  Line 1;  Next scan token 0 "m"
+Table index 421;  Operation 3;  Argument 34
+Table index 388;  Operation 7;  Argument 24
+Choice tag 0 (not matched)
+Table index 420;  Operation 6;  Argument 3
+Input token accepted 0;  Line 1;  Next scan token 0 "m"
+Table index 421;  Operation 3;  Argument 34
+Table index 388;  Operation 7;  Argument 24
+Choice tag 0 (not matched)
+Table index 420;  Operation 6;  Argument 3
+Input token accepted 0;  Line 1;  Next scan token 0 "e"
+Table index 421;  Operation 3;  Argument 34
+Table index 388;  Operation 7;  Argument 24
+Choice tag 0 (not matched)
+Table index 420;  Operation 6;  Argument 3
+Input token accepted 0;  Line 1;  Next scan token 0 "n"
+Table index 421;  Operation 3;  Argument 34
+Table index 388;  Operation 7;  Argument 24
+Choice tag 0 (not matched)
+Table index 420;  Operation 6;  Argument 3
+Input token accepted 0;  Line 1;  Next scan token 0 "t"
+Table index 421;  Operation 3;  Argument 34
+Table index 388;  Operation 7;  Argument 24
+Choice tag 0 (not matched)
+Table index 420;  Operation 6;  Argument 3
+Input token accepted 0;  Line 1;  Next scan token 24 " "
+Table index 421;  Operation 3;  Argument 34
+Table index 388;  Operation 7;  Argument 24
+Choice tag 24 (not matched)
+Table index 420;  Operation 6;  Argument 3
+Input token accepted 24;  Line 1;  Next scan token 4 "*"
+Table index 421;  Operation 3;  Argument 34
+Table index 388;  Operation 7;  Argument 24
+Choice tag 4 (matched)
+Input token accepted 4;  Line 1;  Next scan token 10 "/"
+Table index 390;  Operation 7;  Argument 5
+Choice tag 10 (matched)
+Input token accepted 10;  Line 1;  Next scan token 26
+Table index 392;  Operation 4;  Argument 30
+Table index 423;  Operation 1;  Argument 0
+Table index 156;  Operation 4;  Argument 10
+Table index 167;  Operation 4;  Argument 110
+Table index 278;  Operation 3;  Argument 279
+Table index 0;  Operation 7;  Argument 219
+Choice tag 26 (matched)
+Input token accepted 26;  Line 1;  Next scan token 10 "/"
+Table index 9;  Operation 8;  Argument 36
+Output token emitted 36
+Table index 11;  Operation 4;  Argument 266
+Table index 278;  Operation 3;  Argument 279
+Table index 0;  Operation 7;  Argument 219
+Choice tag 10 (matched)
+Input token accepted 10;  Line 1;  Next scan token 4 "*"
+Table index 144;  Operation 7;  Argument 13
+Choice tag 4 (matched)
+Input token accepted 4;  Line 1;  Next scan token 24 " "
+Table index 154;  Operation 0;  Argument 388
+Table index 388;  Operation 7;  Argument 24
+Choice tag 24 (not matched)
+Table index 420;  Operation 6;  Argument 3
+Input token accepted 24;  Line 1;  Next scan token 0 "P"
+Table index 421;  Operation 3;  Argument 34
+Table index 388;  Operation 7;  Argument 24
+Choice tag 0 (not matched)
+Table index 420;  Operation 6;  Argument 3
+Input token accepted 0;  Line 1;  Next scan token 0 "r"
+Table index 421;  Operation 3;  Argument 34
+Table index 388;  Operation 7;  Argument 24
+Choice tag 0 (not matched)
+Table index 420;  Operation 6;  Argument 3
+Input token accepted 0;  Line 1;  Next scan token 0 "o"
+Table index 421;  Operation 3;  Argument 34
+Table index 388;  Operation 7;  Argument 24
+Choice tag 0 (not matched)
+Table index 420;  Operation 6;  Argument 3
+Input token accepted 0;  Line 1;  Next scan token 0 "p"
+Table index 421;  Operation 3;  Argument 34
+Table index 388;  Operation 7;  Argument 24
+Choice tag 0 (not matched)
+Table index 420;  Operation 6;  Argument 3
+Input token accepted 0;  Line 1;  Next scan token 0 "e"
+Table index 421;  Operation 3;  Argument 34
+Table index 388;  Operation 7;  Argument 24
+Choice tag 0 (not matched)
+Table index 420;  Operation 6;  Argument 3
+Input token accepted 0;  Line 1;  Next scan token 0 "r"
+Table index 421;  Operation 3;  Argument 34
+Table index 388;  Operation 7;  Argument 24
+Choice tag 0 (not matched)
+Table index 420;  Operation 6;  Argument 3
+Input token accepted 0;  Line 1;  Next scan token 24 " "
+Table index 421;  Operation 3;  Argument 34
+Table index 388;  Operation 7;  Argument 24
+Choice tag 24 (not matched)
+Table index 420;  Operation 6;  Argument 3
+Input token accepted 24;  Line 1;  Next scan token 0 "c"
+Table index 421;  Operation 3;  Argument 34
+Table index 388;  Operation 7;  Argument 24
+Choice tag 0 (not matched)
+Table index 420;  Operation 6;  Argument 3
+Input token accepted 0;  Line 1;  Next scan token 0 "o"
+Table index 421;  Operation 3;  Argument 34
+Table index 388;  Operation 7;  Argument 24
+Choice tag 0 (not matched)
+Table index 420;  Operation 6;  Argument 3
+Input token accepted 0;  Line 1;  Next scan token 0 "m"
+Table index 421;  Operation 3;  Argument 34
+Table index 388;  Operation 7;  Argument 24
+Choice tag 0 (not matched)
+Table index 420;  Operation 6;  Argument 3
+Input token accepted 0;  Line 1;  Next scan token 0 "m"
+Table index 421;  Operation 3;  Argument 34
+Table index 388;  Operation 7;  Argument 24
+Choice tag 0 (not matched)
+Table index 420;  Operation 6;  Argument 3
+Input token accepted 0;  Line 1;  Next scan token 0 "e"
+Table index 421;  Operation 3;  Argument 34
+Table index 388;  Operation 7;  Argument 24
+Choice tag 0 (not matched)
+Table index 420;  Operation 6;  Argument 3
+Input token accepted 0;  Line 1;  Next scan token 0 "n"
+Table index 421;  Operation 3;  Argument 34
+Table index 388;  Operation 7;  Argument 24
+Choice tag 0 (not matched)
+Table index 420;  Operation 6;  Argument 3
+Input token accepted 0;  Line 1;  Next scan token 0 "t"
+Table index 421;  Operation 3;  Argument 34
+Table index 388;  Operation 7;  Argument 24
+Choice tag 0 (not matched)
+Table index 420;  Operation 6;  Argument 3
+Input token accepted 0;  Line 1;  Next scan token 26
+Table index 421;  Operation 3;  Argument 34
+Table index 388;  Operation 7;  Argument 24
+Choice tag 26 (matched)
+Input token accepted 26;  Line 1;  Next scan token 26
+Table index 401;  Operation 8;  Argument 36
+Output token emitted 36
+Table index 403;  Operation 4;  Argument 17
+Table index 421;  Operation 3;  Argument 34
+Table index 388;  Operation 7;  Argument 24
+Choice tag 26 (matched)
+Input token accepted 26;  Line 1;  Next scan token 26
+Table index 401;  Operation 8;  Argument 36
+Output token emitted 36
+Table index 403;  Operation 4;  Argument 17
+Table index 421;  Operation 3;  Argument 34
+Table index 388;  Operation 7;  Argument 24
+Choice tag 26 (matched)
+Input token accepted 26;  Line 1;  Next scan token 26
+Table index 401;  Operation 8;  Argument 36
+Output token emitted 36
+Table index 403;  Operation 4;  Argument 17
+Table index 421;  Operation 3;  Argument 34
+Table index 388;  Operation 7;  Argument 24
+Choice tag 26 (matched)
+Input token accepted 26;  Line 1;  Next scan token 26
+Table index 401;  Operation 8;  Argument 36
+Output token emitted 36
+Table index 403;  Operation 4;  Argument 17
+Table index 421;  Operation 3;  Argument 34
+Table index 388;  Operation 7;  Argument 24
+Choice tag 26 (matched)
+Input token accepted 26;  Line 1;  Next scan token 4 "*"
+Table index 401;  Operation 8;  Argument 36
+Output token emitted 36
+Table index 403;  Operation 4;  Argument 17
+Table index 421;  Operation 3;  Argument 34
+Table index 388;  Operation 7;  Argument 24
+Choice tag 4 (matched)
+Input token accepted 4;  Line 1;  Next scan token 10 "/"
+Table index 390;  Operation 7;  Argument 5
+Choice tag 10 (matched)
+Input token accepted 10;  Line 1;  Next scan token 26
+Table index 392;  Operation 4;  Argument 30
+Table index 423;  Operation 1;  Argument 0
+Table index 156;  Operation 4;  Argument 10
+Table index 167;  Operation 4;  Argument 110
+Table index 278;  Operation 3;  Argument 279
+Table index 0;  Operation 7;  Argument 219
+Choice tag 26 (matched)
+Input token accepted 26;  Line 1;  Next scan token 30
+Table index 9;  Operation 8;  Argument 36
+Output token emitted 36
+Table index 11;  Operation 4;  Argument 266
+Table index 278;  Operation 3;  Argument 279
+Table index 0;  Operation 7;  Argument 219
+Choice tag 30 (matched)
+Input token accepted 30;  Line 1;  Next scan token 30
+Table index 214;  Operation 8;  Argument 37
+Output token emitted 37
+### END OF PTC OUTPUT ###
   .pNewLine
  .pNewLine
   .pNewLine

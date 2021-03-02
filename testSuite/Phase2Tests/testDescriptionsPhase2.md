@@ -18,6 +18,14 @@
 </tr>
 
 <tr>
+<td>program_negative_no_params.pt</td>
+<td>Ensure error is emitted when no parameters supplied to program after 'using'</td>
+<td>Declares an invalid program consisting only of 'using;'</td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
 <td>programs1Param.pt</td>
 <td>Ensures that Like program yields the correct sequence of tokens for a single parameter</td>
 <td>Declares a program with a single parameter with a single assignment inside</td>

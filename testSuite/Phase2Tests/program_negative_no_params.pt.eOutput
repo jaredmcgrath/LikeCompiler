@@ -1,18 +1,19 @@
 Input token accepted 36;  Line 1;  Next input token 7
 Table index 0;  Operation 5;  Argument 7
-Input token accepted 7;  Line 1;  Next input token 22
+Input token accepted 7;  Line 1;  Next input token 42
 Table index 2;  Operation 8;  Argument 3
 Output token emitted 3
 Table index 4;  Operation 5;  Argument 22
-Input token accepted 22;  Line 1;  Next input token 42
+scan/parse error, line 1: syntax error at: ;
 Table index 6;  Operation 8;  Argument 0
 Output token emitted 0
 Table index 8;  Operation 7;  Argument 3
-Choice tag 42 (not matched)
+Choice tag -1 (not matched)
 Table index 15;  Operation 4;  Argument 3
 Table index 19;  Operation 8;  Argument 5
 Output token emitted 5
 Table index 21;  Operation 5;  Argument 42
+Output token emitted 47
 Input token accepted 42;  Line 1;  Next input token 37
 Table index 23;  Operation 0;  Argument 26
 Table index 26;  Operation 8;  Argument 10
@@ -28,5 +29,6 @@ Table index 25;  Operation 1;  Argument 8
  .sProgram
  .sIdentifier
  .sParmEnd
+ % .sNewLine
   .sBegin
   .sEnd
