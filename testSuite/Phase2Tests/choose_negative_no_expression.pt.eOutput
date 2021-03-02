@@ -20,9 +20,6 @@
      .sBegin
      .sEnd
    .sCaseEnd
-   .sCaseElse
-    .sBegin
-    .sEnd
    % .sNewLine
    .sAssignmentStmt
    .sIdentifier

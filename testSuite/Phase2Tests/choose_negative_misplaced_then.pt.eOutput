@@ -23,8 +23,5 @@
      .sBegin
      .sEnd
    .sCaseEnd
-   .sCaseElse
-    .sBegin
-    .sEnd
    % .sNewLine
   .sEnd

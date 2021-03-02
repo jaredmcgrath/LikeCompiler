@@ -71,8 +71,5 @@
       % .sNewLine
      .sEnd
    .sCaseEnd
-   .sCaseElse
-    .sBegin
-    .sEnd
    % .sNewLine
   .sEnd

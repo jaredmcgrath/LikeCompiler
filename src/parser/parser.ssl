@@ -486,7 +486,7 @@ ChooseStmt :
 
         % Parse 0 or more extra ChooseAlternatives
         {[
-            | pWhen: % If we encounter another 'when', there must be another ChooseAlternative
+            | pWhen:                % If we encounter another 'when', there must be another ChooseAlternative
                 @ChooseAlternative
             | *:
                 .sCaseEnd
@@ -495,14 +495,12 @@ ChooseStmt :
 
         % Parse the optional else alternative
         [
-            | pElse:
+            | pElse:                    
                 .sCaseElse
                 @Block
+            | *:
         ]
-
-        % Make sure we parse a proper ending to the choose
-        pEnd
-        pSemicolon;
+        pEnd pSemicolon;            % Make sure we parse a proper ending to the choose 'end;'
 
 ChooseAlternative :
         % A choose alternative is a Block labelled by
@@ -512,15 +510,14 @@ ChooseAlternative :
             % I'm assuming the const values in choose must still be of this type
             @OptionallySignedIntegerConstant
             [
-                | ',':
-                | *:
+                | ',':              % If we get a ',', continue loop and expect another const
+                | *:                % Otherwise, exit loop
                     >
             ]
         }
-        .sLabelEnd
-        pThen
-        % This is now a Block. Block will handle the emission of sBegin and sEnd
-        @Block;
+        .sLabelEnd                  % Emit sLabelEnd before consuming pThen
+        pThen                       % Make sure to consume pThen before block
+        @Block;                     % Block will handle emission of sBegin/sEnd as usual
 
 WhileStmt :
         .sWhileStmt

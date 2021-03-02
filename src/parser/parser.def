@@ -141,25 +141,25 @@
         AssignmentOrCallStmt = 408;
         IfStmt = 574;
         ChooseStmt = 618;
-        WhileStmt = 685;
-        RepeatStmt = 698;
+        WhileStmt = 681;
+        RepeatStmt = 694;
         ConstantValue = 223;
         UnsignedIntegerConstant = 263;
         OptionallySignedIntegerConstant = 283;
         ValueOrLike = 312;
-        Expression = 715;
+        Expression = 711;
         LikeClause = 352;
         ParameterDeclaration = 386;
         CallStmt = 530;
-        ChooseAlternative = 665;
-        SimpleExpression = 769;
-        Term = 838;
-        Factor = 893;
-        IdentifierExtension = 959;
+        ChooseAlternative = 661;
+        SimpleExpression = 765;
+        Term = 834;
+        Factor = 889;
+        IdentifierExtension = 955;
         }
 
         { S/SL Table Parameters } {
-        sslTblSize = 989;
+        sslTblSize = 985;
         minSslTableValue = -32767;
         maxSslTableValue = 32767;
 	}
