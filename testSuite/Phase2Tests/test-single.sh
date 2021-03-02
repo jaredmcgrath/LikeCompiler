@@ -12,6 +12,10 @@ case $key in
     shift # past argument
     shift # past value
     ;;
+    -L|--lib)
+    pt_lib_path="$2"
+    shift # past argument
+    ;;
     -s|--save)
     save_output_in_dir="$2"
     shift # past argument
@@ -34,12 +38,17 @@ if [ -z ${src_path+x} ]; then
   read -p "Enter name of test program to run: " src_path
 fi
 
+# Determine path to lib/pt
+if [ -z ${pt_lib_path+x} ]; then
+	pt_lib_path="../../src/lib/pt"
+fi
+
 # Make sure the output directory exists
 if [ ! -d "p2_out" ]; then
   mkdir p2_out
 fi
 
-ssltrace "ptc -o2 -t2 -L ../../src/lib/pt $src_path" ../../src/lib/pt/parser.def -e > p2_out/$src_path.eOutput
+ssltrace "ptc -o2 -t2 -L $pt_lib_path $src_path" $pt_lib_path/parser.def -e > p2_out/$src_path.eOutput
 
 echo "Output:"
 cat "p2_out/$src_path.eOutput"
