@@ -338,19 +338,19 @@ program ScannerParser(output, stdIdentifiers, scanSsl, parseSsl, source, parseSt
         UnsignedIntegerConstant = 259;
         OptionallySignedIntegerConstant = 279;
         ValueOrLike = 308;
-        Expression = 709;
+        Expression = 711;
         LikeClause = 348;
         ParameterDeclaration = 382;
         CallStmt = 526;
         ChooseAlternative = 661;
-        SimpleExpression = 763;
-        Term = 832;
-        Factor = 887;
-        IdentifierExtension = 953;
+        SimpleExpression = 765;
+        Term = 834;
+        Factor = 889;
+        IdentifierExtension = 955;
         }
 
         { S/SL Table Parameters } {
-        sslTblSize = 983;
+        sslTblSize = 985;
         minSslTableValue = -32767;
         maxSslTableValue = 32767;
 	}

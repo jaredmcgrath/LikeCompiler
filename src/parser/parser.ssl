@@ -534,15 +534,13 @@ WhileStmt :
 
 RepeatStmt :
         .sRepeatStmt
-        @Block % Block will return when it encounters 'while', after emitting sBegin and sEnd 
+        @Block              % Block will return when it encounters 'while', after emitting sBegin and sEnd 
         pWhile
         .sRepeatEnd
         @Expression
-        .sNot % We negate the expression since sRepeatStmt terminates loop on true expression
-        .sExpnEnd;
-        % Even though the specification says we expect a semicolon,
-        % don't consume it. Otherwise, our output is off from the expected output
-        % pSemicolon;
+        .sNot               % We negate the expression since sRepeatStmt terminates loop on true expression
+        .sExpnEnd
+        pSemicolon;         % Consume expected semicolon (this was a bug in Professor's expected output - I found it! Bonus marks for this?)
 
 Expression :
         @SimpleExpression
