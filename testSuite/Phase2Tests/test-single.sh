@@ -1,4 +1,5 @@
 #!/bin/bash
+# Created by Jared McGrath for CMPE 458 Group N
 echo "Testing Single - PHASE 2"
 
 # Set default env val

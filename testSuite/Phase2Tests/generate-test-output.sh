@@ -1,4 +1,5 @@
 #!/bin/bash
+# Created by Jared McGrath for CMPE 458 Group N
 echo "Generating expected test output - PHASE 2"
 
 POSITIONAL=()
