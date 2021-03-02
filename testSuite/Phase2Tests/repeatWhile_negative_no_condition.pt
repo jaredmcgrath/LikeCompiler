@@ -1,0 +1,11 @@
+using output;
+
+var i = 5;
+
+repeat while
+  i = i - 1;
+end;
+
+repeat
+  i = i + 2
+while;

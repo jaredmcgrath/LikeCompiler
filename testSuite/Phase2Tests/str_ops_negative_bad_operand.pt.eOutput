@@ -1,0 +1,36 @@
+ .sProgram
+ .sIdentifier
+ .sParmEnd
+ % .sNewLine
+ % .sNewLine
+  .sBegin
+  .sVar
+   .sIdentifier
+    .sInitialValue
+        .sStringLiteral
+        .sInteger
+      .sConcatenate
+    .sExpnEnd
+   % .sNewLine
+  .sVar
+   .sIdentifier
+     .sLike
+      .sInteger
+   % .sNewLine
+  .sVar
+   .sIdentifier
+    .sInitialValue
+        .sStringLiteral
+        .sInteger
+        .sStringLiteral
+       .sSubstring
+    .sExpnEnd
+   % .sNewLine
+  .sVar
+   .sIdentifier
+    .sInitialValue
+         .sInteger
+        .sLength
+    .sExpnEnd
+   % .sNewLine
+  .sEnd

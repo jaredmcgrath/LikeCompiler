@@ -1,0 +1,9 @@
+using output;
+
+pkg
+  // here is my amazing package
+  public val myVal = 1;
+  public fun myFunction is
+    var i = myVal * 2;
+  end;
+end;

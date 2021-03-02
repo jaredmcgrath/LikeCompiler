@@ -1,0 +1,6 @@
+using output;
+
+var i = 5;
+
+repeat while
+  i = i - 1;
