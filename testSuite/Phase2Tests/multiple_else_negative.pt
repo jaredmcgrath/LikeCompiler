@@ -8,3 +8,10 @@ else
 else
     y = 3;
 end;
+
+/*Since there is no end; 
+following the first else statement, the parser enters
+recovery mode and pretends the pEnd and pSemicolon were
+accepted and proceeds to exit the rule, returning to Block.
+Block will not recognize the second else token, and will
+terminate the program with sEnd*/
