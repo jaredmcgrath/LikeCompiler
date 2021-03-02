@@ -132,7 +132,7 @@
 <td>declarations_negative.pt</td>
 <td>Ensures that variable declarations using 'like' keyword are working properly</td>
 <td>Runs variable declarations without a size specified for arrays and without essential 'like' statementkeywords</td>
-<td>declarations_negative.pt.eOutput</td><td>Used invalid syntax for declaration statements</td>
+<td>declarations_negative.pt.eOutput</td><td>Used invalid syntax for declaration statements resulting in syntax errors for lines 3, 5 and 7</td>
 </tr>
 
 <tr>
@@ -146,7 +146,7 @@
 <td>shortFormAssignment_negative.pt</td>
 <td>Ensures that short form assignments that are not syntactically correct output as expected</td>
 <td>Runs all of the short form assignments with the assignment operator in the wrong spot, as well as a test to ensure that the old PT assignment statement '<>' is no longer valid</td>
-<td>shortFormAssignment_negative.pt.eOutput</td><td>Short form assignment statements were written with the wrong order resulting in syntax errors for lines 5 to 9.</td>
+<td>shortFormAssignment_negative.pt.eOutput</td><td>Short form assignment statements were written with the wrong order (syntax errors for lines 5 to 9).</td>
 </tr>
 
 <tr>
