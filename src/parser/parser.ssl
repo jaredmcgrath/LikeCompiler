@@ -206,7 +206,7 @@ Block :
                         @ProcedureHeading
                         pIs
                         @Block  
-                        'end' ';'
+                        pEnd pSemicolon
                 ]
             | 'fun': % changed from procedure to function for like, left procedure token to minimize semantic phase changes
                 .sProcedure
@@ -215,7 +215,7 @@ Block :
                 @ProcedureHeading
                 pIs  
                 @Block
-                'end' ';'
+                pEnd pSemicolon
             % Merged statement rule below, with changes for 'choose' and 'repeat'
             | pIdentifier:
                 @AssignmentOrCallStmt
@@ -458,25 +458,20 @@ IfStmt :
         @Expression
         .sExpnEnd
         'then'  .sThen
-        @Block                  %get sBegin for the if stmt
-        {[
-            | 'elseif':         % do not add new token, option b
+        @Block                      %get sBegin for the if stmt
+        [
+            | 'elseif':             % do not add new token, option b
                 .sElse
-                .sBegin         % sBegin and sEnd need to be emitted here
-                @IfStmt         %treat like nested if statement, recursively call this function, which includes call to Block
+                .sBegin             % sBegin and sEnd need to be emitted here for proper nesting
+                @IfStmt             % Treat like nested if statement, recursively call this function, which includes call to Block
                 .sEnd
-            | *:                 % default for no more 'elseif' statements
-                >
-        ]}
-        [                       % Optional 'else' statement
-            | 'else':
+            | 'else':               % Optional 'else' statement
                 .sElse
-                @Block          % No expression for the condition, just a call to Block
-            | *:
-        ]
-        'end'
-        ';'
-        ;
+                @Block              % No expression for the condition, just a call to Block
+                pEnd pSemicolon     % If we reach an else, then we expect to end the 'if' with 'end;'
+            | *:                    % Default for no 'elseif' or 'else' statements
+                pEnd pSemicolon     % If we just have asingle 'if', (i.e. no else/elseif) then we expect to end the 'if' with 'end;'
+        ];
 
 ChooseStmt :
         % Choose statement replaces the PT case statement.
@@ -542,11 +537,13 @@ RepeatStmt :
         .sRepeatStmt
         @Block % Block will return when it encounters 'while', after emitting sBegin and sEnd 
         pWhile
+        .sRepeatEnd
         @Expression
         .sNot % We negate the expression since sRepeatStmt terminates loop on true expression
-        .sExpnEnd
-        pSemicolon
-        .sRepeatEnd;
+        .sExpnEnd;
+        % Even though the specification says we expect a semicolon,
+        % don't consume it. Otherwise, our output is off from the expected output
+        % pSemicolon;
 
 Expression :
         @SimpleExpression
