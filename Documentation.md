@@ -166,26 +166,44 @@ TODO: Write this after finalizing the implementation
 
 ## Else-if
 
-Else-if clauses were implemented by revising the `IfStmt` rule to recognize the 'elseif' token. No new semantic tokens were used - it was implemented to output a token stream equivalent to nested if statements. The choice block is nested within a loop to allow for chained else-if clauses - which are allowed in the Like language.
+Else-if clauses were implemented by revising the `IfStmt` rule to recognize the optional 'elseif' token and terminating 'end' token, along with the original tokens recognized. These changes were made in `parser.ssl`. No new semantic tokens were used - it was implemented to output a token stream equivalent to nested if statements.  
 
-An `elseif`, `end` and default option were added to the selection block. `elseif` was added to recognize the new Like way of forming if statements. If the input token is an `elseif`, an `sElse` token is emitted, the `Block` rule is called, and the `IfStmt` rule is recursively called. This is similar to a nested if statement, with the `sElse` token representing the outer else enclosing an inner if that will be emitted by calling `IfStmt` recursively. The `Block` rule is called to emit the begin and end semantic tokens, to enclose the simulated if statement that will be parsed by the recursive call to `IfStmt` immediately after. This is shown below:
-
-```
-| 'elseif': %treat as nested if
-  .sElse
-  @Block %emits sBegin and sEnd
-  @IfStmt %parse "inner if"
+The following changes were made:
+1. Old `Statement` rule call before the choice block was replaced by a call to the `Block` rule - this occurs immediately after accepting `then` and emitting `sThen`. This is to handle the new statement and declaration sequences allowed in Like, along with other syntactic differences. 
+2. `elseif` option was added as the first alternative in the choice block. Else-if clauses were treated like nested if statements. If the input token is an `elseif`, an `sElse` and `sBegin` is emitted, and the `IfStmt` rule is recursively called. Then the `sEnd` token is emitted to close the elseif clause. This is similar to a nested if statement, with the `sElse` token representing the outer else enclosing an inner if that will be emitted by calling `IfStmt` recursively. The recursive call to `IfStmt` will include a call to `Block` which will handle the parsing of the declarations and statements. The `elseif` option precedes the `else` option because if an else statement is used, it would be at the end of the if block. This is shown below:
 
 ```
-
-The `else` option was not changed as the emitted token, `sElse` remains the same in Like as in Pascal.
-
-The `end` option was added to recognize the end of an if statement block. Within this option a semicolon is expected as the next input because Like includes semicolons as part of statements and declarations. Upon accepting a semicolon, the rule will exit as the if statement is concluded by the semicolon. This is shown below:
-
+| 'elseif':         
+    .sElse
+    .sBegin         
+    @IfStmt         
+    .sEnd
 ```
-| 'end':
-  ';'
-  >
+3. `else` option was retained in the choice block. The old call to `Statement` was changed to a call to the updated `Block`. Acceptance of `pEnd` and `pSemicolon` tokens follow the call to `Block` because in Like, if blocks are ended with "end;". If entering the `else` alternative, then we must expect an "end;" after because multiple else statements are not allowed. 
+
+```                     
+| 'else':
+    .sElse
+    @Block
+    pEnd pSemicolon          
+```
+4. If there are no else-if or else statements, then the default case is that the if statement is expected to be terminated with "end;". 
+```
+|*:
+    pEnd pSemicolon
 ```
 
-The default option was added to allow exiting of the recursive loop during recovery mode. Without this option, an incorrect if statement with no terminating `end` will run the loop in `IfStmt` infinitely due to the recursive call in the first alternative.
+# Phase 1 Corrections
+The following changes were made to correct mistakes made in Phase 1:
+## pDot and pDotDot
+1. In `scan.ssl`, `pDot` and `pDotDot` were removed as output tokens, because they are no longer recognized in Like.
+2. In `scan.ssl`, the option of '.' is removed in the `Scan` rule because it should not recognize it as a valid input to the scanner in Like or emit any valid token in response to it. By removing the entire '.' option, emitting `pDotDot` was also removed. 
+3. In `parser.ssl`, `pDot` and `pDotDot` were removed as input tokens, because they would never be output by the scanner. If they were, it would be an error. 
+
+## pColonEquals
+1. In `scan.ssl`, `pColonEquals` was removed from the output tokens because it is not valid in Like.
+2. In `scan.ssl` in the `Scan` rule, the ':' choice was changed. When a colon is the next input token, a `pColon` token is emitted. Previously, this triggered a choice between an equals sign and any other symbol - to recognize ':='. However, the choice block was removed and replaced with emitting `pColon` when a colon is the next input. This is because ':=' is no longer recognized in Like.
+
+## pBang
+1. In `scan.ssl` in the `Scan` rule, the '!' choice was changed by adding a choice block with two options. The first option is what was initally done in Phase 1, where if the next input token is '=' then `pNotEqual` was emitted. The second option is a default case because the '!' character cannot appear on its own unless it is inside a comment. In the default case, an error token is emitted. 
+

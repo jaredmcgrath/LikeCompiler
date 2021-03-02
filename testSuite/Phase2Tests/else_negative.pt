@@ -1,3 +1,6 @@
+using output;
+var x;
+var y;
 else
-    x = 1;
+    y = 1;
 end;

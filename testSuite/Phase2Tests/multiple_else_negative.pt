@@ -3,6 +3,8 @@ var x;
 var y;
 if x == 1 then
     y = 1;
-if x == 2 then
+else
     y = 2;
+else
+    y = 3;
 end;

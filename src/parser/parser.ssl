@@ -452,7 +452,7 @@ CallStmt :
         ]
         .sParmEnd;
 
-IfStmt :
+IfStmt : %IfStmt changed for new Like specification
         .sIfStmt
         @Expression
         .sExpnEnd
