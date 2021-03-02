@@ -1,0 +1,4 @@
+using output;
+    // Since div and mod are no longer recognized
+    var div = 9;
+    var mod = 10;
