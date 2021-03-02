@@ -1,0 +1,8 @@
+using output;
+
+var x = 7;
+var y = 14;
+
+if z <> y then
+    // do nothing
+end;

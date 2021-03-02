@@ -188,28 +188,28 @@
 <td>elseif_negative.pt</td>
 <td>Ensures that elseif blocks can only follow an if block</td>
 <td>Runs an elseif statement on its own</td>
-<td>elseif_negative.pt.eOutput</td><td></td>
+<td>elseif_negative.pt.eOutput</td><td>Syntax error at elseif shown in line 108 of the output file.</td>
 </tr>
 
 <tr>
 <td>else_negative.pt</td>
 <td>Ensures that else blocks can only follow an if block</td>
 <td>Runs an else statement on its own</td>
-<td>else_negative.pt.eOutput</td><td></td>
+<td>else_negative.pt.eOutput</td><td>Syntax error at else shown in line 108 of the output file.</td>
 </tr>
 
 <tr>
 <td>if_noend_negative.pt</td>
 <td>Ensures that `end;` must follow an if statement block</td>
 <td>Runs a single if statement without an end</td>
-<td>if_noend_negative.pt.eOutput</td><td></td>
+<td>if_noend_negative.pt.eOutput</td><td>Syntax error at unexpected end of file shown in line 222 of the output file. This is because it was expecting an 'end;'</td>
 </tr>
 
 <tr>
 <td>ifchain_noend_negative.pt</td>
 <td>Ensures that each if block has a corresponding `end;`</td>
 <td>Runs a chain of if statements with only an end after the last one</td>
-<td>ifchain_noend_negative.pt.eOutput</td><td></td>
+<td>ifchain_noend_negative.pt.eOutput</td><td>Syntax error at unexpected end of file shown in line 349 of the output file. The parser treated it like nested if statements, and was expecting another 'end;'.</td>
 </tr>
 
 <tr>
@@ -364,6 +364,34 @@
 <td>Test parsing of as many phase 2 parser modifications in a single program</td>
 <td>One large program that should be parsed without error</td>
 <td>fullProgram.pt.eOutput</td><td></td>
+</tr>
+
+<tr>
+<td>operatorSyntaxTest.pt</td>
+<td>Test parsing of new operator syntax</td>
+<td>Simple assingment and comparison operators</td>
+<td>operatorSyntaxTest.pt.eOutput</td><td></td>
+</tr>
+
+<tr>
+<td>operatorSyntaxTest1_negative.pt</td>
+<td>Test to ensure old div and mod operators no longer work</td>
+<td>Small program that uses keyword div and mod as variables, showing that they are no longer treated as division and modulo</td>
+<td>operatorSyntaxTest1_negative.pt.eOutput</td><td></td>
+</tr>
+
+<tr>
+<td>operatorSyntaxTest2_negative.pt</td>
+<td>Test old PT equality operator</td>
+<td>If statement with old "=" equality operator</td>
+<td>operatorSyntaxTest2_negative.pt.eOutput</td><td></td>
+</tr>
+
+<tr>
+<td>operatorSyntaxTest3_negative.pt</td>
+<td>Test old pt NE operator</td>
+<td>If statement with old "<>" equality operator</td>
+<td>operatorSyntaxTest3_negative.pt.eOutput</td><td></td>
 </tr>
 
 </table>
