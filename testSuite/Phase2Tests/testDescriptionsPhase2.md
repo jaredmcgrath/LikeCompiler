@@ -366,4 +366,32 @@
 <td>fullProgram.pt.eOutput</td><td></td>
 </tr>
 
+<tr>
+<td>operatorSyntaxTest.pt</td>
+<td>Test parsing of new operator syntax</td>
+<td>Simple assingment and comparison operators</td>
+<td>operatorSyntaxTest.pt.eOutput</td><td></td>
+</tr>
+
+<tr>
+<td>operatorSyntaxTest1_negative.pt</td>
+<td>Test to ensure old div and mod operators no longer work</td>
+<td>Small program that uses keyword div and mod as variables, showing that they are no longer treated as division and modulo</td>
+<td>operatorSyntaxTest1_negative.pt.eOutput</td><td></td>
+</tr>
+
+<tr>
+<td>operatorSyntaxTest2_negative.pt</td>
+<td>Test old PT equality operator</td>
+<td>If statement with old "=" equality operator</td>
+<td>operatorSyntaxTest2_negative.pt.eOutput</td><td></td>
+</tr>
+
+<tr>
+<td>operatorSyntaxTest3_negative.pt</td>
+<td>Test old pt NE operator</td>
+<td>If statement with old "<>" equality operator</td>
+<td>operatorSyntaxTest3_negative.pt.eOutput</td><td></td>
+</tr>
+
 </table>
