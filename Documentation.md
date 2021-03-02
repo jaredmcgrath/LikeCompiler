@@ -122,7 +122,7 @@ All necessary token defenitions were added to `parser.ssl`, with their assoicate
 The parsing of the following PT type defenitions were removed: `TypeDefenitions`, `TypeBody` and `SimpleType` rules. The `ConstantDefenitions` rule was modified to handle comma separated lists. A new rule called `LikeClause` was created and allows for an array bound followed by a colon, and optional file keyword, the keyword like, and a variable or constant.
 
 ## Short Form Assignments
-The parsing of the 'Like' short form assignment statements: +=, -=, *=, /= and %= was added. This was done by outputting the semantic toekn stream for a regular assignment so the semantic phase won't have to handle short form assignments. These changes can be seen in `parser.ssl` under the `AssignmentOrCallStmt` rule, with comments highlighting notable information.
+The parsing of the 'Like' short form assignment statements: +=, -=, *=, /= and %= was added. This was done by outputting the semantic toekn stream for a regular assignment so the semantic phase won't have to handle short form assignments. These changes can be seen in `parser.ssl` under the `AssignmentOrCallStmt` rule, with comments highlighting notable information. Finally, the ':=' symbol was changed to '=' for assignment.
 
 ## Packages
 
