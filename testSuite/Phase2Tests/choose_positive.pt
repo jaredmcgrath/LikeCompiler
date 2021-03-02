@@ -4,14 +4,14 @@ var i = 1;
 
 choose i of
   when 0, -1 then
-    // Block 1
+    i += 1;
   when +2 then
-    // Block 2
+    i -= 1;
   else
-    // Else blocks
+    i *= 5;
 end;
 
 choose i of
   when 10 then
-    //block 1
+    i = -10;
 end;

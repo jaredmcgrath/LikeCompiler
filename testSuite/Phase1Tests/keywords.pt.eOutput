@@ -1,113 +1,80 @@
- .pIdentifier
+  .pIdentifier
   % Output token text 'array'
- .pSemicolon
  .pNewLine
   .pIdentifier
   % Output token text 'begin'
- .pSemicolon
  .pNewLine
   .pIdentifier
   % Output token text 'case'
- .pSemicolon
  .pNewLine
   .pIdentifier
   % Output token text 'const'
- .pSemicolon
  .pNewLine
   .pIdentifier
   % Output token text 'div'
- .pSemicolon
  .pNewLine
   .pIdentifier
   % Output token text 'do'
- .pSemicolon
  .pNewLine
   .pIdentifier
   % Output token text 'mod'
- .pSemicolon
  .pNewLine
   .pIdentifier
   % Output token text 'procedure'
- .pSemicolon
  .pNewLine
   .pIdentifier
   % Output token text 'program'
- .pSemicolon
  .pNewLine
   .pIdentifier
   % Output token text 'type'
- .pSemicolon
  .pNewLine
   .pIdentifier
   % Output token text 'until'
- .pSemicolon
  .pNewLine
  .pNewLine
   .pIdentifier (screened to pChoose)
- .pSemicolon
  .pNewLine
   .pIdentifier (screened to pElseif)
- .pSemicolon
  .pNewLine
   .pIdentifier (screened to pFun)
- .pSemicolon
  .pNewLine
   .pIdentifier (screened to pIs)
- .pSemicolon
  .pNewLine
   .pIdentifier (screened to pLike)
- .pSemicolon
  .pNewLine
   .pIdentifier (screened to pPkg)
- .pSemicolon
  .pNewLine
   .pIdentifier (screened to pPublic)
- .pSemicolon
  .pNewLine
   .pIdentifier (screened to pUsing)
- .pSemicolon
  .pNewLine
   .pIdentifier (screened to pVal)
- .pSemicolon
  .pNewLine
   .pIdentifier (screened to pWhen)
- .pSemicolon
  .pNewLine
  .pNewLine
   .pIdentifier
   % Output token text 'read'
- .pSemicolon
  .pNewLine
   .pIdentifier
   % Output token text 'readln'
- .pSemicolon
  .pNewLine
   .pIdentifier
   % Output token text 'write'
- .pSemicolon
  .pNewLine
   .pIdentifier
   % Output token text 'writeln'
- .pSemicolon
  .pNewLine
  .pNewLine
   .pIdentifier
   % Output token text 'get'
- .pSemicolon
  .pNewLine
   .pIdentifier
   % Output token text 'getln'
- .pSemicolon
  .pNewLine
   .pIdentifier
   % Output token text 'put'
- .pSemicolon
  .pNewLine
   .pIdentifier
   % Output token text 'putln'
- .pSemicolon
- .pNewLine
-  .pIdentifier
-  % Output token text 'reset'
- .pSemicolon
  .pEndFile
