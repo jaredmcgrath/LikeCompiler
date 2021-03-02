@@ -2,6 +2,10 @@
 
 This contains all our tests for each phase, both positive and negative cases, grouped by the phase in which they were written.
 
+Each phase directory has a corresponding test documentation file named `testDescriptionsPhaseN.md` (replace `N` with the appropriate phase number). E.g. for `Phase2Tests`, see `Phase2Tests/testDescriptionsPhase2.md`. 
+
+Besides the central documentation file for each phase, there are numerous test files in the phase directory. All files ending in `.pt` are test programs. The expected output for a given test program `<name>.pt` is located in file `<name>.pt.eOutput`. This expected output was generated using the appropriate `ssltrace` command, pointing to the ptc library in `src/lib/pt`, with the `-e` flag. See details below for reproducing and/or cross-verifying there results.
+
 ## To run all tests for all phases (`test.sh`)
 1. Ensure you are in the `testSuite/` directory
 2. Run `./test.sh`
