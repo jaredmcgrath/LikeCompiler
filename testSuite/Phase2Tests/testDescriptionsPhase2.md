@@ -132,7 +132,7 @@
 <td>declarations_negative.pt</td>
 <td>Ensures that variable declarations using 'like' keyword are working properly</td>
 <td>Runs variable declarations without a size specified for arrays and without essential 'like' statementkeywords</td>
-<td>declarations_negative.pt.eOutput</td><td>Used invalid syntax for declaration statements</td>
+<td>declarations_negative.pt.eOutput</td><td>Used invalid syntax for declaration statements resulting in syntax errors for lines 3, 5 and 7</td>
 </tr>
 
 <tr>
