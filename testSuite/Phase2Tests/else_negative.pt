@@ -1,6 +1,6 @@
 using output;
-var x;
-var y;
+var x : like 1;
+var y : like 1;
 else
     y = 1;
 end;

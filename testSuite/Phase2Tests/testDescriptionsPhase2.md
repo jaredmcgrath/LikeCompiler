@@ -18,12 +18,11 @@
 </tr>
 
 <tr>
-<td>program1Param.pt</td>
+<td>programs1Param.pt</td>
 <td>Ensures that Like program yields the correct sequence of tokens for a single parameter</td>
 <td>Declares a program with a single parameter with a single assignment inside</td>
 <td></td>
-<td>
-</td>
+<td></td>
 </tr>
 
 <tr>
@@ -225,9 +224,18 @@
 <td></td>
 </tr>
 
+<tr>
 <td>multiple_else_negative.pt</td>
 <td>Ensures that only one else statement is allowed</td>
 <td>Runs an if followed by multiple else statements</td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>baseProgram.pt</td>
+<td>Base program testing with no declarations or any content in the body</td>
+<td>Empty program body declared</td>
 <td></td>
 <td></td>
 </tr>

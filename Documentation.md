@@ -137,6 +137,7 @@ The following changes were made to correct mistakes made in Phase 1:
 
 ## Programs
 
+Changes were made to the parser.ssl file:
 In order to allow for intermixed statements and declarations in Like, the `Statement` and `BeginStmt` rules alternatives were merged into the `Block` rule. 
 
 The `Program` rule was modified in order to meet the new like specification. Specifically, changing the keyword to `'using'` and remvoing the encasing round brackets `'( ... )'` from PT. Additionally, the `'.'` operator at the end of the `Program` rule was removed as it is no longer used. The program name `pIdentifier` was also removed as it is not part of the Like language spec.
@@ -156,6 +157,7 @@ The `procedure` alternative within the `Block` rule was changed to `fun` in orde
 All necessary token defenitions were added to `parser.ssl`, with their assoicated symbols. Notable changes included changing pNotEqual to '!=' instead of '<>', as well as changing sType to sLike. These changes are highlighted by comments in `parser.ssl`.
 
 ## Declarations
+
 The parsing of the following PT type defenitions were removed: `TypeDefenitions`, `TypeBody` and `SimpleType` rules. The `ConstantDefenitions` rule was modified to handle comma separated lists. A new rule called `LikeClause` was created and allows for an array bound followed by a colon, and optional file keyword, the keyword like, and a variable or constant.
 
 ## Short Form Assignments
