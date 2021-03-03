@@ -36,6 +36,7 @@ Input :
         pElse                   'else'
         pOf                     'of'
         pEnd                    'end'
+        % Removed old parser input tokens
         pFile                   'file'
         pVar                    'var'
         pIf                     'if'
@@ -73,6 +74,7 @@ Input :
         pPlus                   '+'
         pMinus                  '-'
         pStar                   '*'
+        % Removed old PT input tokens
         pComma                  ','
         pSemicolon              ';'
         pColon                  ':'
