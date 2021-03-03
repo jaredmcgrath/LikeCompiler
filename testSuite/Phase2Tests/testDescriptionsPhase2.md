@@ -1,5 +1,22 @@
 # Test Descriptions
 
+## Justification for Completeness
+For each new language feature or revised syntax, we added at least one positive test case (often with overlap in larger test programs) that demonstrates correct parsing of valid Like code. Test cases were generated for each fork on new logic paths. Like operators have negative tests for invalid/missing operands (String operators, Short form assignment operators, Arithmetic operators, etc.). Multi-keyword statements have a negative test for each logic path where a keyword could be missing or invalid (If/Else, RepeatWhile, etc.). Also, deprecated PT keywords and operators were tested to ensure that their functionality had been invalidated. e.g. `program output;`.
+
+1. Token definitions were tested implicitly, as there is no good way to test the parser on token definitions alone.
+2. Programs were tested through 0, 1 and multiple parameters as well as testing the 'using' keyword and invalid keywords.
+3. Declarations were tested using both types of declarations (with and without Like keyword), as well as testing syntactically invalid use of the Like keyword.
+4. Routines were tested through 0, 1 and multiple parameters as well as testing with invalid parameter separators (semicolons) as well as missing an `end;` statement. All above cases were also done with the optional `public` keyword.
+5. Complete package testing coverage is ensured with negative tests involving missing package names and keywords (`is`, `end`, etc.). A positive test includes both a non-empty and empty package.
+6. Else-if statements were tested by forcing the parser through each valid logic path with the restrictions of a mandatory if statement, optional multiple elseif statements, an optional else statement and a terminating end;. Negative tests ensured all restrictions were enforced such as the mandatory if, then, and end; tokens. It was ensured that the inclusion of elseif statements produced the same output as a nested if statement, as this was the option chosen.
+7. Short form assignments were tested by testing each assignment arithmetically. The negative test was designed with each short form assignment statement flipped (*= vs =*) to ensure these are not accepted.
+8. Operator Syntax was tested through proper use of the `\`, `%`, `=`, `==`, `!=` operators. As well, deprecated operators `div` and `mod` were tested to ensure they no longer function as operators. Changed conditional operators `<>`, `=` and assignment `:=` were tested to ensure they cause syntax errors.
+9. Complete choose statement testing ensured between negative tests with missing/misplaced/unexpected keywords (`then`, `when`, `of`), missing identifiers (no expression), and invalid structure (no cases, only an `else` case). Positive tests demonstrate valid `choose` statements
+10. Repeat and repeat while statements have negative tests for missing expressions, missing keywords (`end`), and invalid structure (missing body). Positive tests demonstrate parsing valid repeat and repeat while statements
+11. String operations tested positively with examples of all operators (concat, repeat, substring, length) working correctly in a program. Negative test cases test parsing when invalid/missing operands are specified.
+
+## Test Description Table
+__Note__: All line numbers referenced in the following table are referring their respective test files.
 <table>
 <tr>
 <th>File Name</th>
@@ -145,7 +162,7 @@
 <tr>
 <td>shortFormAssignment_negative.pt</td>
 <td>Ensures that short form assignments that are not syntactically correct output as expected</td>
-<td>Runs all of the short form assignments with the assignment operator in the wrong spot, as well as a test to ensure that the old PT assignment statement '<>' is no longer valid</td>
+<td>Runs all of the short form assignments with the assignment operator in the wrong spot.</td>
 <td>shortFormAssignment_negative.pt.eOutput</td><td>Short form assignment statements were written with the wrong order (syntax errors for lines 5 to 9).</td>
 </tr>
 
@@ -410,7 +427,7 @@
 <td>operatorSyntaxTest1_negative.pt</td>
 <td>Test to ensure old div and mod operators no longer work</td>
 <td>Small program that uses keyword div and mod as variables, showing that they are no longer treated as division and modulo</td>
-<td>operatorSyntaxTest1_negative.pt.eOutput</td><td>No errors present due to proper var syntax. Would not be possible is div and mod were treated as operands</td>
+<td>operatorSyntaxTest1_negative.pt.eOutput</td><td>No errors present due to proper var syntax. Would not be possible if div and mod were treated as operands</td>
 </tr>
 
 <tr>

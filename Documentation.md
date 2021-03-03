@@ -134,39 +134,119 @@ The following changes were made to correct mistakes made in Phase 1:
 1. In `scan.ssl` in the `Scan` rule, the '!' choice was changed by adding a choice block with two options. The first option is what was initally done in Phase 1, where if the next input token is '=' then `pNotEqual` was emitted. The second option is a default case because the '!' character cannot appear on its own unless it is inside a comment. In the default case, an error token is emitted. 
 
 # Phase 2 Documentation
+All changes (unless otherwise specified) were made to the parser.ssl file.
+Contents of `parser.def` were copied and pasted into `parser.pt` to ensure token consistency.
 
 ## Programs
 
-Changes were made to the parser.ssl file:
-In order to allow for intermixed statements and declarations in Like, the `Statement` and `BeginStmt` rules alternatives were merged into the `Block` rule. 
+In order to allow for intermixed statements and declarations in Like, the `Statement` and `BeginStmt` rules alternatives were merged into the `Block` rule. Here, the emission of the `sBegin` and `sEnd` tokens were retained in order to minimize changes to the semantic phase, though the parsing of the `begin` and `end` tokens were removed.
 
 The `Program` rule was modified in order to meet the new like specification. Specifically, changing the keyword to `'using'` and remvoing the encasing round brackets `'( ... )'` from PT. Additionally, the `'.'` operator at the end of the `Program` rule was removed as it is no longer used. The program name `pIdentifier` was also removed as it is not part of the Like language spec.
 
 ## Routines
 
-The `ProcedureHeading` rule was changed to allow for comma separation between parameters, instead of the semicolon separators from PT. This rule accepts zero of more parameter declarations.
+The `ProcedureHeading` rule in `parser.ssl` was changed to allow for comma separation between parameters, instead of the semicolon separators from PT. This rule accepts zero or more parameter declarations.
 
-In the `Block` rule, an alterative was created to deal with the optional `'public'` qualifier for routines, as well as others such as vars etc. (discussed below). The `pPublic` token is emitted in the proper sequence as per the Like specification doumentation. The emission of the `sBegin` and `sEnd` tokens was retained in order to minimize changes to the semantic phase, though the parsing of the `begin` and `end` tokens was removed.
+In the `Block` rule, an alternative was created to handle the optional `'public'` keyword for routines, as well as others such as vars etc. (discussed below). The `pPublic` token is emitted in the proper sequence as per the Like specification documentation. 
 
-The `procedure` alternative within the `Block` rule was changed to `fun` in order to comply with Like language specification. In addition, the alternative includes the parsing of a `pIs` token.
+The `procedure` alternative within the `Block` rule was changed to `fun` in order to comply with Like language specification. In addition, the alternative includes the parsing of the `pIs` token because Like expects `is` following the function name.
 
-`ParameterDeclaration` rule was added in order to make rules more modular. This rule handles the parsing of each parameter and is called from the `ProcedureHeading` rule for each parameter in a given routines procedure heading. The `LikeClause` rule is then called in order to parse each like clause.
+`ParameterDeclaration` rule was added in order to make rules more modular. This rule handles the parsing of each parameter and is called from the `ProcedureHeading` rule for each parameter in a given routines procedure heading. The `LikeClause` rule (discussed in _Declarations_ below) is then called in order to parse each like clause.
 
-## Token Defenitions
+## Token definitions
 
-All necessary token defenitions were added to `parser.ssl`, with their assoicated symbols. Notable changes included changing pNotEqual to '!=' instead of '<>', as well as changing sType to sLike. These changes are highlighted by comments in `parser.ssl`.
+The following tokens were added to `parser.ssl` in the __Input__ token section, with their assoicated symbols:
+```
+        pSlash                  '/'
+        pPercent                '%'
+        pHash                   '#'
+        pOrBar                  '|'
+        pDoubleOrBar            '||'
+        pPlusEquals             '+='
+        pMinusEquals            '-='
+        pStarEquals             '*='
+        pSlashEquals            '/='
+        pPercentEquals          '%='
+        pDoubleEquals           '=='
+```
+The following symbols for associated tokens were added to `parser.ssl` in the __Input__ token section:
+```
+        pElseif                 'elseif'        
+        pFun                    'fun'
+        pIs                     'is'
+        pLike                   'like'
+        pPkg                    'pkg'
+        pPublic                 'public'
+        pUsing                  'using'
+        pVal                    'val'
+        pWhen                   'when'
+```
+The following tokens were added to `parser.ssl` in the __Output__ token section, with their assoicated symbols:
+```
+        sPackage
+        sPublic
+        sConcatenate
+        sRepeatString
+        sSubstring
+        sLength
+        sInitialValue
+        sCaseElse
+```
+
+Notable changes included changing pNotEqual to '!=' instead of '<>' (in __Input__), as well as changing sType to sLike (in __Output__). These changes are highlighted by comments in `parser.ssl`. This was needed as Like uses != for not equals, and accepts the Like keyword as a type in place of pt pascal type declarations.
 
 ## Declarations
 
-The parsing of the following PT type defenitions were removed: `TypeDefenitions`, `TypeBody` and `SimpleType` rules. The `ConstantDefenitions` rule was modified to handle comma separated lists. A new rule called `LikeClause` was created and allows for an array bound followed by a colon, and optional file keyword, the keyword like, and a variable or constant.
+The parsing of the following PT type definitions were removed: `TypeDefinitions`, `TypeBody` and `SimpleType` rules. This was necessary as the like parser no longer evaluates type declarations.
+
+The `ConstantDefinitions` rule was modified to handle comma separated lists of constant declarations, e.g., `val x = 1, y = 2;`. The `VariableDeclarations` rule was modified to call `ValueOrLike` instead of the old `typeBody` call and only 1 variable declaration is permitted in a single `VariableDeclarations` rule call. The `ValueOrLike` rule was created to check for optional array bounds and set an initial value for declared variables or call the `LikeClause` when the Like keyword is used. A new rule called `LikeClause` was created to parse the Like clause for modularity.
 
 ## Short Form Assignments
 
-The parsing of the 'Like' short form assignment statements: +=, -=, *=, /= and %= was added. This was done by outputting the semantic toekn stream for a regular assignment so the semantic phase won't have to handle short form assignments. These changes can be seen in `parser.ssl` under the `AssignmentOrCallStmt` rule, with comments highlighting notable information. Finally, the ':=' symbol was changed to '=' for assignment.
+The parsing of the 'Like' short form assignment statements: `+=`, `-=`, `*=`, `/=` and `%=` were added in a choice block, with each option emitting its respective tokens:
+```
+| '+=':                 % Added all choices below
+    .sAssignmentStmt
+    .sIdentifier
+    .sIdentifier
+    @Expression
+    .sAdd
+    .sExpnEnd
+| '-=':
+    .sAssignmentStmt
+    .sIdentifier
+    .sIdentifier
+    @Expression
+    .sSubtract
+    .sExpnEnd
+| '*=':
+    .sAssignmentStmt
+    .sIdentifier
+    .sIdentifier
+    @Expression
+    .sMultiply
+    .sExpnEnd
+| '/=':
+    .sAssignmentStmt
+    .sIdentifier
+    .sIdentifier
+    @Expression
+    .sDivide
+    .sExpnEnd
+| '%=':
+    .sAssignmentStmt
+    .sIdentifier
+    .sIdentifier
+    @Expression
+    .sModulus
+    .sExpnEnd
+```
+
+This was done by outputting the semantic token stream for a regular assignment so the semantic phase won't have to handle short form assignments. These changes can be seen in the `AssignmentOrCallStmt` rule. Finally, the `:=` symbol was changed to `=` for assignment because Like recognizes `=` as the assignment operator.
 
 ## Packages
 
-Packages were implemented by adding input choice of `'pkg'` to the `Block` rule in `parser.ssl`. This choice calls the new `Package` rule, which fully parses out any package based on the project specification, e.g.
+Packages were implemented by adding input choice of `'pkg'` to the `Block` rule. This choice calls the new `Package` rule, which fully parses out any package based on the project specification, e.g.
 
 ```like
 pkg package_name is
@@ -178,7 +258,7 @@ Keyword identifier tokens were used to parse the package structure correctly, in
 
 ## Choose
 
-Choose statement was implemented by renaming `CaseStmt` rule to `ChooseStmt` rule and `CaseAlternative` rule to `ChooseAlternative` rule. In the `Block` rule, `'case'` was replaced with `'choose'`. The only notable change to the structure of `ChooseAlternative` was `Statement` became a `Block`. `ChoostStmt` was revised to reflect the changes in the syntax structure of case -> choose. The optional default `else` case was also added after `sCaseEnd` is emitted.
+Choose statement was implemented by renaming `CaseStmt` rule to `ChooseStmt` rule and `CaseAlternative` rule to `ChooseAlternative` rule. In the `Block` rule, PT Pascal's `'case'` was replaced with Like's `'choose'`. The only notable change to the structure of `ChooseAlternative` was `Statement` became a `Block`. `ChooseStmt` was revised to reflect the changes in the syntax structure of case -> choose. That is, each `ChooseAlternative` is preceded by a `when`, and there must be at least one `ChooseAlternative` in a `ChooseStmt`. The optional default `else` case was also added after `sCaseEnd` is emitted in the `ChooseStmt` rule.
 
 ## Repeat While
 
@@ -190,7 +270,7 @@ Both types of loop statements were implemented by modifying the `Block` rule and
 Then, to each of these respective rules the following changes were made:
 
 - The `WhileStmt` rule was modified to expect a `Block` following the expression. The `Block` handles the emission of `sBegin` and `sEnd`. Then `WhileStmt` expects a termination of the loop with `end;`
-- The `RepeatStmt` now expects a `Block` immediately following the `'repeat'`. As the parser is parsing the `Block`, it will eventually encounter the `'while'`, which causes the parser to return to `RepeatStmt`. Following this, `sRepeatEnd` is emitted, then we expect the expression in `while <expression>;`. Since we are emitting the recycled `sRepeatStmt` token (which terminates on a truthy expression), we need to negate the expression before ending it. To do this, `sNot` is emitted before `sExpnEnd`
+- The `RepeatStmt` now expects a `Block` immediately following the `'repeat'`. As the parser is parsing the `Block`, it will eventually encounter the `'while'`, which causes the parser to return to `RepeatStmt`. Following this, `sRepeatEnd` is emitted, then we expect the expression in `while <expression>;`. Since we are emitting the recycled `sRepeatStmt` token (which terminates when the expression becomes true), we need to negate the expression before ending it. To do this, `sNot` is emitted before `sExpnEnd`
 
 ## String Type
 
@@ -236,8 +316,72 @@ The following changes were made:
 ## Operator Syntax
 
 PT operator syntax was altered slightly to comply with Like language specification. Specifically:
-<ul>
-<li>div -> \
-<li>mod -> %
-<li>:= -> ==
-<li><> -> !=
+<table>
+<tr>
+<th>
+Old PT Pascal Operator
+</th>
+<th>
+New Like Operator
+</th>
+<th>
+Location of Change
+</th>
+</tr>
+<tr>
+<td>
+div
+</td>
+<td>
+/
+</td>
+<td>
+Term rule
+</td>
+</tr>
+<tr>
+<td>
+mod
+</td>
+<td>
+%
+</td>
+<td>
+Term rule
+</td>
+</tr>
+<tr>
+<td>
+:=
+</td>
+<td>
+=
+</td>
+<td>
+AssignmentOrCallStmt rule
+</td>
+</tr>
+<tr>
+<td>
+<>
+</td>
+<td>
+!=
+</td>
+<td>
+Expression rule
+</td>
+</tr>
+<tr>
+<td>
+=
+</td>
+<td>
+==
+</td>
+<td>
+Expression rule
+</td>
+</tr>
+</table>
+

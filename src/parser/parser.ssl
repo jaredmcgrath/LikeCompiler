@@ -28,7 +28,7 @@ Input :
         pUsing                  'using'
         pVal                    'val'
         pWhen                   'when'
-        % All of the above keyword tokens were added with associated symbols
+        % All of the above associated symbols were added to their respective tokens
         pOr                     'or'
         pAnd                    'and'
         pNot                    'not'
@@ -304,7 +304,7 @@ VariableDeclarations :
         ';'
         ;
 
-ValueOrLike :       
+ValueOrLike :      % Either assigns an initial value to the declared variable, or calls LikeClause to handle Like keyword 
         % Like uses either an initial value or a like clause to specify the variables type
         [
             | '=':
@@ -542,9 +542,9 @@ RepeatStmt :
 Expression :
         @SimpleExpression
         [
-            | '==':
+            | '==':     % Changed = to ==
                 @SimpleExpression  .sEq
-            | '!=':
+            | '!=':     % Changed <> to !=
                 @SimpleExpression  .sNE
             | '<':
                 @SimpleExpression  .sLT
