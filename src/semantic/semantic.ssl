@@ -27,7 +27,7 @@ Input :
         sParmBegin
         sParmEnd
         sConst
-        sType
+        sLike           % Changed from sType to sLike
         sVar
         sProcedure
         sBegin
@@ -68,7 +68,16 @@ Input :
         sAnd
         sNot
         sNewLine
-        sEndOfFile
+        % All input tokens below were added (aside from sEndOfFile)
+        sPackage            % Added
+        sPublic             % Added
+        sConcatenate        % Added
+        sRepeatString       % Added
+        sSubstring          % Added
+        sLength             % Added
+        sInitialValue       % Added
+        sCaseElse           % Added
+        sEndOfFile          
         lastSemanticToken = sEndOfFile;
 
 Output :        
