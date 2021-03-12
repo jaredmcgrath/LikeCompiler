@@ -387,19 +387,7 @@ Expression rule
 
 # Phase 3 Documentation
 ## Extensions to the T-Code Machine Model
-All of the following changes took place in `semantic.ssl`. THIS IS A CHANGE LOG AND NOT A GOOD COPY OF DOCUMENTATION IM WORKING AS I GO HEHE
-* tFetchChar -> existing op modified
-* tAssignChar -> existing op modified
-* tStoreChar -> existing op modified
-* tSubscriptChar -> existing op modified
-* tConcatenate -> added
-* tRepeatString -> added 
-* tSubString -> added
-* tLength -> added
-* tChr -> added
-* tOrd -> added
-* tStringEQ -> added
-* tInitialValue ->   
-* tInitEnd ->
-* tCaseElse ->
-* tCaseElseEnd ->   
+THIS IS A CHANGE LOG AND NOT A GOOD COPY OF DOCUMENTATION IM WORKING AS I GO HEHE
+tFetchChar, tAssignChar, tStoreChar, tSubscriptChar were pre-existing in `semantic.ssl`
+tConcatenate, tRepeatString, tSubString, tLength, tChr, tOrd, and tStringEQ were added in the Output section of `semantic.ssl` in the compound operations section, as they all take operand(s).
+tInitialValue, tInitEnd, tCaseElse, and tCaseElseEnd were added in the Output section of `semantic.ssl` in the non-compound operations section, as they are all null operations that do not take in operands.

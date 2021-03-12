@@ -142,6 +142,11 @@ Output :
         tTrapBegin
         tWriteEnd
         tReadEnd
+        % The following non-compound T-codes were added for Like
+        tInitialValue
+        tInitEnd
+        tCaseElse
+        tCaseElseEnd
 
         % Compound T-codes - T-code operations that take an operand
         tLiteralAddress
@@ -164,7 +169,15 @@ Output :
         tCallEnd
         tLineNumber
         tTrap
-        lastCompoundTcode = tTrap
+        % The following compound T-code operations were added for Like
+        tConcatenate
+        tRepeatString
+        tSubstring
+        tLength
+        tChr
+        tOrd
+        tStringEQ
+        lastCompoundTcode = tStringEQ
 
         % End of file marker T-code
         tEndOfFile
