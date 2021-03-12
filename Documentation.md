@@ -385,3 +385,21 @@ Expression rule
 </tr>
 </table>
 
+# Phase 3 Documentation
+## Extensions to the T-Code Machine Model
+All of the following changes took place in `semantic.ssl`. THIS IS A CHANGE LOG AND NOT A GOOD COPY OF DOCUMENTATION IM WORKING AS I GO HEHE
+* tFetchChar -> existing op modified
+* tAssignChar -> existing op modified
+* tStoreChar -> existing op modified
+* tSubscriptChar -> existing op modified
+* tConcatenate -> added
+* tRepeatString -> added 
+* tSubString -> added
+* tLength -> added
+* tChr -> added
+* tOrd -> added
+* tStringEQ -> added
+* tInitialValue ->   
+* tInitEnd ->
+* tCaseElse ->
+* tCaseElseEnd ->   
