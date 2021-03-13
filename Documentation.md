@@ -395,3 +395,10 @@ tConcatenate, tRepeatString, tSubString, tLength, tChr, tOrd, tStringEQ, tInitia
 ## Programs
 A null program test file was created, `null_program.pt` within the testSuite. 
 * It compiled successfully and I think that's all we needed to check
+
+## Block
+All changes made in `semantic.ssl`. The Block rule was modified with the following changes:
+* merge alts of stmt rule into Block rule - TODO: at the end, make sure the precedence of this rule choice is the same as that of Parser (assuming our parser was right?)
+* sBegin moved to front of rule from the end
+* remove begin handling within the Statement choices
+* replace Statement rule w one that pushes scope, calls Block and pops scope. Did this by calling oSymbolTblPushScope to create a new table scope to differentiate variables outside the current scope, then called @Block, then oSymbolTblPopScope

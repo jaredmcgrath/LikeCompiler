@@ -798,8 +798,9 @@ ProgramParameter :
 Block :
         % The parser has flagged phase errors, but has emitted out-of-phase
         % definitions with the intent of providing better error repair.
-
-        {[
+    sBegin %moved to the beginning of the rule
+    @BeginStmt
+        {[ %merged in Statement choices, removed sBegin handling
             | sProcedure:
                 @ProcedureDefinition
             | sConst:
@@ -808,11 +809,24 @@ Block :
                 @TypeDefinitions
             | sVar:
                 @VariableDeclarations
+            | sAssignmentStmt:
+                @AssignmentStmt
+            | sCallStmt:
+                @CallStmt
+            | sIfStmt:
+                @IfStmt
+            | sWhileStmt:
+                @WhileStmt
+            | sCaseStmt:
+                @CaseStmt
+            | sRepeatStmt:
+                @RepeatStmt
+            | sNullStmt:
+                %do nothing
             | *:
                 >
         ]}
-        sBegin
-        @BeginStmt;
+;
 
 ConstantDefinitions :           % Process named constant definitions
         {[
@@ -1352,23 +1366,11 @@ ProcedurePrologue :
         oCountPop;
 
 Statement :
-        [
-            | sAssignmentStmt:
-                @AssignmentStmt
-            | sCallStmt:
-                @CallStmt
-            | sBegin:
-                @BeginStmt
-            | sIfStmt:
-                @IfStmt
-            | sWhileStmt:
-                @WhileStmt
-            | sCaseStmt:
-                @CaseStmt
-            | sRepeatStmt:
-                @RepeatStmt
-            | sNullStmt:
-        ];
+        %removed alternatives of Statement rule, merged into Block rule
+        oSymbolTblPushScope
+        @Block
+        oSymbolTblPopScope
+        ;
 
 AssignmentStmt :
         sIdentifier  oSymbolStkPushIdentifier
