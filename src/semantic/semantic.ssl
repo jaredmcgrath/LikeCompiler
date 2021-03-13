@@ -863,32 +863,33 @@ ConstantValue :         % push the value and type of the constant value
                 @StringLiteral  % pushes type and value, enters address
         ];
 
-TypeDefinitions :       % process named type definitions
-        {[
-            | sIdentifier:
-                oSymbolStkPushLocalIdentifier
-                [ oSymbolStkChooseKind
-                    | syUndefined:
-                    | syExternal:
-                        % Program parameters must be declared as file variables
-                        #eExternalDeclare        % ignore this declaration
-                    | *:
-                        #eMultiplyDefined
-                        % The new definition will obscure the old one
-                ]
-                oSymbolStkSetKind(syType)
+% Remove type definitions rule
+% TypeDefinitions :       % process named type definitions
+%         {[
+%             | sIdentifier:
+%                 oSymbolStkPushLocalIdentifier
+%                 [ oSymbolStkChooseKind
+%                     | syUndefined:
+%                     | syExternal:
+%                         % Program parameters must be declared as file variables
+%                         #eExternalDeclare        % ignore this declaration
+%                     | *:
+%                         #eMultiplyDefined
+%                         % The new definition will obscure the old one
+%                 ]
+%                 oSymbolStkSetKind(syType)
 
-                % Accepts a type specification and pushes its type to the Type Stack.
-                % Creates type table entries for the type and any new subtypes as necessary.
-                @TypeBody
+%                 % Accepts a type specification and pushes its type to the Type Stack.
+%                 % Creates type table entries for the type and any new subtypes as necessary.
+%                 @TypeBody
 
-                oSymbolStkEnterTypeReference
-                oTypeStkPop
-                oSymbolTblEnter
-                oSymbolStkPop
-            | *:
-                >
-        ]};
+%                 oSymbolStkEnterTypeReference
+%                 oTypeStkPop
+%                 oSymbolTblEnter
+%                 oSymbolStkPop
+%             | *:
+%                 >
+%         ]};
 
 TypeBody :
         % Accept a type specification and push a Type Stack entry for it.
@@ -1071,7 +1072,8 @@ SubrangeUpperBound :
         ];
 
 VariableDeclarations :
-        {[
+    % Removed choice loop so that only a single var is allowed per declaration
+        [
             | sIdentifier:
                 oSymbolStkPushLocalIdentifier
 
@@ -1091,7 +1093,7 @@ VariableDeclarations :
                 oSymbolStkPop
             | *:
                 >
-        ]};
+        ];
 
 EnterVariableAttributes :
         % Enter the type on top of the Type Stack as the type of 
