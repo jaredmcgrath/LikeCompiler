@@ -364,17 +364,17 @@
 </tr>
 
 <tr>
-<td>Nicole1.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
+<td>null_program.pt</td>
+<td>Ensure handling of programs is fairly unchanged compared to PT Pascal</td>
+<td>Program with no body</td>
+<td>null_program.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
-<td>Nicole2.pt</td>
-<td>Purpose</td>
+<td>constant_block_positive.pt</td>
+<td>Ensure block can handle a single declaration and statement</td>
 <td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
+<td>constant_block_positive.pt.eOutput</td><td></td>
 </tr>
 
 <tr>

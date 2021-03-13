@@ -387,10 +387,9 @@ Expression rule
 
 # Phase 3 Documentation
 ## Extensions to the T-Code Machine Model
-THIS IS A CHANGE LOG AND NOT A GOOD COPY OF DOCUMENTATION IM WORKING AS I GO HEHE
-tFetchChar, tAssignChar, tStoreChar, tSubscriptChar were pre-existing in `semantic.ssl`
-tConcatenate, tRepeatString, tSubString, tLength, tChr, tOrd, tStringEQ, tInitialValue, tInitEnd, tCaseElse, and tCaseElseEnd were added in the Output section of `semantic.ssl` in the non-compound operations section, as they all do not take operand(s).
-* on Line 807 I change sType to sLike bc it wouldn't let me compile
+* tFetchChar, tAssignChar, tStoreChar, tSubscriptChar were pre-existing in `semantic.ssl`
+* tConcatenate, tRepeatString, tSubString, tLength, tChr, tOrd, tStringEQ, tInitialValue, tInitEnd, tCaseElse, and tCaseElseEnd were added in the Output section of `semantic.ssl` in the non-compound operations section, as they all do not take operand(s).
+* on Line 807 I changed sType to sLike bc it wouldn't let me compile
 
 ## Programs
 A null program test file was created, `null_program.pt` within the testSuite. 
@@ -398,7 +397,7 @@ A null program test file was created, `null_program.pt` within the testSuite.
 
 ## Block
 All changes made in `semantic.ssl`. The Block rule was modified with the following changes:
-* merge alts of stmt rule into Block rule - TODO: at the end, make sure the precedence of this rule choice is the same as that of Parser (assuming our parser was right?)
+* merge alts of stmt rule into Block rule - __TODO__: at the end, make sure the precedence of this rule choice is the same as that of Parser (assuming our parser was right?)
 * sBegin moved to front of rule from the end
 * remove begin handling within the Statement choices
 * replace Statement rule w one that pushes scope, calls Block and pops scope. Did this by calling oSymbolTblPushScope to create a new table scope to differentiate variables outside the current scope, then called @Block, then oSymbolTblPopScope
