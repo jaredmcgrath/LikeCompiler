@@ -372,23 +372,23 @@
 
 <tr>
 <td>constant_block_positive.pt</td>
-<td>Ensure block can handle a single declaration and statement</td>
-<td>Function</td>
+<td>Ensure block can handle a single integer constant declaration</td>
+<td>Declares an integer constant</td>
 <td>constant_block_positive.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
-<td>Nicole3.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
+<td>ifstmt_block_positive.pt</td>
+<td>Ensures block can handle if statement</td>
+<td>Declares two integer constants, runs an if statement to assign value to a constant</td>
+<td>ifstmt_block_positive.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
-<td>Nicole4.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
+<td>ifstmt_output_block_positive.pt</td>
+<td>Ensures program can output correct integer</td>
+<td>Declares two integer constants, runs an if statement to assign value to a constant and outputs the constant's value</td>
+<td>ifstmt_output_block_positive.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
