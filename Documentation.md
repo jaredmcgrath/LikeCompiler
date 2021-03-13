@@ -389,5 +389,9 @@ Expression rule
 ## Extensions to the T-Code Machine Model
 THIS IS A CHANGE LOG AND NOT A GOOD COPY OF DOCUMENTATION IM WORKING AS I GO HEHE
 tFetchChar, tAssignChar, tStoreChar, tSubscriptChar were pre-existing in `semantic.ssl`
-tConcatenate, tRepeatString, tSubString, tLength, tChr, tOrd, and tStringEQ were added in the Output section of `semantic.ssl` in the compound operations section, as they all take operand(s).
-tInitialValue, tInitEnd, tCaseElse, and tCaseElseEnd were added in the Output section of `semantic.ssl` in the non-compound operations section, as they are all null operations that do not take in operands.
+tConcatenate, tRepeatString, tSubString, tLength, tChr, tOrd, tStringEQ, tInitialValue, tInitEnd, tCaseElse, and tCaseElseEnd were added in the Output section of `semantic.ssl` in the non-compound operations section, as they all do not take operand(s).
+* on Line 807 I change sType to sLike bc it wouldn't let me compile
+
+## Programs
+A null program test file was created, `null_program.pt` within the testSuite. 
+* It compiled successfully and I don't know how to read the output lol
