@@ -394,4 +394,4 @@ tConcatenate, tRepeatString, tSubString, tLength, tChr, tOrd, tStringEQ, tInitia
 
 ## Programs
 A null program test file was created, `null_program.pt` within the testSuite. 
-* It compiled successfully and I don't know how to read the output lol
+* It compiled successfully and I think that's all we needed to check
