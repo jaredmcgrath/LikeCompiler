@@ -1,0 +1,6 @@
+using output;
+val x = 1;
+val y;
+if x == 1 then
+    y = 1;
+end

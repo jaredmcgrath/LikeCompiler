@@ -799,7 +799,7 @@ Block :
         % The parser has flagged phase errors, but has emitted out-of-phase
         % definitions with the intent of providing better error repair.
     sBegin %moved to the beginning of the rule
-    @BeginStmt
+    @BeginStmt % <--- should this be here? or at the end?
         {[ %merged in Statement choices, removed sBegin handling
             | sProcedure:
                 @ProcedureDefinition
