@@ -14,17 +14,17 @@
 </tr>
 
 <tr>
-<td>Alex1.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
+<td>definitions_positive.pt</td>
+<td>Ensure all Like input tokens for semantic.ssl are recognized</td>
+<td>Lists the added input tokens</td>
+<td>Not Tested</td><td></td>
 </tr>
 
 <tr>
-<td>Alex2.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
+<td>definitions_negative.pt</td>
+<td>Ensure the old PT input tokens for semantic.ssl are not recognized</td>
+<td>Lists the removed input tokens</td>
+<td>Not Tested</td><td></td>
 </tr>
 
 <tr>
