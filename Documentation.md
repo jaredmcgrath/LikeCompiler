@@ -401,3 +401,6 @@ All changes made in `semantic.ssl`. The Block rule was modified with the followi
 * sBegin moved to front of rule from the end
 * remove begin handling within the Statement choices
 * replace Statement rule w one that pushes scope, calls Block and pops scope. Did this by calling oSymbolTblPushScope to create a new table scope to differentiate variables outside the current scope, then called @Block, then oSymbolTblPopScope
+
+* removed BeginStmt, added sEnd acceptance at the end of Block
+* replaced Block call in Program with call to Statement to push scope
