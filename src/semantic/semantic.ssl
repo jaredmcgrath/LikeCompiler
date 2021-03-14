@@ -805,8 +805,7 @@ Block :
                 @ProcedureDefinition
             | sConst:
                 @ConstantDefinitions
-            | sLike:
-                @TypeDefinitions
+            % Removed call to TypeDefinitions as all type processing handled within declarations
             | sVar:
                 @VariableDeclarations
             | sAssignmentStmt:
@@ -951,24 +950,18 @@ TypeTblEnterIfNew:
 
 IndexType :
         % Accept and fill in index bounds of array type stack entry
-        @SimpleType     % pushes index type
-        [ oTypeStkChooseKind
-            | tpSubrange:
-                oValuePushTypeStkLowerBound
-                oValuePushTypeStkUpperBound
-            | *:
-                oValuePush(one)
-                oValuePush(two)
-        ]
-        oTypeStkPop      % index type
+        % Removed cal to SimpleType since we don't use that rule this way anymore
+        oValuePush(one)                     % In Like, lower bound is always 1
+        @ConstantValue                      % Now we accept the constant [ arrayBound ]
+        oTypeStkPop                         % pop index type
         % Enter and check the bounds of the array type
         oTypeStkEnterBounds
         [ oTypeStkVerifyBounds
             | yes:
-            | *:
-                oValuePop
-                @ValuePushValuePlusOne
-                oTypeStkEnterBounds
+            | *:                            % If the bounds are invalid (i.e. lower > upper)
+                oValuePop                   % Remove prev upper
+                @ValuePushValuePlusOne      % Set new upper to lower + 1
+                oTypeStkEnterBounds         % Re-enter bounds
         ]
         oValuePop       % subrange upper
         oValuePop;      %          lower bound
@@ -991,83 +984,125 @@ ComponentType :
 
 SimpleType :
         % Accept a simple type and push a type stack entry for it.
+        % Modified from original: SimpleType will be used to create a type stack entry
+        % starting from an sLike token
+        % Always expect an sLike
+        sLike
+        % Then, we expect either an variable_identifier or constant or literal value
         [
             | sIdentifier:
                 oSymbolStkPushIdentifier
-                [ 
-                    | sRange:                   % subrange specification
-                        [ oSymbolStkChooseKind
-                            | syConstant:       
-                                oTypeStkPushSymbol
-                                [ oTypeStkChooseKind
-                                    | tpInteger:        
-                                        oValuePushSymbol
-                                    | *:
-                                        #eIntegerConstReqd
-                                        oValuePush(one)
-                                ]
-                                [
-                                    | sNegate:
-                                        oValueNegate
-                                    | *:
-                                ]
-                                oTypeStkPop
-                            | syUndefined:
-                                #eUndefinedIdentifier
-                                oValuePush(one)
-                            | *:
-                                #eIntegerConstReqd
-                                oValuePush(one)
-                        ]
-                        @SubrangeUpperBound     % pushes value on value stack
-                        oTypeStkPush(tpSubrange)
-                        oTypeStkEnterBounds
-                        oValuePop
-                        oValuePop
-                    | *:        
-                        % type identifier
-                        [ oSymbolStkChooseKind
-                            | syType:
-                                oTypeStkPushSymbol
-                            | syUndefined:
-                                #eUndefinedIdentifier
-                                oSymbolStkPop
-                                oValuePush(one)
-                                oValuePush(one)
-                                oTypeStkPush(tpSubrange)
-                                oTypeStkEnterBounds
-                                oValuePop
-                                oValuePop
-                            | *:
-                                #eSimpleTypeReqd
-                                oSymbolStkPop
-                                oValuePush(one)
-                                oValuePush(one)
-                                oTypeStkPush(tpSubrange)
-                                oTypeStkEnterBounds
-                                oValuePop
-                                oValuePop
-                        ]
+                [ oSymbolStkChooseKind
+                    | syVariable:                   % Handle variable symbol: like variable_identifier
+                        oTypeStkPushSymbol          % Create type stack entry
+                    | syConstant:                   % Handle constant symbol
+                        oTypeStkPushSymbol          % Create type stack entry
+                    | syUndefined:                  % If we get an undefined identifier, error
+                        #eUndefinedIdentifier
+                        oTypeStkPush(tpInteger)     % Default to an integer type
+                        oTypeStkLinkToStandardType(stdInteger)
+                    | *:
+                        #eSimpleTypeReqd
+                        oTypeStkPush(tpInteger)     % Default to an integer type
+                        oTypeStkLinkToStandardType(stdInteger)
                 ]
-                oSymbolStkPop
-            | sInteger:         % lower bound of subrange specification
-                oValuePushInteger
+                oSymbolStkPop                       % Clean up symbol stack after handling identifier
                 [
-                    | sNegate:
-                        oValueNegate
+                    | sNegate:                      % Optional sNegate token needs to be handled if present
                     | *:
                 ]
-                sRange
-                @SubrangeUpperBound     % pushes value on value stack
-                oTypeStkPush(tpSubrange)
-                oTypeStkEnterBounds
-                oValuePop
-                oValuePop
-            | *:
-                #eSimpleTypeReqd
+            | sInteger:
                 oTypeStkPush(tpInteger)
                 oTypeStkLinkToStandardType(stdInteger)
+                [
+                    | sNegate:                      % Optional sNegate token needs to be handled if present
+                    | *:
+                ]
+            | sStringLiteral:                       % This is part of step 7, but added it anyways
+                % We mimic sInteger handling and use the tpChar (= Like string type) and link to stdChar
+                oTypeStkPush(tpChar)
+                oTypeStkLinkToStandardType(stdChar)
         ];
+
+        % Old rule content: saving for now as a reference
+        % [
+        %     | sIdentifier:
+        %         oSymbolStkPushIdentifier
+        %         [ 
+        %             % Will need to remove sRange as we don't emit that in parser anymore
+        %             | sRange:                   % subrange specification
+        %                 [ oSymbolStkChooseKind
+        %                     | syConstant:       
+        %                         oTypeStkPushSymbol
+        %                         [ oTypeStkChooseKind
+        %                             | tpInteger:        
+        %                                 oValuePushSymbol
+        %                             | *:
+        %                                 #eIntegerConstReqd
+        %                                 oValuePush(one)
+        %                         ]
+        %                         [
+        %                             | sNegate:
+        %                                 oValueNegate
+        %                             | *:
+        %                         ]
+        %                         oTypeStkPop
+        %                     | syUndefined:
+        %                         #eUndefinedIdentifier
+        %                         oValuePush(one)
+        %                     | *:
+        %                         #eIntegerConstReqd
+        %                         oValuePush(one)
+        %                 ]
+        %                 @SubrangeUpperBound     % pushes value on value stack
+        %                 oTypeStkPush(tpSubrange)
+        %                 oTypeStkEnterBounds
+        %                 oValuePop
+        %                 oValuePop
+        %             | *:        
+        %                 % type identifier
+        %                 [ oSymbolStkChooseKind
+        %                     | syType:
+        %                         oTypeStkPushSymbol
+        %                     | syUndefined:
+        %                         #eUndefinedIdentifier
+        %                         oSymbolStkPop
+        %                         oValuePush(one)
+        %                         oValuePush(one)
+        %                         oTypeStkPush(tpSubrange)
+        %                         oTypeStkEnterBounds
+        %                         oValuePop
+        %                         oValuePop
+        %                     | *:
+        %                         #eSimpleTypeReqd
+        %                         oSymbolStkPop
+        %                         oValuePush(one)
+        %                         oValuePush(one)
+        %                         oTypeStkPush(tpSubrange)
+        %                         oTypeStkEnterBounds
+        %                         oValuePop
+        %                         oValuePop
+        %                 ]
+        %         ]
+        %         oSymbolStkPop
+        %     | sInteger:         % lower bound of subrange specification
+        %         oValuePushInteger
+        %         [
+        %             | sNegate:
+        %                 oValueNegate
+        %             | *:
+        %         ]
+        %         sRange
+        %         @SubrangeUpperBound     % pushes value on value stack
+        %         oTypeStkPush(tpSubrange)
+        %         oTypeStkEnterBounds
+        %         oValuePop
+        %         oValuePop
+        %     | *:
+        %         #eSimpleTypeReqd
+        %         oTypeStkPush(tpInteger)
+        %         oTypeStkLinkToStandardType(stdInteger)
+        % ];
 
 SubrangeUpperBound :
         % Accept the upper bound of a subrange and push it on the value stack.
@@ -1126,7 +1161,6 @@ VariableDeclarations :
                 oTypeStkPop
                 oSymbolStkPop
             | *:
-                >
         ];
 
 EnterVariableAttributes :
@@ -1300,31 +1334,15 @@ ProcedureHeading :
 
 ProcedureParameterType :
         % A local procedure's formal parameters must
-        % be declared using named types.
-
-        sIdentifier  oSymbolStkPushIdentifier   % formal parameter type
+        % be declared using like clauses. For this, we use SimpleType
+        @SimpleType                             % From here, we have the type of this param on top of TypeStack
         [ oSymbolStkChooseKind
-            | syUndefined:
-                #eUndefinedIdentifier
-            | *:
-        ]
-        [ oSymbolStkChooseKind
-            | syType:
-                oTypeStkPushSymbol
-            | *:
-                #eTypeIdentifierReqd
-                oTypeStkPush(tpInteger)
-                oTypeStkLinkToStandardType(stdInteger)
-        ]
-        oSymbolStkPop                           % parameter type symbol
-
-        [ oSymbolStkChooseKind
-            | syVariable:
+            | syVariable:                       % If parameter isn't pass by reference
                 [ oTypeStkChooseKind
-                    | tpArray, tpFile:
-                        #eNonScalarValParm
+                    | tpArray, tpFile:          % Then make sure the type is a scalar
+                        #eNonScalarValParm      % If not scalar, emit error
                         oTypeStkPop
-                        oTypeStkPush(tpInteger)
+                        oTypeStkPush(tpInteger) % Default to param being an integer
                         oTypeStkLinkToStandardType(stdInteger)
                     | *:
                 ]
