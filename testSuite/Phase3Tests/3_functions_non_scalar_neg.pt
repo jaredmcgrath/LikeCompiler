@@ -1,0 +1,6 @@
+using output;
+
+var arr[5]: like 1;
+
+fun badFun(valueParam: like arr) is
+end;

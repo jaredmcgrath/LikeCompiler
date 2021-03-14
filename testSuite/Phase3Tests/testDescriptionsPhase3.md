@@ -189,66 +189,66 @@
 </tr>
 
 <tr>
-<td>Jared1.pt</td>
-<td>Purpose</td>
+<td>3_array_bounds_bad_range_neg.pt</td>
+<td>Test behaviour when array bound < 1 specified</td>
+<td>Declares an array of integer with arrayBound 0</td>
+<td>3_array_bounds_bad_range_neg.pt.eOutput</td><td></td>
+</tr>
+
+<tr>
+<td>3_array_bounds_bad_type_neg.pt</td>
+<td>Test behaviour when non-tpInteger constant specified as array bounds</td>
+<td>Declares an array of integer with arrayBound of type string</td>
+<td>3_array_bounds_bad_type_neg.pt.eOutput</td><td></td>
+</tr>
+
+<tr>
+<td>3_array_bounds_non_const_neg.pt</td>
+<td>Test behaviour when non-const variable_identifier specified as arrayBound</td>
+<td>Declares array of integer with a 'var' arrayBound</td>
+<td>3_array_bounds_non_const_neg.pt.eOutput</td><td></td>
+</tr>
+
+<tr>
+<td>3_array_bounds_positive.pt</td>
+<td>Test behaviour of properly declared arrays</td>
+<td>Declares some arrays of various types and lengths, using constants and literal values</td>
+<td>3_array_bounds_positive.pt.eOutput</td><td></td>
+</tr>
+
+<tr>
+<td>3_functions_non_scalar_neg.pt</td>
+<td>Test behaviour of value parameter when type is non-scalar</td>
+<td>Defines an array 'arr', then declares a function with value param to be 'like arr'</td>
+<td>3_functions_non_scalar_neg.pt.eOutput</td><td></td>
+</tr>
+
+<tr>
+<td>3_functions_positive.pt</td>
+<td>Test behaviour of functions with properly declared value and reference parameters</td>
+<td>Declares first function with value params, then second function with reference params</td>
+<td>3_functions_positive.pt.eOutput</td><td></td>
+</tr>
+
+<tr>
+<td>3_var_declaration_positive.pt</td>
+<td>Test behaviour of properly declared variables using like clause on literals</td>
 <td>Function</td>
 <td>fileName.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
-<td>Jared2.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
+<td>3_var_declaration_bad_ident_neg.pt</td>
+<td>Test behaviour when type mismatch present in like clause</td>
+<td>Declares a string val 'str', then a var to be 'like -str'</td>
+<td>3_var_declaration_bad_ident_neg.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
-<td>Jared3.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
-</tr>
-
-<tr>
-<td>Jared4.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
-</tr>
-
-<tr>
-<td>Jared5.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
-</tr>
-
-<tr>
-<td>Jared6.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
-</tr>
-
-<tr>
-<td>Jared7.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
-</tr>
-
-<tr>
-<td>Jared8.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
-</tr>
-
-<tr>
-<td>Jared9.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
+<td>3_var_declaration_undef_ident_neg.pt</td>
+<td>Test behaviour when undefined identifier used in like clause</td>
+<td>Declares a var to be 'like b', where 'b' is an undefined identifier</td>
+<td>3_var_declaration_undef_ident_neg.pt.eOutput</td><td></td>
 </tr>
 
 <tr>

@@ -1,0 +1,9 @@
+using output;
+
+fun myValFun(param1: like 1, param2: like "") is
+end;
+
+var myArr[5]: like "";
+
+fun myRefFun(var p1: like -10, var p2: like "hello", var p3: like myArr) is
+end;
