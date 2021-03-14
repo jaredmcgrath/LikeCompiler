@@ -404,3 +404,28 @@ All changes made in `semantic.ssl`. The Block rule was modified with the followi
 
 * removed BeginStmt, added sEnd acceptance at the end of Block
 * replaced Block call in Program with call to Statement to push scope
+
+## Variables & Types
+All changes were made in `semantic.ssl`. 
+
+`SimpleType` rule was completely rewritten to handle Like's type declarations. Firstly, we always expect an _sLike_ token. Then, we expect either an _sIdentifier_ or _sInteger_. 
+
+- If we get an _sIdentifier_, we make sure it is not undefined and that it is a simple variable or constant symbol. Then, a new `TypeStack` entry is created with the same type info as the symbol corresponding to _sIdentifier_. It is possible for an _sNegate_ token to follow. If it does, then make sure the type of our new `TypeStack` entry is _tpInteger_, otherwise, emit a type mismatch error
+- If we get an _sInteger_, push a new _tpInteger_ `TypeStack` entry, and link that entry to the standard _stdInteger_
+- __TODO__: I already added handling for _sStringLiteral_ in the `SimpleType` rule, but it should be documented in step #7
+
+`IndexType` rule was modified to handle Like's syntax for specification of arrays. In Like, the lower array bound is always 1 and never entered explicitly in a program. The upper array bound must be a constant or literal integer. To implement this, we
+
+1. Push value of 1 onto `ValueStack` for the lower bound
+2. Call the `ConstantValue` rule to get the constant upper bound (i.e. `arrayBound` in project description). This adds an entry on top of `ValueStack` (the value of the constant) and on top of `TypeStack` (the type of the constant)
+3. We check to make sure the `TypeStack` entry is of type _tpInteger_. If it isn't, emit _eIntegerConstReqd_ and fix `ValueStack` by popping then calling the `ValuePushValuePlusOne` rule
+4. Clean up the `TypeStack` by removing top `ConstantValue` entry
+5. Enter array bounds (top two entries on `ValueStack`, with upper on top) into top `TypeStack` entry, which will be the entry correspeconding to the array we're processing
+6. Check to ensure the array bounds we've set are valid (i.e. lower <= upper). If not, remove upper from `ValueStack` and create new upper by calling the `ValuePushValuePlusOne` rule, then enter array bounds again.
+7. Clean up `ValueStack` by popping top two entries
+
+Following this, processing continues as it would in PT Pascal by calling the `ComponentType` rule.
+
+`ProcedureParameterType` rule was modified to expect Like clauses for type information. To do this, we simply make a call to our previously modified `SimpleType` rule. Then we perform a quick check to make sure that, if the parameter's symbol kind is a value parameter (_syVariable_), then the type of our `TypeStack` entry corresponding to the `SimpleType` call must be a scalar value. If it is not a scalar value, emit the _eNonScalarValParm_ error token, then fix the `TypeStack` entry by removing the non-scalar type entry and adding a _tpInteger_ entry as the default.
+
+After this point, we have a valid `TypeStack` entry, which is entered into the type reference field of the `SymbolStack` entry. Following this, allocation and entry of the symbol into the `SymbolTable` occurs as in the standard PT Pascal compiler.
