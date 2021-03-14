@@ -385,3 +385,22 @@ Expression rule
 </tr>
 </table>
 
+# Phase 3 Documentation
+## Extensions to the T-Code Machine Model
+* tFetchChar, tAssignChar, tStoreChar, tSubscriptChar were pre-existing in `semantic.ssl`
+* tConcatenate, tRepeatString, tSubString, tLength, tChr, tOrd, tStringEQ, tInitialValue, tInitEnd, tCaseElse, and tCaseElseEnd were added in the Output section of `semantic.ssl` in the non-compound operations section, as they all do not take operand(s).
+* on Line 807 I changed sType to sLike bc it wouldn't let me compile
+
+## Programs
+A null program test file was created, `null_program.pt` within the testSuite. 
+* It compiled successfully and I think that's all we needed to check
+
+## Block
+All changes made in `semantic.ssl`. The Block rule was modified with the following changes:
+* merge alts of stmt rule into Block rule - __TODO__: at the end, make sure the precedence of this rule choice is the same as that of Parser (assuming our parser was right?)
+* sBegin moved to front of rule from the end
+* remove begin handling within the Statement choices
+* replace Statement rule w one that pushes scope, calls Block and pops scope. Did this by calling oSymbolTblPushScope to create a new table scope to differentiate variables outside the current scope, then called @Block, then oSymbolTblPopScope
+
+* removed BeginStmt, added sEnd acceptance at the end of Block
+* replaced Block call in Program with call to Statement to push scope

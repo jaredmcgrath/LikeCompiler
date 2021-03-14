@@ -364,38 +364,38 @@
 </tr>
 
 <tr>
-<td>Nicole1.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
+<td>null_program.pt</td>
+<td>Ensure handling of programs is fairly unchanged compared to PT Pascal</td>
+<td>Program with no body</td>
+<td>null_program.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
-<td>Nicole2.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
+<td>constant_block_positive.pt</td>
+<td>Ensure block can handle a single integer constant declaration</td>
+<td>Declares an integer constant</td>
+<td>constant_block_positive.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
-<td>Nicole3.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
+<td>multiconstant_block_positive.pt</td>
+<td>Ensure block can handle a multiple integer constant declarations</td>
+<td>Declares 2 integer constant</td>
+<td>multiconstant_block_positive.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
-<td>Nicole4.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
+<td>ifstmt_block_positive.pt</td>
+<td>Ensures block can handle if statement</td>
+<td>Declares two integer constants, runs an if statement to assign value to a constant</td>
+<td>ifstmt_block_positive.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
-<td>Nicole5.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
+<td>ifstmt_output_block_positive.pt</td>
+<td>Ensures program can output correct integer</td>
+<td>Declares two integer constants, runs an if statement to assign value to a constant and outputs the constant's value</td>
+<td>ifstmt_output_block_positive.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
