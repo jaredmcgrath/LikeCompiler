@@ -49,7 +49,7 @@ do
   # Next, append the marker to seperate ptc output from ssltrace output
   echo '### END OF PTC OUTPUT ###' >> $out_file_path
   # Finally, run ssltrace
-	ssltrace "ptc -o3 -t3 -L $pt_lib_path $i" $pt_lib_path/semantic.def -e >> $out_file_path
+	ssltrace "ptc -o3 -t3 -L $pt_lib_path $i" $pt_lib_path/semantic.def -m >> $out_file_path
 	diff -b "$i.eOutput" $out_file_path > $out_dir/$i.eOutputDiff
 done
 cd $out_dir
