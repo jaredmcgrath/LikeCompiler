@@ -953,12 +953,22 @@ IndexType :
         % Removed cal to SimpleType since we don't use that rule this way anymore
         oValuePush(one)                     % In Like, lower bound is always 1
         @ConstantValue                      % Now we accept the constant [ arrayBound ]
+        [ oTypeStkChooseKind                % Need to check and make sure the ConstantValue is a tpInteger
+            | tpInteger:
+            | *:                            % For all non-tpIntegers, emit error
+                #eIntegerConstReqd
+                oValuePop                   % Remove prev upper
+                @ValuePushValuePlusOne      % Set new upper to lower + 1
+                % Note: we don't bother to correct the invalid TypeStack entry since it's
+                % Removed with the pop on the following line
+        ]
         oTypeStkPop                         % pop index type
         % Enter and check the bounds of the array type
         oTypeStkEnterBounds
         [ oTypeStkVerifyBounds
             | yes:
             | *:                            % If the bounds are invalid (i.e. lower > upper)
+                #eBounds                    % Emit a bounds error
                 oValuePop                   % Remove prev upper
                 @ValuePushValuePlusOne      % Set new upper to lower + 1
                 oTypeStkEnterBounds         % Re-enter bounds
@@ -1009,6 +1019,12 @@ SimpleType :
                 oSymbolStkPop                       % Clean up symbol stack after handling identifier
                 [
                     | sNegate:                      % Optional sNegate token needs to be handled if present
+                        [ oTypeStkChooseKind        % Check to make sure type is integer
+                            | tpInteger:
+                            | *:
+                                #eTypeMismatch      % Emit eTypeMismatch because you can't negate a non-integer
+                                % We'll assume the type given by the identifier is valid, and use that as type in symbol table entry
+                        ]
                     | *:
                 ]
             | sInteger:
@@ -1023,86 +1039,6 @@ SimpleType :
                 oTypeStkPush(tpChar)
                 oTypeStkLinkToStandardType(stdChar)
         ];
-
-        % Old rule content: saving for now as a reference
-        % [
-        %     | sIdentifier:
-        %         oSymbolStkPushIdentifier
-        %         [ 
-        %             % Will need to remove sRange as we don't emit that in parser anymore
-        %             | sRange:                   % subrange specification
-        %                 [ oSymbolStkChooseKind
-        %                     | syConstant:       
-        %                         oTypeStkPushSymbol
-        %                         [ oTypeStkChooseKind
-        %                             | tpInteger:        
-        %                                 oValuePushSymbol
-        %                             | *:
-        %                                 #eIntegerConstReqd
-        %                                 oValuePush(one)
-        %                         ]
-        %                         [
-        %                             | sNegate:
-        %                                 oValueNegate
-        %                             | *:
-        %                         ]
-        %                         oTypeStkPop
-        %                     | syUndefined:
-        %                         #eUndefinedIdentifier
-        %                         oValuePush(one)
-        %                     | *:
-        %                         #eIntegerConstReqd
-        %                         oValuePush(one)
-        %                 ]
-        %                 @SubrangeUpperBound     % pushes value on value stack
-        %                 oTypeStkPush(tpSubrange)
-        %                 oTypeStkEnterBounds
-        %                 oValuePop
-        %                 oValuePop
-        %             | *:        
-        %                 % type identifier
-        %                 [ oSymbolStkChooseKind
-        %                     | syType:
-        %                         oTypeStkPushSymbol
-        %                     | syUndefined:
-        %                         #eUndefinedIdentifier
-        %                         oSymbolStkPop
-        %                         oValuePush(one)
-        %                         oValuePush(one)
-        %                         oTypeStkPush(tpSubrange)
-        %                         oTypeStkEnterBounds
-        %                         oValuePop
-        %                         oValuePop
-        %                     | *:
-        %                         #eSimpleTypeReqd
-        %                         oSymbolStkPop
-        %                         oValuePush(one)
-        %                         oValuePush(one)
-        %                         oTypeStkPush(tpSubrange)
-        %                         oTypeStkEnterBounds
-        %                         oValuePop
-        %                         oValuePop
-        %                 ]
-        %         ]
-        %         oSymbolStkPop
-        %     | sInteger:         % lower bound of subrange specification
-        %         oValuePushInteger
-        %         [
-        %             | sNegate:
-        %                 oValueNegate
-        %             | *:
-        %         ]
-        %         sRange
-        %         @SubrangeUpperBound     % pushes value on value stack
-        %         oTypeStkPush(tpSubrange)
-        %         oTypeStkEnterBounds
-        %         oValuePop
-        %         oValuePop
-        %     | *:
-        %         #eSimpleTypeReqd
-        %         oTypeStkPush(tpInteger)
-        %         oTypeStkLinkToStandardType(stdInteger)
-        % ];
 
 SubrangeUpperBound :
         % Accept the upper bound of a subrange and push it on the value stack.
