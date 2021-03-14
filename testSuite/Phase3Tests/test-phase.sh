@@ -45,11 +45,11 @@ do
   # Output file path
   out_file_path="$out_dir/$i.eOutput"
   # First, run ptc alone and send output to outfile (overwrite any existing)
-  ptc -o2 -t2 -L $pt_lib_path $i > $out_file_path
+  ptc -o3 -t3 -L $pt_lib_path $i > $out_file_path
   # Next, append the marker to seperate ptc output from ssltrace output
   echo '### END OF PTC OUTPUT ###' >> $out_file_path
   # Finally, run ssltrace
-	ssltrace "ptc -o2 -t2 -L $pt_lib_path $i" $pt_lib_path/parser.def -e >> $out_file_path
+	ssltrace "ptc -o3 -t3 -L $pt_lib_path $i" $pt_lib_path/semantic.def -e >> $out_file_path
 	diff -b "$i.eOutput" $out_file_path > $out_dir/$i.eOutputDiff
 done
 cd $out_dir
