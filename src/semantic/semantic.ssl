@@ -307,11 +307,11 @@ mechanism SymbolTable :
         % Restore procedure parameter entries to the symbol table 
         % after popping the scope.
 
-    oSymbolTblLookupExternal >> Boolean;
+    oSymbolTblLookupExternal >> Boolean
         % Return true if any external names (program parameters)
         % have not yet been declared.
     
-    oSymbolTblMergePublicScope                  % Added for packages
+    oSymbolTblMergePublicScope;                 % Added for packages
         % Transfers public procedures to the 
         % enclosing scope
 
@@ -843,13 +843,15 @@ ConstantDefinitions :           % Process named constant definitions
         {[
             | sIdentifier:
                 oSymbolStkPushLocalIdentifier
+                [                   
+                    | sPublic:                      % Check for sPublic following the declared name
+                        oSymbolStkSetPublicFlag(yes)     % Set public flag to true
+                ]
                 [ oSymbolStkChooseKind
                     | syUndefined:
                     | syExternal:
                         % A program parameter must be declared as a file variable
                         #eExternalDeclare
-                    | sPublic:                      % Check for sPublic following the declared name
-                        oSymbolStkSetPublicFlag(yes)     % Set public flag to true
                     | *:
                         #eMultiplyDefined
                         % The new definition will now obscure the old one
@@ -1094,12 +1096,13 @@ VariableDeclarations :
         [
             | sIdentifier:
                 oSymbolStkPushLocalIdentifier
-
+                [
+                    | sPublic:                      % Check for public and set flag to true
+                        oSymbolStkSetPublicFlag(yes)
+                ]
                 % Check not previously defined
                 [ oSymbolStkChooseKind
                     | syUndefined, syExternal:
-                    | sPublic:                      % Check for public and set flag to true
-                        oSymbolStkSetPublicFlag(yes)
                     | *:
                         #eMultiplyDefined
                         % The new definition will obscure the old one
@@ -1233,7 +1236,7 @@ PackageDefinition :         % New rule for package definitions
     oValuePushCodeAddress
     oSymbolStkEnterValue
     oValuePop
-    oTypeStkPush(tpNull)
+
     oTypeTblEnter
     oSymbolStkEnterTypeReference
     oSymbolTblEnter
@@ -1242,13 +1245,15 @@ PackageDefinition :         % New rule for package definitions
 
 ProcedureDefinition :
         sIdentifier  oSymbolStkPushLocalIdentifier      % procedure name
+        [
+            | sPublic:                      % Check for public and set flag to true
+                oSymbolStkSetPublicFlag(yes)
+        ]
         [ oSymbolStkChooseKind
             | syUndefined:
             | syExternal:
                 % Program parameters must be declared as file variables
                 #eExternalDeclare
-            | sPublic:                      % Check for public and set flag to true
-                oSymbolStkSetPublicFlag(yes)
             | *:
                 #eMultiplyDefined
                 % New definition obscures old one.
