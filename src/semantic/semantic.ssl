@@ -310,6 +310,10 @@ mechanism SymbolTable :
     oSymbolTblLookupExternal >> Boolean;
         % Return true if any external names (program parameters)
         % have not yet been declared.
+    
+    oSymbolTblMergePublicScope                  % Added for packages
+        % Transfers public procedures to the 
+        % enclosing scope
 
 
 % Symbol Stack types and mechanism
@@ -323,7 +327,8 @@ type SymbolKind :
         syFunction
         syExternal
         syExpression
-        syUndefined;
+        syUndefined    
+        syPackage;      % Added for packages
 
 type StdRoutine :
         rtReset = 1
@@ -413,8 +418,12 @@ mechanism SymbolStack :
         % If the top entry is a standard routine symbol, return a
         % value indicating which routine it is, otherwise return null.
 
-    oSymbolStkPop;
+    oSymbolStkPop
         % Pop the symbol stack
+
+    oSymbolStkSetPublicFlag (boolean);  % Added for packages
+        % Ensures scope is initialized or copied 
+        % everytime something is pushed on the Symbol Stack
 
 mechanism TypeTable :
     % A type table entry consists of 4 fields:  a type kind (e.g. integer,
@@ -801,6 +810,8 @@ Block :
     sBegin %moved to the beginning of the rule
     %@BeginStmt % <--- should this be here? or at the end?
         {[ %merged in Statement choices, removed sBegin handling
+            | sPackage:             % Added this here for packages, not sure if necessary
+                @PackageDefinition
             | sProcedure:
                 @ProcedureDefinition
             | sConst:
@@ -837,6 +848,8 @@ ConstantDefinitions :           % Process named constant definitions
                     | syExternal:
                         % A program parameter must be declared as a file variable
                         #eExternalDeclare
+                    | sPublic:                      % Check for sPublic following the declared name
+                        oSymbolStkSetPublicFlag(yes)     % Set public flag to true
                     | *:
                         #eMultiplyDefined
                         % The new definition will now obscure the old one
@@ -1085,6 +1098,8 @@ VariableDeclarations :
                 % Check not previously defined
                 [ oSymbolStkChooseKind
                     | syUndefined, syExternal:
+                    | sPublic:                      % Check for public and set flag to true
+                        oSymbolStkSetPublicFlag(yes)
                     | *:
                         #eMultiplyDefined
                         % The new definition will obscure the old one
@@ -1207,6 +1222,28 @@ AllocateVar :
                 ]
         ];
 
+PackageDefinition :         % New rule for package definitions
+    sIdentifier oSymbolStkPushIdentifier    % package name
+    [ oSymbolStkChooseKind
+        | syUndefined:
+        | *:
+        % Still need to implement (is alot like ProcedureDefinition)
+    ]
+    oSymbolStkSetKind(syPackage)
+    oValuePushCodeAddress
+    oSymbolStkEnterValue
+    oValuePop
+    oTypeStkPush(tpNull)
+    oTypeTblEnter
+    oSymbolStkEnterTypeReference
+    oSymbolTblEnter
+    oTypeTblUpdate
+    oTypeStkPop
+    oSymbolTblUpdate
+    oSymbolStkPop
+    oSymbolTblPopScope
+    oSymbolTblPushScope;
+
 ProcedureDefinition :
         sIdentifier  oSymbolStkPushLocalIdentifier      % procedure name
         [ oSymbolStkChooseKind
@@ -1214,6 +1251,8 @@ ProcedureDefinition :
             | syExternal:
                 % Program parameters must be declared as file variables
                 #eExternalDeclare
+            | sPublic:                      % Check for public and set flag to true
+                oSymbolStkSetPublicFlag(yes)
             | *:
                 #eMultiplyDefined
                 % New definition obscures old one.
