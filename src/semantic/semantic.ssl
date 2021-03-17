@@ -1223,7 +1223,7 @@ AllocateVar :
         ];
 
 PackageDefinition :         % New rule for package definitions
-    sIdentifier oSymbolStkPushIdentifier    % package name
+    sIdentifier oSymbolStkPushLocalIdentifier       % package name
     [ oSymbolStkChooseKind
         | syUndefined:
         | *:
