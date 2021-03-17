@@ -1237,11 +1237,7 @@ PackageDefinition :         % New rule for package definitions
     oTypeTblEnter
     oSymbolStkEnterTypeReference
     oSymbolTblEnter
-    oTypeTblUpdate
-    oTypeStkPop
-    oSymbolTblUpdate
-    oSymbolStkPop
-    oSymbolTblPopScope
+    oSymbolTblMergePublicScope          % New semantic operation added for packages
     oSymbolTblPushScope;
 
 ProcedureDefinition :
