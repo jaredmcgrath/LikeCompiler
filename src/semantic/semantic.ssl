@@ -327,8 +327,9 @@ type SymbolKind :
         syFunction
         syExternal
         syExpression
-        syUndefined    
-        syPackage;      % Added for packages
+        syPackage      % Added for packages
+        syUndefined;    
+
 
 type StdRoutine :
         rtReset = 1
@@ -421,7 +422,7 @@ mechanism SymbolStack :
     oSymbolStkPop
         % Pop the symbol stack
 
-    oSymbolStkSetPublicFlag (boolean);  % Added for packages
+    oSymbolStkSetPublicFlag;  % Added for packages
         % Ensures scope is initialized or copied 
         % everytime something is pushed on the Symbol Stack
 
@@ -845,7 +846,7 @@ ConstantDefinitions :           % Process named constant definitions
                 oSymbolStkPushLocalIdentifier
                 [                   
                     | sPublic:                      % Check for sPublic following the declared name
-                        oSymbolStkSetPublicFlag(yes)     % Set public flag to true
+                        oSymbolStkSetPublicFlag     % Set public flag to true
                 ]
                 [ oSymbolStkChooseKind
                     | syUndefined:
@@ -1098,7 +1099,7 @@ VariableDeclarations :
                 oSymbolStkPushLocalIdentifier
                 [
                     | sPublic:                      % Check for public and set flag to true
-                        oSymbolStkSetPublicFlag(yes)
+                        oSymbolStkSetPublicFlag
                 ]
                 % Check not previously defined
                 [ oSymbolStkChooseKind
@@ -1247,7 +1248,7 @@ ProcedureDefinition :
         sIdentifier  oSymbolStkPushLocalIdentifier      % procedure name
         [
             | sPublic:                      % Check for public and set flag to true
-                oSymbolStkSetPublicFlag(yes)
+                oSymbolStkSetPublicFlag
         ]
         [ oSymbolStkChooseKind
             | syUndefined:
