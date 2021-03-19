@@ -1,0 +1,6 @@
+using output;
+var i = -1;
+repeat
+  i = i + 2;
+while i < 10;
+repeat ; while i > 0;
