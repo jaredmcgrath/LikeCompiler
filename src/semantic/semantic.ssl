@@ -843,13 +843,10 @@ Block :
 ;
 
 ConstantDefinitions :           % Process named constant definitions
+        oCountPush(zero)                    %% Keep track of how many identifiers we see
         {[
             | sIdentifier:
                 oSymbolStkPushLocalIdentifier
-                [                   
-                    | sPublic:                      % Check for sPublic following the declared name
-                        oSymbolStkSetPublicFlag     % Set public flag to true
-                ]
                 [ oSymbolStkChooseKind
                     | syUndefined:
                     | syExternal:
@@ -866,10 +863,31 @@ ConstantDefinitions :           % Process named constant definitions
                 oSymbolStkEnterValue
                 oValuePop
                 oSymbolTblEnter
-                oSymbolStkPop
+                oCountIncrement             %% Increment the count so we know how many symbols we've put on the stack
             | *:
                 >
-        ]};
+        ]}
+        [
+            | sPublic:                      %% Check for sPublic following all declarations
+                {[ oCountChoose
+                    | zero:
+                        >
+                    | *:
+                        oSymbolStkSetPublicFlag     %% If found, we need to go back and set the symbol stack entries for all declarations to public
+                        oSymbolTblUpdate            %% Update previous symbol table entry
+                        oSymbolStkPop               %% Remove the symbol stack entry
+                        oCountDecrement             %% Decrement count of symbols remaining on symbol stack
+                ]}
+            | *:
+                {[ oCountChoose
+                    | zero:
+                        >
+                    | *:
+                        oSymbolStkPop               %% Remove the symbol stack entry
+                        oCountDecrement             %% Decrement count of symbols remaining on symbol stack
+                ]}
+        ]
+        oCountPop;
 
 ConstantValue :         % push the value and type of the constant value
         [
@@ -1099,10 +1117,6 @@ VariableDeclarations :
         [
             | sIdentifier:
                 oSymbolStkPushLocalIdentifier
-                [
-                    | sPublic:                      % Check for public and set flag to true
-                        oSymbolStkSetPublicFlag
-                ]
                 % Check not previously defined
                 [ oSymbolStkChooseKind
                     | syUndefined, syExternal:
@@ -1128,6 +1142,13 @@ VariableDeclarations :
                         % Creates type table entries for the type and any new subtypes as necessary.
                         @TypeBody
                         @EnterVariableAttributes
+                ]
+                [
+                    | sPublic:                  %% Check for public and set flag to true
+                        %% Need to update symbol stack and symbol table
+                        oSymbolStkSetPublicFlag
+                        oSymbolTblUpdate
+                    | *:
                 ]
                 oTypeStkPop                     % Clean up TypeStack
                 oSymbolStkPop                   % Clean up SymbolStack
@@ -1228,29 +1249,43 @@ AllocateVar :
                 ]
         ];
 
-PackageDefinition :         % New rule for package definitions
-    sIdentifier oSymbolStkPushLocalIdentifier       % package name
+PackageDefinition :
+    %% New rule for package definitions. Assumes:
+    %%  - sPackage has already been consumed
+    %%  - sIdentifier (package name) follows, and
+    %%  - A block follows that (sBegin ... sEnd)
+    sIdentifier oSymbolStkPushLocalIdentifier       %% package name
     [ oSymbolStkChooseKind
         | syUndefined:
         | *:
-        % Still need to implement (is alot like ProcedureDefinition)
+            #eMultiplyDefined                       %% Can't have package name defined multiple times
     ]
+    %% Perform all of the symbol stack setup for this package
     oSymbolStkSetKind(syPackage)
     oValuePushCodeAddress
     oSymbolStkEnterValue
     oValuePop
 
+    %% Set up type table entry for this symbol
+    oTypeStkPush(tpNull)
     oTypeTblEnter
     oSymbolStkEnterTypeReference
     oSymbolTblEnter
-    oSymbolTblMergePublicScope          % New semantic operation added for packages
-    oSymbolTblPushScope;
+    oSymbolTblPushScope
+    
+    @Block                                      %% We expect a block following a package definition
+    
+    %% Clean up from the package definition
+    oTypeStkPop                                 %% This could probably be done above since nothing changes, but leave it here for consistency w/ ProcedureDefinition
+    oSymbolStkPop
+    oSymbolTblMergePublicScope;                 %% New semantic operation added for packages
 
 ProcedureDefinition :
         sIdentifier  oSymbolStkPushLocalIdentifier      % procedure name
         [
-            | sPublic:                      % Check for public and set flag to true
+            | sPublic:                      %% Check for public and set flag to true
                 oSymbolStkSetPublicFlag
+            | *:
         ]
         [ oSymbolStkChooseKind
             | syUndefined:
