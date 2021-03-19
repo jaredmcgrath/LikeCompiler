@@ -400,142 +400,142 @@
 
 <tr>
 <td>6_ifnoelse_positive.pt</td>
-<td>Purpose</td>
-<td>Function</td>
+<td>Test behaviour of one if statement</td>
+<td>Runs a single if statement</td>
 <td>6_ifnoelse_positive.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
 <td>6_ifelse_positive.pt</td>
-<td>Purpose</td>
-<td>Function</td>
+<td>Test behaviour of if-else statement</td>
+<td>Runs an if statement followed by an else statement</td>
 <td>6_ifelse_positive.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
 <td>6_elseif_positive.pt</td>
-<td>Purpose</td>
-<td>Function</td>
+<td>Test behaviour of elseif statement</td>
+<td>Runs an if-elseif chain then an equivalent nested if statement</td>
 <td>6_elseif_positive.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
 <td>6_chained_elseif_positive.pt</td>
-<td>Purpose</td>
-<td>Function</td>
+<td>Test behaviour of multiple elseif statements</td>
+<td>Runs an if statement and multiple elseif statements</td>
 <td>6_chained_elseif_positive.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
 <td>6_else_positive.pt</td>
-<td>Purpose</td>
-<td>Function</td>
+<td>Test use of optional else following elseif chain</td>
+<td>Runs an if statement, multip</td>
 <td>6_else_positive.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
 <td>6_elseif_negative.pt</td>
-<td>Purpose</td>
-<td>Function</td>
+<td>Test elseif preceding if</td>
+<td>Runs an elseif statement on its own</td>
 <td>6_elseif_negative.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
 <td>6_else_negative.pt</td>
-<td>Purpose</td>
-<td>Function</td>
+<td>Test else preceding with no if</td>
+<td>Runs an else statement on its own</td>
 <td>6_else_negative.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
 <td>6_if_noend_negative.pt</td>
-<td>Purpose</td>
-<td>Function</td>
+<td>Test behaviour when if statement not terminated</td>
+<td>Runs a single if statement without an end</td>
 <td>6_if_noend_negative.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
 <td>6_ifchain_noend_negative.pt</td>
-<td>Purpose</td>
-<td>Function</td>
+<td>Test behaviour of mismatched if statements and ends</td>
+<td>Runs a chain of if statements with only an end after the last one</td>
 <td>6_ifchain_noend_negative.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
 <td>6_elseif_noend_negative.pt</td>
-<td>Purpose</td>
-<td>Function</td>
+<td>Test behaviour when if-elseif not terminated</td>
+<td>Runs an if and elseif statement with no end</td>
 <td>6_elseif_noend_negative.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
 <td>6_ifelse_noend_negative.pt</td>
-<td>Purpose</td>
-<td>Function</td>
+<td>Test behaviour of if-else statement that is not terminated</td>
+<td>Runs an if and else statement with no end</td>
 <td>6_ifelse_noend_negative.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
 <td>6_ifthen_negative.pt</td>
-<td>Purpose</td>
-<td>Function</td>
+<td>Test behaviour for missing then</td>
+<td>Runs an if statement with no then</td>
 <td>6_ifthen_negative.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
 <td>6_elseifthen_negative.pt</td>
-<td>Purpose</td>
-<td>Function</td>
+<td>Test behaviour for missing then</td>
+<td>Runs an if and elseif statement with no then</td>
 <td>6_elseifthen_negative.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
 <td>6_multiple_else_negative.pt</td>
-<td>Purpose</td>
-<td>Function</td>
+<td>Test behaviour with more than one else statement</td>
+<td>Runs an if followed by multiple else statements</td>
 <td>6_multiple_else_negative.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
-<td>Nicole20.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
+<td>6_choose_negative_misplaced_then.pt</td>
+<td>Test behaviour of a choose statement lacking 'then' following 'when ...' or unneeded 'then' following 'else'</td>
+<td>Choose statement with no then after 'when', and extra 'then' following 'else'</td>
+<td>6_choose_negative_misplaced_then.pt.eOutput</td>
 </tr>
 
 <tr>
-<td>Nicole21.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
+<td>6_choose_negative_no_cases.pt</td>
+<td>Test behaviour of a choose statement without any cases</td>
+<td>Choose statement without any 'when' cases in body</td>
+<td>6_choose_negative_no_cases.pt.eOutput</td>
 </tr>
 
 <tr>
-<td>Nicole22.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
+<td>6_choose_negative_no_end.pt</td>
+<td>Test behaviour of choose statement with no 'end;' terminating the statement</td>
+<td>A choose statement with a single 'when' case and nothing following (i.e. pEndFile)</td>
+<td>6_choose_negative_no_end.pt.eOutput</td>
 </tr>
 
 <tr>
-<td>Nicole23.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
+<td>6_choose_negative_no_expression.pt</td>
+<td>Test behaviour of choose statement without an expression following 'choose'</td>
+<td>Choose statement with no expression or 'of' following 'choose', followed by multiple 'when' cases</td>
+<td>6_choose_negative_no_expression.pt.eOutput</td>
 </tr>
 
 <tr>
-<td>Nicole24.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
+<td>6_choose_negative_when_outside_choose.pt</td>
+<td>Test behaviour of a 'when' clause outside of a choose statement</td>
+<td>A when statement that isn't inside a choose</td>
+<td>6_choose_negative_when_outside_choose.pt.eOutput</td>
 </tr>
 
 <tr>
-<td>Nicole25.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
+<td>6_choose_positive.pt</td>
+<td>Test behaviour of valid choose statements, with or without default case</td>
+<td>Two choose statements: first with multiple 'when' and an 'else', second with a single 'when'</td>
+<td>6_choose_positive.pt.eOutput</td>
 </tr>
 
 <tr>
