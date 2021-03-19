@@ -1,0 +1,6 @@
+using output;
+
+pkg myPackage1 is
+  val privateVal = 0, privateVal2 = 2;
+  public val myVal = 1, myVal2 = 3;
+end;
