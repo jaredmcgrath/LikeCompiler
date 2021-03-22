@@ -18,7 +18,7 @@
 <td>6_shortFormAssignment_negative.pt</td>
 <td>Tests behaviour with mistyped shortform assignments</td>
 <td>Runs all of the short form assignments with the assignment operator in the wrong spot.</td>
-<td>6_shortFormAssignment_negative.pt.eOutput</td>
+<td>DOUBLE CHECK OUTPUT WITH GROUP 6_shortFormAssignment_negative.pt.eOutput</td>
 </tr>
 
 <tr>

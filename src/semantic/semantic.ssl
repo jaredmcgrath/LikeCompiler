@@ -1574,21 +1574,21 @@ RepeatStmt :
 CaseStmt :
         .tCaseBegin
         @CaseSelectorExpression
-        oCasePushDisplay        % handle nested case statements
-        oCountPush (zero)       % count case alternative statements
+        oCasePushDisplay        %% handle nested case statements
+        oCountPush (zero)       %% count case alternative statements
         .tCaseSelect
         oFixPushForwardBranch
-        oEmitNullAddress        % address of case branch table
+        oEmitNullAddress        %% address of case branch table
         {[
-            | sCaseEnd:         % when the case ends, there is an optional else statement
+            | sCaseEnd:         %% when the case ends, there is an optional else statement
                 [
-                    | sCaseElse: % added handling of optional else statement
+                    | sCaseElse: %% added handling of optional else statement
                         .tCaseElse
-                        @Statement %handle the declarations and statements, enclosed with sBegin and sEnd
+                        @Statement %%handle the declarations and statements, enclosed with sBegin and sEnd
                         .tCaseElseEnd
                     | *:
-                        >       % if there is no else statement, exit
                 ]
+                >      %% exit once case ends
             | *:
                 @CaseAlternative
         ]}
