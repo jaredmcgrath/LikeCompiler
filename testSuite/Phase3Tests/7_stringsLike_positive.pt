@@ -1,4 +1,4 @@
 using output;
 
-var str like "test";
+var str :  like "test";
 str = "values";

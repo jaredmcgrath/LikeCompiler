@@ -1,3 +1,8 @@
 using output;
 
 var str1 = "test";
+val str2 = "test";
+
+var strLong = "teeeeeeeeeeeeeeeeeeeeeeeeeeeest";
+
+var strShort = "te";
