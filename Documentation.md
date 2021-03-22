@@ -386,6 +386,16 @@ Expression rule
 </table>
 
 # Phase 3 Documentation
+## Definitions
+The following input tokens were added to `semantic.ssl` in order to match output tokens in `parser.ssl` exactly: 
+* sPackage            
+* sPublic             
+* sConcatenate        
+* sRepeatString      
+* sSubstring          
+* sLength             
+* sInitialValue      
+* sCaseElse           
 ## Extensions to the T-Code Machine Model
 * tFetchChar, tAssignChar, tStoreChar, tSubscriptChar were pre-existing in `semantic.ssl`
 * tConcatenate, tRepeatString, tSubString, tLength, tChr, tOrd, tStringEQ, tInitialValue, tInitEnd, tCaseElse, and tCaseElseEnd were added in the Output section of `semantic.ssl` in the non-compound operations section, as they all do not take operand(s).
@@ -429,3 +439,6 @@ Following this, processing continues as it would in PT Pascal by calling the `Co
 `ProcedureParameterType` rule was modified to expect Like clauses for type information. To do this, we simply make a call to our previously modified `SimpleType` rule. Then we perform a quick check to make sure that, if the parameter's symbol kind is a value parameter (_syVariable_), then the type of our `TypeStack` entry corresponding to the `SimpleType` call must be a scalar value. If it is not a scalar value, emit the _eNonScalarValParm_ error token, then fix the `TypeStack` entry by removing the non-scalar type entry and adding a _tpInteger_ entry as the default.
 
 After this point, we have a valid `TypeStack` entry, which is entered into the type reference field of the `SymbolStack` entry. Following this, allocation and entry of the symbol into the `SymbolTable` occurs as in the standard PT Pascal compiler.
+
+## Packages
+A new rule called PackageDefinition was added to `semantic.ssl` to handle the declaration of packages. A new symbol kind called `syPackage` of type `SymbolKind` was added to `semantic.ssl` and is called when `sPackage` is encountered from the `Block` rule. Boolean flags were then added to both the Symbol and Stack tables in `semantic.pt`. These flags, `symbolStkPublicFlag` and `symbolTblPublicFlag` denote whether or not the constant, variable or function in question is public. In order to set this flag, a new semantic operation called `oSymbolStkSetPublicFlag` was added to the `SymbolStk` mechanism in `semantic.ssl`. Next, the `ConstantDefinition`, `ProcedureDefinition` and `VariableDeclaration` rules were updated to check for `sPublic` and set the flag accordingly. Finally, a new semantic operation called `oSymbolTblMergePublicScope` was added to the `SymbolTbl` mechanism that walks through all the symbols local to a scope and unlinks the identifier of each symbol, but ignores symbols that are public (have the previously mentioned boolean flag set to true).
