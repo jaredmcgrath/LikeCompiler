@@ -27,7 +27,7 @@ Input :
         sParmBegin
         sParmEnd
         sConst
-        sLike           % Changed from sType to sLike
+        sLike           %% Changed from sType to sLike
         sVar
         sProcedure
         sBegin
@@ -68,15 +68,15 @@ Input :
         sAnd
         sNot
         sNewLine
-        % All input tokens below were added (aside from sEndOfFile)
-        sPackage            % Added
-        sPublic             % Added
-        sConcatenate        % Added
-        sRepeatString       % Added
-        sSubstring          % Added
-        sLength             % Added
-        sInitialValue       % Added
-        sCaseElse           % Added
+        %% All input tokens below were added (aside from sEndOfFile)
+        sPackage            %% Added
+        sPublic             %% Added
+        sConcatenate        %% Added
+        sRepeatString       %% Added
+        sSubstring          %% Added
+        sLength             %% Added
+        sInitialValue       %% Added
+        sCaseElse           %% Added
         sEndOfFile          
         lastSemanticToken = sEndOfFile;
 
@@ -142,7 +142,7 @@ Output :
         tTrapBegin
         tWriteEnd
         tReadEnd
-        % The following non-compound T-codes were added for Like
+        %% The following non-compound T-codes were added for Like
         tConcatenate
         tRepeatString
         tSubstring
@@ -311,9 +311,9 @@ mechanism SymbolTable :
         % Return true if any external names (program parameters)
         % have not yet been declared.
     
-    oSymbolTblMergePublicScope;                 % Added for packages
-        % Transfers public procedures to the 
-        % enclosing scope
+    oSymbolTblMergePublicScope;                 %% Added for packages
+        %% Transfers public procedures to the 
+        %% enclosing scope
 
 
 % Symbol Stack types and mechanism
@@ -327,7 +327,7 @@ type SymbolKind :
         syFunction
         syExternal
         syExpression
-        syPackage      % Added for packages
+        syPackage      %% Added for packages
         syUndefined;    
 
 
@@ -422,9 +422,9 @@ mechanism SymbolStack :
     oSymbolStkPop
         % Pop the symbol stack
 
-    oSymbolStkSetPublicFlag;  % Added for packages
-        % Ensures scope is initialized or copied 
-        % everytime something is pushed on the Symbol Stack
+    oSymbolStkSetPublicFlag;  %% Added for packages
+        %% Ensures scope is initialized or copied 
+        %% everytime something is pushed on the Symbol Stack
 
 mechanism TypeTable :
     % A type table entry consists of 4 fields:  a type kind (e.g. integer,
@@ -811,7 +811,7 @@ Block :
     sBegin %moved to the beginning of the rule
     %@BeginStmt % <--- should this be here? or at the end?
         {[ %merged in Statement choices, removed sBegin handling
-            | sPackage:             % Added this here for packages, not sure if necessary
+            | sPackage:             %% Added this here for packages
                 @PackageDefinition
             | sProcedure:
                 @ProcedureDefinition
