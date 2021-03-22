@@ -444,4 +444,12 @@ Following this, processing continues as it would in PT Pascal by calling the `Co
 After this point, we have a valid `TypeStack` entry, which is entered into the type reference field of the `SymbolStack` entry. Following this, allocation and entry of the symbol into the `SymbolTable` occurs as in the standard PT Pascal compiler.
 
 ## Packages
-A new rule called PackageDefinition was added to `semantic.ssl` to handle the declaration of packages. A new symbol kind called `syPackage` of type `SymbolKind` was added to `semantic.ssl` and is called when `sPackage` is encountered from the `Block` rule. Boolean flags were then added to both the Symbol and Stack tables in `semantic.pt`. These flags, `symbolStkPublicFlag` and `symbolTblPublicFlag` denote whether or not the constant, variable or function in question is public. In order to set this flag, a new semantic operation called `oSymbolStkSetPublicFlag` was added to the `SymbolStk` mechanism in `semantic.ssl`. Next, the `ConstantDefinition`, `ProcedureDefinition` and `VariableDeclaration` rules were updated to check for `sPublic` and set the flag accordingly. Finally, a new semantic operation called `oSymbolTblMergePublicScope` was added to the `SymbolTbl` mechanism that walks through all the symbols local to a scope and unlinks the identifier of each symbol, but ignores symbols that are public (have the previously mentioned boolean flag set to true).
+A new rule called PackageDefinition was added to `semantic.ssl` to handle the declaration of packages. 
+
+A new symbol kind called `syPackage` of type `SymbolKind` was added to `semantic.ssl` and is called when `sPackage` is encountered from the `Block` rule. 
+
+Boolean flags were then added to both the Symbol and Stack tables in `semantic.pt`. These flags, `symbolStkPublicFlag` and `symbolTblPublicFlag` denote whether or not the constant, variable or function in question is public. In order to set this flag, a new semantic operation called `oSymbolStkSetPublicFlag` was added to the `SymbolStk` mechanism in `semantic.ssl`. 
+
+Next, the `ConstantDefinition`, `ProcedureDefinition` and `VariableDeclaration` rules were updated to check for `sPublic` and set the flag accordingly. 
+
+Finally, a new semantic operation called `oSymbolTblMergePublicScope` was added to the `SymbolTbl` mechanism that walks through all the symbols local to a scope and unlinks the identifier of each symbol, but ignores symbols that are public (have the previously mentioned boolean flag set to true).
