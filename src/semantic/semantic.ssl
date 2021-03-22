@@ -1796,6 +1796,7 @@ Operand :
                         .tLiteralAddress %% codeaddress
                         oEmitValue
                         .tFetchChar
+                    %% TODO: We should probably handle this error case by emitting an error token and cleaning up afterwards
                     | *: %% Not sure what do about this case? -T
                         .tLiteralString
                         oEmitValue
@@ -1857,6 +1858,16 @@ StringLiteral :
 
 UnaryOperator :
         [
+            | sLength:                  %% Added support for string length operator
+                .tLength
+                %% We need to check to make sure the operand is a string
+                [ oTypeStkChooseKind
+                    | tpChar:           %% If it's a string, we're fine
+                    | *:
+                        #eTypeMismatch  %% Otherwise, it's a type mismatch
+                ]
+                oTypeStkPop             %% Pop operand type from type stack
+                oTypeStkPush(tpInteger) %% Put resultant type (integer) onto type stack
             | sNegate:
                 .tNegate
                 oTypeStkPush(tpInteger) % result type
@@ -1899,11 +1910,24 @@ BinaryOperator :
                 oTypeStkPush(tpBoolean)
                 @CompareOperandAndResultTypes
             | sEq:
-                .tEQ
-                @CompareEqualityOperandTypes
+                %% We modify the sEq case to handle string equality operation (different T-code, tStringEQ)
+                [ oTypeStkChooseKind
+                    | tpChar:                       %% If one of the operands is string, we'll assume they both are and emit tStringEQ
+                        .tStringEQ                  %% (if this turns out to be untrue, type mismatch will be caught in subsequent CompareEqualityOperandTypes)
+                    | *:
+                        .tEQ
+                ]
+                @CompareEqualityOperandTypes        %% We can still use this rule for string equality as it checks for tpChar
             | sNE:
-                .tNE
-                @CompareEqualityOperandTypes
+                %% We modify the sNE case to handle string inequality operation (different T-code, tStringEQ)
+                [ oTypeStkChooseKind
+                    | tpChar:                       %% If one of the operands is string, we'll assume they both are and emit tStringEQ
+                        .tStringEQ                  %% (if this turns out to be untrue, type mismatch will be caught in subsequent CompareEqualityOperandTypes)
+                        .tNot                       %% Invert result to achieve inequality
+                    | *:
+                        .tNE
+                ]
+                @CompareEqualityOperandTypes        %% We can still use this rule for string equality as it checks for tpChar
             | sGT:
                 .tGT
                 @CompareRelationalOperandTypes
@@ -1928,6 +1952,55 @@ BinaryOperator :
                 .tModulus
                 oTypeStkPush(tpInteger)
                 @CompareOperandAndResultTypes
+            %% MARK: New string operations
+            | sConcatenate:
+                .tConcatenate
+                oTypeStkPush(tpChar)                %% Result of string concatenation is tpChar (i.e. another string)
+                @CompareOperandAndResultTypes       %% We can use the CompareOperandAndResultTypes rule because all operands + result are strings
+            | sRepeatString:
+                .tRepeatString                      %% Emit the extended T-code for string repeat
+                %% Need to make sure the type stack has an integer on top, followed by a string
+                [ oTypeStkChooseKind
+                    | tpInteger:
+                        oTypeStkPop                 %% Pop the integer
+                        [ oTypeStkChooseKind
+                            | tpChar:               %% We expect a string following the integer
+                            | *:
+                                #eTypeMismatch      %% Anything else is a type mismatch
+                        ]
+                    | *:
+                        #eTypeMismatch              %% If we don't get an integer, it's a type mismatch error
+                ]
+                oTypeStkPop                         %% Pop the second operand (hopefully it was a string)
+                oTypeStkPush(tpChar)                %% Result of string repeat is tpChar (i.e. string)
+                oSymbolStkPop                       %% Pop one of the two operand symbols from the stack
+                oSymbolStkSetKind(syExpression)     %% Set kind of remaining symbol on symbol stack to syExpression
+            | sSubstring:
+                .tSubstring                         %% Emit the extended T-code for substring
+                %% Need to make sure the type stack has two integers on top, followed by a string
+                [ oTypeStkChooseKind
+                    | tpInteger:                    %% First integer (substring end index)
+                        oTypeStkPop                 %% Pop the first integer (substring end index)
+                        [ oTypeStkChooseKind
+                            | tpInteger:            %% Second integer (substring start index)
+                                oTypeStkPop         %% Pop second integer (substring start index)
+                                [ oTypeStkChooseKind
+                                    | tpChar:       %% Finally, the string operand from which the substring is derived
+                                    | *:
+                                        #eTypeMismatch
+                                ]
+                            | *:
+                                #eTypeMismatch      %% Anything else is a type mismatch
+                        ]
+                    | *:
+                        #eTypeMismatch
+                ]
+                oTypeStkPop                         %% Pop the third operand (hopefully it was a string)
+                oTypeStkPush(tpChar)                %% Result of substring is tpChar (i.e. string)
+                oSymbolStkPop                       %% Pop one of the three operand symbols from the stack
+                oSymbolStkPop                       %% Pop two of the three operand symbols from the stack
+                oSymbolStkSetKind(syExpression)     %% Set kind of remaining symbol on symbol stack to syExpression
+            %% MARK: End of new string operations
             | *:
                 >>
         ]
@@ -2006,13 +2079,7 @@ CompareRelationalOperandTypes :
                     | *:
                         #eOperandOperatorTypeMismatch
                 ]
-            | tpChar:
-                oTypeStkPop
-                [ oTypeStkChooseKind
-                    | tpChar:
-                    | *:
-                        #eOperandOperatorTypeMismatch
-                ]
+            %% Removed tpChar case because we don't allow relational comparisons on strings in Like
             | *:
                 #eOperandOperatorTypeMismatch
                 oTypeStkPop
