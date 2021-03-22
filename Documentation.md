@@ -388,14 +388,17 @@ Expression rule
 # Phase 3 Documentation
 ## Definitions
 The following input tokens were added to `semantic.ssl` in order to match output tokens in `parser.ssl` exactly: 
-* sPackage            
-* sPublic             
-* sConcatenate        
-* sRepeatString      
-* sSubstring          
-* sLength             
-* sInitialValue      
-* sCaseElse           
+```
+        sPackage            % Added
+        sPublic             % Added
+        sConcatenate        % Added
+        sRepeatString       % Added
+        sSubstring          % Added
+        sLength             % Added
+        sInitialValue       % Added
+        sCaseElse           % Added 
+```
+It should also be noted that the sType input token was changed to sLike.         
 ## Extensions to the T-Code Machine Model
 * tFetchChar, tAssignChar, tStoreChar, tSubscriptChar were pre-existing in `semantic.ssl`
 * tConcatenate, tRepeatString, tSubString, tLength, tChr, tOrd, tStringEQ, tInitialValue, tInitEnd, tCaseElse, and tCaseElseEnd were added in the Output section of `semantic.ssl` in the non-compound operations section, as they all do not take operand(s).
