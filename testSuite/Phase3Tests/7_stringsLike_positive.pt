@@ -1,0 +1,4 @@
+using output;
+
+var str like "test";
+str = "values";

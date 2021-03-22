@@ -1,0 +1,3 @@
+using output;
+
+var str1 = "test";
