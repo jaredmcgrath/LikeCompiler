@@ -1815,19 +1815,27 @@ StringLiteral :
         % The value of a packed array is its address.
 
         oValuePushStringLength
+
+        .tSkipString
+        oFixPushForwardBranch
+        oEmitNullAddress
+
+        .tStringData         %% string length -T
+        oEmitValue 
+
+        oValuePop
+        oValuePushCodeAddress
+        
+        oValueNegate            %% The string's characters are in the code area -T
+
+        oEmitString                     %% string's characters -T
+        
+        oFixPopForwardBranch
+
         %% Removed length zero and length one
         oTypeStkPush(tpChar)                %% Push tpChar to type stack -T
         oTypeStkLinkToStandardType(stdChar) %% Link to stdChar std type -T
 
-        .tStringData
-        oEmitValue                      %% string length -T
-
-        oValuePop
-        oValuePushCodeAddress           %% The string's characters are in the code area -T
-
-        oEmitString                     %% string's characters -T
-        
-        %% I am not sure about this part -T
         oValuePush(one)                 %% strings are indexed from 1 -T
         oValuePushStringLength
         oTypeStkEnterBounds
