@@ -1,0 +1,17 @@
+Group: cisc458n
+Phase 2 Total Mark: 9.75/10
+TA: Dimitrios Economou d.economou@queensu.ca
+
+Documentation
+Mark: 2/2
+- Great documentation.
+
+Structure and Clarity
+Mark: 4/4
+- It would be helpful to make your comments stand out relative to the original comments in the source code, e.g. by using `%%` instead of just `%` in `.ssl` files.
+
+Testing and Correctness
+Mark: 3.75/4
+- Excellent, fairly comprehensive test suite, documentation and scripts.
+- The test suite should be more comprehensive: e.g., what does the output look like for multiple public constant declarations? What about routines with mixed parameters (some with `var` and some without `var`)? (-0.25)
+- Parser is correct. Great work!

@@ -452,4 +452,4 @@ Boolean flags were then added to both the Symbol and Stack tables in `semantic.p
 
 Next, the `ConstantDefinition`, `ProcedureDefinition` and `VariableDeclaration` rules were updated to check for `sPublic` and set the flag accordingly. 
 
-Finally, a new semantic operation called `oSymbolTblMergePublicScope` was added to the `SymbolTbl` mechanism that walks through all the symbols local to a scope and unlinks the identifier of each symbol, but ignores symbols that are public (have the previously mentioned boolean flag set to true).
+Finally, a new semantic operation called `oSymbolTblMergePublicScope` was added to the `SymbolTbl` mechanism that walks through all the symbols local to a scope and unlinks the identifier of each symbol, but ignores symbols that are public (have the previously mentioned boolean flag set to true). This semantic operation is identical to the `oSymbolTblPopScope` operation, with the exception of one `if-statement` check to avoid popping anything with the boolean public flag set.
