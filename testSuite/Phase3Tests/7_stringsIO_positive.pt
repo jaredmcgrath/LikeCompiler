@@ -1,0 +1,6 @@
+using output;
+
+var y = "stringssss";
+
+put(y);
+putln;
