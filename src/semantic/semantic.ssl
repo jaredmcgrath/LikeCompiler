@@ -257,16 +257,16 @@ type PredeclaredId :
         pidFalse
         pidReset
         pidRewrite
-        pidWrite
-        pidWriteln
-        pidRead
-        pidReadln
         pidChr
         pidOrd
         pidEoln
         pidEof
         pidAssign
-        lastPredeclaredId = pidAssign
+        pidRead
+        pidReadln
+        pidWrite
+        pidWriteln
+        lastPredeclaredId = pidWriteln
 
         % Predeclared program parameters
         pidInput

@@ -1,0 +1,5 @@
+using output;
+
+var str = "helloworld";
+put(str);
+putln;
