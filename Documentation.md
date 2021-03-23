@@ -429,3 +429,24 @@ Following this, processing continues as it would in PT Pascal by calling the `Co
 `ProcedureParameterType` rule was modified to expect Like clauses for type information. To do this, we simply make a call to our previously modified `SimpleType` rule. Then we perform a quick check to make sure that, if the parameter's symbol kind is a value parameter (_syVariable_), then the type of our `TypeStack` entry corresponding to the `SimpleType` call must be a scalar value. If it is not a scalar value, emit the _eNonScalarValParm_ error token, then fix the `TypeStack` entry by removing the non-scalar type entry and adding a _tpInteger_ entry as the default.
 
 After this point, we have a valid `TypeStack` entry, which is entered into the type reference field of the `SymbolStack` entry. Following this, allocation and entry of the symbol into the `SymbolTable` occurs as in the standard PT Pascal compiler.
+
+
+## Strings and Constants
+
+In `semantic.pt`:
+* `stringSize` was added to type `Integer` with a value of 256 bytes
+* The traps `trReadString` and `trWriteString` to `TrapKind` with a value of 108 and 109 respectively
+* `tpString` was removed from `TypeKind`
+* The handling of strings in the `oAllocateVariable` was changed to the proper handling of `stringSize` for the `tpChar` case
+* In `oAllocateVariable`, the handling of tpChar arrays was chanegd to handle `stringSize`, implementing arrays of strings
+* `oValuePushChar`was changed to push `codeAreaEnd` to signify end of strings as per the Like language spec
+* `oEmitString` was changed to emit a 0 token at the end of a string
+
+In `semantic.ssl`:
+* Removed all mentions and alternatives concerning `tpString` as it has been removed from the langauge
+* Removed the handling of char arrays from `WriteText` and `AssignProcedure` 
+* The `StringLiteral` rule was changed to remove length 0 and length 1 cases. `tpChar` is pushed onto the Type Stack and a linking to the `stdChar` type.
+* The `Operand` rule was altered to emit `codeAddress` followed by `tFetchChar` in the `tpChar` case
+* The `sStringLiteral` was added to the `SimpleType` rule
+* `ReadText` rule was updated to use `trReadString` and `WriteText` rule was updated to use `trWriteString` 
+
