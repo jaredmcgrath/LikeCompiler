@@ -368,7 +368,7 @@
         trWriteInteger = 7;
         trWriteChar = 8;
         trReadInteger = 9;
-        trReadChar = 12;
+        trReadChar = 10;
         trAssign = 11;
         trReadString = 108;
         trWriteString = 109;

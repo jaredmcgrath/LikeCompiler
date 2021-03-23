@@ -548,10 +548,10 @@ type TrapKind :
         trWriteInteger = 7
         trWriteChar = 8
         trReadInteger = 9
-        trReadChar = 12
+        trReadChar = 10
         trAssign = 11
         trReadString = 108 %% Added trReadString and trWriteString to deal with strings
-        trWriteString = 109; %% Not sure about these values, came from tutorial 7
+        trWriteString = 109; 
 
 mechanism Emit :
     % Emit writes to the output "t-code" stream (the code area),
@@ -1841,27 +1841,6 @@ StringLiteral :
         oValuePop
         oValuePop
         oTypeTblEnter;
-            %% Leaving this for reference -T, remove before sub
-            % | *:
-            %     % branch around the literal string since
-            %     % it is stored in the code area
-            %     .tSkipString
-            %     oFixPushForwardBranch
-            %     oEmitNullAddress
-            %     .tStringData
-            %     oEmitValue                      % string length
-            %     oValuePop
-            %     oValuePushCodeAddress           % The string's characters are in the code area
-            %     oValueNegate                    % encode that with a negative address
-            %     oEmitString                     % string's characters
-            %     oFixPopForwardBranch      
-            %     % Removing tpString alternatives as it is deprecated
-            %     oValuePush(one)                 % strings are indexed from 1
-            %     oValuePushStringLength
-            %     oTypeStkEnterBounds
-            %     oValuePop
-            %     oValuePop
-            %     oTypeTblEnter
 
 UnaryOperator :
         [
@@ -2577,7 +2556,7 @@ WriteText :
         [ oTypeStkChooseKind
             | tpChar:
                 .tTrap
-                oEmitTrapKind(trWriteChar)
+                oEmitTrapKind(trWriteString)
             | tpInteger, tpSubrange:
                 .tTrap
                 oEmitTrapKind(trWriteInteger)  % Removing tpString alternatives as it is deprecated
@@ -2859,7 +2838,7 @@ ReadText :
         [ oTypeStkChooseKind
             | tpChar:
                 .tTrap
-                oEmitTrapKind(trReadChar)
+                oEmitTrapKind(trReadString)
             | tpInteger, tpSubrange:
                 .tTrap
                 oEmitTrapKind(trReadInteger)

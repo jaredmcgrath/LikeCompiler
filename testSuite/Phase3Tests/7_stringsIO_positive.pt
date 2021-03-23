@@ -1,6 +1,4 @@
 using output;
-
-var y = "stringssss";
-
-put(y);
+put("stringssss");
 putln;
+
