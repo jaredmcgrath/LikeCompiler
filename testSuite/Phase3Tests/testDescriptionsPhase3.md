@@ -14,31 +14,31 @@
 </tr>
 
 <tr>
-<td>Alex1.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
+<td>5_packages_positive.pt</td>
+<td>Tests the behaviour when vars and vals are declared as public within a package and then accessed outside of the package</td>
+<td>Declares public vars and vals within a package and accesses them outisde the packages scope</td>
+<td>5_packages_positive.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
-<td>Alex2.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
+<td>5_package_negative_noPkgName.pt</td>
+<td>Tests the behaviour when a package is declared with no name</td>
+<td>A package with no declared name containing a declared function, val and var</td>
+<td>5_package_negative_noPkgName.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
-<td>Alex3.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
+<td>5_package_negative_noPkgEnd.pt</td>
+<td>Tests the behaviour when a package is declared with no terminating end statement</td>
+<td>A package with no end statement containing a declared function, val and var</td>
+<td>5_package_negative_noPkgEnd.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
-<td>Alex4.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
+<td>5_package_negative_noPublicAccess.pt</td>
+<td>Tests the behaviour when a var in a package is not declared public and accessed outside the package</td>
+<td>A package containing a non-public val, followed by an atempt to access this val from outside the package</td>
+<td>5_package_negative_noPublicAccess.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
