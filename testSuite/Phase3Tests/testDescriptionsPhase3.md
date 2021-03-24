@@ -574,10 +574,10 @@
 </tr>
 
 <tr>
-<td>7_strings_TooLong_positive.pt</td>
+<td>7_strings_TooLong_negative.pt</td>
 <td>Testing max string length</td>
 <td>String is declared with length over 255, and the proper error is thrown</td>
-<td>7_strings_TooLong_positive.pt.eOutput</td><td></td>
+<td>7_strings_TooLong_negative.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
