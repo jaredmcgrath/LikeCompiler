@@ -2,6 +2,8 @@
 
 ## Justification for Completeness
 
+7. String assignment testing is complete as all variations of assignment (var, val, like) have been tested. String IO has been tested for get, put, getln, putln and assign along with negative cases (where applicable). These functions have been verified to emit the proper traps and tokens. This covers the changes to WriteText and AssignProcedure. All other changes are covered implictly within these test cases.
+
 ## Test Description Table
 
 <table>
