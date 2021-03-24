@@ -1,0 +1,5 @@
+using output;
+
+var strAssign = "fileAlias";
+var fileVar : file like "str";
+assign(fileVar, strAssign);

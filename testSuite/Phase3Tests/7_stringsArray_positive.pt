@@ -2,6 +2,10 @@ using output;
 
 var strArr [3] : like "str";
 
+var strArr2 [1] : like "str";
+
 strArr[1] = "1";
-strArr[1] = "2";
-strArr[1] = "3";
+strArr[2] = "2";
+strArr[3] = "3";
+
+strArr2[1] = "1";

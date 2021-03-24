@@ -764,11 +764,12 @@ Table index 44;  Operation 1;  Argument 5
        [ (sParmEnd)
        | *:
        [ oTypeStkChooseKind (tpChar)
-       | *:
-       oValuePush(zero)
+       | tpChar:
+       oValuePush(stringSize)
+       ] or >
        .tLiteralInteger
        oEmitValue
-       % value emitted 0
+       % value emitted 256
        oValuePop
        .tParmEnd
        [ oTypeStkChooseKind (tpChar)
