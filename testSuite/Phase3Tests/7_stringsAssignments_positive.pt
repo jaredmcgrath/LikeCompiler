@@ -1,0 +1,8 @@
+using output;
+
+var str1 : like "str";
+var str2 = "str";
+val str3 = "valstr";
+
+str1 = str2;
+str1 = str3;

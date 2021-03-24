@@ -1,0 +1,8 @@
+scan/parse error, line 3: syntax error at: toolong
+scan/parse error, line 3: identifier or string too long
+translation aborted
+### END OF PTC OUTPUT ###
+@Program
+ scan/parse error, line 3: syntax error at: toolong
+ scan/parse error, line 3: identifier or string too long
+ translation aborted
