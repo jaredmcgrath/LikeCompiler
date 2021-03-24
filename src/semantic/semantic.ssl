@@ -261,12 +261,12 @@ type PredeclaredId :
         pidOrd
         pidEoln
         pidEof
-        pidAssign
         pidRead
         pidReadln
         pidWrite
         pidWriteln
-        lastPredeclaredId = pidWriteln
+        pidAssign
+        lastPredeclaredId = pidAssign
 
         % Predeclared program parameters
         pidInput

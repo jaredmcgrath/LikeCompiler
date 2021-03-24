@@ -306,11 +306,11 @@
         pidOrd = 10;
         pidEoln = 11;
         pidEof = 12;
-        pidAssign = 13;
-        pidRead = 14;
-        pidReadln = 15;
-        pidWrite = 16;
-        pidWriteln = 17;
+        pidRead = 13;
+        pidReadln = 14;
+        pidWrite = 15;
+        pidWriteln = 16;
+        pidAssign = 17;
         lastPredeclaredId = 17;
         pidInput = 18;
         firstSpecialId = 18;
