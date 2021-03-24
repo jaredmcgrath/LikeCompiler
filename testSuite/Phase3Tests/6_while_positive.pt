@@ -1,4 +1,4 @@
-using program;
+using output;
 var i = 5;
 repeat while i > 0
   i = i - 1;
