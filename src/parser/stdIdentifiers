@@ -52,12 +52,12 @@ chr
 ord
 eoln
 eof
-assign
 % New identifiers (Travis)
 get
 getln
 put
 putln
+assign
 
 % Predeclared files
 input

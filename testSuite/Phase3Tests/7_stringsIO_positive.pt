@@ -1,0 +1,8 @@
+using input, output;
+put("stringssss");
+putln;
+
+var myStr: like "foo";
+get(myStr);
+getln;
+
