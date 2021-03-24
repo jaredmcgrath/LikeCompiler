@@ -386,6 +386,14 @@ Expression rule
 </table>
 
 # Phase 3 Documentation
+## General Changes
+For all of the updates listed below:
+
+- All changes in `semantic.ssl` have comments nearby indicating what was changed/what the new changes do
+- All comments made by us in `semantic.ssl` are prefixed with `%%`, e.g. `%% This is an SSL comment`
+- All changes in `semantic.pt` have comments nearby indicating what was changed/what the new changes do
+- All comments made by us in `semantic.pt` start with `{##` and end with `##}`, e.g. `{## This is a PT comment ##}`
+
 ## Definitions
 The following input tokens were added to `semantic.ssl` in order to match output tokens in `parser.ssl` exactly: 
 ```

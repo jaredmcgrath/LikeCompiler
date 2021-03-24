@@ -442,14 +442,14 @@ program SemanticAnalysis (output, semanticSsl, parseStream, temp, tCode, options
         CaseStmt = 1440;
         RepeatStmt = 1416;
         ConstantValue = 268;
-        SymbolStkPushDefaultIntegerConstant = 3789;
-        StringLiteral = 1734;
+        SymbolStkPushDefaultIntegerConstant = 3778;
+        StringLiteral = 1723;
         TypeBody = 353;
         IndexType = 391;
         ComponentType = 428;
         SimpleType = 454;
         TypeTblEnterIfNew = 381;
-        ValuePushValuePlusOne = 3780;
+        ValuePushValuePlusOne = 3769;
         SubrangeUpperBound = 548;
         Expression = 1603;
         EnterVariableAttributes = 694;
@@ -457,50 +457,50 @@ program SemanticAnalysis (output, semanticSsl, parseStream, temp, tCode, options
         ProcedureHeading = 917;
         ProcedureParameterType = 963;
         ProcedurePrologue = 997;
-        CountPushCopy = 3785;
-        Variable = 2273;
-        CompareAndSwapTypes = 2077;
+        CountPushCopy = 3774;
+        Variable = 2262;
+        CompareAndSwapTypes = 2066;
         EmitAssign = 1075;
-        OpenProcedure = 2666;
-        AssignProcedure = 2697;
-        WriteProcedure = 2749;
-        WritelnProcedure = 3174;
-        ReadProcedure = 3232;
-        ReadlnProcedure = 3594;
+        OpenProcedure = 2655;
+        AssignProcedure = 2686;
+        WriteProcedure = 2738;
+        WritelnProcedure = 3163;
+        ReadProcedure = 3221;
+        ReadlnProcedure = 3583;
         ActualParameters = 1262;
-        FlushActuals = 3860;
+        FlushActuals = 3849;
         VarActual = 1330;
-        BooleanControlExpression = 3765;
-        CaseSelectorExpression = 3748;
+        BooleanControlExpression = 3754;
+        CaseSelectorExpression = 3737;
         CaseAlternative = 1499;
         Operand = 1631;
-        UnaryOperator = 1762;
-        BinaryOperator = 1814;
-        FlushExpn = 3839;
-        ConstantOperand = 2384;
-        VariableOperand = 2416;
-        FunctionOperand = 2443;
-        SymbolStkPushDefaultIntegerVariable = 3822;
-        FileOperand = 2641;
-        CompareOperandAndResultTypes = 2162;
-        CompareEqualityOperandTypes = 2208;
-        CompareRelationalOperandTypes = 2173;
-        VariableExtension = 2315;
-        StandardFunctionActual = 2546;
-        FileVariable = 3652;
-        WriteText = 3016;
-        WriteBinary = 3090;
-        WriteStandardExpnList = 2970;
-        TextFileVariable = 3693;
-        ReadTextParameterList = 3362;
-        ReadBinaryParameterList = 3428;
-        ReadText = 3494;
-        ReadBinary = 3523;
-        SymbolStkPushDefaultCharConstant = 3805;
+        UnaryOperator = 1751;
+        BinaryOperator = 1803;
+        FlushExpn = 3828;
+        ConstantOperand = 2373;
+        VariableOperand = 2405;
+        FunctionOperand = 2432;
+        SymbolStkPushDefaultIntegerVariable = 3811;
+        FileOperand = 2630;
+        CompareOperandAndResultTypes = 2151;
+        CompareEqualityOperandTypes = 2197;
+        CompareRelationalOperandTypes = 2162;
+        VariableExtension = 2304;
+        StandardFunctionActual = 2535;
+        FileVariable = 3641;
+        WriteText = 3005;
+        WriteBinary = 3079;
+        WriteStandardExpnList = 2959;
+        TextFileVariable = 3682;
+        ReadTextParameterList = 3351;
+        ReadBinaryParameterList = 3417;
+        ReadText = 3483;
+        ReadBinary = 3512;
+        SymbolStkPushDefaultCharConstant = 3794;
         }
 
         { S/SL Table Parameters }
-        sslTblSize = 3879;
+        sslTblSize = 3868;
         minSslTableValue = -32767;
         maxSslTableValue = 32767;
 
@@ -725,6 +725,7 @@ program SemanticAnalysis (output, semanticSsl, parseStream, temp, tCode, options
         identSymbolTblRef:  array [1 .. identTblSize] of integer;
 
         { Symbol Table }
+        {## Added public flag array for symbol table ##}
         symbolTblPublicFlag:    array [1 .. symbolTblSize] of Boolean;
         symbolTblIdentLink:     array [1 .. symbolTblSize] of integer;
         symbolTblKind:          array [1 .. symbolTblSize] of SymbolKinds;
@@ -733,6 +734,7 @@ program SemanticAnalysis (output, semanticSsl, parseStream, temp, tCode, options
         symbolTblTop:  SymbolTblReference;      { initially 0 }
 
         { Lexic Level Stack }
+        {## Added public flag array for symbol stack ##}
         symbolTblDisplay:  array [1 .. lexicLevelStackSize] of SymbolTblReference;
         typeTblDisplay:    array [1 .. lexicLevelStackSize] of TypeTblReference;
         lexicLevelStackTop:  0 .. lexicLevelStackSize;   { initially 0 }
@@ -1023,7 +1025,7 @@ program SemanticAnalysis (output, semanticSsl, parseStream, temp, tCode, options
               similarly for char, Boolean and text. }
             standardIntegerTypeRef := pidInteger;
 
-            { String - Changed to string from char }
+            {## String - Changed to string from char ##}
             symbolTblKind[pidChar] := syType;
             symbolTblTypeTblLink[pidChar] := pidChar;
             typeTblKind[pidChar] := tpChar;
@@ -1348,7 +1350,7 @@ program SemanticAnalysis (output, semanticSsl, parseStream, temp, tCode, options
                     symbolStkSymbolTblRef[symbolStkTop] := null;
                     symbolStkTypeTblLink[symbolStkTop] := null;
                     symbolStkValue[symbolStkTop] := null;
-                    { Need to initialize public flag to false for this entry }
+                    {## Need to initialize public flag to false for this entry ##}
                     symbolStkPublicFlag[symbolStkTop] := false;
                 end
             else
@@ -1374,7 +1376,7 @@ program SemanticAnalysis (output, semanticSsl, parseStream, temp, tCode, options
                     symbolStkValue[symbolStkTop] := symbolTblValue[symbolRef];
                     symbolStkTypeTblLink[symbolStkTop] :=
                         symbolTblTypeTblLink[symbolRef];
-                    { Need to copy over public flag value from symbol table entry }
+                    {## Need to copy over public flag value from symbol table entry ##}
                     symbolStkPublicFlag[symbolStkTop] := symbolTblPublicFlag[symbolRef];
                 end
             else
@@ -1729,7 +1731,7 @@ program SemanticAnalysis (output, semanticSsl, parseStream, temp, tCode, options
                                 symbolTblTypeTblLink[symbolTblTop] := 
                                     symbolStkTypeTblLink[symbolStkTop];
                                 symbolStkSymbolTblRef[symbolStkTop] := symbolTblTop;
-                                { Copy value of public flag on symbol stack entry to new symbol table entry }
+                                {## Copy value of public flag on symbol stack entry to new symbol table entry ##}
                                 symbolTblPublicFlag[symbolTblTop] := symbolStkPublicFlag[symbolStkTop];
 
                                 { Update identifier table links }
@@ -1756,7 +1758,7 @@ program SemanticAnalysis (output, semanticSsl, parseStream, temp, tCode, options
                             symbolTblKind[symbolRef] := symbolStkKind[symbolStkTop];
                             symbolTblValue[symbolRef] := symbolStkValue[symbolStkTop];
                             symbolTblTypeTblLink[symbolRef] := symbolStkTypeTblLink[symbolStkTop];
-                            { Copy updated value of public flag on symbol stack entry to existing symbol table entry }
+                            {## Copy updated value of public flag on symbol stack entry to existing symbol table entry ##}
                             symbolTblPublicFlag[symbolRef] := symbolStkPublicFlag[symbolStkTop];
                         end;
 
@@ -1834,23 +1836,26 @@ program SemanticAnalysis (output, semanticSsl, parseStream, temp, tCode, options
                         end;
 
                     oSymbolTblMergePublicScope:     
-                        { Walks through all symbols local to scope and unlinks
-                          the identifier of each symbol (except those marked public) }
+                        {## Walks through all symbols local to scope and unlinks
+                          the identifier of each symbol, except those marked public.
+                          Following this, we don't attempt to decrement the symbolTblTop
+                          or typeTblTop so that symbols + types are preserved for public
+                          identifiers. ##}
                         begin
                             Assert((lexicLevelStackTop >= 1), assert31);
                             i := symbolTblTop;
-                            { Set the identifier table pointer to the identifier entry in the 
-                              closest enclosing scope if there is one. }
+                            {## Set the identifier table pointer to the identifier entry in the 
+                              closest enclosing scope if there is one. ##}
                             while i > symbolTblDisplay[lexicLevelStackTop] do
                                 begin
                                     link := symbolTblIdentLink[i];
 
-                                    { We only unlink if the symbol was not declared public }
+                                    {## We only unlink if the symbol was not declared public ##}
                                     if symbolTblPublicFlag[i] = false then
                                         begin
                                             if link <> null then
-                                                { This is not a dummy identifier generated by 
-                                                the parser's syntax error recovery procedure. }
+                                                {## This is not a dummy identifier generated by 
+                                                the parser's syntax error recovery procedure. ##}
                                                 begin
                                                     while link > 0 do
                                                         link := symbolTblIdentLink[link];
@@ -1860,8 +1865,8 @@ program SemanticAnalysis (output, semanticSsl, parseStream, temp, tCode, options
                                     i := i - 1;
                                 end;
 
-                            { Removed the popping of symbolTbl and typeTbl because need symbols +
-                                types to be visible in enclosing scope  }
+                            {## Removed the popping of symbolTbl and typeTbl because need symbols +
+                                types to be visible in enclosing scope  ##}
 
                             lexicLevelStackTop := lexicLevelStackTop - 1;
                         end;
@@ -2014,7 +2019,10 @@ program SemanticAnalysis (output, semanticSsl, parseStream, temp, tCode, options
                         end;
 
                     oSymbolStkSetPublicFlag:
-                        symbolStkPublicFlag[symbolStkTop] := true;
+                        {## New mechanism which sets the public flag of the top symbol stack entry true ##}
+                        begin
+                            symbolStkPublicFlag[symbolStkTop] := true;
+                        end;
 
                     { ****
                       *  *  Type Table Mechanism Operations
@@ -2334,7 +2342,7 @@ program SemanticAnalysis (output, semanticSsl, parseStream, temp, tCode, options
                         { Push the value of the last string token to be accepted }
                         begin
                             Assert((compoundToken = sStringLiteral), assert37);
-                            {Changed to codeAreaEnd to signify null EOS -T}
+                            {## Changed to codeAreaEnd to signify null EOS ##}
                             ValueStackPush(codeAreaEnd);
                         end;
 
@@ -2405,7 +2413,8 @@ program SemanticAnalysis (output, semanticSsl, parseStream, temp, tCode, options
                                 dataAreaEnd := dataAreaEnd + wordSize;
                             tpBoolean:
                                 dataAreaEnd := dataAreaEnd + byteSize;
-                            tpChar: {Split tpChar into its own line, to handle string size}
+                            {## Split tpChar into its own line, to handle string size ##}
+                            tpChar:
                                 dataAreaEnd := dataAreaEnd + stringSize;
                             tpArray:
                                 begin
@@ -2416,7 +2425,7 @@ program SemanticAnalysis (output, semanticSsl, parseStream, temp, tCode, options
                                     if (kind = tpInteger) or (kind = tpSubrange) then
                                         size := size * wordSize;
 
-                                    { Added choice for array of strings -T, not sure if tpSubrange also falls here}
+                                    {## Added choice for array of strings, not sure if tpSubrange also falls here ##}
                                     if (kind = tpChar)  then
                                         size := size * stringSize;
 
@@ -2523,7 +2532,7 @@ program SemanticAnalysis (output, semanticSsl, parseStream, temp, tCode, options
                                     EmitOutputToken(compoundTokenText[i]);
                                     i := i + 1;
                                 end;
-                            {Emit a zero token following the strings characters -T}
+                            {## Emit a zero token following the strings characters ##}
                             EmitOutputToken(0);
                         end;
 

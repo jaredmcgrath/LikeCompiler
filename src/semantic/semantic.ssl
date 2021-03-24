@@ -68,7 +68,7 @@ Input :
         sAnd
         sNot
         sNewLine
-        %% All input tokens below were added (aside from sEndOfFile)
+        %% MARK: All input tokens below were added (aside from sEndOfFile)
         sPackage            %% Added
         sPublic             %% Added
         sConcatenate        %% Added
@@ -77,6 +77,7 @@ Input :
         sLength             %% Added
         sInitialValue       %% Added
         sCaseElse           %% Added
+        %% MARK: End of new input tokens
         sEndOfFile          
         lastSemanticToken = sEndOfFile;
 
@@ -142,7 +143,7 @@ Output :
         tTrapBegin
         tWriteEnd
         tReadEnd
-        %% The following non-compound T-codes were added for Like
+        %% MARK: The following non-compound T-codes were added for Like
         tConcatenate
         tRepeatString
         tSubstring
@@ -152,6 +153,7 @@ Output :
         tInitEnd
         tCaseElse
         tCaseElseEnd
+        %% MARK: End of new non-compund T-codes
 
         % Compound T-codes - T-code operations that take an operand
         tLiteralAddress
@@ -230,7 +232,7 @@ type Integer :
 
         % These two sizes are machine dependent
         byteSize = 1
-        stringSize = 256 % Added stringSize
+        stringSize = 256 %% Added stringSize
         wordSize = 4;
 
 type Boolean :
@@ -261,10 +263,12 @@ type PredeclaredId :
         pidOrd
         pidEoln
         pidEof
+        %% MARK: Order of pidRead ... pidWriteLn changed to reflect order of get ... putln in stdIdentifiers
         pidRead
         pidReadln
         pidWrite
         pidWriteln
+        %% MARK: End of reorder
         pidAssign
         lastPredeclaredId = pidAssign
 
@@ -424,8 +428,9 @@ mechanism SymbolStack :
         % Pop the symbol stack
 
     oSymbolStkSetPublicFlag;  %% Added for packages
-        %% Ensures scope is initialized or copied 
-        %% everytime something is pushed on the Symbol Stack
+        %% Sets the public flag of the top entry to true.
+        %% Doing so will ensure this symbol remains in enclosing scope
+        %% after the its lexical level ends
 
 mechanism TypeTable :
     % A type table entry consists of 4 fields:  a type kind (e.g. integer,
@@ -810,15 +815,15 @@ ProgramParameter :
 Block :
         % The parser has flagged phase errors, but has emitted out-of-phase
         % definitions with the intent of providing better error repair.
-    sBegin %moved to the beginning of the rule
-        {[ %merged in Statement choices, removed sBegin handling
+        sBegin                      %% We always expect sBegin at beginning of Block in Like
+        {[                          %% Merged in Statement rule choices
             | sPackage:             %% Added this here for packages
                 @PackageDefinition
             | sProcedure:
                 @ProcedureDefinition
             | sConst:
                 @ConstantDefinitions
-            % Removed call to TypeDefinitions as all type processing handled within declarations
+            %% Removed sType case as all type processing handled within declarations
             | sVar:
                 @VariableDeclarations
             | sAssignmentStmt:
@@ -834,7 +839,7 @@ Block :
             | sRepeatStmt:
                 @RepeatStmt
             | sNullStmt:
-                %do nothing
+                %% Do nothing for a null statement
             | *:
                 >
         ]}
@@ -862,7 +867,7 @@ ConstantDefinitions :           % Process named constant definitions
                 oSymbolStkEnterValue
                 oValuePop
                 oSymbolTblEnter
-                oCountIncrement             %% Increment the count so we know how many symbols we've put on the stack
+                oCountIncrement             %% Increment the count so we know how many symbols we've put on the symbol stack
             | *:
                 >
         ]}
@@ -931,33 +936,7 @@ ConstantValue :         % push the value and type of the constant value
                 @StringLiteral  % pushes type and value, enters address
         ];
 
-% Remove type definitions rule
-% TypeDefinitions :       % process named type definitions
-%         {[
-%             | sIdentifier:
-%                 oSymbolStkPushLocalIdentifier
-%                 [ oSymbolStkChooseKind
-%                     | syUndefined:
-%                     | syExternal:
-%                         % Program parameters must be declared as file variables
-%                         #eExternalDeclare        % ignore this declaration
-%                     | *:
-%                         #eMultiplyDefined
-%                         % The new definition will obscure the old one
-%                 ]
-%                 oSymbolStkSetKind(syType)
-
-%                 % Accepts a type specification and pushes its type to the Type Stack.
-%                 % Creates type table entries for the type and any new subtypes as necessary.
-%                 @TypeBody
-
-%                 oSymbolStkEnterTypeReference
-%                 oTypeStkPop
-%                 oSymbolTblEnter
-%                 oSymbolStkPop
-%             | *:
-%                 >
-%         ]};
+%% Removed the TypeDefinitions rule that was here
 
 TypeBody :
         % Accept a type specification and push a Type Stack entry for it.
@@ -985,28 +964,28 @@ TypeTblEnterIfNew:
 
 IndexType :
         % Accept and fill in index bounds of array type stack entry
-        % Removed cal to SimpleType since we don't use that rule this way anymore
-        oValuePush(one)                     % In Like, lower bound is always 1
-        @ConstantValue                      % Now we accept the constant [ arrayBound ]
-        [ oTypeStkChooseKind                % Need to check and make sure the ConstantValue is a tpInteger
+        %% Removed cal to SimpleType since we don't use that rule this way anymore
+        oValuePush(one)                     %% In Like, lower bound is always 1
+        @ConstantValue                      %% Now we accept the constant [ arrayBound ]
+        [ oTypeStkChooseKind                %% Need to check and make sure the ConstantValue is a tpInteger
             | tpInteger:
-            | *:                            % For all non-tpIntegers, emit error
+            | *:                            %% For all non-tpIntegers, emit error
                 #eIntegerConstReqd
-                oValuePop                   % Remove prev upper
-                @ValuePushValuePlusOne      % Set new upper to lower + 1
-                % Note: we don't bother to correct the invalid TypeStack entry since it's
-                % Removed with the pop on the following line
+                oValuePop                   %% Remove prev upper
+                @ValuePushValuePlusOne      %% Set new upper to lower + 1
+                %% Note: we don't bother to correct the invalid TypeStack entry since it's
+                %% Removed with the pop on the following line
         ]
-        oTypeStkPop                         % pop index type
+        oTypeStkPop                         %% Pop index type
         % Enter and check the bounds of the array type
         oTypeStkEnterBounds
         [ oTypeStkVerifyBounds
             | yes:
-            | *:                            % If the bounds are invalid (i.e. lower > upper)
-                #eBounds                    % Emit a bounds error
-                oValuePop                   % Remove prev upper
-                @ValuePushValuePlusOne      % Set new upper to lower + 1
-                oTypeStkEnterBounds         % Re-enter bounds
+            | *:                            %% If the bounds are invalid (i.e. lower > upper)
+                #eBounds                    %% Emit a bounds error
+                oValuePop                   %% Remove prev upper
+                @ValuePushValuePlusOne      %% Set new upper to lower + 1
+                oTypeStkEnterBounds         %% Re-enter bounds
         ]
         oValuePop       % subrange upper
         oValuePop;      %          lower bound
@@ -1029,36 +1008,35 @@ ComponentType :
 
 SimpleType :
         % Accept a simple type and push a type stack entry for it.
-        % Modified from original: SimpleType will be used to create a type stack entry
-        % starting from an sLike token
-        % Always expect an sLike
+        %% Modified from original: SimpleType will be used to create a type stack entry
+        %% starting from an sLike token
         sLike
-        % Then, we expect either an variable_identifier or constant or literal value
+        %% Then, we expect either an variable_identifier or constant or literal value
         [
             | sIdentifier:
                 oSymbolStkPushIdentifier
                 [ oSymbolStkChooseKind
-                    | syVariable:                   % Handle variable symbol: like variable_identifier
-                        oTypeStkPushSymbol          % Create type stack entry
-                    | syConstant:                   % Handle constant symbol
-                        oTypeStkPushSymbol          % Create type stack entry
-                    | syUndefined:                  % If we get an undefined identifier, error
+                    | syVariable:                   %% Handle variable symbol: like variable_identifier
+                        oTypeStkPushSymbol          %% Create type stack entry
+                    | syConstant:                   %% Handle constant symbol
+                        oTypeStkPushSymbol          %% Create type stack entry
+                    | syUndefined:                  %% If we get an undefined identifier, error
                         #eUndefinedIdentifier
-                        oTypeStkPush(tpInteger)     % Default to an integer type
+                        oTypeStkPush(tpInteger)     %% Default to an integer type
                         oTypeStkLinkToStandardType(stdInteger)
                     | *:
                         #eSimpleTypeReqd
-                        oTypeStkPush(tpInteger)     % Default to an integer type
+                        oTypeStkPush(tpInteger)     %% Default to an integer type
                         oTypeStkLinkToStandardType(stdInteger)
                 ]
-                oSymbolStkPop                       % Clean up symbol stack after handling identifier
+                oSymbolStkPop                       %% Clean up symbol stack after handling identifier
                 [
-                    | sNegate:                      % Optional sNegate token needs to be handled if present
-                        [ oTypeStkChooseKind        % Check to make sure type is integer
+                    | sNegate:                      %% Optional sNegate token needs to be handled if present
+                        [ oTypeStkChooseKind        %% Check to make sure type is integer
                             | tpInteger:
                             | *:
-                                #eTypeMismatch      % Emit eTypeMismatch because you can't negate a non-integer
-                                % We'll assume the type given by the identifier is valid, and use that as type in symbol table entry
+                                #eTypeMismatch      %% Emit eTypeMismatch because you can't negate a non-integer
+                                %% We'll assume the type given by the identifier is valid, and use that as type in symbol table entry
                         ]
                     | *:
                 ]
@@ -1066,11 +1044,11 @@ SimpleType :
                 oTypeStkPush(tpInteger)
                 oTypeStkLinkToStandardType(stdInteger)
                 [
-                    | sNegate:                      % Optional sNegate token needs to be handled if present
+                    | sNegate:                      %% Optional sNegate token needs to be handled if present
                     | *:
                 ]
-            | sStringLiteral:                       % This is part of step 7, but added it anyways
-                % We mimic sInteger handling and use the tpChar (= Like string type) and link to stdChar
+            | sStringLiteral:                       %% Handle the 'like "any string"' case for SimpleType
+                %% We mimic sInteger handling and use the tpChar (= Like string type) and link to stdChar
                 oTypeStkPush(tpChar)
                 oTypeStkLinkToStandardType(stdChar)
         ];
@@ -1112,7 +1090,7 @@ SubrangeUpperBound :
         ];
 
 VariableDeclarations :
-    % Removed choice loop so that only a single var is allowed per declaration
+    %% Removed choice loop so that only a single var is allowed per declaration
         [
             | sIdentifier:
                 oSymbolStkPushLocalIdentifier
@@ -1123,12 +1101,12 @@ VariableDeclarations :
                         #eMultiplyDefined
                         % The new definition will obscure the old one
                 ]
-                [                       % We either have an initial value, or something that will end in a like clause
+                [                       %% We either have an initial value, or something that will end in a like clause
                     | sInitialValue:
                         .tInitialValue
-                        @Expression     % Creates entry on SymbolStack (of kind syExpression, if operators present) and TypeStack
+                        @Expression     %% Creates entry on SymbolStack (of kind syExpression, if operators present) and TypeStack
                         .tInitEnd
-                        oSymbolStkPop   % Pop the SymbolStack entry from Expression
+                        oSymbolStkPop   %% Pop the SymbolStack entry from Expression
                         %% Need to link to the standard type of whatever is on the type stack now
                         [ oTypeStkChooseKind
                             | tpInteger:
@@ -1139,12 +1117,12 @@ VariableDeclarations :
                                 oTypeStkLinkToStandardType(stdBoolean)
                             | *:                %% Not sure which standard type is appropriate in all other cases. Hopefully, a null reference is ok in these cases
                         ]
-                        @EnterVariableAttributes        % Sets type ref of SymbolStack entry to top of TypeStack, then enters SymbolStack entry into TypeTable
-                        .tLiteralAddress                % We're about to emit the address of the variable we're assigning the initial value to
-                        oValuePushSymbol                % Push address of variable to ValueStack
-                        oEmitValue                      % Emit address
-                        oValuePop                       % Pop address off ValueStack
-                        @EmitStore                      % Emit appropriate store T-code
+                        @EnterVariableAttributes        %% Sets type ref of SymbolStack entry to top of TypeStack, then enters SymbolStack entry into TypeTable
+                        .tLiteralAddress                %% We're about to emit the address of the variable we're assigning the initial value to
+                        oValuePushSymbol                %% Push address of variable to ValueStack
+                        oEmitValue                      %% Emit address
+                        oValuePop                       %% Pop address off ValueStack
+                        @EmitStore                      %% Emit appropriate store T-code
                     | *:
                         % Accepts a type specification and pushes its type to the Type Stack.
                         % Creates type table entries for the type and any new subtypes as necessary.
@@ -1158,8 +1136,8 @@ VariableDeclarations :
                         oSymbolTblUpdate
                     | *:
                 ]
-                oTypeStkPop                     % Clean up TypeStack
-                oSymbolStkPop                   % Clean up SymbolStack
+                oTypeStkPop                     %% Clean up TypeStack
+                oSymbolStkPop                   %% Clean up SymbolStack
             | *:
         ];
 
@@ -1366,16 +1344,16 @@ ProcedureHeading :
         @ProcedurePrologue;                    % pops types from type stack
 
 ProcedureParameterType :
-        % A local procedure's formal parameters must
-        % be declared using like clauses. For this, we use SimpleType
-        @SimpleType                             % From here, we have the type of this param on top of TypeStack
+        %% A local procedure's formal parameters must
+        %% be declared using like clauses. For this, we use SimpleType
+        @SimpleType                             %% From here, we have the type of this param on top of TypeStack
         [ oSymbolStkChooseKind
-            | syVariable:                       % If parameter isn't pass by reference
+            | syVariable:                       %% If parameter isn't pass by reference
                 [ oTypeStkChooseKind
-                    | tpArray, tpFile:          % Then make sure the type is a scalar
-                        #eNonScalarValParm      % If not scalar, emit error
+                    | tpArray, tpFile:          %% Then make sure the type is a scalar
+                        #eNonScalarValParm      %% If not scalar, emit error
                         oTypeStkPop
-                        oTypeStkPush(tpInteger) % Default to param being an integer
+                        oTypeStkPush(tpInteger) %% Default to param being an integer
                         oTypeStkLinkToStandardType(stdInteger)
                     | *:
                 ]
@@ -1420,11 +1398,11 @@ ProcedurePrologue :
         oCountPop;
 
 Statement :
-        %removed alternatives of Statement rule, merged into Block rule
+        %% The alternatives in the choice have been merged into the Block rule
+        %% This rule now serves as a setup to manage the scope before 
         oSymbolTblPushScope
         @Block
-        oSymbolTblPopScope
-        ;
+        oSymbolTblPopScope;
 
 AssignmentStmt :
         sIdentifier  oSymbolStkPushIdentifier
@@ -1467,13 +1445,7 @@ EmitStore:
             | *:                
         ];
 
-% BeginStmt :
-%         {[
-%             | sEnd:
-%                 >
-%             | *:
-%                 @Statement
-%         ]};
+%% Removed the BeginStmt rule that was here
 
 CallStmt :
         sIdentifier  oSymbolStkPushIdentifier   % Procedure being called
@@ -1657,14 +1629,14 @@ RepeatStmt :
 CaseStmt :
         .tCaseBegin
         @CaseSelectorExpression
-        oCasePushDisplay        %% handle nested case statements
-        oCountPush (zero)       %% count case alternative statements
+        oCasePushDisplay                %% handle nested case statements
+        oCountPush (zero)               %% count case alternative statements
         .tCaseSelect
         oFixPushForwardBranch
-        oEmitNullAddress        %% address of case branch table
+        oEmitNullAddress                %% address of case branch table
         {[
             | sCaseEnd:
-                >      %% exit once case ends
+                >                       %% exit once case ends
             | *:
                 @CaseAlternative
         ]}
@@ -1674,9 +1646,9 @@ CaseStmt :
 
         %% after the case ends, there is an optional else statement
         [
-            | sCaseElse: %% added handling of optional else statement
+            | sCaseElse:                %% added handling of optional else statement
                 .tCaseElse
-                @Statement %%handle the declarations and statements, enclosed with sBegin and sEnd
+                @Statement              %% handle the declarations and statements, enclosed with sBegin and sEnd
                 .tCaseElseEnd
             | *:
         ]
@@ -1804,18 +1776,12 @@ Operand :
                 oValuePop
             | sStringLiteral:
                 oSymbolStkPush(syExpression)
-                @StringLiteral  % pushes type and value
+                @StringLiteral      %% Creates tpChar type stack entry with proper array bounds set, and leaves code address of string on value stack
+                %% We always expect a tpChar after a call to StringLiteral. No need to check the type stack
                 %% Change emission to codeAddress and tFetchChar
-                [ oTypeStkChooseKind
-                    | tpChar:
-                        .tLiteralAddress %% codeaddress
-                        oEmitValue
-                        .tFetchChar
-                    %% TODO: We should probably handle this error case by emitting an error token and cleaning up afterwards
-                    | *: %% Not sure what do about this case? -T
-                        .tLiteralString
-                        oEmitValue
-                ]
+                .tLiteralAddress    %% Code address
+                oEmitValue
+                .tFetchChar
                 oValuePop
             | sFile:
                 @Expression
@@ -1824,34 +1790,31 @@ Operand :
         ];
 
 StringLiteral :
-        % Process a string literal, which can either represent 
-        % a single character or a packed array of characters.
-        % Pushes the type and value. 
-        % The value of a packed array is its address.
+        %% Process a string literal, which is a proper null-terminated
+        %% array of characters in Like.
+        %% Pushes the type and value. 
+        %% The value of the string is it's code address
 
         oValuePushStringLength
-
-        .tSkipString
+        .tSkipString                        %% Emit T-code to skip the stirng literal data
         oFixPushForwardBranch
         oEmitNullAddress
+        .tStringData                        %% Mark string data -T
+        oEmitValue                          %% Emit the 
 
-        .tStringData         %% string length -T
-        oEmitValue 
-
-        oValuePop
-        oValuePushCodeAddress
-        
-        oValueNegate            %% The string's characters are in the code area -T
-
-        oEmitString                     %% string's characters -T
+        oValuePop                           %% Pop string length from stack
+        oValuePushCodeAddress               %% We need to leave code address on value stack to emit string
+        oValueNegate                        %% The string's characters are in the code area -T
+        oEmitString                         %% Emit the string's characters -T
         
         oFixPopForwardBranch
 
         %% Removed length zero and length one
+
         oTypeStkPush(tpChar)                %% Push tpChar to type stack -T
         oTypeStkLinkToStandardType(stdChar) %% Link to stdChar std type -T
 
-        oValuePush(one)                 %% strings are indexed from 1 -T
+        oValuePush(one)                 %% Strings are indexed from 1 -T
         oValuePushStringLength
         oTypeStkEnterBounds
         oValuePop
@@ -2923,7 +2886,7 @@ ReadText :
         [ oTypeStkChooseKind
             | tpChar:
                 .tTrap
-                oEmitTrapKind(trReadString)
+                oEmitTrapKind(trReadString)     %% Changed from trReadChar to trReadString
             | tpInteger, tpSubrange:
                 .tTrap
                 oEmitTrapKind(trReadInteger)
