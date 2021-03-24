@@ -2405,6 +2405,7 @@ AssignProcedure :
                                 oValuePop
                                 sParmEnd
                             | *:
+                                %% Moved error handling here -T
                                 #eFileNameReqd
                                 @FlushActuals
                         ]

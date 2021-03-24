@@ -466,12 +466,12 @@ In `semantic.pt`:
 * The handling of strings in the `oAllocateVariable` was changed to the proper handling of `stringSize` for the `tpChar` case
 * In `oAllocateVariable`, the handling of tpChar arrays was chanegd to handle `stringSize`, implementing arrays of strings
 * `oValuePushChar`was changed to push `codeAreaEnd` to signify end of strings as per the Like language spec
-* `oEmitString` was changed to emit a 0 token at the end of a string
+* `oEmitString` was changed to emit a `0` token at the end of a string
 
 In `semantic.ssl`:
 * Removed all mentions and alternatives concerning `tpString` as it has been removed from the langauge
-* Removed the handling of char arrays from `WriteText` and `AssignProcedure` 
-* The `StringLiteral` rule was changed to remove length 0 and length 1 cases. `tpChar` is pushed onto the Type Stack and a linking to the `stdChar` type.
+* Removed the handling of char arrays from `WriteText` and `AssignProcedure`. In the latter, error handling for invalid arguments was moved into a different alternative to preserve the use of `@FlushActuals`
+* The `StringLiteral` rule was changed to remove length 0 and length 1 cases. `tpChar` is pushed onto the Type Stack and a linking to the `stdChar` type
 * The `Operand` rule was altered to emit `codeAddress` followed by `tFetchChar` in the `tpChar` case
 * The `sStringLiteral` was added to the `SimpleType` rule
 * `ReadText` rule was updated to use `trReadString` and `WriteText` rule was updated to use `trWriteString` 
