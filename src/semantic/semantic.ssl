@@ -1259,9 +1259,6 @@ PackageDefinition :
     ]
     %% Perform all of the symbol stack setup for this package
     oSymbolStkSetKind(syPackage)
-    oValuePushCodeAddress
-    oSymbolStkEnterValue
-    oValuePop
 
     %% Set up type table entry for this symbol
     oTypeStkPush(tpNull)
