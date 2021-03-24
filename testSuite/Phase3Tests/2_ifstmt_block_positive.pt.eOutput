@@ -285,109 +285,12 @@ Table index 1378;  Operation 0;  Argument 1042
 Table index 1042;  Operation 16;  Argument 0
 Table index 1043;  Operation 0;  Argument 111
 Table index 111;  Operation 5;  Argument 10
-Input token accepted 10;  Line 4;  Next input token 21
-Table index 113;  Operation 7;  Argument 43
-Choice tag 21 (matched)
-Input token accepted 21;  Line 4;  Next input token 0
-Table index 131;  Operation 0;  Argument 1047
-Table index 1047;  Operation 5;  Argument 0
-Input token accepted 0;  Line 4;  Next input token 1
-Table index 1049;  Operation 22;  Argument 8
-Table index 1050;  Operation 8;  Argument 26
-Output token emitted 26
-Table index 1052;  Operation 0;  Argument 2262
-Table index 2262;  Operation 31;  Argument 10
-Table index 2263;  Operation 10;  Argument 24
-Choice tag 0 (not matched)
-Table index 2295;  Operation 9;  Argument 36
-semantic error, line 4: variable required
-Table index 2297;  Operation 34;  Argument 0
-Table index 2298;  Operation 0;  Argument 3811
-Table index 3811;  Operation 12;  Argument 2
-Table index 3813;  Operation 21;  Argument 12
-Table index 3814;  Operation 12;  Argument 0
-Table index 3816;  Operation 65;  Argument 27
-Table index 3817;  Operation 27;  Argument 76
-Table index 3818;  Operation 76;  Argument 12
-Table index 3819;  Operation 12;  Argument 0
-Table index 3821;  Operation 38;  Argument 12
-Table index 3822;  Operation 12;  Argument 0
-Table index 3824;  Operation 44;  Argument 30
-Table index 3825;  Operation 30;  Argument 54
-Table index 3826;  Operation 54;  Argument 1
-Table index 3827;  Operation 1;  Argument 7
-Table index 2300;  Operation 39;  Argument 0
-Table index 2301;  Operation 0;  Argument 2304
-Table index 2304;  Operation 7;  Argument 64
-Choice tag 1 (not matched)
-Table index 2372;  Operation 1;  Argument 39
-Table index 2303;  Operation 1;  Argument 7
-Table index 1054;  Operation 50;  Argument 10
-Table index 1055;  Operation 10;  Argument 5
-Choice tag 0 (not matched)
-Table index 1064;  Operation 0;  Argument 1603
-Table index 1603;  Operation 0;  Argument 1631
-Table index 1631;  Operation 7;  Argument 81
-Choice tag 1 (matched)
-Input token accepted 1;  Line 4;  Next input token 19
-Table index 1678;  Operation 66;  Argument 12
-Table index 1679;  Operation 12;  Argument 7
-Table index 1681;  Operation 21;  Argument 12
-Table index 1682;  Operation 12;  Argument 0
-Table index 1684;  Operation 38;  Argument 12
-Table index 1685;  Operation 12;  Argument 0
-Table index 1687;  Operation 44;  Argument 8
-Table index 1688;  Operation 8;  Argument 67
-Output token emitted 67
-Table index 1690;  Operation 56;  Argument 76
-Output token emitted 1
-Table index 1691;  Operation 76;  Argument 4
-Table index 1692;  Operation 4;  Argument 29
-Table index 1722;  Operation 1;  Argument 68
-Table index 1605;  Operation 0;  Argument 1751
-Table index 1751;  Operation 7;  Argument 39
-Choice tag 19 (not matched)
-Table index 1798;  Operation 1;  Argument 12
-Table index 1607;  Operation 0;  Argument 1803
-Table index 1803;  Operation 7;  Argument 220
-Choice tag 19 (not matched)
-Table index 2061;  Operation 1;  Argument 12
-Table index 1609;  Operation 7;  Argument 11
-Choice tag 19 (matched)
-Input token accepted 19;  Line 4;  Next input token 11
-Table index 1611;  Operation 4;  Argument 18
-Table index 1630;  Operation 1;  Argument 7
-Table index 1066;  Operation 0;  Argument 2066
-Table index 2066;  Operation 50;  Argument 10
-Table index 2067;  Operation 10;  Argument 68
-Choice tag 0 (matched)
-Table index 2069;  Operation 53;  Argument 50
-Table index 2070;  Operation 50;  Argument 10
-Table index 2071;  Operation 10;  Argument 3
-Choice tag 0 (matched)
-Table index 2073;  Operation 4;  Argument 8
-Table index 2082;  Operation 4;  Argument 67
-Table index 2150;  Operation 1;  Argument 0
-Table index 1068;  Operation 0;  Argument 1075
-Table index 1075;  Operation 50;  Argument 10
-Table index 1076;  Operation 10;  Argument 13
-Choice tag 0 (matched)
-Table index 1078;  Operation 8;  Argument 28
-Output token emitted 28
-Table index 1080;  Operation 4;  Argument 20
-Table index 1101;  Operation 1;  Argument 50
-Table index 1070;  Operation 54;  Argument 34
-Table index 1071;  Operation 34;  Argument 54
-Table index 1072;  Operation 54;  Argument 34
-Table index 1073;  Operation 34;  Argument 1
-Table index 1074;  Operation 1;  Argument 50
-Table index 133;  Operation 4;  Argument 48
-Table index 182;  Operation 3;  Argument 70
+Input token accepted 10;  Line 4;  Next input token 11
 Table index 113;  Operation 7;  Argument 43
 Choice tag 11 (not matched)
 Table index 180;  Operation 4;  Argument 3
 Table index 184;  Operation 5;  Argument 11
-Input token accepted 11;  Line 5;  Next input token 11
+Input token accepted 11;  Line 4;  Next input token 11
 Table index 186;  Operation 1;  Argument 12
 Table index 1045;  Operation 17;  Argument 1
 Table index 1046;  Operation 1;  Argument 5
@@ -403,7 +306,7 @@ Table index 113;  Operation 7;  Argument 43
 Choice tag 11 (not matched)
 Table index 180;  Operation 4;  Argument 3
 Table index 184;  Operation 5;  Argument 11
-Input token accepted 11;  Line 5;  Next input token 56
+Input token accepted 11;  Line 4;  Next input token 56
 Table index 186;  Operation 1;  Argument 12
 Table index 1045;  Operation 17;  Argument 1
 Table index 1046;  Operation 1;  Argument 5
@@ -663,94 +566,6 @@ Table index 44;  Operation 1;  Argument 5
      oSymbolTblPushScope
      @Block
       ?sBegin (sBegin)
-      [ (sAssignmentStmt)
-      | sAssignmentStmt:
-      @AssignmentStmt
-       ?sIdentifier (sIdentifier)
-       oSymbolStkPushIdentifier
-       .tAssignBegin
-       @Variable
-        [ oSymbolStkChooseKind (syConstant)
-        | *:
-        #eVariableReqd
-        semantic error, line 4: variable required
-        oSymbolStkPop
-        @SymbolStkPushDefaultIntegerVariable
-         oSymbolStkPush(syVariable)
-         oValuePush(zero)
-         oSymbolStkEnterValue
-         oValuePop
-         oTypeStkPush(tpInteger)
-         oTypeStkLinkToStandardType(stdInteger)
-         oSymbolStkEnterTypeReference
-         oTypeStkPop
-         >>
-        ;SymbolStkPushDefaultIntegerVariable
-        oTypeStkPushSymbol
-        @VariableExtension
-         [ (sInteger)
-         | *:
-         >>
-        ;VariableExtension
-        >>
-       ;Variable
-       [ oTypeStkChooseKind (tpInteger)
-       | *:
-       @Expression
-        @Operand
-         [ (sInteger)
-         | sInteger:
-         oValuePushInteger
-         oSymbolStkPush(syExpression)
-         oTypeStkPush(tpInteger)
-         oTypeStkLinkToStandardType(stdInteger)
-         .tLiteralInteger
-         oEmitValue
-         % value emitted 1
-         oValuePop
-         ] or >
-         >>
-        ;Operand
-        @UnaryOperator
-         [ (sExpnEnd)
-         | *:
-         >>
-        ;UnaryOperator
-        @BinaryOperator
-         [ (sExpnEnd)
-         | *:
-         >>
-        ;BinaryOperator
-        [ (sExpnEnd)
-        | sExpnEnd:
-        ] or >
-        >>
-       ;Expression
-       @CompareAndSwapTypes
-        [ oTypeStkChooseKind (tpInteger)
-        | tpInteger:
-        oTypeStkSwap
-        [ oTypeStkChooseKind (tpInteger)
-        | tpInteger:
-        ] or >
-        ] or >
-        >>
-       ;CompareAndSwapTypes
-       @EmitAssign
-        [ oTypeStkChooseKind (tpInteger)
-        | tpInteger:
-        .tAssignInteger
-        ] or >
-        >>
-       ;EmitAssign
-       oTypeStkPop
-       oSymbolStkPop
-       oTypeStkPop
-       oSymbolStkPop
-       >>
-      ;AssignmentStmt
-      ] or >
-      }
       [ (sEnd)
       | *:
       ] or >
