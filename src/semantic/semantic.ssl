@@ -1829,7 +1829,7 @@ UnaryOperator :
                 [ oTypeStkChooseKind
                     | tpChar:           %% If it's a string, we're fine
                     | *:
-                        #eTypeMismatch  %% Otherwise, it's a type mismatch
+                        #eOperandOperatorTypeMismatch  %% Otherwise, it's a type mismatch
                 ]
                 oTypeStkPop             %% Pop operand type from type stack
                 oTypeStkPush(tpInteger) %% Put resultant type (integer) onto type stack
@@ -1926,16 +1926,15 @@ BinaryOperator :
                 .tRepeatString                      %% Emit the extended T-code for string repeat
                 %% Need to make sure the type stack has an integer on top, followed by a string
                 [ oTypeStkChooseKind
-                    | tpInteger:
-                        oTypeStkPop                 %% Pop the integer
-                        [ oTypeStkChooseKind
-                            | tpChar:               %% We expect a string following the integer
-                            | *:
-                                #eTypeMismatch      %% Anything else is a type mismatch
-                        ]
+                    | tpInteger:                    %% We expect our integer integer
                     | *:
-                        #eTypeMismatch              %% If we don't get an integer, it's a type mismatch error
-                        oTypeStkPop                 %% Pop the bad type to clean up
+                        #eOperandOperatorTypeMismatch       %% If we don't get an integer, it's a type mismatch error
+                ]
+                oTypeStkPop                         %% Pop the integer
+                [ oTypeStkChooseKind
+                    | tpChar:                       %% We expect a string following the integer
+                    | *:
+                        #eOperandOperatorTypeMismatch      %% Anything else is a type mismatch
                 ]
                 oTypeStkPop                         %% Pop the second operand (hopefully it was a string)
                 oTypeStkPush(tpChar)                %% Result of string repeat is tpChar (i.e. string)
@@ -1946,22 +1945,20 @@ BinaryOperator :
                 %% Need to make sure the type stack has two integers on top, followed by a string
                 [ oTypeStkChooseKind
                     | tpInteger:                    %% First integer (substring end index)
-                        oTypeStkPop                 %% Pop the first integer (substring end index)
-                        [ oTypeStkChooseKind
-                            | tpInteger:            %% Second integer (substring start index)
-                                oTypeStkPop         %% Pop second integer (substring start index)
-                                [ oTypeStkChooseKind
-                                    | tpChar:       %% Finally, the string operand from which the substring is derived
-                                    | *:
-                                        #eTypeMismatch
-                                ]
-                            | *:
-                                #eTypeMismatch      %% Anything else is a type mismatch
-                                oTypeStkPop         %% Pop the bad type to clean up
-                        ]
                     | *:
-                        #eTypeMismatch
-                        oTypeStkPop                 %% Pop the bad type to clean up
+                        #eOperandOperatorTypeMismatch
+                ]
+                oTypeStkPop                         %% Pop the first integer (substring end index)
+                [ oTypeStkChooseKind
+                    | tpInteger:                    %% Second integer (substring start index)
+                    | *:
+                        #eOperandOperatorTypeMismatch      %% Anything else is a type mismatch
+                ]
+                oTypeStkPop                         %% Pop second integer (substring start index)
+                [ oTypeStkChooseKind
+                    | tpChar:                       %% Finally, the string operand from which the substring is derived
+                    | *:
+                        #eOperandOperatorTypeMismatch
                 ]
                 oTypeStkPop                         %% Pop the third operand (hopefully it was a string)
                 oTypeStkPush(tpChar)                %% Result of substring is tpChar (i.e. string)

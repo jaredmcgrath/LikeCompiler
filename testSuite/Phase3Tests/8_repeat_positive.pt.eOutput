@@ -141,9 +141,9 @@ Table index 1751;  Operation 7;  Argument 39
 Choice tag 1 (not matched)
 Table index 1798;  Operation 1;  Argument 12
 Table index 1607;  Operation 0;  Argument 1803
-Table index 1803;  Operation 7;  Argument 220
+Table index 1803;  Operation 7;  Argument 217
 Choice tag 1 (not matched)
-Table index 2061;  Operation 1;  Argument 12
+Table index 2058;  Operation 1;  Argument 12
 Table index 1609;  Operation 7;  Argument 11
 Choice tag 1 (not matched)
 Table index 1628;  Operation 3;  Argument 26
@@ -170,30 +170,30 @@ Table index 1751;  Operation 7;  Argument 39
 Choice tag 51 (not matched)
 Table index 1798;  Operation 1;  Argument 12
 Table index 1607;  Operation 0;  Argument 1803
-Table index 1803;  Operation 7;  Argument 220
+Table index 1803;  Operation 7;  Argument 217
 Choice tag 51 (matched)
 Input token accepted 51;  Line 3;  Next input token 19
 Table index 1943;  Operation 8;  Argument 58
 Output token emitted 58
 Table index 1945;  Operation 50;  Argument 10
-Table index 1946;  Operation 10;  Argument 14
+Table index 1946;  Operation 10;  Argument 3
 Choice tag 0 (matched)
-Table index 1948;  Operation 54;  Argument 50
-Table index 1949;  Operation 50;  Argument 10
-Table index 1950;  Operation 10;  Argument 3
+Table index 1948;  Operation 4;  Argument 6
+Table index 1955;  Operation 54;  Argument 50
+Table index 1956;  Operation 50;  Argument 10
+Table index 1957;  Operation 10;  Argument 3
 Choice tag 1 (matched)
-Table index 1952;  Operation 4;  Argument 6
-Table index 1959;  Operation 4;  Argument 7
-Table index 1967;  Operation 54;  Argument 12
-Table index 1968;  Operation 12;  Argument 1
-Table index 1970;  Operation 38;  Argument 34
-Table index 1971;  Operation 34;  Argument 12
-Table index 1972;  Operation 12;  Argument 7
-Table index 1974;  Operation 26;  Argument 4
-Table index 1975;  Operation 4;  Argument 86
-Table index 2062;  Operation 12;  Argument 7
-Table index 2064;  Operation 26;  Argument 1
-Table index 2065;  Operation 1;  Argument 50
+Table index 1959;  Operation 4;  Argument 6
+Table index 1966;  Operation 54;  Argument 12
+Table index 1967;  Operation 12;  Argument 1
+Table index 1969;  Operation 38;  Argument 34
+Table index 1970;  Operation 34;  Argument 12
+Table index 1971;  Operation 12;  Argument 7
+Table index 1973;  Operation 26;  Argument 4
+Table index 1974;  Operation 4;  Argument 84
+Table index 2059;  Operation 12;  Argument 7
+Table index 2061;  Operation 26;  Argument 1
+Table index 2062;  Operation 1;  Argument 50
 Table index 1609;  Operation 7;  Argument 11
 Choice tag 19 (matched)
 Input token accepted 19;  Line 3;  Next input token 11
@@ -423,10 +423,10 @@ Table index 44;  Operation 1;  Argument 5
       .tRepeatString
       [ oTypeStkChooseKind (tpInteger)
       | tpInteger:
+      ] or >
       oTypeStkPop
       [ oTypeStkChooseKind (tpChar)
       | tpChar:
-      ] or >
       ] or >
       oTypeStkPop
       oTypeStkPush(tpChar)

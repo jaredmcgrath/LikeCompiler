@@ -211,11 +211,11 @@ Choice tag 5 (matched)
 Input token accepted 5;  Line 3;  Next input token 10
 Table index 922;  Operation 4;  Argument 37
 Table index 960;  Operation 0;  Argument 997
-Table index 997;  Operation 0;  Argument 3774
-Table index 3774;  Operation 70;  Argument 82
-Table index 3775;  Operation 82;  Argument 76
-Table index 3776;  Operation 76;  Argument 1
-Table index 3777;  Operation 1;  Argument 12
+Table index 997;  Operation 0;  Argument 3771
+Table index 3771;  Operation 70;  Argument 82
+Table index 3772;  Operation 82;  Argument 76
+Table index 3773;  Operation 76;  Argument 1
+Table index 3774;  Operation 1;  Argument 12
 Table index 999;  Operation 86;  Argument 10
 Table index 1000;  Operation 10;  Argument 8
 Choice tag 2 (not matched)
@@ -625,11 +625,11 @@ Choice tag 5 (matched)
 Input token accepted 5;  Line 8;  Next input token 10
 Table index 922;  Operation 4;  Argument 37
 Table index 960;  Operation 0;  Argument 997
-Table index 997;  Operation 0;  Argument 3774
-Table index 3774;  Operation 70;  Argument 82
-Table index 3775;  Operation 82;  Argument 76
-Table index 3776;  Operation 76;  Argument 1
-Table index 3777;  Operation 1;  Argument 12
+Table index 997;  Operation 0;  Argument 3771
+Table index 3771;  Operation 70;  Argument 82
+Table index 3772;  Operation 82;  Argument 76
+Table index 3773;  Operation 76;  Argument 1
+Table index 3774;  Operation 1;  Argument 12
 Table index 999;  Operation 86;  Argument 10
 Table index 1000;  Operation 10;  Argument 8
 Choice tag 3 (not matched)

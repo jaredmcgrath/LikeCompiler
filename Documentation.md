@@ -432,7 +432,6 @@ All changes were made in `semantic.ssl`.
 
 - If we get an _sIdentifier_, we make sure it is not undefined and that it is a simple variable or constant symbol. Then, a new `TypeStack` entry is created with the same type info as the symbol corresponding to _sIdentifier_. It is possible for an _sNegate_ token to follow. If it does, then make sure the type of our new `TypeStack` entry is _tpInteger_, otherwise, emit a type mismatch error
 - If we get an _sInteger_, push a new _tpInteger_ `TypeStack` entry, and link that entry to the standard _stdInteger_
-- __TODO__: I already added handling for _sStringLiteral_ in the `SimpleType` rule, but it should be documented in step #7
 
 `IndexType` rule was modified to handle Like's syntax for specification of arrays. In Like, the lower array bound is always 1 and never entered explicitly in a program. The upper array bound must be a constant or literal integer. To implement this, we
 
@@ -450,6 +449,24 @@ Following this, processing continues as it would in PT Pascal by calling the `Co
 
 After this point, we have a valid `TypeStack` entry, which is entered into the type reference field of the `SymbolStack` entry. Following this, allocation and entry of the symbol into the `SymbolTable` occurs as in the standard PT Pascal compiler.
 
+## Initial Values
+All changes were made in `semantic.ssl`
+
+To implement initial values for variables in Like, the `VariableDeclarations` rule was modified. After verifying the declared symbol is not already defined, we expect either an expression (Project Description section 4, _variableDeclaration_ __(a)__), or a declaration that terminates with a `like` statement (Project Description section 4, _variableDeclaration_ __(b)__). The former expression is an _initial value_. We differentiate between these two cases with the prescence (or lack thereof) a `sInitialValue` in the parser's output token stream. If we encounter said `sInitialValue` token, we know we have an initial value. 
+
+In this case, we
+
+1. Emit a `tInitialValue` token (this is a null operation for the abstract machine, but helps for organizational/debugging purposes later)
+2. Call the `Expression` rule to translate the postfix expression into T-code. This verifies the validity of the expression (checks symbols are defined, operators are used correctly, etc.), creates an `syExpression` symbol on the symbol stack and a corresponding type stack entry which contains the type information of the expression result. 
+3. Emit a `tInitEnd` to mark the end of our initial value expression
+4. We don't need the expression symbol on the symbol stack, so we `oSymbolStkPop` (the symbol stack entry corresponding to our new variable is already on the stack from the `oSymbolStkPushLocalIdentifier` operation)
+5. We'll make use of the top type stack entry to set the type refernce of this variable. First, the type entry needs to be linked to a standard type before it can be entered to the type table (`Expression` doesn't link resultant type entries). To fix this, a simple choice will `oTypeStkLinkToStandardType` appropriately
+6. We can now call `EnterVariableAttributes`, which will (a) allocate space for our variable, (b) set the type reference of the symbol stack entry to our type entry, and (c) enter the symbol stack entry into the symbol table.
+7. Lastly, we must T-code to assign the initial value to our variable. We emit the address of our variable, then call the `EmitStore` rule to emit the storage of our inital value
+
+If we do not encounter `sInitialValue`, processing proceeds with a call to `TypeBody` to process the `like` statement, then `EnterVariableAttributes`.
+
+After this has been done, we clean up the type stack and symbol stack with `oTypeStkPop` and `oSymbolStkPop`, respectively.
 ## Packages
 A new rule called PackageDefinition was added to `semantic.ssl` to handle the declaration of packages. 
 

@@ -1,3 +1,9 @@
 using output;
 
-var x = 1;
+var myArrInt[5]: like 3;
+var myArrStr[5]: like "stringsss";
+
+var varInt = 1;
+var varStr = "hello world";
+var varArrInt = myArrInt[2];
+var varArrStr = myArrStr[3];

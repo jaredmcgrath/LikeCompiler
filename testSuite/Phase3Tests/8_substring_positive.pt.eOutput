@@ -151,9 +151,9 @@ Table index 1751;  Operation 7;  Argument 39
 Choice tag 1 (not matched)
 Table index 1798;  Operation 1;  Argument 12
 Table index 1607;  Operation 0;  Argument 1803
-Table index 1803;  Operation 7;  Argument 220
+Table index 1803;  Operation 7;  Argument 217
 Choice tag 1 (not matched)
-Table index 2061;  Operation 1;  Argument 12
+Table index 2058;  Operation 1;  Argument 12
 Table index 1609;  Operation 7;  Argument 11
 Choice tag 1 (not matched)
 Table index 1628;  Operation 3;  Argument 26
@@ -180,9 +180,9 @@ Table index 1751;  Operation 7;  Argument 39
 Choice tag 1 (not matched)
 Table index 1798;  Operation 1;  Argument 12
 Table index 1607;  Operation 0;  Argument 1803
-Table index 1803;  Operation 7;  Argument 220
+Table index 1803;  Operation 7;  Argument 217
 Choice tag 1 (not matched)
-Table index 2061;  Operation 1;  Argument 12
+Table index 2058;  Operation 1;  Argument 12
 Table index 1609;  Operation 7;  Argument 11
 Choice tag 1 (not matched)
 Table index 1628;  Operation 3;  Argument 26
@@ -209,36 +209,36 @@ Table index 1751;  Operation 7;  Argument 39
 Choice tag 52 (not matched)
 Table index 1798;  Operation 1;  Argument 12
 Table index 1607;  Operation 0;  Argument 1803
-Table index 1803;  Operation 7;  Argument 220
+Table index 1803;  Operation 7;  Argument 217
 Choice tag 52 (matched)
 Input token accepted 52;  Line 3;  Next input token 19
-Table index 1977;  Operation 8;  Argument 59
+Table index 1976;  Operation 8;  Argument 59
 Output token emitted 59
-Table index 1979;  Operation 50;  Argument 10
-Table index 1980;  Operation 10;  Argument 26
+Table index 1978;  Operation 50;  Argument 10
+Table index 1979;  Operation 10;  Argument 3
 Choice tag 0 (matched)
-Table index 1982;  Operation 54;  Argument 50
-Table index 1983;  Operation 50;  Argument 10
-Table index 1984;  Operation 10;  Argument 14
+Table index 1981;  Operation 4;  Argument 6
+Table index 1988;  Operation 54;  Argument 50
+Table index 1989;  Operation 50;  Argument 10
+Table index 1990;  Operation 10;  Argument 3
 Choice tag 0 (matched)
-Table index 1986;  Operation 54;  Argument 50
-Table index 1987;  Operation 50;  Argument 10
-Table index 1988;  Operation 10;  Argument 3
+Table index 1992;  Operation 4;  Argument 6
+Table index 1999;  Operation 54;  Argument 50
+Table index 2000;  Operation 50;  Argument 10
+Table index 2001;  Operation 10;  Argument 3
 Choice tag 1 (matched)
-Table index 1990;  Operation 4;  Argument 6
-Table index 1997;  Operation 4;  Argument 7
-Table index 2005;  Operation 4;  Argument 7
-Table index 2013;  Operation 54;  Argument 12
-Table index 2014;  Operation 12;  Argument 1
-Table index 2016;  Operation 38;  Argument 34
-Table index 2017;  Operation 34;  Argument 34
-Table index 2018;  Operation 34;  Argument 12
-Table index 2019;  Operation 12;  Argument 7
-Table index 2021;  Operation 26;  Argument 4
-Table index 2022;  Operation 4;  Argument 39
-Table index 2062;  Operation 12;  Argument 7
-Table index 2064;  Operation 26;  Argument 1
-Table index 2065;  Operation 1;  Argument 50
+Table index 2003;  Operation 4;  Argument 6
+Table index 2010;  Operation 54;  Argument 12
+Table index 2011;  Operation 12;  Argument 1
+Table index 2013;  Operation 38;  Argument 34
+Table index 2014;  Operation 34;  Argument 34
+Table index 2015;  Operation 34;  Argument 12
+Table index 2016;  Operation 12;  Argument 7
+Table index 2018;  Operation 26;  Argument 4
+Table index 2019;  Operation 4;  Argument 39
+Table index 2059;  Operation 12;  Argument 7
+Table index 2061;  Operation 26;  Argument 1
+Table index 2062;  Operation 1;  Argument 50
 Table index 1609;  Operation 7;  Argument 11
 Choice tag 19 (matched)
 Input token accepted 19;  Line 3;  Next input token 11
@@ -505,14 +505,14 @@ Table index 44;  Operation 1;  Argument 5
       .tSubstring
       [ oTypeStkChooseKind (tpInteger)
       | tpInteger:
+      ] or >
       oTypeStkPop
       [ oTypeStkChooseKind (tpInteger)
       | tpInteger:
+      ] or >
       oTypeStkPop
       [ oTypeStkChooseKind (tpChar)
       | tpChar:
-      ] or >
-      ] or >
       ] or >
       oTypeStkPop
       oTypeStkPush(tpChar)

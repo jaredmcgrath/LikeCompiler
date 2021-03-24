@@ -115,17 +115,8 @@ Table index 409;  Operation 54;  Argument 45
 Table index 410;  Operation 45;  Argument 46
 Table index 411;  Operation 46;  Argument 10
 Table index 412;  Operation 10;  Argument 3
-Choice tag 0 (not matched)
-Table index 419;  Operation 9;  Argument 18
-semantic error, line 3: subrange lower bound exceeds upper bound
-Table index 421;  Operation 76;  Argument 0
-Table index 422;  Operation 0;  Argument 3766
-Table index 3766;  Operation 82;  Argument 84
-Table index 3767;  Operation 84;  Argument 70
-Table index 3768;  Operation 70;  Argument 83
-Table index 3769;  Operation 83;  Argument 1
-Table index 3770;  Operation 1;  Argument 70
-Table index 424;  Operation 45;  Argument 76
+Choice tag 1 (matched)
+Table index 414;  Operation 4;  Argument 10
 Table index 425;  Operation 76;  Argument 76
 Table index 426;  Operation 76;  Argument 1
 Table index 427;  Operation 1;  Argument 0
@@ -135,13 +126,13 @@ Table index 454;  Operation 5;  Argument 7
 Input token accepted 7;  Line 3;  Next input token 1
 Table index 456;  Operation 7;  Argument 79
 Choice tag 1 (matched)
-Input token accepted 1;  Line 3;  Next input token 11
+Input token accepted 1;  Line 3;  Next input token 8
 Table index 513;  Operation 12;  Argument 0
 Table index 515;  Operation 38;  Argument 12
 Table index 516;  Operation 12;  Argument 0
 Table index 518;  Operation 44;  Argument 7
 Table index 519;  Operation 7;  Argument 3
-Choice tag 11 (not matched)
+Choice tag 8 (not matched)
 Table index 526;  Operation 4;  Argument 20
 Table index 547;  Operation 1;  Argument 7
 Table index 430;  Operation 50;  Argument 10
@@ -201,7 +192,7 @@ Table index 778;  Operation 8;  Argument 67
 Output token emitted 67
 Table index 780;  Operation 72;  Argument 56
 Table index 781;  Operation 56;  Argument 76
-Output token emitted 2
+Output token emitted 5
 Table index 782;  Operation 76;  Argument 8
 Table index 783;  Operation 8;  Argument 66
 Output token emitted 66
@@ -217,6 +208,151 @@ Table index 737;  Operation 30;  Argument 14
 Table index 738;  Operation 14;  Argument 1
 Table index 739;  Operation 1;  Argument 31
 Table index 677;  Operation 7;  Argument 5
+Choice tag 8 (not matched)
+Table index 686;  Operation 54;  Argument 34
+Table index 687;  Operation 34;  Argument 4
+Table index 688;  Operation 4;  Argument 4
+Table index 693;  Operation 1;  Argument 31
+Table index 129;  Operation 4;  Argument 52
+Table index 182;  Operation 3;  Argument 70
+Table index 113;  Operation 7;  Argument 43
+Choice tag 8 (matched)
+Input token accepted 8;  Line 5;  Next input token 0
+Table index 127;  Operation 0;  Argument 610
+Table index 610;  Operation 7;  Argument 79
+Choice tag 0 (matched)
+Input token accepted 0;  Line 5;  Next input token 54
+Table index 612;  Operation 23;  Argument 31
+Table index 613;  Operation 31;  Argument 10
+Table index 614;  Operation 10;  Argument 3
+Choice tag 9 (matched)
+Table index 616;  Operation 4;  Argument 8
+Table index 625;  Operation 7;  Argument 44
+Choice tag 54 (matched)
+Input token accepted 54;  Line 5;  Next input token 0
+Table index 627;  Operation 8;  Argument 62
+Output token emitted 62
+Table index 629;  Operation 0;  Argument 1603
+Table index 1603;  Operation 0;  Argument 1631
+Table index 1631;  Operation 7;  Argument 81
+Choice tag 0 (matched)
+Input token accepted 0;  Line 5;  Next input token 19
+Table index 1633;  Operation 22;  Argument 31
+Table index 1634;  Operation 31;  Argument 10
+Table index 1635;  Operation 10;  Argument 5
+Choice tag 2 (not matched)
+Table index 1644;  Operation 31;  Argument 10
+Table index 1645;  Operation 10;  Argument 15
+Choice tag 2 (matched)
+Table index 1651;  Operation 0;  Argument 2259
+Table index 2259;  Operation 31;  Argument 10
+Table index 2260;  Operation 10;  Argument 24
+Choice tag 2 (matched)
+Table index 2262;  Operation 8;  Argument 66
+Output token emitted 66
+Table index 2264;  Operation 69;  Argument 56
+Table index 2265;  Operation 56;  Argument 76
+Output token emitted 4
+Table index 2266;  Operation 76;  Argument 4
+Table index 2267;  Operation 4;  Argument 29
+Table index 2297;  Operation 39;  Argument 0
+Table index 2298;  Operation 0;  Argument 2301
+Table index 2301;  Operation 7;  Argument 64
+Choice tag 19 (not matched)
+Table index 2369;  Operation 1;  Argument 39
+Table index 2300;  Operation 1;  Argument 7
+Table index 1653;  Operation 0;  Argument 2402
+Table index 2402;  Operation 50;  Argument 10
+Table index 2403;  Operation 10;  Argument 13
+Choice tag 4 (not matched)
+Table index 2428;  Operation 1;  Argument 39
+Table index 1655;  Operation 4;  Argument 20
+Table index 1676;  Operation 4;  Argument 45
+Table index 1722;  Operation 1;  Argument 68
+Table index 1605;  Operation 0;  Argument 1751
+Table index 1751;  Operation 7;  Argument 39
+Choice tag 19 (not matched)
+Table index 1798;  Operation 1;  Argument 12
+Table index 1607;  Operation 0;  Argument 1803
+Table index 1803;  Operation 7;  Argument 217
+Choice tag 19 (not matched)
+Table index 2058;  Operation 1;  Argument 12
+Table index 1609;  Operation 7;  Argument 11
+Choice tag 19 (matched)
+Input token accepted 19;  Line 5;  Next input token 11
+Table index 1611;  Operation 4;  Argument 18
+Table index 1630;  Operation 1;  Argument 7
+Table index 631;  Operation 8;  Argument 63
+Output token emitted 63
+Table index 633;  Operation 34;  Argument 50
+Table index 634;  Operation 50;  Argument 10
+Table index 635;  Operation 10;  Argument 16
+Choice tag 4 (not matched)
+Table index 659;  Operation 0;  Argument 694
+Table index 694;  Operation 31;  Argument 10
+Table index 695;  Operation 10;  Argument 18
+Choice tag 9 (not matched)
+Table index 717;  Operation 12;  Argument 2
+Table index 719;  Operation 26;  Argument 50
+Table index 720;  Operation 50;  Argument 10
+Table index 721;  Operation 10;  Argument 10
+Choice tag 4 (not matched)
+Table index 735;  Operation 0;  Argument 740
+Table index 740;  Operation 31;  Argument 10
+Table index 741;  Operation 10;  Argument 6
+Choice tag 2 (not matched)
+Table index 751;  Operation 50;  Argument 10
+Table index 752;  Operation 10;  Argument 56
+Choice tag 4 (matched)
+Table index 763;  Operation 8;  Argument 40
+Output token emitted 40
+Table index 765;  Operation 61;  Argument 29
+Table index 766;  Operation 29;  Argument 8
+Table index 767;  Operation 8;  Argument 67
+Output token emitted 67
+Table index 769;  Operation 71;  Argument 56
+Table index 770;  Operation 56;  Argument 76
+Output token emitted 1
+Table index 771;  Operation 76;  Argument 8
+Table index 772;  Operation 8;  Argument 66
+Output token emitted 66
+Table index 774;  Operation 58;  Argument 8
+Output token emitted 32
+Table index 775;  Operation 8;  Argument 32
+Output token emitted 32
+Table index 777;  Operation 64;  Argument 8
+Table index 778;  Operation 8;  Argument 67
+Output token emitted 67
+Table index 780;  Operation 72;  Argument 56
+Table index 781;  Operation 56;  Argument 76
+Output token emitted 5
+Table index 782;  Operation 76;  Argument 8
+Table index 783;  Operation 8;  Argument 66
+Output token emitted 66
+Table index 785;  Operation 58;  Argument 8
+Output token emitted 36
+Table index 786;  Operation 8;  Argument 32
+Output token emitted 32
+Table index 788;  Operation 64;  Argument 62
+Table index 789;  Operation 62;  Argument 4
+Table index 790;  Operation 4;  Argument 32
+Table index 823;  Operation 1;  Argument 5
+Table index 737;  Operation 30;  Argument 14
+Table index 738;  Operation 14;  Argument 1
+Table index 739;  Operation 1;  Argument 31
+Table index 661;  Operation 8;  Argument 66
+Output token emitted 66
+Table index 663;  Operation 69;  Argument 56
+Table index 664;  Operation 56;  Argument 76
+Output token emitted 32
+Table index 665;  Operation 76;  Argument 0
+Table index 666;  Operation 0;  Argument 1102
+Table index 1102;  Operation 50;  Argument 10
+Table index 1103;  Operation 10;  Argument 13
+Choice tag 4 (not matched)
+Table index 1128;  Operation 1;  Argument 5
+Table index 668;  Operation 4;  Argument 8
+Table index 677;  Operation 7;  Argument 5
 Choice tag 11 (not matched)
 Table index 686;  Operation 54;  Argument 34
 Table index 687;  Operation 34;  Argument 4
@@ -228,7 +364,7 @@ Table index 113;  Operation 7;  Argument 43
 Choice tag 11 (not matched)
 Table index 180;  Operation 4;  Argument 3
 Table index 184;  Operation 5;  Argument 11
-Input token accepted 11;  Line 4;  Next input token 56
+Input token accepted 11;  Line 6;  Next input token 56
 Table index 186;  Operation 1;  Argument 12
 Table index 1045;  Operation 17;  Argument 1
 Table index 1046;  Operation 1;  Argument 5
@@ -335,19 +471,9 @@ Table index 44;  Operation 1;  Argument 5
       ] or >
       oTypeStkPop
       oTypeStkEnterBounds
-      [ oTypeStkVerifyBounds (no)
-      | *:
-      #eBounds
-      semantic error, line 3: subrange lower bound exceeds upper bound
-      oValuePop
-      @ValuePushValuePlusOne
-       oCountPushValue
-       oCountIncrement
-       oValuePushCount
-       oCountPop
-       >>
-      ;ValuePushValuePlusOne
-      oTypeStkEnterBounds
+      [ oTypeStkVerifyBounds (yes)
+      | yes:
+      ] or >
       oValuePop
       oValuePop
       >>
@@ -359,7 +485,7 @@ Table index 44;  Operation 1;  Argument 5
        | sInteger:
        oTypeStkPush(tpInteger)
        oTypeStkLinkToStandardType(stdInteger)
-       [ (sEnd)
+       [ (sVar)
        | *:
        ] or >
        >>
@@ -412,7 +538,7 @@ Table index 44;  Operation 1;  Argument 5
       .tLiteralInteger
       oValuePushTypeStkUpperBound
       oEmitValue
-      % value emitted 2
+      % value emitted 5
       oValuePop
       .tLiteralAddress
       oEmitDataAddress
@@ -427,6 +553,134 @@ Table index 44;  Operation 1;  Argument 5
      oSymbolTblEnter
      >>
     ;EnterVariableAttributes
+    [ (sVar)
+    | *:
+    oTypeStkPop
+    oSymbolStkPop
+    ] or >
+    >>
+   ;VariableDeclarations
+   ] or >
+   }
+   [ (sVar)
+   | sVar:
+   @VariableDeclarations
+    [ (sIdentifier)
+    | sIdentifier:
+    oSymbolStkPushLocalIdentifier
+    [ oSymbolStkChooseKind (syUndefined)
+    | syUndefined:
+    ] or >
+    [ (sInitialValue)
+    | sInitialValue:
+    .tInitialValue
+    @Expression
+     @Operand
+      [ (sIdentifier)
+      | sIdentifier:
+      oSymbolStkPushIdentifier
+      [ oSymbolStkChooseKind (syVariable)
+      | *:
+      [ oSymbolStkChooseKind (syVariable)
+      | syVariable:
+      @Variable
+       [ oSymbolStkChooseKind (syVariable)
+       | syVariable:
+       .tLiteralAddress
+       oValuePushSymbol
+       oEmitValue
+       % value emitted 4
+       oValuePop
+       ] or >
+       oTypeStkPushSymbol
+       @VariableExtension
+        [ (sExpnEnd)
+        | *:
+        >>
+       ;VariableExtension
+       >>
+      ;Variable
+      @VariableOperand
+       [ oTypeStkChooseKind (tpArray)
+       | *:
+       >>
+      ;VariableOperand
+      ] or >
+      ] or >
+      >>
+     ;Operand
+     @UnaryOperator
+      [ (sExpnEnd)
+      | *:
+      >>
+     ;UnaryOperator
+     @BinaryOperator
+      [ (sExpnEnd)
+      | *:
+      >>
+     ;BinaryOperator
+     [ (sExpnEnd)
+     | sExpnEnd:
+     ] or >
+     >>
+    ;Expression
+    .tInitEnd
+    oSymbolStkPop
+    [ oTypeStkChooseKind (tpArray)
+    | *:
+    @EnterVariableAttributes
+     [ oSymbolStkChooseKind (syUndefined)
+     | *:
+     oSymbolStkSetKind(syVariable)
+     [ oTypeStkChooseKind (tpArray)
+     | *:
+     @AllocateVar
+      [ oSymbolStkChooseKind (syVariable)
+      | *:
+      [ oTypeStkChooseKind (tpArray)
+      | tpArray:
+      .tArrayDescriptor
+      oAllocateAlignOnWord
+      oSymbolStkEnterDataAddress
+      .tLiteralInteger
+      oValuePushTypeStkLowerBound
+      oEmitValue
+      % value emitted 1
+      oValuePop
+      .tLiteralAddress
+      oEmitDataAddress
+      % value emitted 32
+      .tStoreInteger
+      oAllocateDescriptor
+      .tLiteralInteger
+      oValuePushTypeStkUpperBound
+      oEmitValue
+      % value emitted 5
+      oValuePop
+      .tLiteralAddress
+      oEmitDataAddress
+      % value emitted 36
+      .tStoreInteger
+      oAllocateDescriptor
+      oAllocateVariable
+      ] or >
+      >>
+     ;AllocateVar
+     oSymbolStkEnterTypeReference
+     oSymbolTblEnter
+     >>
+    ;EnterVariableAttributes
+    .tLiteralAddress
+    oValuePushSymbol
+    oEmitValue
+    % value emitted 32
+    oValuePop
+    @EmitStore
+     [ oTypeStkChooseKind (tpArray)
+     | *:
+     >>
+    ;EmitStore
+    ] or >
     [ (sEnd)
     | *:
     oTypeStkPop

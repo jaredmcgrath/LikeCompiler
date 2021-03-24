@@ -252,24 +252,24 @@
 </tr>
 
 <tr>
-<td>Jared10.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
+<td>3_var_declaration_multi_neg.pt</td>
+<td>Ensure multiple variable declarations cannot exist on same line</td>
+<td>Attempts to declare two vars on the same line</td>
+<td>3_var_declaration_multi_neg.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
-<td>Jared11.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
+<td>4_init_arr_neg.pt</td>
+<td>Test behaviour when the initial value refers to an entire array</td>
+<td>Declares an array, then declares a var with initial value of the declared array</td>
+<td>4_init_arr_neg.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
-<td>Jared12.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
+<td>4_init_expression_positive.pt</td>
+<td>Ensure initial value assigned is of proper type for all possible expressions</td>
+<td>One variable declaration for each unary and binary operation</td>
+<td>4_init_expression_positive.pt.eOutput</td><td></td>
 </tr>
 
 <tr>

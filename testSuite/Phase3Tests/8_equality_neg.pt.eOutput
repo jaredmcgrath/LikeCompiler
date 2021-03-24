@@ -92,7 +92,7 @@ Table index 629;  Operation 0;  Argument 1603
 Table index 1603;  Operation 0;  Argument 1631
 Table index 1631;  Operation 7;  Argument 81
 Choice tag 2 (matched)
-Input token accepted 2;  Line 3;  Next input token 2
+Input token accepted 2;  Line 3;  Next input token 1
 Table index 1694;  Operation 12;  Argument 7
 Table index 1696;  Operation 21;  Argument 0
 Table index 1697;  Operation 0;  Argument 1723
@@ -105,16 +105,17 @@ Output token emitted -32767
 Table index 1728;  Operation 8;  Argument 71
 Output token emitted 71
 Table index 1730;  Operation 56;  Argument 76
-Output token emitted 5
+Output token emitted 6
 Table index 1731;  Operation 76;  Argument 73
 Table index 1732;  Operation 73;  Argument 74
 Table index 1733;  Operation 74;  Argument 57
 Table index 1734;  Operation 57;  Argument 88
-Output token emitted 104
-Output token emitted 101
-Output token emitted 108
-Output token emitted 108
-Output token emitted 111
+Output token emitted 109
+Output token emitted 121
+Output token emitted 32
+Output token emitted 115
+Output token emitted 116
+Output token emitted 114
 Output token emitted 0
 Table index 1735;  Operation 88;  Argument 12
 Table index 1736;  Operation 12;  Argument 1
@@ -140,63 +141,32 @@ Table index 1705;  Operation 4;  Argument 16
 Table index 1722;  Operation 1;  Argument 68
 Table index 1605;  Operation 0;  Argument 1751
 Table index 1751;  Operation 7;  Argument 39
-Choice tag 2 (not matched)
+Choice tag 1 (not matched)
 Table index 1798;  Operation 1;  Argument 12
 Table index 1607;  Operation 0;  Argument 1803
 Table index 1803;  Operation 7;  Argument 217
-Choice tag 2 (not matched)
+Choice tag 1 (not matched)
 Table index 2058;  Operation 1;  Argument 12
 Table index 1609;  Operation 7;  Argument 11
-Choice tag 2 (not matched)
+Choice tag 1 (not matched)
 Table index 1628;  Operation 3;  Argument 26
 Table index 1603;  Operation 0;  Argument 1631
 Table index 1631;  Operation 7;  Argument 81
-Choice tag 2 (matched)
-Input token accepted 2;  Line 3;  Next input token 31
-Table index 1694;  Operation 12;  Argument 7
-Table index 1696;  Operation 21;  Argument 0
-Table index 1697;  Operation 0;  Argument 1723
-Table index 1723;  Operation 68;  Argument 8
-Table index 1724;  Operation 8;  Argument 70
-Output token emitted 70
-Table index 1726;  Operation 87;  Argument 55
-Table index 1727;  Operation 55;  Argument 8
-Output token emitted -32767
-Table index 1728;  Operation 8;  Argument 71
-Output token emitted 71
-Table index 1730;  Operation 56;  Argument 76
-Output token emitted 5
-Table index 1731;  Operation 76;  Argument 73
-Table index 1732;  Operation 73;  Argument 74
-Table index 1733;  Operation 74;  Argument 57
-Table index 1734;  Operation 57;  Argument 88
-Output token emitted 104
-Output token emitted 101
-Output token emitted 108
-Output token emitted 108
-Output token emitted 111
-Output token emitted 0
-Table index 1735;  Operation 88;  Argument 12
-Table index 1736;  Operation 12;  Argument 1
-Table index 1738;  Operation 38;  Argument 12
-Table index 1739;  Operation 12;  Argument 1
-Table index 1741;  Operation 44;  Argument 12
-Table index 1742;  Operation 12;  Argument 1
-Table index 1744;  Operation 65;  Argument 68
-Table index 1745;  Operation 68;  Argument 45
-Table index 1746;  Operation 45;  Argument 76
-Table index 1747;  Operation 76;  Argument 76
-Table index 1748;  Operation 76;  Argument 36
-Table index 1749;  Operation 36;  Argument 1
-Table index 1750;  Operation 1;  Argument 7
-Table index 1699;  Operation 8;  Argument 66
-Output token emitted 66
-Table index 1701;  Operation 56;  Argument 8
-Output token emitted -29
-Table index 1702;  Operation 8;  Argument 24
-Output token emitted 24
-Table index 1704;  Operation 76;  Argument 4
-Table index 1705;  Operation 4;  Argument 16
+Choice tag 1 (matched)
+Input token accepted 1;  Line 3;  Next input token 31
+Table index 1678;  Operation 66;  Argument 12
+Table index 1679;  Operation 12;  Argument 7
+Table index 1681;  Operation 21;  Argument 12
+Table index 1682;  Operation 12;  Argument 0
+Table index 1684;  Operation 38;  Argument 12
+Table index 1685;  Operation 12;  Argument 0
+Table index 1687;  Operation 44;  Argument 8
+Table index 1688;  Operation 8;  Argument 67
+Output token emitted 67
+Table index 1690;  Operation 56;  Argument 76
+Output token emitted 2
+Table index 1691;  Operation 76;  Argument 4
+Table index 1692;  Operation 4;  Argument 29
 Table index 1722;  Operation 1;  Argument 68
 Table index 1605;  Operation 0;  Argument 1751
 Table index 1751;  Operation 7;  Argument 39
@@ -208,20 +178,20 @@ Choice tag 31 (matched)
 Input token accepted 31;  Line 3;  Next input token 19
 Table index 1849;  Operation 50;  Argument 10
 Table index 1850;  Operation 10;  Argument 5
-Choice tag 1 (matched)
-Table index 1852;  Operation 8;  Argument 61
-Output token emitted 61
-Table index 1854;  Operation 4;  Argument 6
+Choice tag 0 (not matched)
+Table index 1859;  Operation 8;  Argument 5
+Output token emitted 5
 Table index 1861;  Operation 0;  Argument 2194
 Table index 2194;  Operation 50;  Argument 10
 Table index 2195;  Operation 10;  Argument 42
-Choice tag 1 (matched)
-Table index 2212;  Operation 54;  Argument 50
-Table index 2213;  Operation 50;  Argument 10
-Table index 2214;  Operation 10;  Argument 3
-Choice tag 1 (matched)
-Table index 2216;  Operation 4;  Argument 6
-Table index 2223;  Operation 4;  Argument 26
+Choice tag 0 (matched)
+Table index 2197;  Operation 54;  Argument 50
+Table index 2198;  Operation 50;  Argument 10
+Table index 2199;  Operation 10;  Argument 3
+Choice tag 1 (not matched)
+Table index 2208;  Operation 9;  Argument 24
+semantic error, line 3: operand and operator types clash
+Table index 2210;  Operation 4;  Argument 39
 Table index 2250;  Operation 54;  Argument 12
 Table index 2251;  Operation 12;  Argument 2
 Table index 2253;  Operation 38;  Argument 34
@@ -396,16 +366,17 @@ Table index 44;  Operation 1;  Argument 5
        % value emitted -32767
        .tStringData
        oEmitValue
-       % value emitted 5
+       % value emitted 6
        oValuePop
        oValuePushCodeAddress
        oValueNegate
        oEmitString
-       % value emitted 104
-       % value emitted 101
-       % value emitted 108
-       % value emitted 108
-       % value emitted 111
+       % value emitted 109
+       % value emitted 121
+       % value emitted 32
+       % value emitted 115
+       % value emitted 116
+       % value emitted 114
        % value emitted 0
        oFixPopForwardBranch
        oTypeStkPush(tpChar)
@@ -427,56 +398,28 @@ Table index 44;  Operation 1;  Argument 5
       >>
      ;Operand
      @UnaryOperator
-      [ (sStringLiteral)
+      [ (sInteger)
       | *:
       >>
      ;UnaryOperator
      @BinaryOperator
-      [ (sStringLiteral)
+      [ (sInteger)
       | *:
       >>
      ;BinaryOperator
-     [ (sStringLiteral)
+     [ (sInteger)
      | *:
      }
      @Operand
-      [ (sStringLiteral)
-      | sStringLiteral:
+      [ (sInteger)
+      | sInteger:
+      oValuePushInteger
       oSymbolStkPush(syExpression)
-      @StringLiteral
-       oValuePushStringLength
-       .tSkipString
-       oFixPushForwardBranch
-       oEmitNullAddress
-       % value emitted -32767
-       .tStringData
-       oEmitValue
-       % value emitted 5
-       oValuePop
-       oValuePushCodeAddress
-       oValueNegate
-       oEmitString
-       % value emitted 104
-       % value emitted 101
-       % value emitted 108
-       % value emitted 108
-       % value emitted 111
-       % value emitted 0
-       oFixPopForwardBranch
-       oTypeStkPush(tpChar)
-       oTypeStkLinkToStandardType(stdChar)
-       oValuePush(one)
-       oValuePushStringLength
-       oTypeStkEnterBounds
-       oValuePop
-       oValuePop
-       oTypeTblEnter
-       >>
-      ;StringLiteral
-      .tLiteralAddress
+      oTypeStkPush(tpInteger)
+      oTypeStkLinkToStandardType(stdInteger)
+      .tLiteralInteger
       oEmitValue
-      % value emitted -29
-      .tFetchChar
+      % value emitted 2
       oValuePop
       ] or >
       >>
@@ -489,17 +432,17 @@ Table index 44;  Operation 1;  Argument 5
      @BinaryOperator
       [ (sEq)
       | sEq:
-      [ oTypeStkChooseKind (tpChar)
-      | tpChar:
-      .tStringEQ
-      ] or >
+      [ oTypeStkChooseKind (tpInteger)
+      | *:
+      .tEQ
       @CompareEqualityOperandTypes
-       [ oTypeStkChooseKind (tpChar)
-       | tpChar:
+       [ oTypeStkChooseKind (tpInteger)
+       | tpInteger:
        oTypeStkPop
        [ oTypeStkChooseKind (tpChar)
-       | tpChar:
-       ] or >
+       | *:
+       #eOperandOperatorTypeMismatch
+       semantic error, line 3: operand and operator types clash
        ] or >
        oTypeStkPop
        oTypeStkPush(tpBoolean)

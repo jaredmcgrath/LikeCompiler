@@ -1,0 +1,12 @@
+using output;
+
+val str = "hello";
+val num = 1;
+
+var bad1 = str / str : str;
+var bad2 = str / str : num;
+var bad3 = str / num : str;
+var bad4 = num / str : str;
+var bad5 = num / num : num;
+var bad6 = num / str : num;
+var bad7 = num / num : str;
