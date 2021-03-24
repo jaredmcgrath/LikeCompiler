@@ -1,7 +1,7 @@
 using output;
-val x = 1, y = 0;
+val x = 1;
 if x == 1 then
-    y = 1;
+    val y = 0;
 end;
 put(y);
 putln;

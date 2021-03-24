@@ -386,6 +386,14 @@ Expression rule
 </table>
 
 # Phase 3 Documentation
+## General Changes
+For all of the updates listed below:
+
+- All changes in `semantic.ssl` have comments nearby indicating what was changed/what the new changes do
+- All comments made by us in `semantic.ssl` are prefixed with `%%`, e.g. `%% This is an SSL comment`
+- All changes in `semantic.pt` have comments nearby indicating what was changed/what the new changes do
+- All comments made by us in `semantic.pt` start with `{##` and end with `##}`, e.g. `{## This is a PT comment ##}`
+
 ## Definitions
 The following input tokens were added to `semantic.ssl` in order to match output tokens in `parser.ssl` exactly: 
 ```
@@ -455,7 +463,7 @@ Finally, a new semantic operation called `oSymbolTblMergePublicScope` was added 
 ## Statements
 All changes were made in `semantic.ssl`. No changes were necessary in the semantic phase for shortform assignments, repeat-while loops or elseif handling as the parser still emits the same tokens as if it were PT. 
 
-Choose statements were masked as Case statements, and changes were made to the `CaseStmt` rule to recognize the optional _else_. After accepting a _sCaseEnd_ token, a selection block was added within the loop to check for _sCaseElse_, an optional else clause. If there was an else clause, `tCaseElse` was emitted, the Statement rule was called to handle the expressions within it, and `tCaseElseEnd` was emitted to terminate the else block. If there is no else clause, the default option was taken which performed no action. This was because in Like, else clauses in choose statements are optional and if there is the case table did not match an else clause, no necessary action is needed. 
+Choose statements were masked as Case statements, and changes were made to the `CaseStmt` rule to recognize the optional _else_. After emitting the case branch table, a selection block was added to check for _sCaseElse_, an optional else clause. If there was an else clause, `tCaseElse` was emitted, the Statement rule was called to handle the expressions within it, and `tCaseElseEnd` was emitted to terminate the else block. If there is no else clause, the default option was taken which performed no action and continued to emit the merge branches for case alternatives. This was because in Like, else clauses in choose statements are optional and if there is the case table did not match an else clause, no necessary action is needed. 
 
 ## Strings and Constants
 

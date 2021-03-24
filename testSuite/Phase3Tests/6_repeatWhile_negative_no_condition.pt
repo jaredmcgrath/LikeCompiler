@@ -1,7 +1,0 @@
-using output;
-
-var i = 5;
-
-repeat
-  i = i + 2
-while;
