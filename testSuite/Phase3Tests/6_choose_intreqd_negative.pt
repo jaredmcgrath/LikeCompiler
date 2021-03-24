@@ -2,13 +2,13 @@ using output;
 val x = "string";
 var i = 0;
 choose i of
-    when x then %triggers #eIntegerConstReqd
+    when x then //triggers #eIntegerConstReqd
      i += 1;
 end;
 
 var y = 0;
 
 choose i of
-    when y then %triggers #eIntegerConstReqd
+    when y then //triggers #eIntegerConstReqd
      i += 1;
 end;

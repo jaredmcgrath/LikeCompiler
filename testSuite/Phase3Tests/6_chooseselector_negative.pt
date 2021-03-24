@@ -3,7 +3,7 @@ using output;
 var str = "str";
 var i = 0;
 
-choose str of %triggers #eIntegerExpnReqd
+choose str of //triggers #eIntegerExpnReqd
     when 0 then
      i += 1;
 end;

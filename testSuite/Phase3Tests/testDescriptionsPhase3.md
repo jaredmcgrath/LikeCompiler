@@ -399,31 +399,31 @@
 </tr>
 
 <tr>
-<td>6_ifnoelse_positive.pt</td>
-<td>Test behaviour of one if statement</td>
-<td>Runs a single if statement</td>
-<td>6_ifnoelse_positive.pt.eOutput</td><td></td>
+<td>6_choose_intreqd_negative.pt</td>
+<td>Trigger #eIntegerConstReqd for a defined constant and an integer constant as the condition</td>
+<td>Runs two separate choose statements: one with a string constant condition and the other with an integer variable condition - both are different logical paths in semantic.ssl</td>
+<td>6_choose_intreqd_negative.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
-<td>6_ifelse_positive.pt</td>
-<td>Test behaviour of if-else statement</td>
-<td>Runs an if statement followed by an else statement</td>
-<td>6_ifelse_positive.pt.eOutput</td><td></td>
+<td>6_choose_undefined_negative.pt</td>
+<td>Trigger #eUndefinedIdentifier</td>
+<td>Runs a choose statement with an undefined identifier as the condition</td>
+<td>6_choose_undefined_negative.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
-<td>6_elseif_positive.pt</td>
-<td>Test behaviour of elseif statement</td>
-<td>Runs an if-elseif chain then an equivalent nested if statement</td>
-<td>6_elseif_positive.pt.eOutput</td><td></td>
+<td>6_chooseselector_negative.pt</td>
+<td>Trigger #eIntegerExpnReqd</td>
+<td>Runs a choose statement with the selector as a non-integer expression - as a string</td>
+<td>6_chooseselector_negative.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
-<td>6_chained_elseif_positive.pt</td>
-<td>Test behaviour of multiple elseif statements</td>
-<td>Runs an if statement and multiple elseif statements</td>
-<td>6_chained_elseif_positive.pt.eOutput</td><td></td>
+<td>6_duplicatecase_negative.pt</td>
+<td>Trigger #eDuplicateLabel</td>
+<td>Runs a choose statement with multiple of the same case conditions</td>
+<td>6_duplicatecase_negative.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
