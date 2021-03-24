@@ -1,0 +1,3 @@
+using output;
+
+var hello = "hello, world!" / 1 : 5;

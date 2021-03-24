@@ -230,6 +230,7 @@ type Integer :
 
         % These two sizes are machine dependent
         byteSize = 1
+        stringSize = 256 % Added stringSize
         wordSize = 4;
 
 type Boolean :
@@ -256,14 +257,14 @@ type PredeclaredId :
         pidFalse
         pidReset
         pidRewrite
-        pidWrite
-        pidWriteln
-        pidRead
-        pidReadln
         pidChr
         pidOrd
         pidEoln
         pidEof
+        pidRead
+        pidReadln
+        pidWrite
+        pidWriteln
         pidAssign
         lastPredeclaredId = pidAssign
 
@@ -450,7 +451,7 @@ type TypeKind :
         tpBoolean
         tpSubrange
         tpArray
-        tpString        % special type for string literals
+        %% Removed tpString -T
         tpFile
         tpNull;
 
@@ -544,12 +545,13 @@ type TrapKind :
         trReadln = 4
         trWrite = 5
         trWriteln = 6
-        trWriteString = 7
-        trWriteInteger = 8
-        trWriteChar = 9
-        trReadInteger = 10
-        trReadChar = 11
-        trAssign = 12;
+        trWriteInteger = 7
+        trWriteChar = 8
+        trReadInteger = 9
+        trReadChar = 10
+        trAssign = 11
+        trReadString = 108 %% Added trReadString and trWriteString to deal with strings
+        trWriteString = 109; 
 
 mechanism Emit :
     % Emit writes to the output "t-code" stream (the code area),
@@ -1125,10 +1127,17 @@ VariableDeclarations :
                     | sInitialValue:
                         @Expression     % Creates entry on SymbolStack (of kind syExpression, if operators present) and TypeStack
                         oSymbolStkPop   % Pop the SymbolStack entry from Expression
+                        %% Need to link to the standard type of whatever is on the type stack now
+                        [ oTypeStkChooseKind
+                            | tpInteger:
+                                oTypeStkLinkToStandardType(stdInteger)
+                            | tpChar:
+                                oTypeStkLinkToStandardType(stdChar)
+                            | tpBoolean:
+                                oTypeStkLinkToStandardType(stdBoolean)
+                            | *:                %% Not sure which standard type is appropriate in all other cases. Hopefully, a null reference is ok in these cases
+                        ]
                         @EnterVariableAttributes        % Sets type ref of SymbolStack entry to top of TypeStack, then enters SymbolStack entry into TypeTable
-                        % TODO: Does some sort of type checking need to happen before assigning the initial value?
-                        % My guess is no, because the variable is set to type of expression result, then expression is assigned to variable
-                        % which implies the types must match
                         .tLiteralAddress                % We're about to emit the address of the variable we're assigning the initial value to
                         oValuePushSymbol                % Push address of variable to ValueStack
                         oEmitValue                      % Emit address
@@ -1791,11 +1800,14 @@ Operand :
             | sStringLiteral:
                 oSymbolStkPush(syExpression)
                 @StringLiteral  % pushes type and value
+                %% Change emission to codeAddress and tFetchChar
                 [ oTypeStkChooseKind
                     | tpChar:
-                        .tLiteralChar
+                        .tLiteralAddress %% codeaddress
                         oEmitValue
-                    | *:
+                        .tFetchChar
+                    %% TODO: We should probably handle this error case by emitting an error token and cleaning up afterwards
+                    | *: %% Not sure what do about this case? -T
                         .tLiteralString
                         oEmitValue
                 ]
@@ -1813,42 +1825,46 @@ StringLiteral :
         % The value of a packed array is its address.
 
         oValuePushStringLength
-        [ oValueChoose
-            | zero:
-                #eNullString
-                oTypeStkPush(tpChar)
-                oTypeStkLinkToStandardType(stdChar)
-                oValuePop
-                oValuePush(zero)
-            | one:
-                oTypeStkPush(tpChar)
-                oTypeStkLinkToStandardType(stdChar)
-                oValuePop
-                oValuePushChar
-            | *:
-                % branch around the literal string since
-                % it is stored in the code area
-                .tSkipString
-                oFixPushForwardBranch
-                oEmitNullAddress
-                .tStringData
-                oEmitValue                      % string length
-                oValuePop
-                oValuePushCodeAddress           % The string's characters are in the code area
-                oValueNegate                    % encode that with a negative address
-                oEmitString                     % string's characters
-                oFixPopForwardBranch
-                oTypeStkPush(tpString)
-                oValuePush(one)                 % strings are indexed from 1
-                oValuePushStringLength
-                oTypeStkEnterBounds
-                oValuePop
-                oValuePop
-                oTypeTblEnter
-        ];
+
+        .tSkipString
+        oFixPushForwardBranch
+        oEmitNullAddress
+
+        .tStringData         %% string length -T
+        oEmitValue 
+
+        oValuePop
+        oValuePushCodeAddress
+        
+        oValueNegate            %% The string's characters are in the code area -T
+
+        oEmitString                     %% string's characters -T
+        
+        oFixPopForwardBranch
+
+        %% Removed length zero and length one
+        oTypeStkPush(tpChar)                %% Push tpChar to type stack -T
+        oTypeStkLinkToStandardType(stdChar) %% Link to stdChar std type -T
+
+        oValuePush(one)                 %% strings are indexed from 1 -T
+        oValuePushStringLength
+        oTypeStkEnterBounds
+        oValuePop
+        oValuePop
+        oTypeTblEnter;
 
 UnaryOperator :
         [
+            | sLength:                  %% Added support for string length operator
+                .tLength
+                %% We need to check to make sure the operand is a string
+                [ oTypeStkChooseKind
+                    | tpChar:           %% If it's a string, we're fine
+                    | *:
+                        #eTypeMismatch  %% Otherwise, it's a type mismatch
+                ]
+                oTypeStkPop             %% Pop operand type from type stack
+                oTypeStkPush(tpInteger) %% Put resultant type (integer) onto type stack
             | sNegate:
                 .tNegate
                 oTypeStkPush(tpInteger) % result type
@@ -1891,11 +1907,24 @@ BinaryOperator :
                 oTypeStkPush(tpBoolean)
                 @CompareOperandAndResultTypes
             | sEq:
-                .tEQ
-                @CompareEqualityOperandTypes
+                %% We modify the sEq case to handle string equality operation (different T-code, tStringEQ)
+                [ oTypeStkChooseKind
+                    | tpChar:                       %% If one of the operands is string, we'll assume they both are and emit tStringEQ
+                        .tStringEQ                  %% (if this turns out to be untrue, type mismatch will be caught in subsequent CompareEqualityOperandTypes)
+                    | *:
+                        .tEQ
+                ]
+                @CompareEqualityOperandTypes        %% We can still use this rule for string equality as it checks for tpChar
             | sNE:
-                .tNE
-                @CompareEqualityOperandTypes
+                %% We modify the sNE case to handle string inequality operation (different T-code, tStringEQ)
+                [ oTypeStkChooseKind
+                    | tpChar:                       %% If one of the operands is string, we'll assume they both are and emit tStringEQ
+                        .tStringEQ                  %% (if this turns out to be untrue, type mismatch will be caught in subsequent CompareEqualityOperandTypes)
+                        .tNot                       %% Invert result to achieve inequality
+                    | *:
+                        .tNE
+                ]
+                @CompareEqualityOperandTypes        %% We can still use this rule for string equality as it checks for tpChar
             | sGT:
                 .tGT
                 @CompareRelationalOperandTypes
@@ -1920,6 +1949,58 @@ BinaryOperator :
                 .tModulus
                 oTypeStkPush(tpInteger)
                 @CompareOperandAndResultTypes
+            %% MARK: New string operations
+            | sConcatenate:
+                .tConcatenate
+                oTypeStkPush(tpChar)                %% Result of string concatenation is tpChar (i.e. another string)
+                @CompareOperandAndResultTypes       %% We can use the CompareOperandAndResultTypes rule because all operands + result are strings
+            | sRepeatString:
+                .tRepeatString                      %% Emit the extended T-code for string repeat
+                %% Need to make sure the type stack has an integer on top, followed by a string
+                [ oTypeStkChooseKind
+                    | tpInteger:
+                        oTypeStkPop                 %% Pop the integer
+                        [ oTypeStkChooseKind
+                            | tpChar:               %% We expect a string following the integer
+                            | *:
+                                #eTypeMismatch      %% Anything else is a type mismatch
+                        ]
+                    | *:
+                        #eTypeMismatch              %% If we don't get an integer, it's a type mismatch error
+                        oTypeStkPop                 %% Pop the bad type to clean up
+                ]
+                oTypeStkPop                         %% Pop the second operand (hopefully it was a string)
+                oTypeStkPush(tpChar)                %% Result of string repeat is tpChar (i.e. string)
+                oSymbolStkPop                       %% Pop one of the two operand symbols from the stack
+                oSymbolStkSetKind(syExpression)     %% Set kind of remaining symbol on symbol stack to syExpression (kind of redundant)
+            | sSubstring:
+                .tSubstring                         %% Emit the extended T-code for substring
+                %% Need to make sure the type stack has two integers on top, followed by a string
+                [ oTypeStkChooseKind
+                    | tpInteger:                    %% First integer (substring end index)
+                        oTypeStkPop                 %% Pop the first integer (substring end index)
+                        [ oTypeStkChooseKind
+                            | tpInteger:            %% Second integer (substring start index)
+                                oTypeStkPop         %% Pop second integer (substring start index)
+                                [ oTypeStkChooseKind
+                                    | tpChar:       %% Finally, the string operand from which the substring is derived
+                                    | *:
+                                        #eTypeMismatch
+                                ]
+                            | *:
+                                #eTypeMismatch      %% Anything else is a type mismatch
+                                oTypeStkPop         %% Pop the bad type to clean up
+                        ]
+                    | *:
+                        #eTypeMismatch
+                        oTypeStkPop                 %% Pop the bad type to clean up
+                ]
+                oTypeStkPop                         %% Pop the third operand (hopefully it was a string)
+                oTypeStkPush(tpChar)                %% Result of substring is tpChar (i.e. string)
+                oSymbolStkPop                       %% Pop one of the three operand symbols from the stack
+                oSymbolStkPop                       %% Pop two of the three operand symbols from the stack
+                oSymbolStkSetKind(syExpression)     %% Set kind of remaining symbol on symbol stack to syExpression (kind of redundant)
+            %% MARK: End of new string operations
             | *:
                 >>
         ]
@@ -1961,13 +2042,7 @@ CompareAndSwapTypes :
                     | *:
                         #eTypeMismatch
                 ]
-            | tpString:
-                oTypeStkSwap
-                [ oTypeStkChooseKind
-                    | tpString:
-                    | *:
-                        #eTypeMismatch
-                ]
+                %% Removing tpString alternatives as it is deprecated -T
             | tpFile:
                 oTypeStkSwap
                 [ oTypeStkChooseKind
@@ -2004,13 +2079,7 @@ CompareRelationalOperandTypes :
                     | *:
                         #eOperandOperatorTypeMismatch
                 ]
-            | tpChar:
-                oTypeStkPop
-                [ oTypeStkChooseKind
-                    | tpChar:
-                    | *:
-                        #eOperandOperatorTypeMismatch
-                ]
+            %% Removed tpChar case because we don't allow relational comparisons on strings in Like
             | *:
                 #eOperandOperatorTypeMismatch
                 oTypeStkPop
@@ -2140,9 +2209,7 @@ ConstantOperand :
             | tpBoolean:
                 .tLiteralBoolean
                 oEmitValue
-            | tpString:         % a named literal string
-                .tLiteralString
-                oEmitValue
+            %% Removing tpString alternatives as it is deprecated -T
         ]
         oValuePop;
 
@@ -2327,41 +2394,40 @@ AssignProcedure :
                         #eFileNameReqd
                     | *:
                         @Expression                     % pushes symbol and type
-                        [ oTypeStkChooseKind
-                            | tpString:
-                                % literal string
-                            | tpArray:
-                                % a char array with lower bound 1
-                                oTypeStkPushComponent
-                                [ oTypeStkChooseKind
-                                    | tpChar:
-                                    | *:
-                                        #eFileNameReqd
-                                ]
-                                oTypeStkPop
-                                oValuePushTypeStkLowerBound
-                                [ oValueChoose
-                                    | one:
-                                    | *:        
-                                        #eFileNameReqd
-                                ]
-                                oValuePop
-                                % need the address of the first element, not the array descriptor
-                                .tSubscriptBegin
-                                .tLiteralInteger
-                                oValuePush(one)
-                                oEmitValue
-                                oValuePop
-                                .tSubscriptChar
-                                .tVarParm
-                            | *:
-                                #eFileNameReqd
-                                @FlushActuals
-                        ]
+                        % [ oTypeStkChooseKind                              %% Remove handling of char array -T
+                        %     %% Removing tpString alternatives as it is deprecated -T
+                        %     | tpArray:
+                        %         % a char array with lower bound 1
+                        %         oTypeStkPushComponent
+                        %         [ oTypeStkChooseKind
+                        %             | tpChar:
+                        %             | *:
+                        %                 #eFileNameReqd
+                        %         ]
+                        %         oTypeStkPop
+                        %         oValuePushTypeStkLowerBound
+                        %         [ oValueChoose
+                        %             | one:
+                        %             | *:        
+                        %                 #eFileNameReqd
+                        %         ]
+                        %         oValuePop
+                        %         % need the address of the first element, not the array descriptor
+                        %         .tSubscriptBegin
+                        %         .tLiteralInteger
+                        %         oValuePush(one)
+                        %         oEmitValue
+                        %         oValuePop
+                        %         .tSubscriptChar
+                        %         .tVarParm
+                        %     | *:
+                        %         #eFileNameReqd
+                        %         @FlushActuals
+                        % ]
                         .tParmEnd
                         % need the length of the file name as well
                         [ oTypeStkChooseKind
-                            | tpString, tpArray:   
+                            | tpArray:  %% Removing tpString alternatives as it is deprecated -T 
                                 .tLiteralInteger
                                 oValuePushTypeStkUpperBound
                                 oEmitValue
@@ -2557,8 +2623,7 @@ WriteText :
                 [ oTypeStkChooseKind    % of expression being written
                     | tpInteger, tpSubrange:
                         oValuePush(ten)
-                    | tpString:
-                        oValuePushTypeStkUpperBound     % actual length of string
+                    %% Removing tpString alternatives as it is deprecated -T
                     | *:        
                         % error flagged below
                         oValuePush(zero)
@@ -2571,30 +2636,27 @@ WriteText :
         [ oTypeStkChooseKind
             | tpChar:
                 .tTrap
-                oEmitTrapKind(trWriteChar)
+                oEmitTrapKind(trWriteString)
             | tpInteger, tpSubrange:
                 .tTrap
-                oEmitTrapKind(trWriteInteger)
-            | tpString: 
-                .tTrap
-                oEmitTrapKind(trWriteString)
-            | tpArray:                  % must be a char array 
-                oTypeStkPushComponent
-                [ oTypeStkChooseKind
-                    | tpChar:
-                    | *:
-                        #eWriteExpn
-                ]
-                oTypeStkPop             % component type
-                oValuePushTypeStkLowerBound
-                [ oValueChoose
-                    | one:
-                    | *:                % strings have lower bound one
-                        #eWriteExpn
-                ]
-                oValuePop
-                .tTrap
-                oEmitTrapKind(trWriteString)
+                oEmitTrapKind(trWriteInteger)  % Removing tpString alternatives as it is deprecated
+            % | tpArray:                  %% must be a char array - Remove handling of char array's -T
+            %     oTypeStkPushComponent
+            %     [ oTypeStkChooseKind
+            %         | tpChar:
+            %         | *:
+            %             #eWriteExpn
+            %     ]
+            %     oTypeStkPop             % component type
+            %     oValuePushTypeStkLowerBound
+            %     [ oValueChoose
+            %         | one:
+            %         | *:                % strings have lower bound one
+            %             #eWriteExpn
+            %     ]
+            %     oValuePop
+            %     .tTrap
+            %     oEmitTrapKind(trWriteString)
             | *:
                 #eWriteExpn
         ]
@@ -2856,7 +2918,7 @@ ReadText :
         [ oTypeStkChooseKind
             | tpChar:
                 .tTrap
-                oEmitTrapKind(trReadChar)
+                oEmitTrapKind(trReadString)
             | tpInteger, tpSubrange:
                 .tTrap
                 oEmitTrapKind(trReadInteger)

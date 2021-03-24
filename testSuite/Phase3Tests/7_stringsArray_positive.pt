@@ -1,0 +1,7 @@
+using output;
+
+var strArr [3] : like "str";
+
+strArr[1] = "1";
+strArr[1] = "2";
+strArr[1] = "3";
