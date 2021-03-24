@@ -539,31 +539,31 @@
 </tr>
 
 <tr>
-<td>Travis1.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
+<td>7_stringBasic_positive.pt</td>
+<td>Testing the declaration of strings</td>
+<td>Strings of differing lengths and types are declared</td>
+<td>7_stringBasic_positive.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
-<td>Travis2.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
+<td>7_stringEmpty_positive.pt</td>
+<td>Testing an empty string implementation</td>
+<td>An empty string is declared</td>
+<td>7_stringEmpty_positive.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
-<td>Travis3.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
+<td>7_stringsArray_positive.pt</td>
+<td>Testing the declaration of a string array of different lengths</td>
+<td>Several different string arrays are declared</td>
+<td>7_stringsArray_positive.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
-<td>Travis4.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
+<td>7_stringsIO_positive.pt</td>
+<td>Testing IO for strings</td>
+<td>Using IO functions to test trap implementations</td>
+<td>7_stringsIO_positive.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
