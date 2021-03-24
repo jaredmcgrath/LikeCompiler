@@ -1125,7 +1125,9 @@ VariableDeclarations :
                 ]
                 [                       % We either have an initial value, or something that will end in a like clause
                     | sInitialValue:
+                        .tInitialValue
                         @Expression     % Creates entry on SymbolStack (of kind syExpression, if operators present) and TypeStack
+                        .tInitEnd
                         oSymbolStkPop   % Pop the SymbolStack entry from Expression
                         %% Need to link to the standard type of whatever is on the type stack now
                         [ oTypeStkChooseKind
@@ -1661,14 +1663,7 @@ CaseStmt :
         oFixPushForwardBranch
         oEmitNullAddress        %% address of case branch table
         {[
-            | sCaseEnd:         %% when the case ends, there is an optional else statement
-                [
-                    | sCaseElse: %% added handling of optional else statement
-                        .tCaseElse
-                        @Statement %%handle the declarations and statements, enclosed with sBegin and sEnd
-                        .tCaseElseEnd
-                    | *:
-                ]
+            | sCaseEnd:
                 >      %% exit once case ends
             | *:
                 @CaseAlternative
@@ -1676,6 +1671,16 @@ CaseStmt :
         .tCaseEnd
         oFixPopForwardBranch
         oEmitCaseBranchTable
+
+        %% after the case ends, there is an optional else statement
+        [
+            | sCaseElse: %% added handling of optional else statement
+                .tCaseElse
+                @Statement %%handle the declarations and statements, enclosed with sBegin and sEnd
+                .tCaseElseEnd
+            | *:
+        ]
+
         % emit merge branches for case alternatives
         {[ oCountChoose         % number of case alternatives
             | zero:
