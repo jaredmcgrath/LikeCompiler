@@ -2395,6 +2395,13 @@ AssignProcedure :
                     | *:
                         @Expression                     % pushes symbol and type
                         %% Remove handling of char array -T
+                        [ oTypeStkChooseKind
+                            | tpChar:
+                                % literal string
+                            | *:
+                                #eFileNameReqd
+                                @FlushActuals
+                        ]
                         .tParmEnd
                         % need the length of the file name as well
                         [ oTypeStkChooseKind
@@ -2404,10 +2411,15 @@ AssignProcedure :
                                 oEmitValue
                                 oValuePop
                                 sParmEnd
+                            | tpChar:
+                            %% Push the string length
+                                .tLiteralInteger
+                                oValuePush(stringSize)
+                                oEmitValue
+                                oValuePop
+                                sParmEnd
                             | *:
-                                %% Moved error handling here -T
-                                #eFileNameReqd
-                                @FlushActuals
+                                % already reported above
                         ]
                         .tParmEnd
                         oSymbolStkPop
@@ -2597,6 +2609,9 @@ WriteText :
                     | tpInteger, tpSubrange:
                         oValuePush(ten)
                     %% Removing tpString alternatives as it is deprecated -T
+                    %% Replaced with tpChar and push stringSize -T
+                    | tpChar:
+                        oValuePush(stringSize)
                     | *:        
                         % error flagged below
                         oValuePush(zero)
