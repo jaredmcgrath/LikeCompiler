@@ -598,7 +598,7 @@
 <td>7_stringsAssign_negative.pt</td>
 <td>Test the assign IO function</td>
 <td>Use assign function without a string parameter, produces a semantic error.</td>
-<td>7_stringsAssignments_positive.pt.eOutput</td><td></td>
+<td>7_stringsAssign_negative.pt.eOutput</td><td></td>
 </tr>
 
 </table>
