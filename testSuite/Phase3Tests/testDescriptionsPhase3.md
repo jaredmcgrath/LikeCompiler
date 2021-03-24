@@ -16,7 +16,7 @@
 <tr>
 <td>5_packages_positive.pt</td>
 <td>Tests the behaviour when vars and vals are declared as public within a package and then accessed outside of the package</td>
-<td>Declares public vars and vals within a package and accesses them outisde the packages scope</td>
+<td>Declares a public var and public val within a package and accesses them outisde the package's scope</td>
 <td>5_packages_positive.pt.eOutput</td><td></td>
 </tr>
 
@@ -42,17 +42,17 @@
 </tr>
 
 <tr>
-<td>Alex5.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
+<td>5_package_positive_funInsidePkg.pt</td>
+<td>Tests the behaviour when a public function is declared inside a package and then accessed outisde</td>
+<td>A package containing a public function, followed by an attempt to access the function</td>
+<td>5_package_positive_funInsidePkg.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
-<td>Alex6.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
+<td>5_package_negative_funInsidePkg.pt</td>
+<td>Tests the behaviour when a private function is declared inside a package and then accessed outisde</td>
+<td>A package containing a private function, followed by an attempt to access the function</td>
+<td>5_package_negative_funInsidePkg.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
