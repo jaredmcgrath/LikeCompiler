@@ -467,20 +467,31 @@ Choose statements were masked as Case statements, and changes were made to the `
 
 ## Strings and Constants
 
-In `semantic.pt`:
-* `stringSize` was added to type `Integer` with a value of 256 bytes
-* The traps `trReadString` and `trWriteString` to `TrapKind` with a value of 108 and 109 respectively
-* `tpString` was removed from `TypeKind`
-* The handling of strings in the `oAllocateVariable` was changed to the proper handling of `stringSize` for the `tpChar` case
-* In `oAllocateVariable`, the handling of tpChar arrays was chanegd to handle `stringSize`, implementing arrays of strings
-* `oValuePushChar`was changed to push `codeAreaEnd` to signify end of strings as per the Like language spec
-* `oEmitString` was changed to emit a `0` token at the end of a string
+__In `semantic.pt`:__
 
-In `semantic.ssl`:
-* Removed all mentions and alternatives concerning `tpString` as it has been removed from the langauge
-* Removed the handling of char arrays from `WriteText` and `AssignProcedure`. In the latter, in both cases stringSize is pushed to give the length of the string. Also, occurences of tpString are replaced where needed with tpChar to ensure consistency in the token stream.
-* The `StringLiteral` rule was changed to remove length 0 and length 1 cases. `tpChar` is pushed onto the Type Stack and a linking to the `stdChar` type
-* The `Operand` rule was altered to emit `codeAddress` followed by `tFetchChar` in the `tpChar` case
-* The `sStringLiteral` was added to the `SimpleType` rule
-* `ReadText` rule was updated to use `trReadString` and `WriteText` rule was updated to use `trWriteString` 
+`stringSize` was added to type `Integer` with a value of 256 bytes
+
+The traps `trReadString` and `trWriteString` to `TrapKind` with a value of 108 and 109 respectively
+`tpString` was removed from `TypeKind`
+
+The handling of strings in the `oAllocateVariable` was changed to the proper handling of `stringSize` for the `tpChar` case
+In `oAllocateVariable`, the handling of tpChar arrays was chanegd to handle `stringSize`, implementing arrays of strings
+
+`oValuePushChar` was changed to push `codeAreaEnd` to signify end of strings as per the Like language spec
+
+`oEmitString` was changed to emit a `0` token at the end of a string
+
+__In `semantic.ssl`:__
+
+Removed all mentions and alternatives concerning `tpString` as it has been removed from the langauge
+
+Removed the handling of char arrays from `WriteText` and `AssignProcedure`. In the latter, in both cases stringSize is pushed to give the length of the string. Also, occurences of tpString are replaced where needed with tpChar to ensure consistency in the token stream.
+
+The `StringLiteral` rule was changed to remove length 0 and length 1 cases. `tpChar` is pushed onto the Type Stack and a linking to the `stdChar` type
+
+The `Operand` rule was altered to emit `codeAddress` followed by `tFetchChar` in the `tpChar` case
+
+The `sStringLiteral` was added to the `SimpleType` rule
+
+`ReadText` rule was updated to use `trReadString` and `WriteText` rule was updated to use `trWriteString` 
 
