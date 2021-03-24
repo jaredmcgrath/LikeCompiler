@@ -1,0 +1,11 @@
+using output;
+
+pkg myPackage1 is
+  public val myVal = 1;
+  public fun myFunction is
+    var i = myVal * 2;
+  end;
+
+val outsidePackageValue = 3;
+
+

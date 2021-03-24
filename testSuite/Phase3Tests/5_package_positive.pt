@@ -1,0 +1,10 @@
+using output;
+
+pkg myPackage1 is
+  val privateVal = 0, privateVal2 = 2;
+  public val myVal = 1, myVal2 = 3;
+  public var myVar = 1;
+end;
+
+myVal2 = myVal + 1;
+myVar = myVar + 5;

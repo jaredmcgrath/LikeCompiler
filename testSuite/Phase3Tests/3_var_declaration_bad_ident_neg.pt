@@ -1,0 +1,4 @@
+using output;
+
+val str = "foo";
+var a: like -str;

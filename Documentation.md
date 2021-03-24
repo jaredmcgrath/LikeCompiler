@@ -385,3 +385,71 @@ Expression rule
 </tr>
 </table>
 
+# Phase 3 Documentation
+## Definitions
+The following input tokens were added to `semantic.ssl` in order to match output tokens in `parser.ssl` exactly: 
+```
+        sPackage            % Added
+        sPublic             % Added
+        sConcatenate        % Added
+        sRepeatString       % Added
+        sSubstring          % Added
+        sLength             % Added
+        sInitialValue       % Added
+        sCaseElse           % Added 
+```
+It should also be noted that the `sType` input token was changed to `sLike`.         
+## Extensions to the T-Code Machine Model
+* tFetchChar, tAssignChar, tStoreChar, tSubscriptChar were pre-existing in `semantic.ssl`
+* tConcatenate, tRepeatString, tSubString, tLength, tChr, tOrd, tStringEQ, tInitialValue, tInitEnd, tCaseElse, and tCaseElseEnd were added in the Output section of `semantic.ssl` in the non-compound operations section, as they all do not take operand(s).
+* on Line 807 I changed sType to sLike bc it wouldn't let me compile
+
+## Programs
+A null program test file was created, `null_program.pt` within the testSuite. 
+* It compiled successfully and I think that's all we needed to check
+
+## Block
+All changes made in `semantic.ssl`. The Block rule was modified with the following changes:
+* merge alts of stmt rule into Block rule - __TODO__: at the end, make sure the precedence of this rule choice is the same as that of Parser (assuming our parser was right?)
+* sBegin moved to front of rule from the end
+* remove begin handling within the Statement choices
+* replace Statement rule w one that pushes scope, calls Block and pops scope. Did this by calling oSymbolTblPushScope to create a new table scope to differentiate variables outside the current scope, then called @Block, then oSymbolTblPopScope
+
+* removed BeginStmt, added sEnd acceptance at the end of Block
+* replaced Block call in Program with call to Statement to push scope
+
+## Variables & Types
+All changes were made in `semantic.ssl`. 
+
+`SimpleType` rule was completely rewritten to handle Like's type declarations. Firstly, we always expect an _sLike_ token. Then, we expect either an _sIdentifier_ or _sInteger_. 
+
+- If we get an _sIdentifier_, we make sure it is not undefined and that it is a simple variable or constant symbol. Then, a new `TypeStack` entry is created with the same type info as the symbol corresponding to _sIdentifier_. It is possible for an _sNegate_ token to follow. If it does, then make sure the type of our new `TypeStack` entry is _tpInteger_, otherwise, emit a type mismatch error
+- If we get an _sInteger_, push a new _tpInteger_ `TypeStack` entry, and link that entry to the standard _stdInteger_
+- __TODO__: I already added handling for _sStringLiteral_ in the `SimpleType` rule, but it should be documented in step #7
+
+`IndexType` rule was modified to handle Like's syntax for specification of arrays. In Like, the lower array bound is always 1 and never entered explicitly in a program. The upper array bound must be a constant or literal integer. To implement this, we
+
+1. Push value of 1 onto `ValueStack` for the lower bound
+2. Call the `ConstantValue` rule to get the constant upper bound (i.e. `arrayBound` in project description). This adds an entry on top of `ValueStack` (the value of the constant) and on top of `TypeStack` (the type of the constant)
+3. We check to make sure the `TypeStack` entry is of type _tpInteger_. If it isn't, emit _eIntegerConstReqd_ and fix `ValueStack` by popping then calling the `ValuePushValuePlusOne` rule
+4. Clean up the `TypeStack` by removing top `ConstantValue` entry
+5. Enter array bounds (top two entries on `ValueStack`, with upper on top) into top `TypeStack` entry, which will be the entry correspeconding to the array we're processing
+6. Check to ensure the array bounds we've set are valid (i.e. lower <= upper). If not, remove upper from `ValueStack` and create new upper by calling the `ValuePushValuePlusOne` rule, then enter array bounds again.
+7. Clean up `ValueStack` by popping top two entries
+
+Following this, processing continues as it would in PT Pascal by calling the `ComponentType` rule.
+
+`ProcedureParameterType` rule was modified to expect Like clauses for type information. To do this, we simply make a call to our previously modified `SimpleType` rule. Then we perform a quick check to make sure that, if the parameter's symbol kind is a value parameter (_syVariable_), then the type of our `TypeStack` entry corresponding to the `SimpleType` call must be a scalar value. If it is not a scalar value, emit the _eNonScalarValParm_ error token, then fix the `TypeStack` entry by removing the non-scalar type entry and adding a _tpInteger_ entry as the default.
+
+After this point, we have a valid `TypeStack` entry, which is entered into the type reference field of the `SymbolStack` entry. Following this, allocation and entry of the symbol into the `SymbolTable` occurs as in the standard PT Pascal compiler.
+
+## Packages
+A new rule called PackageDefinition was added to `semantic.ssl` to handle the declaration of packages. 
+
+A new symbol kind called `syPackage` of type `SymbolKind` was added to `semantic.ssl` and is called when `sPackage` is encountered from the `Block` rule. 
+
+Boolean flags were then added to both the Symbol and Stack tables in `semantic.pt`. These flags, `symbolStkPublicFlag` and `symbolTblPublicFlag` denote whether or not the constant, variable or function in question is public. In order to set this flag, a new semantic operation called `oSymbolStkSetPublicFlag` was added to the `SymbolStk` mechanism in `semantic.ssl`. 
+
+Next, the `ConstantDefinition`, `ProcedureDefinition` and `VariableDeclaration` rules were updated to check for `sPublic` and set the flag accordingly. 
+
+Finally, a new semantic operation called `oSymbolTblMergePublicScope` was added to the `SymbolTbl` mechanism that walks through all the symbols local to a scope and unlinks the identifier of each symbol, but ignores symbols that are public (have the previously mentioned boolean flag set to true). This semantic operation is identical to the `oSymbolTblPopScope` operation, with the exception of one `if-statement` check to avoid popping anything with the boolean public flag set.

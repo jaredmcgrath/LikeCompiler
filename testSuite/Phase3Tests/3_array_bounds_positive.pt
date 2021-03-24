@@ -1,0 +1,4 @@
+using output;
+
+var arr1[1] : like 1;
+var arr2[10]: like "foo";

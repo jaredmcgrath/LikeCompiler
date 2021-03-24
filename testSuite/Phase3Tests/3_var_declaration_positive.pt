@@ -1,0 +1,6 @@
+using output;
+
+var a : like 5;
+var b : like -a;
+var c : like "bar";
+var d[3] : like c;

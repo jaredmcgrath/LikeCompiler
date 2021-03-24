@@ -58,77 +58,79 @@ program SemanticAnalysis (output, semanticSsl, parseStream, temp, tCode, options
         oSymbolTblPopScope = 17;
         oSymbolTblPreserveParameters = 18;
         oSymbolTblLookupExternal = 19; { >>14 }
-        oSymbolStkPush = 20; { (17) }
-        oSymbolStkPushIdentifier = 21;
-        oSymbolStkPushLocalIdentifier = 22;
-        oSymbolStkPushStandardVariable = 23; { (19) }
-        oSymbolStkPushFormalParameter = 24;
-        oSymbolStkSetKind = 25; { (17) }
-        oSymbolStkEnterValue = 26;
-        oSymbolStkEnterStringValue = 27;
-        oSymbolStkEnterDataAddress = 28;
-        oSymbolStkEnterTypeReference = 29;
-        oSymbolStkChooseKind = 30; { >>17 }
-        oSymbolStkChooseStandardFile = 31; { >>19 }
-        oSymbolStkChooseStandardRoutine = 32; { >>18 }
-        oSymbolStkPop = 33;
-        oTypeTblEnter = 34;
-        oTypeTblUpdate = 35;
-        oTypeStkPush = 36; { (20) }
-        oTypeStkPushSymbol = 37;
-        oTypeStkPushComponent = 38;
-        oTypeStkSetKind = 39; { (20) }
-        oTypeStkSetRecursionFlag = 40; { (14) }
-        oTypeStkChooseRecursionFlag = 41; { >>14 }
-        oTypeStkLinkToStandardType = 42; { (16) }
-        oTypeStkEnterBounds = 43;
-        oTypeStkVerifyBounds = 44; { >>14 }
-        oTypeStkEnterParameterCount = 45;
-        oTypeStkCompareParameterCount = 46; { >>14 }
-        oTypeStkEnterComponentReference = 47;
-        oTypeStkChooseKind = 48; { >>20 }
-        oTypeStkChooseTypeReference = 49; { >>14 }
-        oTypeStkCompareNames = 50; { >>14 }
-        oTypeStkSwap = 51;
-        oTypeStkPop = 52;
-        oEmitNullAddress = 53;
-        oEmitValue = 54;
-        oEmitString = 55;
-        oEmitDataAddress = 56;
-        oEmitTrapKind = 57; { (21) }
-        oEmitCaseBranchTable = 58;
-        oAllocateAlignOnWord = 59;
-        oAllocateVariable = 60;
-        oAllocateVarParameter = 61;
-        oAllocateDescriptor = 62;
-        oValuePush = 63; { (13) }
-        oValuePushInteger = 64;
-        oValuePushChar = 65;
-        oValuePushStringLength = 66;
-        oValuePushSymbol = 67;
-        oValuePushCount = 68;
-        oValuePushTypeStkLowerBound = 69;
-        oValuePushTypeStkUpperBound = 70;
-        oValuePushCodeAddress = 71;
-        oValueNegate = 72;
-        oValueChoose = 73; { >>13 }
-        oValuePop = 74;
-        oCasePushDisplay = 75;
-        oCasePopDisplay = 76;
-        oCaseLookupLabel = 77; { >>14 }
-        oCasePushLabel = 78;
-        oCountPush = 79; { (13) }
-        oCountPushValue = 80;
-        oCountPop = 81;
-        oCountIncrement = 82;
-        oCountDecrement = 83;
-        oCountChoose = 84; { >>13 }
-        oFixPushForwardBranch = 85;
-        oFixPopForwardBranch = 86;
-        oFixPushTargetAddress = 87;
-        oFixPopTargetAddress = 88;
-        oFixPopAndEnterValue = 89;
-        oFixSwap = 90;
+        oSymbolTblMergePublicScope = 20;
+        oSymbolStkPush = 21; { (17) }
+        oSymbolStkPushIdentifier = 22;
+        oSymbolStkPushLocalIdentifier = 23;
+        oSymbolStkPushStandardVariable = 24; { (19) }
+        oSymbolStkPushFormalParameter = 25;
+        oSymbolStkSetKind = 26; { (17) }
+        oSymbolStkEnterValue = 27;
+        oSymbolStkEnterStringValue = 28;
+        oSymbolStkEnterDataAddress = 29;
+        oSymbolStkEnterTypeReference = 30;
+        oSymbolStkChooseKind = 31; { >>17 }
+        oSymbolStkChooseStandardFile = 32; { >>19 }
+        oSymbolStkChooseStandardRoutine = 33; { >>18 }
+        oSymbolStkPop = 34;
+        oSymbolStkSetPublicFlag = 35;
+        oTypeTblEnter = 36;
+        oTypeTblUpdate = 37;
+        oTypeStkPush = 38; { (20) }
+        oTypeStkPushSymbol = 39;
+        oTypeStkPushComponent = 40;
+        oTypeStkSetKind = 41; { (20) }
+        oTypeStkSetRecursionFlag = 42; { (14) }
+        oTypeStkChooseRecursionFlag = 43; { >>14 }
+        oTypeStkLinkToStandardType = 44; { (16) }
+        oTypeStkEnterBounds = 45;
+        oTypeStkVerifyBounds = 46; { >>14 }
+        oTypeStkEnterParameterCount = 47;
+        oTypeStkCompareParameterCount = 48; { >>14 }
+        oTypeStkEnterComponentReference = 49;
+        oTypeStkChooseKind = 50; { >>20 }
+        oTypeStkChooseTypeReference = 51; { >>14 }
+        oTypeStkCompareNames = 52; { >>14 }
+        oTypeStkSwap = 53;
+        oTypeStkPop = 54;
+        oEmitNullAddress = 55;
+        oEmitValue = 56;
+        oEmitString = 57;
+        oEmitDataAddress = 58;
+        oEmitTrapKind = 59; { (21) }
+        oEmitCaseBranchTable = 60;
+        oAllocateAlignOnWord = 61;
+        oAllocateVariable = 62;
+        oAllocateVarParameter = 63;
+        oAllocateDescriptor = 64;
+        oValuePush = 65; { (13) }
+        oValuePushInteger = 66;
+        oValuePushChar = 67;
+        oValuePushStringLength = 68;
+        oValuePushSymbol = 69;
+        oValuePushCount = 70;
+        oValuePushTypeStkLowerBound = 71;
+        oValuePushTypeStkUpperBound = 72;
+        oValuePushCodeAddress = 73;
+        oValueNegate = 74;
+        oValueChoose = 75; { >>13 }
+        oValuePop = 76;
+        oCasePushDisplay = 77;
+        oCasePopDisplay = 78;
+        oCaseLookupLabel = 79; { >>14 }
+        oCasePushLabel = 80;
+        oCountPush = 81; { (13) }
+        oCountPushValue = 82;
+        oCountPop = 83;
+        oCountIncrement = 84;
+        oCountDecrement = 85;
+        oCountChoose = 86; { >>13 }
+        oFixPushForwardBranch = 87;
+        oFixPopForwardBranch = 88;
+        oFixPushTargetAddress = 89;
+        oFixPopTargetAddress = 90;
+        oFixPopAndEnterValue = 91;
+        oFixSwap = 92;
 
         { Input Tokens }
         sIdentifier = 0;
@@ -141,7 +143,7 @@ program SemanticAnalysis (output, semanticSsl, parseStream, temp, tCode, options
         sParmBegin = 4;
         sParmEnd = 5;
         sConst = 6;
-        sType = 7;
+        sLike = 7;
         sVar = 8;
         sProcedure = 9;
         sBegin = 10;
@@ -182,8 +184,16 @@ program SemanticAnalysis (output, semanticSsl, parseStream, temp, tCode, options
         sAnd = 45;
         sNot = 46;
         sNewLine = 47;
-        sEndOfFile = 48;
-        lastSemanticToken = 48;
+        sPackage = 48;
+        sPublic = 49;
+        sConcatenate = 50;
+        sRepeatString = 51;
+        sSubstring = 52;
+        sLength = 53;
+        sInitialValue = 54;
+        sCaseElse = 55;
+        sEndOfFile = 56;
+        lastSemanticToken = 56;
 
         { Output Tokens }
         tMultiply = 0;
@@ -244,29 +254,38 @@ program SemanticAnalysis (output, semanticSsl, parseStream, temp, tCode, options
         tTrapBegin = 54;
         tWriteEnd = 55;
         tReadEnd = 56;
-        tLiteralAddress = 57;
-        firstCompoundTcode = 57;
-        tLiteralInteger = 58;
-        tLiteralChar = 59;
-        tLiteralBoolean = 60;
-        tSkipString = 61;
-        tStringData = 62;
-        tLiteralString = 63;
-        tIfThen = 64;
-        tIfMerge = 65;
-        tCaseSelect = 66;
-        tCaseMerge = 67;
-        tCaseEnd = 68;
-        tWhileTest = 69;
-        tWhileEnd = 70;
-        tRepeatTest = 71;
-        tSkipProc = 72;
-        tCallEnd = 73;
-        tLineNumber = 74;
-        tTrap = 75;
-        lastCompoundTcode = 75;
-        tEndOfFile = 76;
-        lastTcode = 76;
+        tConcatenate = 57;
+        tRepeatString = 58;
+        tSubstring = 59;
+        tLength = 60;
+        tStringEQ = 61;
+        tInitialValue = 62;
+        tInitEnd = 63;
+        tCaseElse = 64;
+        tCaseElseEnd = 65;
+        tLiteralAddress = 66;
+        firstCompoundTcode = 66;
+        tLiteralInteger = 67;
+        tLiteralChar = 68;
+        tLiteralBoolean = 69;
+        tSkipString = 70;
+        tStringData = 71;
+        tLiteralString = 72;
+        tIfThen = 73;
+        tIfMerge = 74;
+        tCaseSelect = 75;
+        tCaseMerge = 76;
+        tCaseEnd = 77;
+        tWhileTest = 78;
+        tWhileEnd = 79;
+        tRepeatTest = 80;
+        tSkipProc = 81;
+        tCallEnd = 82;
+        tLineNumber = 83;
+        tTrap = 84;
+        lastCompoundTcode = 84;
+        tEndOfFile = 85;
+        lastTcode = 85;
 
         { Input/Output Tokens }
 
@@ -363,7 +382,8 @@ program SemanticAnalysis (output, semanticSsl, parseStream, temp, tCode, options
         syFunction = 5;
         syExternal = 6;
         syExpression = 7;
-        syUndefined = 8;
+        syPackage = 8;
+        syUndefined = 9;
         { Type 18 }
         rtReset = 1;
         rtRewrite = 2;
@@ -408,82 +428,82 @@ program SemanticAnalysis (output, semanticSsl, parseStream, temp, tCode, options
         { S/SL Rule Table Addresses } {
         Program = 0;
         ProgramParameter = 45;
+        Statement = 1016;
+        AllocateVar = 711;
         Block = 111;
-        AllocateVar = 693;
-        ProcedureDefinition = 777;
-        ConstantDefinitions = 147;
-        TypeDefinitions = 272;
-        VariableDeclarations = 616;
-        BeginStmt = 1123;
-        ConstantValue = 187;
-        SymbolStkPushDefaultIntegerConstant = 3812;
-        StringLiteral = 1727;
-        TypeBody = 310;
-        IndexType = 348;
-        ComponentType = 383;
-        SimpleType = 409;
-        TypeTblEnterIfNew = 338;
-        ValuePushValuePlusOne = 3803;
-        SubrangeUpperBound = 554;
-        EnterVariableAttributes = 647;
-        ProcedureHeading = 833;
-        ProcedureParameterType = 879;
-        ProcedurePrologue = 942;
-        CountPushCopy = 3808;
-        EmitStore = 1096;
-        Statement = 987;
-        AssignmentStmt = 1041;
-        CallStmt = 1137;
-        IfStmt = 1376;
-        WhileStmt = 1407;
-        CaseStmt = 1448;
-        RepeatStmt = 1424;
-        Variable = 2187;
-        Expression = 1598;
-        CompareAndSwapTypes = 1961;
-        EmitAssign = 1069;
-        OpenProcedure = 2587;
-        AssignProcedure = 2618;
-        WriteProcedure = 2725;
-        WritelnProcedure = 3197;
-        ReadProcedure = 3255;
-        ReadlnProcedure = 3617;
-        ActualParameters = 1270;
-        FlushActuals = 3883;
-        VarActual = 1338;
-        BooleanControlExpression = 3788;
-        CaseSelectorExpression = 3771;
-        CaseAlternative = 1494;
-        Operand = 1626;
-        UnaryOperator = 1784;
-        BinaryOperator = 1816;
-        FlushExpn = 3862;
-        ConstantOperand = 2298;
-        VariableOperand = 2337;
-        FunctionOperand = 2364;
-        SymbolStkPushDefaultIntegerVariable = 3845;
-        FileOperand = 2562;
-        CompareOperandAndResultTypes = 2061;
-        CompareEqualityOperandTypes = 2122;
-        CompareRelationalOperandTypes = 2072;
-        VariableExtension = 2229;
-        StandardFunctionActual = 2467;
-        FileVariable = 3675;
-        WriteText = 2992;
-        WriteBinary = 3113;
-        WriteStandardExpnList = 2946;
-        TextFileVariable = 3716;
-        ReadTextParameterList = 3385;
-        ReadBinaryParameterList = 3451;
-        ReadText = 3517;
-        ReadBinary = 3546;
-        SymbolStkPushDefaultCharConstant = 3828;
+        PackageDefinition = 795;
+        ProcedureDefinition = 827;
+        ConstantDefinitions = 187;
+        VariableDeclarations = 610;
+        AssignmentStmt = 1021;
+        CallStmt = 1103;
+        IfStmt = 1342;
+        WhileStmt = 1373;
+        CaseStmt = 1414;
+        RepeatStmt = 1390;
+        ConstantValue = 268;
+        SymbolStkPushDefaultIntegerConstant = 3778;
+        StringLiteral = 1693;
+        TypeBody = 353;
+        IndexType = 391;
+        ComponentType = 428;
+        SimpleType = 454;
+        TypeTblEnterIfNew = 381;
+        ValuePushValuePlusOne = 3769;
+        SubrangeUpperBound = 548;
+        Expression = 1564;
+        EnterVariableAttributes = 665;
+        EmitStore = 1076;
+        ProcedureHeading = 891;
+        ProcedureParameterType = 937;
+        ProcedurePrologue = 971;
+        CountPushCopy = 3774;
+        Variable = 2153;
+        CompareAndSwapTypes = 1927;
+        EmitAssign = 1049;
+        OpenProcedure = 2553;
+        AssignProcedure = 2584;
+        WriteProcedure = 2691;
+        WritelnProcedure = 3163;
+        ReadProcedure = 3221;
+        ReadlnProcedure = 3583;
+        ActualParameters = 1236;
+        FlushActuals = 3849;
+        VarActual = 1304;
+        BooleanControlExpression = 3754;
+        CaseSelectorExpression = 3737;
+        CaseAlternative = 1460;
+        Operand = 1592;
+        UnaryOperator = 1750;
+        BinaryOperator = 1782;
+        FlushExpn = 3828;
+        ConstantOperand = 2264;
+        VariableOperand = 2303;
+        FunctionOperand = 2330;
+        SymbolStkPushDefaultIntegerVariable = 3811;
+        FileOperand = 2528;
+        CompareOperandAndResultTypes = 2027;
+        CompareEqualityOperandTypes = 2088;
+        CompareRelationalOperandTypes = 2038;
+        VariableExtension = 2195;
+        StandardFunctionActual = 2433;
+        FileVariable = 3641;
+        WriteText = 2958;
+        WriteBinary = 3079;
+        WriteStandardExpnList = 2912;
+        TextFileVariable = 3682;
+        ReadTextParameterList = 3351;
+        ReadBinaryParameterList = 3417;
+        ReadText = 3483;
+        ReadBinary = 3512;
+        SymbolStkPushDefaultCharConstant = 3794;
         }
 
         { S/SL Table Parameters }
-        sslTblSize = 3902;
+        sslTblSize = 3868;
         minSslTableValue = -32767;
         maxSslTableValue = 32767;
+
 
 { ===== End of contents of semantic.def }
 
@@ -705,6 +725,7 @@ program SemanticAnalysis (output, semanticSsl, parseStream, temp, tCode, options
         identSymbolTblRef:  array [1 .. identTblSize] of integer;
 
         { Symbol Table }
+        symbolTblPublicFlag:    array [1 .. symbolTblSize] of Boolean;
         symbolTblIdentLink:     array [1 .. symbolTblSize] of integer;
         symbolTblKind:          array [1 .. symbolTblSize] of SymbolKinds;
         symbolTblValue:         array [1 .. symbolTblSize] of integer;
@@ -717,6 +738,7 @@ program SemanticAnalysis (output, semanticSsl, parseStream, temp, tCode, options
         lexicLevelStackTop:  0 .. lexicLevelStackSize;   { initially 0 }
 
         { Symbol Stack }
+        symbolStkPublicFlag:    array [1 .. symbolStkSize] of Boolean;
         symbolStkIdentTblRef:   array [1 .. symbolStkSize] of integer;
         symbolStkSymbolTblRef:  array [1 .. symbolStkSize] of SymbolTblReference;
         symbolStkKind:          array [1 .. symbolStkSize] of SymbolKinds;
@@ -1012,7 +1034,7 @@ program SemanticAnalysis (output, semanticSsl, parseStream, temp, tCode, options
             symbolTblTypeTblLink[pidBoolean] := pidBoolean;
             typeTblKind[pidBoolean] := tpBoolean;
             standardBooleanTypeRef := pidBoolean;
-
+        
             { text (i.e. file of char) }
             symbolTblKind[pidText] := syType;
             symbolTblTypeTblLink[pidText] := pidText;
@@ -1703,6 +1725,8 @@ program SemanticAnalysis (output, semanticSsl, parseStream, temp, tCode, options
                                 symbolTblTypeTblLink[symbolTblTop] := 
                                     symbolStkTypeTblLink[symbolStkTop];
                                 symbolStkSymbolTblRef[symbolStkTop] := symbolTblTop;
+                                { Copy value of public flag on symbol stack entry to new symbol table entry }
+                                symbolTblPublicFlag[symbolStkTop] := symbolStkPublicFlag[symbolStkTop];
 
                                 { Update identifier table links }
                                 link := symbolStkIdentTblRef[symbolStkTop];
@@ -1728,6 +1752,8 @@ program SemanticAnalysis (output, semanticSsl, parseStream, temp, tCode, options
                             symbolTblKind[symbolRef] := symbolStkKind[symbolStkTop];
                             symbolTblValue[symbolRef] := symbolStkValue[symbolStkTop];
                             symbolTblTypeTblLink[symbolRef] := symbolStkTypeTblLink[symbolStkTop];
+                            { Copy updated value of public flag on symbol stack entry to existing symbol table entry }
+                            symbolTblPublicFlag[symbolStkTop] := symbolStkPublicFlag[symbolStkTop];
                         end;
 
                     oSymbolTblPushScope:
@@ -1742,6 +1768,39 @@ program SemanticAnalysis (output, semanticSsl, parseStream, temp, tCode, options
                             end
                         else
                             Error(eLexicLevelStackOvfl);
+
+                    oSymbolTblMergePublicScope:     
+                        { Walks through all symbols local to scope and unlinks
+                          the identifier of each symbol (except those marked public) }
+                        begin
+                            Assert((lexicLevelStackTop >= 1), assert31);
+                            i := symbolTblTop;
+                            { Set the identifier table pointer to the identifier entry in the 
+                              closest enclosing scope if there is one. }
+                            while i > symbolTblDisplay[lexicLevelStackTop] do
+                                begin
+                                    link := symbolTblIdentLink[i];
+
+                                    if symbolTblPublicFlag[i] <> true then      { If it is not yes (no) }
+                                        begin
+                                            if link <> null then
+                                                { This is not a dummy identifier generated by 
+                                                the parser's syntax error recovery procedure. }
+                                                begin
+                                                    while link > 0 do
+                                                        link := symbolTblIdentLink[link];
+                                                    identSymbolTblRef[-link] := symbolTblIdentLink[i];
+                                                end;
+                                            i := i - 1;
+                                        end;
+                                end;
+
+                            { Pop symbol and type table frames for scope }
+                            symbolTblTop := symbolTblDisplay[lexicLevelStackTop];
+                            typeTblTop := typeTblDisplay[lexicLevelStackTop];
+
+                            lexicLevelStackTop := lexicLevelStackTop - 1;
+                        end;
 
                     oSymbolTblPopScope:
                         { Pop the lexic level stack, remove local entries from the type table, 
@@ -1765,7 +1824,7 @@ program SemanticAnalysis (output, semanticSsl, parseStream, temp, tCode, options
                                             identSymbolTblRef[-link] := symbolTblIdentLink[i];
                                         end;
 
-                                    i := i - 1
+                                    i := i - 1;
                                 end;
 
                             { Pop symbol and type table frames for scope }
@@ -1807,6 +1866,9 @@ program SemanticAnalysis (output, semanticSsl, parseStream, temp, tCode, options
                     { ****
                       *  *  Symbol Stack Mechanism Operations
                       **** }
+                    
+                    oSymbolStkSetPublicFlag:        { Not sure if this can also be used to set to no (need to add parameters)}
+                        symbolStkPublicFlag[symbolStkTop] := true;
 
                     oSymbolStkPush:
                         { Push the symbol stack, setting the kind field from the parameter. }
