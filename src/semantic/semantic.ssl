@@ -745,7 +745,7 @@ Program :
                 @ProgramParameter
         ]}
         oCountPop
-        @Statement %replaced @Block with @Statement to nest program scope
+        @Statement %% replaced @Block with @Statement to nest program scope
         % Check that all file parameters have been declared
         [ oSymbolTblLookupExternal
             | yes:
@@ -809,7 +809,6 @@ Block :
         % The parser has flagged phase errors, but has emitted out-of-phase
         % definitions with the intent of providing better error repair.
     sBegin %moved to the beginning of the rule
-    %@BeginStmt % <--- should this be here? or at the end?
         {[ %merged in Statement choices, removed sBegin handling
             | sPackage:             %% Added this here for packages
                 @PackageDefinition
@@ -1650,14 +1649,21 @@ RepeatStmt :
 CaseStmt :
         .tCaseBegin
         @CaseSelectorExpression
-        oCasePushDisplay        % handle nested case statements
-        oCountPush (zero)       % count case alternative statements
+        oCasePushDisplay        %% handle nested case statements
+        oCountPush (zero)       %% count case alternative statements
         .tCaseSelect
         oFixPushForwardBranch
-        oEmitNullAddress        % address of case branch table
+        oEmitNullAddress        %% address of case branch table
         {[
-            | sCaseEnd:
-                >
+            | sCaseEnd:         %% when the case ends, there is an optional else statement
+                [
+                    | sCaseElse: %% added handling of optional else statement
+                        .tCaseElse
+                        @Statement %%handle the declarations and statements, enclosed with sBegin and sEnd
+                        .tCaseElseEnd
+                    | *:
+                ]
+                >      %% exit once case ends
             | *:
                 @CaseAlternative
         ]}

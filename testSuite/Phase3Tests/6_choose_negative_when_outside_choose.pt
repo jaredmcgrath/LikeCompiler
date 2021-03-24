@@ -1,0 +1,6 @@
+using output;
+
+var i = 1;
+
+when 2 then
+  i += 1;

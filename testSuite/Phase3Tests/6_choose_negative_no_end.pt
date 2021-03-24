@@ -1,0 +1,7 @@
+using output;
+
+var i = 1;
+
+choose i of
+  when 0 then
+    i *=1;

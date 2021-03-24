@@ -1,0 +1,6 @@
+using output;
+var x : like 1;
+var y : like 1;
+if x == 1 then
+    y = 1;
+end;

@@ -400,23 +400,22 @@ The following input tokens were added to `semantic.ssl` in order to match output
 ```
 It should also be noted that the `sType` input token was changed to `sLike`.         
 ## Extensions to the T-Code Machine Model
-* tFetchChar, tAssignChar, tStoreChar, tSubscriptChar were pre-existing in `semantic.ssl`
-* tConcatenate, tRepeatString, tSubString, tLength, tChr, tOrd, tStringEQ, tInitialValue, tInitEnd, tCaseElse, and tCaseElseEnd were added in the Output section of `semantic.ssl` in the non-compound operations section, as they all do not take operand(s).
-* on Line 807 I changed sType to sLike bc it wouldn't let me compile
+tConcatenate, tRepeatString, tSubString, tLength, tChr, tOrd, tStringEQ, tInitialValue, tInitEnd, tCaseElse, and tCaseElseEnd were added in the Output section of `semantic.ssl` in the non-compound operations section, as they all do not take operand(s). All references to `sType` were changed to `sLike` to reflect the new semantic input token.
 
 ## Programs
-A null program test file was created, `null_program.pt` within the testSuite. 
-* It compiled successfully and I think that's all we needed to check
+A null program test file was created, `null_program.pt` within the testSuite to ensure the base case of a null program was working fine before proceeding.
 
 ## Block
 All changes made in `semantic.ssl`. The Block rule was modified with the following changes:
-* merge alts of stmt rule into Block rule - __TODO__: at the end, make sure the precedence of this rule choice is the same as that of Parser (assuming our parser was right?)
-* sBegin moved to front of rule from the end
-* remove begin handling within the Statement choices
-* replace Statement rule w one that pushes scope, calls Block and pops scope. Did this by calling oSymbolTblPushScope to create a new table scope to differentiate variables outside the current scope, then called @Block, then oSymbolTblPopScope
 
-* removed BeginStmt, added sEnd acceptance at the end of Block
-* replaced Block call in Program with call to Statement to push scope
+Alternatives within the old Statement rule were added in the Block rule, within the selection loop. This is because in Like, declarations and statements can be mixed together which allows their handling to be called from the same rule, Block.
+
+Recognition of the input token `sBegin` was moved to the beginning of the Block rule and `sEnd` was added at the end of the Block rule, outside the selection loop. This is because all sequences of declarations and statements are wrapped between `sBegin` and `sEnd` in the Like parser. Since the terminating `sEnd` was handled in the Block rule, the `BeginStmt` rule was unnecessary and removed. 
+In the choices merged from Statement, `sBegin` handling was removed as it simply called the `BeginStmt` rule which was no longer needed.
+
+The Statement rule was modified such that it pushes a new scope, calls Block and pops the corresponding scope. `oSymbolTblPushScope` was used to create a new table scope to differentiate variables outside the current scope, then called @Block to handle the declarations and statements, then `oSymbolTblPopScope` was used to pop that scope. In Like, this is necessary because sequences of declarations and statements defines their own scope.
+
+In the Program rule, the Block call following the handling of program parameters was replaced with a call to Statement to allow nesting of program scopes.
 
 ## Variables & Types
 All changes were made in `semantic.ssl`. 
@@ -453,3 +452,7 @@ Boolean flags were then added to both the Symbol and Stack tables in `semantic.p
 Next, the `ConstantDefinition`, `ProcedureDefinition` and `VariableDeclaration` rules were updated to check for `sPublic` and set the flag accordingly. 
 
 Finally, a new semantic operation called `oSymbolTblMergePublicScope` was added to the `SymbolTbl` mechanism that walks through all the symbols local to a scope and unlinks the identifier of each symbol, but ignores symbols that are public (have the previously mentioned boolean flag set to true). This semantic operation is identical to the `oSymbolTblPopScope` operation, with the exception of one `if-statement` check to avoid popping anything with the boolean public flag set.
+## Statements
+All changes were made in `semantic.ssl`. No changes were necessary in the semantic phase for shortform assignments, repeat-while loops or elseif handling as the parser still emits the same tokens as if it were PT. 
+
+Choose statements were masked as Case statements, and changes were made to the `CaseStmt` rule to recognize the optional _else_. After accepting a _sCaseEnd_ token, a selection block was added within the loop to check for _sCaseElse_, an optional else clause. If there was an else clause, `tCaseElse` was emitted, the Statement rule was called to handle the expressions within it, and `tCaseElseEnd` was emitted to terminate the else block. If there is no else clause, the default option was taken which performed no action. This was because in Like, else clauses in choose statements are optional and if there is the case table did not match an else clause, no necessary action is needed. 
