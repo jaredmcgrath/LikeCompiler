@@ -1128,10 +1128,17 @@ VariableDeclarations :
                     | sInitialValue:
                         @Expression     % Creates entry on SymbolStack (of kind syExpression, if operators present) and TypeStack
                         oSymbolStkPop   % Pop the SymbolStack entry from Expression
+                        %% Need to link to the standard type of whatever is on the type stack now
+                        [ oTypeStkChooseKind
+                            | tpInteger:
+                                oTypeStkLinkToStandardType(stdInteger)
+                            | tpChar:
+                                oTypeStkLinkToStandardType(stdChar)
+                            | tpBoolean:
+                                oTypeStkLinkToStandardType(stdBoolean)
+                            | *:                %% Not sure which standard type is appropriate in all other cases. Hopefully, a null reference is ok in these cases
+                        ]
                         @EnterVariableAttributes        % Sets type ref of SymbolStack entry to top of TypeStack, then enters SymbolStack entry into TypeTable
-                        % TODO: Does some sort of type checking need to happen before assigning the initial value?
-                        % My guess is no, because the variable is set to type of expression result, then expression is assigned to variable
-                        % which implies the types must match
                         .tLiteralAddress                % We're about to emit the address of the variable we're assigning the initial value to
                         oValuePushSymbol                % Push address of variable to ValueStack
                         oEmitValue                      % Emit address
@@ -1978,11 +1985,12 @@ BinaryOperator :
                         ]
                     | *:
                         #eTypeMismatch              %% If we don't get an integer, it's a type mismatch error
+                        oTypeStkPop                 %% Pop the bad type to clean up
                 ]
                 oTypeStkPop                         %% Pop the second operand (hopefully it was a string)
                 oTypeStkPush(tpChar)                %% Result of string repeat is tpChar (i.e. string)
                 oSymbolStkPop                       %% Pop one of the two operand symbols from the stack
-                oSymbolStkSetKind(syExpression)     %% Set kind of remaining symbol on symbol stack to syExpression
+                oSymbolStkSetKind(syExpression)     %% Set kind of remaining symbol on symbol stack to syExpression (kind of redundant)
             | sSubstring:
                 .tSubstring                         %% Emit the extended T-code for substring
                 %% Need to make sure the type stack has two integers on top, followed by a string
@@ -1999,15 +2007,17 @@ BinaryOperator :
                                 ]
                             | *:
                                 #eTypeMismatch      %% Anything else is a type mismatch
+                                oTypeStkPop         %% Pop the bad type to clean up
                         ]
                     | *:
                         #eTypeMismatch
+                        oTypeStkPop                 %% Pop the bad type to clean up
                 ]
                 oTypeStkPop                         %% Pop the third operand (hopefully it was a string)
                 oTypeStkPush(tpChar)                %% Result of substring is tpChar (i.e. string)
                 oSymbolStkPop                       %% Pop one of the three operand symbols from the stack
                 oSymbolStkPop                       %% Pop two of the three operand symbols from the stack
-                oSymbolStkSetKind(syExpression)     %% Set kind of remaining symbol on symbol stack to syExpression
+                oSymbolStkSetKind(syExpression)     %% Set kind of remaining symbol on symbol stack to syExpression (kind of redundant)
             %% MARK: End of new string operations
             | *:
                 >>

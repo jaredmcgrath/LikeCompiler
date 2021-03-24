@@ -1,0 +1,19 @@
+using output;
+
+val one = 1;
+
+var sNegate = -one;
+var sNot = not true;
+var sAdd = 1 + 1;
+var sSubtract = 1 - 1;
+var sAnd = true and true;
+var sOr = true or false;
+var sEq = 1 == 1;
+var sNE = 1 != 2;
+var sGT = 1 > 2;
+var sGE = 1 >= 2;
+var sLT = 1 < 2;
+var sLE = 1 <= 2;
+var sMultiply = 1 * 2;
+var sDivide = 4 / 2;
+var sModulus = 10 % 3;
