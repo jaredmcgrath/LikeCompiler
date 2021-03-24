@@ -2640,23 +2640,6 @@ WriteText :
             | tpInteger, tpSubrange:
                 .tTrap
                 oEmitTrapKind(trWriteInteger)  % Removing tpString alternatives as it is deprecated
-            % | tpArray:                  %% must be a char array - Remove handling of char array's -T
-            %     oTypeStkPushComponent
-            %     [ oTypeStkChooseKind
-            %         | tpChar:
-            %         | *:
-            %             #eWriteExpn
-            %     ]
-            %     oTypeStkPop             % component type
-            %     oValuePushTypeStkLowerBound
-            %     [ oValueChoose
-            %         | one:
-            %         | *:                % strings have lower bound one
-            %             #eWriteExpn
-            %     ]
-            %     oValuePop
-            %     .tTrap
-            %     oEmitTrapKind(trWriteString)
             | *:
                 #eWriteExpn
         ]
