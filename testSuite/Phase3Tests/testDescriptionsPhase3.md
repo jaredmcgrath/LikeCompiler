@@ -8,6 +8,8 @@ _TL;DR_: Phase 2 tests are Phase 3 tests. They will be described in `Phase3Tests
 
 ## Justification for Completeness
 
+Changes to definitions and T-Code extensions could not be unit tested. They were implicitly tested through other tests in this phase. 
+
 1. Programs were tested explicitly by running a base program successfully. 
 
 2. Statements and declarations - affected by the changes to the `Block` and `Statement` rule - were tested iteratively with if statements, integer constants and integer output statements to ensure the positive logical paths behaved according to the Like specification. Upon this successful step, all other steps relied on combinations of declarations and statements. This includes intermixing declarations and statements, declaring multiple variables on a single line, and performing operations using expressions within statements. This provided full coverage of all the changes made to the `Block` and `Statement` rule. Negative and positive tests were developed to test the scope of intermixed declarations and statements, by trying to access variables of varying types both in and out of scope. 
