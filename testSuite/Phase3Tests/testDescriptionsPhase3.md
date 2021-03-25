@@ -12,7 +12,7 @@ _TL;DR_: Phase 2 tests are Phase 3 tests. They will be described in `Phase3Tests
 
 2. Statements and declarations - affected by the changes to the `Block` and `Statement` rule - were tested iteratively with if statements, integer constants and integer output statements to ensure the positive logical paths behaved according to the Like specification. Upon this successful step, all other steps relied on combinations of declarations and statements. This includes intermixing declarations and statements, declaring multiple variables on a single line, and performing operations using expressions within statements. This provided full coverage of all the changes made to the `Block` and `Statement` rule. Negative and positive tests were developed to test the scope of intermixed declarations and statements, by trying to access variables of varying types both in and out of scope. 
 
-5. Complete package testing coverage is ensured with negative tests involving attempts to access a private package members (functions, vals and vars). Positive tests ensure that public members of a package are available outside of the packages scope as expected.
+5. Complete package testing coverage is ensured with negative tests involving attempts to access a private package members (functions, vals and vars), as well as multiple packages with the same name. Positive tests ensure that public members of a package are available outside of the packages scope as expected.
 
 6. Statement changes for the Like specification were tested thoroughly by running all of the previous tests in Phase 2 - which covered all positive and negative cases for shortform assignments, repeat while loops, elseif clauses and different choose statements. Additionally, to ensure proper behaviour when handling errors, each logical error path for the above statements was forced to output `eIntegerExpnReqd`, `eDuplicateLabel`, `eUndefinedInteger`,`eIntegerConstReqd` and `eBooleanExpnReqd` by developing negative cases with undesirable selectors, conditions, and duplicate cases. 
 
@@ -58,6 +58,14 @@ __Note__: All line numbers referenced in the following table are referring their
 <td>Tests the behaviour when a private function is declared inside a package and then accessed outisde</td>
 <td>A package containing a private function, followed by an attempt to access the function</td>
 <td>5_package_negative_funInsidePkg.pt.eOutput</td><td></td>
+</tr>
+
+<tr>
+<td>5_package_negative_multiName.pt</td>
+<td>Tests the behaviour when two packages are declared with the same name</td>
+<td>Two packages declared with the same name</td>
+<td>5_package_negative_multiName.pt.eOutput</td><td>    #eMultiplyDefined
+    semantic error, line 7: identifier declared twice</td>
 </tr>
 
 <tr>
