@@ -1,8 +1,16 @@
 # Test Descriptions
 
+## Previous Phase Tests
+
+Some or all of the tests written during Phase 2 are relevant and necessary to test language features developed during Phase 3. For this reason, we have modified the `test-phase.sh` and `generate-test-output.sh` scripts to execute all the tests located in `Phase2Tests/` using the semantic phase of our compiler. The program source for each Phase 2 test will remain in `Phase2Tests/`, however, our expected output will be located here in `Phase3Tests/phase2_eOutput/`. Most importantly, a revised `testDescriptionsPhase2.md` is located here to note any differences in test descriptions/expected output from Phase 2 (i.e. they are __NOT__ listed in this file).
+
+_TL;DR_: Phase 2 tests are Phase 3 tests. They will be described in `Phase3Tests/testDescriptionsPhase2.md`. Their semantic phase expected output is in `Phase3Tests/phase2_eOutput/`. Test program source remains (unmodified) in `Phase2Tests/`.
+
 ## Justification for Completeness
 
 ## Test Description Table
+
+__Note__: All line numbers referenced in the following table are referring their respective test files.
 
 <table>
 <tr>

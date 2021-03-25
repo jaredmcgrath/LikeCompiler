@@ -17,6 +17,11 @@ case $key in
     shift # past argument
     shift # past value
     ;;
+    -o|--output)
+    saved_out_dir="$2"
+    shift # past argument
+    shift # past value
+    ;;
     -L|--lib)
     pt_lib_path="$2"
     shift # past argument
@@ -49,6 +54,11 @@ if [ -z ${src_path+x} ]; then
   read -p "Enter name of test program to run: " src_path
 fi
 
+# Determine persistent eOutput directory, if not supplied in args
+if [ -z ${saved_out_dir+x} ]; then
+  saved_out_dir="."
+fi
+
 # Determine path to lib/pt, if not supplied in args
 if [ -z ${pt_lib_path+x} ]; then
 	pt_lib_path="../../src/lib/pt"
@@ -59,8 +69,13 @@ if [ ! -d "$out_dir" ]; then
   mkdir $out_dir
 fi
 
+# Make sure the saved output directory exists
+if [ ! -d "$saved_out_dir" ]; then
+  mkdir $saved_out_dir
+fi
+
 # Output file path
-out_file_path="$out_dir/$src_path.eOutput"
+out_file_path="$out_dir/$(basename $src_path).eOutput"
 # First, run ptc alone and send output to outfile (overwrite any existing)
 ptc -o3 -t3 -L $pt_lib_path $src_path > $out_file_path
 # Next, append the marker to seperate ptc output from ssltrace output
@@ -85,14 +100,14 @@ if [ -z ${save_output_in_dir+x} ]; then
   esac
 fi
 if [ $save_output_in_dir = "yes" ]; then
-  cp $out_file_path "$src_path.eOutput"
+  cp $out_file_path "$saved_out_dir/$(basename $src_path).eOutput"
 fi
 
 # See if user wants to compare generated output to eOutput, if not supplied in args
-output_diff_path="$out_dir/$src_path.eOutputDiff"
+output_diff_path="$out_dir/$(basename $src_path).eOutputDiff"
 if [ -z ${compare_output+x} ]; then
   compare_output="yes"
-  read -p "Compare output to existing $src_path.eOutput? ([Y]/n) " user_response
+  read -p "Compare output to existing $(basename $src_path).eOutput? ([Y]/n) " user_response
   case "$user_response" in
     n|N ) echo "  --> Won't compare to expected output"; echo ""; compare_output="no";;
     * ) echo "  --> Comparing expected output:"; echo "";;
@@ -100,10 +115,10 @@ if [ -z ${compare_output+x} ]; then
 fi
 
 if [ $compare_output = "yes" ]; then
-  diff -b "$src_path.eOutput" $out_file_path > $output_diff_path
+  diff -b "$saved_out_dir/$(basename $src_path).eOutput" $out_file_path > $output_diff_path
 	echo $src_path
   # If output diff has non-zero size, must be a diff
-  if [ -s "$out_dir/$src_path.eOutputDiff" ]; then
+  if [ -s $output_diff_path ]; then
     echo "TEST FAILED - difference between expected and actual"
     echo "See $output_diff_path for diff"
     read -p "View diff now? ([Y]/n) " user_response

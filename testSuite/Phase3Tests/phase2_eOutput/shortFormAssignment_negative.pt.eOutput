@@ -1,0 +1,8 @@
+scan/parse error, line 7: syntax error at: /
+scan/parse error, line 8: syntax error at: *
+scan/parse error, line 9: syntax error at: %
+### END OF PTC OUTPUT ###
+@Program
+ scan/parse error, line 7: syntax error at: /
+ scan/parse error, line 8: syntax error at: *
+ scan/parse error, line 9: syntax error at: %
