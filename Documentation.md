@@ -485,7 +485,7 @@ __In `semantic.ssl`:__
 
 Removed all mentions and alternatives concerning `tpString` as it has been removed from the langauge
 
-Removed the handling of char arrays from `WriteText` and `AssignProcedure`. In the latter, in both cases stringSize is pushed to give the length of the string. Also, occurences of tpString are replaced where needed with tpChar to ensure consistency in the token stream.
+Removed the handling of char arrays from `WriteText` and `AssignProcedure`. In both cases stringSize is pushed to give the length of the string. Also, occurences of tpString are replaced where needed with tpChar to ensure consistency in the token stream.
 
 The `StringLiteral` rule was changed to remove length 0 and length 1 cases. `tpChar` is pushed onto the Type Stack and a linking to the `stdChar` type
 
