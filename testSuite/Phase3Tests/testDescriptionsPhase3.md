@@ -8,6 +8,8 @@ _TL;DR_: Phase 2 tests are Phase 3 tests. They will be described in `Phase3Tests
 
 ## Justification for Completeness
 
+7. String assignment testing is complete as all variations of assignment (var, val, like) have been tested. String IO has been tested for get, put, getln, putln and assign along with negative cases (where applicable). These functions have been verified to emit the proper traps and tokens. This covers the changes to WriteText and AssignProcedure. All other changes are covered implictly within these test cases.
+
 ## Test Description Table
 
 __Note__: All line numbers referenced in the following table are referring their respective test files.
@@ -662,7 +664,7 @@ __Note__: All line numbers referenced in the following table are referring their
 <tr>
 <td>7_strings_TooLong_negative.pt</td>
 <td>Testing max string length</td>
-<td>String is declared with length over 255, and the proper error is thrown</td>
+<td>String is declared with length over 255, and the proper parser error is thrown on line 3</td>
 <td>7_strings_TooLong_negative.pt.eOutput</td><td></td>
 </tr>
 
@@ -683,7 +685,7 @@ __Note__: All line numbers referenced in the following table are referring their
 <tr>
 <td>7_stringsAssign_negative.pt</td>
 <td>Test the assign IO function</td>
-<td>Use assign function without a string parameter, produces a semantic error.</td>
+<td>Use assign function without a string parameter, produces a semantic error on line 5.</td>
 <td>7_stringsAssign_negative.pt.eOutput</td><td></td>
 </tr>
 
