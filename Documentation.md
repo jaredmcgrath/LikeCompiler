@@ -514,3 +514,65 @@ The `sStringLiteral` was added to the `SimpleType` rule
 
 ## String Operations
 
+All changes to implement string operations take place in `semantic.ssl`.
+
+As an overview, we have the support the following string operations in Like:
+
+- String length
+- String concatenate
+- String repeat
+- String equality
+- String inequality
+- Substring
+
+Note that this list excludes relational comparison operations like `<`, `<=`, `>`, and `>=`.
+
+The specification above is implemented in a modular way across three rules, those being `UnaryOperator`, `BinaryOperator`, and `CompareRelationalOperandTypes`. These rules are always called within the context of the `Expression` rule, which will have interpreted the parser's postfix expression prior to calling the aforementioned operators. This will have created entries corresponding to the operands on the symbol and type stack. For this reason, when processing an operation in `UnaryOperator` or `BinaryOperator`, we work under the assumption that operand symbols and types exist on their respective stack. This also implies that operand order on the type and symbol stack is such that the final operand is on top.
+
+The following list details the changes that were made to implement each operation.
+
+1. __String Length (#):__
+    - Implemented in `UnaryOperator`
+    - If we encounter an `sLength` token, we know we have a string length operation. Emit the `tLength` T-code
+    - Verify our (single) operand is a string `tpChar` with `oTypeStkChooseKind`. If it isn't, emit a `eOperandOperatorTypeMismatch` error
+    - Pop the type stack entry (whether it was `tpChar` or not) and place a new entry of the result type, `tpInteger`
+    - The choice exits and modifies the symbol stack entry (which previously corresponded with the operand) by `oSymbolStkSetKind` to `syExpression`
+2. __String Concatenate (|):__
+    - Implemented in `BinaryOperator`
+    - If we encounter an `sConcatenate` token, we know it's a string concatenate operation. Emit the `tConcatenate` T-code
+    - Because this operation has same operand types and reult type (all `tpChar`), we can use treat it similar to an `sAdd` operation. To do this, we push the result type `tpChar` with `oTypeStkPush` and call `CompareOperandAndResultTypes`
+    - This rule verifies the two operands and result type (top three entries on type stack) are of the same type, leaves the result type on the type stack, removes one of two operand symbols and sets the remaining one to `syExpression`
+3. __String Repeat (||):__
+    - Implemented in `BinaryOperator`
+    - If we encounter an `sRepeatString` token, we know we have a string length operation. Emit the `tRepeatString` T-code
+    - Verify our second operand is a string `tpInteger` with `oTypeStkChooseKind`. If it isn't, emit a `eOperandOperatorTypeMismatch` error
+    - Pop the top type stack entry (whether it was `tpInteger` or not)
+    - Verify our first operand is a string `tpChar` with `oTypeStkChooseKind`. If it isn't, emit a `eOperandOperatorTypeMismatch` error
+    - Pop the type stack entry (whether it was `tpChar` or not) and place a new entry of the result type, `tpChar`
+    - Clean up the symbol stack by popping second operand and modifying first to be `syExpression`
+4. __String Equality (==):__
+    - Implemented in `BinaryOperator`
+    - If we encounter an `sEq` token, we know it is either a  `tEQ` or `tStringEQ` operation
+    - Differentiate with `oTypeStkChooseKind`: If the first operand is of type `tpChar`, assume they both are and emit `tStringEQ`. Otherwise, emit `tEQ`
+    - Allow previous call to `CompareEqualityOperandTypes`, which will verify both operands are of same type, then cleanup/set the type and symbol stacks such that the result is an `syExpression` of type `tpBoolean`
+5. __String Inequality (!=):__
+    - Implemented in `BinaryOperator`
+    - If we encounter an `sNE` token, we know it is either a  `tNE` or string inequality operation
+    - Differentiate with `oTypeStkChooseKind`: If the first operand is of type `tpChar`, assume they both are and emit `tStringEQ` followed by `tNot`. Otherwise, emit `tEQ`
+    - Allow previous call to `CompareEqualityOperandTypes`, which will verify both operands are of same type, then cleanup/set the type and symbol stacks such that the result is an `syExpression` of type `tpBoolean`
+6. __Substring (\_ / \_ : \_):__
+    - Implemented in `BinaryOperator`
+    - If we encounter an `sSubstring` token, we know we have a string length operation. Emit the `tSubstring` T-code
+    - Verify our third operand is a string `tpInteger` with `oTypeStkChooseKind`. If it isn't, emit a `eOperandOperatorTypeMismatch` error
+    - Pop the top type stack entry (whether it was `tpInteger` or not)
+    - Verify our second operand is a string `tpInteger` with `oTypeStkChooseKind`. If it isn't, emit a `eOperandOperatorTypeMismatch` error
+    - Pop the top type stack entry (whether it was `tpInteger` or not)
+    - Verify our first operand is a string `tpChar` with `oTypeStkChooseKind`. If it isn't, emit a `eOperandOperatorTypeMismatch` error
+    - Pop the type stack entry (whether it was `tpChar` or not) and place a new entry of the result type, `tpChar`
+    - Clean up the symbol stack by popping third and second operands, then modify the first to be `syExpression`
+7. __Relational Comparisons (<, <=, >, >=):__
+    - Implemented in `CompareRelationalOperandTypes`
+    - Observe that all relational comparison operations (`sGT`, `sGE`, `sLT`, `sLE`) make a call to `CompareRelationalOperandTypes`. This rule verifies the operands are of the same type, having a seperate case for `tpChar` vs. other cases
+    - By removing the `tpChar` case in the choice, we effectively force any relational comparisons between strings to the default choice, which which will emit `eOperandOperatorTypeMismatch` error
+
+There are many optimizations that could be performed in these implementations, but we refrain from doing so as per the Phase 3 specification.
