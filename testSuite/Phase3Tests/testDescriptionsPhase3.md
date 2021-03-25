@@ -359,35 +359,35 @@ __Note__: All line numbers referenced in the following table are referring their
 <td>6_choose_intreqd_negative.pt</td>
 <td>Trigger #eIntegerConstReqd for a defined constant and an integer constant as the condition</td>
 <td>Runs two separate choose statements: one with a string constant condition and the other with an integer variable condition - both are different logical paths in semantic.ssl</td>
-<td>6_choose_intreqd_negative.pt.eOutput</td><td></td>
+<td>6_choose_intreqd_negative.pt.eOutput</td><td>Throws #eIntegerConstReqd for lines 5 and 12 because x is a string and y is a variable</td>
 </tr>
 
 <tr>
 <td>6_choose_undefined_negative.pt</td>
 <td>Trigger #eUndefinedIdentifier</td>
 <td>Runs a choose statement with an undefined identifier as the condition</td>
-<td>6_choose_undefined_negative.pt.eOutput</td><td></td>
+<td>6_choose_undefined_negative.pt.eOutput</td><td>Throws #eUndefinedIndentifier for line 4 because x is undeclared</td>
 </tr>
 
 <tr>
 <td>6_chooseselector_negative.pt</td>
 <td>Trigger #eIntegerExpnReqd</td>
 <td>Runs a choose statement with the selector as a non-integer expression - as a string</td>
-<td>6_chooseselector_negative.pt.eOutput</td><td></td>
+<td>6_chooseselector_negative.pt.eOutput</td><td>Throws #eIntegerExpnReqd on line 6 because the selector must be an integer expression</td>
 </tr>
 
 <tr>
 <td>6_duplicatecase_negative.pt</td>
 <td>Trigger #eDuplicateLabel</td>
 <td>Runs a choose statement with multiple of the same case conditions</td>
-<td>6_duplicatecase_negative.pt.eOutput</td><td></td>
+<td>6_duplicatecase_negative.pt.eOutput</td><td>Throws #eDuplicateLabel for lines 8 and 16 because the cases are the same as the ones in the same scope</td>
 </tr>
 
 <tr>
 <td>6_nonboolean_cond_negative.pt</td>
 <td>Trigger #eBooleanExpnReqd</td>
 <td>Runs an if statement, elseif statement, repeat while, and while statement with arithmetic expressions rather than boolean expressions as their conditions</td>
-<td>6_nonboolean_cond_negative.pt.eOutput</td><td></td>
+<td>6_nonboolean_cond_negative.pt.eOutput</td><td>Throws #eBooleanExpnReqd for lines 6, 12 and 21 and #eTypeClash for line 18 because they are not boolean expressions and clash in Like with the sNot symbol.</td>
 </tr>
 
 <tr>
@@ -401,7 +401,7 @@ __Note__: All line numbers referenced in the following table are referring their
 <td>6_outscope_negative.pt</td>
 <td>Test whether variables and constants declared within a nested scope are accessible from an outer scope</td>
 <td>Declares a variable within the if statement and attempt to access it outside of the if statement</td>
-<td>6_outscope_negative.pt.eOutput</td><td></td>
+<td>6_outscope_negative.pt.eOutput</td><td>Identifier not declared on line 8 as it is out of scope.</td>
 </tr>
 
 <tr>
