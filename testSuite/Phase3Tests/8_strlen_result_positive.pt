@@ -1,0 +1,6 @@
+using output;
+
+var intVar: like 1;
+
+var lenResult = # "this is a string";
+intVar = lenResult;

@@ -4,3 +4,5 @@ var hello = "hello, world!" / 1 : 5;
 var repeated = "hi " || 3;
 var shouldBeTrue = "hello" != "goodbye";
 var strConcat = "hello " | "goodbye";
+var strEq = "equal" == "equal";
+var strIneq = "equal" != "inequal";
