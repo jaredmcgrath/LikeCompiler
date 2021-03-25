@@ -1,0 +1,6 @@
+using output;
+
+var stringVar: like "a string";
+
+var concatResult = "str1" | "str2";
+stringVar = concatResult;

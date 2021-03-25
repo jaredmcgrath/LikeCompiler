@@ -1,0 +1,6 @@
+using output;
+
+var strVar: like "a string";
+
+var substringResult = "hello world" / 1 : 5;
+strVar = substringResult;

@@ -1,8 +1,16 @@
 # Test Descriptions
 
+## Previous Phase Tests
+
+Some or all of the tests written during Phase 2 are relevant and necessary to test language features developed during Phase 3. For this reason, we have modified the `test-phase.sh` and `generate-test-output.sh` scripts to execute all the tests located in `Phase2Tests/` using the semantic phase of our compiler. The program source for each Phase 2 test will remain in `Phase2Tests/`, however, our expected output will be located here in `Phase3Tests/phase2_eOutput/`. Most importantly, a revised `testDescriptionsPhase2.md` is located here to note any differences in test descriptions/expected output from Phase 2 (i.e. they are __NOT__ listed in this file).
+
+_TL;DR_: Phase 2 tests are Phase 3 tests. They will be described in `Phase3Tests/testDescriptionsPhase2.md`. Their semantic phase expected output is in `Phase3Tests/phase2_eOutput/`. Test program source remains (unmodified) in `Phase2Tests/`.
+
 ## Justification for Completeness
 
 ## Test Description Table
+
+__Note__: All line numbers referenced in the following table are referring their respective test files.
 
 <table>
 <tr>
@@ -252,115 +260,193 @@
 </tr>
 
 <tr>
-<td>Jared10.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
+<td>3_var_declaration_multi_neg.pt</td>
+<td>Ensure multiple variable declarations cannot exist on same line</td>
+<td>Attempts to declare two vars on the same line</td>
+<td>3_var_declaration_multi_neg.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
-<td>Jared11.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
+<td>4_init_arr_neg.pt</td>
+<td>Ensure var declaration with initial value tpArray is invalid</td>
+<td>Declares an array, then declares a var with initial value of the declared array</td>
+<td>4_init_arr_neg.pt.eOutput</td>
+<td>Error @ 5: inital val cannot be array (eScalarReqd)</td>
 </tr>
 
 <tr>
-<td>Jared12.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
+<td>4_init_bool_positive.pt</td>
+<td>Ensure var declaration with initial value tpBoolean is valid</td>
+<td>Declares an var with initial value true</td>
+<td>4_init_bool_positive.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
-<td>Jared13.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
+<td>4_init_expression_positive.pt</td>
+<td>Ensure initial value assigned is of proper type for all possible expressions</td>
+<td>One variable declaration for each unary and binary operation</td>
+<td>4_init_expression_positive.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
-<td>Jared14.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
+<td>4_init_file_positive.pt</td>
+<td>Ensure var declaration with initial value tpFile is valid</td>
+<td>Declares an var with initial value output</td>
+<td>4_init_file_positive.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
-<td>Jared15.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
+<td>4_init_int_positive.pt</td>
+<td>Ensure var declaration with initial value tpInteger is valid</td>
+<td>Declares an var with initial value 1</td>
+<td>4_init_int_positive.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
-<td>Jared16.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
+<td>4_init_positive.pt</td>
+<td>Ensure var declaration with misc. values are valid</td>
+<td>Declares variables with various initial values</td>
+<td>4_init_positive.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
-<td>Jared17.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
+<td>4_init_str_positive.pt</td>
+<td>Ensure var declaration with initial value tpChar is valid</td>
+<td>Declares an var with initial value of a string</td>
+<td>4_init_str_positive.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
-<td>Jared18.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
+<td>8_concat_neg.pt</td>
+<td>Ensure string concatenation operator fails for operands of bad types</td>
+<td>Tries to string concat between integers</td>
+<td>8_concat_neg.pt.eOutput</td>
+<td>Error @ 3-5: type clashes (eTypeMismatch)</td>
 </tr>
 
 <tr>
-<td>Jared19.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
+<td>8_concat_positive.pt</td>
+<td>Ensure string concatenation between strings works</td>
+<td>Expression with string concatenation of two strings</td>
+<td>8_concat_positive.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
-<td>Jared20.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
+<td>8_concat_result_positive.pt</td>
+<td>Ensure result of string concatenation is a string</td>
+<td>Perform string concat, then store result in a tpChar variable</td>
+<td>8_concat_result_positive.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
-<td>Jared21.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
+<td>8_equality_neg.pt</td>
+<td>Ensure string equality operator fails between tpChar and non-tpChar</td>
+<td>Perform equality comparison between tpChar and tpInteger</td>
+<td>8_equality_neg.pt.eOutput</td>
+<td>Error @ 3: operand and operator types clash (eOperandOperatorTypeMismatch)</td>
 </tr>
 
 <tr>
-<td>Jared22.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
+<td>8_equality_positive.pt</td>
+<td>Ensure string equality operator works between tpChar (and tStringEQ emitted)</td>
+<td>Perform equality operator between two tpChars</td>
+<td>8_equality_positive.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
-<td>Jared23.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
+<td>8_inequality_neg.pt</td>
+<td>Ensure string inequality operator fails between tpChar and non-tpChar</td>
+<td>Perform inequality comparison between tpChar and tpInteger</td>
+<td>8_inequality_neg.pt.eOutput</td>
+<td>Error @ 3: operand and operator types clash (eOperandOperatorTypeMismatch)</td>
 </tr>
 
 <tr>
-<td>Jared24.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
+<td>8_inequality_positive.pt</td>
+<td>Ensure string equality operator works between tpChar (and tStringEQ, tNot emitted)</td>
+<td>Perform inequality operator between two tpChars</td>
+<td>8_inequality_positive.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
-<td>Jared25.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
+<td>8_repeat_neg.pt</td>
+<td>Ensure string repeat operator fails for operands of bad types</td>
+<td>Perform repeat when 1st operand is not tpChar, 2nd is not tpInteger</td>
+<td>8_repeat_neg.pt.eOutput</td>
+<td>Error @ 3-5: operand and operator types clash (eOperandOperatorTypeMismatch)</td>
+</tr>
+
+<tr>
+<td>8_repeat_positive.pt</td>
+<td>Ensure string repeat with operands tpChar, tpInteger works</td>
+<td>Expression involving string repeat with properly typed operands</td>
+<td>8_repeat_positive.pt.eOutput</td><td></td>
+</tr>
+
+<tr>
+<td>8_repeat_result_positive.pt</td>
+<td>Ensure result of string repeat is also a tpChar</td>
+<td>Perform string repeat, then store result in a tpChar variable</td>
+<td>8_repeat_result_positive.pt.eOutput</td><td></td>
+</tr>
+
+<tr>
+<td>8_str_relational_neg.pt</td>
+<td>Ensure that strings cant be used in relational comparison operators</td>
+<td>Expressions using &lt;, &lt;=, &gt;, and &gt;= between tpChars</td>
+<td>8_str_relational_neg.pt.eOutput</td>
+<td>Error @ 6-9: operand and operator types clash (eOperandOperatorTypeMismatch)</td>
+</tr>
+
+<tr>
+<td>8_string_ops_pos.pt</td>
+<td>Ensure various string operations form valid expressions</td>
+<td>Various expressions with examples of all possible string operations</td>
+<td>8_string_ops_pos.pt.eOutput</td><td></td>
+</tr>
+
+<tr>
+<td>8_strlen_neg.pt</td>
+<td>Ensure string length operator fails for non-tpChar operands</td>
+<td>Attempt string length operations on tpInteger, tpArray, tpFile</td>
+<td>8_strlen_neg.pt.eOutput</td>
+<td>Error @ 7-9: operand and operator types clash (eOperandOperatorTypeMismatch)</td>
+</tr>
+
+<tr>
+<td>8_strlen_positive.pt</td>
+<td>Ensure string length operator works for tpChar operands</td>
+<td>Expression with string length operator on a tpChar</td>
+<td>8_strlen_positive.pt.eOutput</td><td></td>
+</tr>
+
+<tr>
+<td>8_strlen_result_positive.pt</td>
+<td>Ensure result of string length is of type tpInteger</td>
+<td>Perform string length, then store result in a tpInteger variable</td>
+<td>8_strlen_result_positive.pt.eOutput</td><td></td>
+</tr>
+
+<tr>
+<td>8_substring_neg.pt</td>
+<td>Ensure substring operator fails for operands of invalid type</td>
+<td>Substring expressions with operand combinations other than tpChar, tpInteger, tpInteger</td>
+<td>8_substring_neg.pt.eOutput</td>
+<td>Error @ 6-12: operand and operator types clash (eOperandOperatorTypeMismatch)</td>
+</tr>
+
+<tr>
+<td>8_substring_positive.pt</td>
+<td>Ensure substring operator works for operands tpChar, tpInteger, tpInteger</td>
+<td>Substring expression with operands of types tpChar, tpInteger, tpInteger, respectively</td>
+<td>8_substring_positive.pt.eOutput</td><td></td>
+</tr>
+
+<tr>
+<td>8_substring_result_positive.pt</td>
+<td>Ensure result of substring is of type tpChar</td>
+<td>Perform substring operation, then store result in a tpChar variable</td>
+<td>8_substring_result_positive.pt.eOutput</td><td></td>
 </tr>
 
 <tr>

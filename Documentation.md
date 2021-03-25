@@ -432,7 +432,6 @@ All changes were made in `semantic.ssl`.
 
 - If we get an _sIdentifier_, we make sure it is not undefined and that it is a simple variable or constant symbol. Then, a new `TypeStack` entry is created with the same type info as the symbol corresponding to _sIdentifier_. It is possible for an _sNegate_ token to follow. If it does, then make sure the type of our new `TypeStack` entry is _tpInteger_, otherwise, emit a type mismatch error
 - If we get an _sInteger_, push a new _tpInteger_ `TypeStack` entry, and link that entry to the standard _stdInteger_
-- __TODO__: I already added handling for _sStringLiteral_ in the `SimpleType` rule, but it should be documented in step #7
 
 `IndexType` rule was modified to handle Like's syntax for specification of arrays. In Like, the lower array bound is always 1 and never entered explicitly in a program. The upper array bound must be a constant or literal integer. To implement this, we
 
@@ -450,6 +449,24 @@ Following this, processing continues as it would in PT Pascal by calling the `Co
 
 After this point, we have a valid `TypeStack` entry, which is entered into the type reference field of the `SymbolStack` entry. Following this, allocation and entry of the symbol into the `SymbolTable` occurs as in the standard PT Pascal compiler.
 
+## Initial Values
+All changes were made in `semantic.ssl`
+
+To implement initial values for variables in Like, the `VariableDeclarations` rule was modified. After verifying the declared symbol is not already defined, we expect either an expression (Project Description section 4, _variableDeclaration_ __(a)__), or a declaration that terminates with a `like` statement (Project Description section 4, _variableDeclaration_ __(b)__). The former expression is an _initial value_. We differentiate between these two cases with the prescence (or lack thereof) a `sInitialValue` in the parser's output token stream. If we encounter said `sInitialValue` token, we know we have an initial value. 
+
+In this case, we
+
+1. Emit a `tInitialValue` token (this is a null operation for the abstract machine, but helps for organizational/debugging purposes later)
+2. Call the `Expression` rule to translate the postfix expression into T-code. This verifies the validity of the expression (checks symbols are defined, operators are used correctly, etc.), creates an `syExpression` symbol on the symbol stack and a corresponding type stack entry which contains the type information of the expression result. 
+3. Emit a `tInitEnd` to mark the end of our initial value expression
+4. We don't need the expression symbol on the symbol stack, so we `oSymbolStkPop` (the symbol stack entry corresponding to our new variable is already on the stack from the `oSymbolStkPushLocalIdentifier` operation)
+5. We'll make use of the top type stack entry to set the type refernce of this variable. First, the type entry needs to be linked to a standard type before it can be entered to the type table (`Expression` doesn't link resultant type entries). To fix this, a simple choice will `oTypeStkLinkToStandardType` appropriately
+6. We can now call `EnterVariableAttributes`, which will (a) allocate space for our variable, (b) set the type reference of the symbol stack entry to our type entry, and (c) enter the symbol stack entry into the symbol table.
+7. Lastly, we must T-code to assign the initial value to our variable. We emit the address of our variable, then call the `EmitStore` rule to emit the storage of our inital value
+
+If we do not encounter `sInitialValue`, processing proceeds with a call to `TypeBody` to process the `like` statement, then `EnterVariableAttributes`.
+
+After this has been done, we clean up the type stack and symbol stack with `oTypeStkPop` and `oSymbolStkPop`, respectively.
 ## Packages
 A new rule called PackageDefinition was added to `semantic.ssl` to handle the declaration of packages. 
 
@@ -495,3 +512,67 @@ The `sStringLiteral` was added to the `SimpleType` rule
 
 `ReadText` rule was updated to use `trReadString` and `WriteText` rule was updated to use `trWriteString` 
 
+## String Operations
+
+All changes to implement string operations take place in `semantic.ssl`.
+
+As an overview, we have the support the following string operations in Like:
+
+- String length
+- String concatenate
+- String repeat
+- String equality
+- String inequality
+- Substring
+
+Note that this list excludes relational comparison operations like `<`, `<=`, `>`, and `>=`.
+
+The specification above is implemented in a modular way across three rules, those being `UnaryOperator`, `BinaryOperator`, and `CompareRelationalOperandTypes`. These rules are always called within the context of the `Expression` rule, which will have interpreted the parser's postfix expression prior to calling the aforementioned operators. This will have created entries corresponding to the operands on the symbol and type stack. For this reason, when processing an operation in `UnaryOperator` or `BinaryOperator`, we work under the assumption that operand symbols and types exist on their respective stack. This also implies that operand order on the type and symbol stack is such that the final operand is on top.
+
+The following list details the changes that were made to implement each operation.
+
+1. __String Length (#):__
+    - Implemented in `UnaryOperator`
+    - If we encounter an `sLength` token, we know we have a string length operation. Emit the `tLength` T-code
+    - Verify our (single) operand is a string `tpChar` with `oTypeStkChooseKind`. If it isn't, emit a `eOperandOperatorTypeMismatch` error
+    - Pop the type stack entry (whether it was `tpChar` or not) and place a new entry of the result type, `tpInteger`
+    - The choice exits and modifies the symbol stack entry (which previously corresponded with the operand) by `oSymbolStkSetKind` to `syExpression`
+2. __String Concatenate (|):__
+    - Implemented in `BinaryOperator`
+    - If we encounter an `sConcatenate` token, we know it's a string concatenate operation. Emit the `tConcatenate` T-code
+    - Because this operation has same operand types and reult type (all `tpChar`), we can use treat it similar to an `sAdd` operation. To do this, we push the result type `tpChar` with `oTypeStkPush` and call `CompareOperandAndResultTypes`
+    - This rule verifies the two operands and result type (top three entries on type stack) are of the same type, leaves the result type on the type stack, removes one of two operand symbols and sets the remaining one to `syExpression`
+3. __String Repeat (||):__
+    - Implemented in `BinaryOperator`
+    - If we encounter an `sRepeatString` token, we know we have a string length operation. Emit the `tRepeatString` T-code
+    - Verify our second operand is a string `tpInteger` with `oTypeStkChooseKind`. If it isn't, emit a `eOperandOperatorTypeMismatch` error
+    - Pop the top type stack entry (whether it was `tpInteger` or not)
+    - Verify our first operand is a string `tpChar` with `oTypeStkChooseKind`. If it isn't, emit a `eOperandOperatorTypeMismatch` error
+    - Pop the type stack entry (whether it was `tpChar` or not) and place a new entry of the result type, `tpChar`
+    - Clean up the symbol stack by popping second operand and modifying first to be `syExpression`
+4. __String Equality (==):__
+    - Implemented in `BinaryOperator`
+    - If we encounter an `sEq` token, we know it is either a  `tEQ` or `tStringEQ` operation
+    - Differentiate with `oTypeStkChooseKind`: If the first operand is of type `tpChar`, assume they both are and emit `tStringEQ`. Otherwise, emit `tEQ`
+    - Allow previous call to `CompareEqualityOperandTypes`, which will verify both operands are of same type, then cleanup/set the type and symbol stacks such that the result is an `syExpression` of type `tpBoolean`
+5. __String Inequality (!=):__
+    - Implemented in `BinaryOperator`
+    - If we encounter an `sNE` token, we know it is either a  `tNE` or string inequality operation
+    - Differentiate with `oTypeStkChooseKind`: If the first operand is of type `tpChar`, assume they both are and emit `tStringEQ` followed by `tNot`. Otherwise, emit `tEQ`
+    - Allow previous call to `CompareEqualityOperandTypes`, which will verify both operands are of same type, then cleanup/set the type and symbol stacks such that the result is an `syExpression` of type `tpBoolean`
+6. __Substring (\_ / \_ : \_):__
+    - Implemented in `BinaryOperator`
+    - If we encounter an `sSubstring` token, we know we have a string length operation. Emit the `tSubstring` T-code
+    - Verify our third operand is a string `tpInteger` with `oTypeStkChooseKind`. If it isn't, emit a `eOperandOperatorTypeMismatch` error
+    - Pop the top type stack entry (whether it was `tpInteger` or not)
+    - Verify our second operand is a string `tpInteger` with `oTypeStkChooseKind`. If it isn't, emit a `eOperandOperatorTypeMismatch` error
+    - Pop the top type stack entry (whether it was `tpInteger` or not)
+    - Verify our first operand is a string `tpChar` with `oTypeStkChooseKind`. If it isn't, emit a `eOperandOperatorTypeMismatch` error
+    - Pop the type stack entry (whether it was `tpChar` or not) and place a new entry of the result type, `tpChar`
+    - Clean up the symbol stack by popping third and second operands, then modify the first to be `syExpression`
+7. __Relational Comparisons (<, <=, >, >=):__
+    - Implemented in `CompareRelationalOperandTypes`
+    - Observe that all relational comparison operations (`sGT`, `sGE`, `sLT`, `sLE`) make a call to `CompareRelationalOperandTypes`. This rule verifies the operands are of the same type, having a seperate case for `tpChar` vs. other cases
+    - By removing the `tpChar` case in the choice, we effectively force any relational comparisons between strings to the default choice, which which will emit `eOperandOperatorTypeMismatch` error
+
+There are many optimizations that could be performed in these implementations, but we refrain from doing so as per the Phase 3 specification.

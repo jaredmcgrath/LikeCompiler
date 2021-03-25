@@ -1,0 +1,9 @@
+using output;
+
+val a = "first string";
+val b = "second string";
+
+var lt = a < b;
+var le = a <= b;
+var gt = a > b;
+var ge = a >= b;

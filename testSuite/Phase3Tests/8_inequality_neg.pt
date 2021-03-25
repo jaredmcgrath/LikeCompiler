@@ -1,0 +1,3 @@
+using output;
+
+var badInequality = "my str" != 2;

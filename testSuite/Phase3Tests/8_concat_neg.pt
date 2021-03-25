@@ -1,0 +1,5 @@
+using output;
+
+var bad1 = "abc" | 4;
+var bad2 = 4 | "abc";
+var bad3 = 1 | 1;

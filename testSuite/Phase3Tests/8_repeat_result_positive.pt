@@ -1,0 +1,6 @@
+using output;
+
+var stringVar: like "a string";
+
+var repeatResult = "hi" || 3;
+stringVar = repeatResult;

@@ -1,0 +1,5 @@
+using output;
+
+var bad1 = "hello" || "a";
+var bad2 = 2 || 2;
+var bad3 = 2 || "hello";

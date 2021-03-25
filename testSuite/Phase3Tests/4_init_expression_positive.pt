@@ -17,3 +17,7 @@ var sLE = 1 <= 2;
 var sMultiply = 1 * 2;
 var sDivide = 4 / 2;
 var sModulus = 10 % 3;
+var sLength = #"hello world";
+var sConcat = "hi " | "there";
+var sRepeatString = "hi" || 4;
+var sSubstring = "hello world" / 1 : 5;

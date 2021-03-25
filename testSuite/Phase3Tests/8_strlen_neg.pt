@@ -1,0 +1,9 @@
+using output;
+
+var intVal = 1;
+var arrVal[1]: like 1;
+var fileVal: file like "";
+
+var a = #intVal;
+var b = #arrVal;
+var c = #fileVal;
