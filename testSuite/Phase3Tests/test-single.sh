@@ -121,11 +121,13 @@ if [ $compare_output = "yes" ]; then
   if [ -s $output_diff_path ]; then
     echo "TEST FAILED - difference between expected and actual"
     echo "See $output_diff_path for diff"
-    read -p "View diff now? ([Y]/n) " user_response
-    case "$user_response" in
-      n|N ) echo "  --> Won't show diff"; echo "";;
-      * ) cat $output_diff_path;;
-    esac
+    if [ $quiet = "no" ]; then
+      read -p "View diff now? ([Y]/n) " user_response
+      case "$user_response" in
+        n|N ) echo "  --> Won't show diff"; echo "";;
+        * ) cat $output_diff_path;;
+      esac
+    fi
   else
     echo "TEST PASSED - no diff"
   fi

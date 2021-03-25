@@ -411,19 +411,19 @@ It should also be noted that the `sType` input token was changed to `sLike`.
 tConcatenate, tRepeatString, tSubString, tLength, tChr, tOrd, tStringEQ, tInitialValue, tInitEnd, tCaseElse, and tCaseElseEnd were added in the Output section of `semantic.ssl` in the non-compound operations section, as they all do not take operand(s). All references to `sType` were changed to `sLike` to reflect the new semantic input token.
 
 ## Programs
+In the `Program` rule, the `Block` call following the handling of program parameters was replaced with a call to `Statement` to allow nesting of program scopes.
+
 A null program test file was created, `null_program.pt` within the testSuite to ensure the base case of a null program was working fine before proceeding.
 
 ## Block
-All changes made in `semantic.ssl`. The Block rule was modified with the following changes:
+All changes made in `semantic.ssl`. The `Block` rule was modified with the following changes:
 
-Alternatives within the old Statement rule were added in the Block rule, within the selection loop. This is because in Like, declarations and statements can be mixed together which allows their handling to be called from the same rule, Block.
+Alternatives within the old `Statement` rule were added in the `Block` rule, within the selection loop. This is because in Like, declarations and statements can be mixed together which allows their handling to be called from the same rule, `Block`.
 
-Recognition of the input token `sBegin` was moved to the beginning of the Block rule and `sEnd` was added at the end of the Block rule, outside the selection loop. This is because all sequences of declarations and statements are wrapped between `sBegin` and `sEnd` in the Like parser. Since the terminating `sEnd` was handled in the Block rule, the `BeginStmt` rule was unnecessary and removed. 
-In the choices merged from Statement, `sBegin` handling was removed as it simply called the `BeginStmt` rule which was no longer needed.
+Recognition of the input token `sBegin` was moved to the beginning of the `Block` rule and `sEnd` was added at the end of the `Block` rule, outside the selection loop. This is because all sequences of declarations and statements are wrapped between `sBegin` and `sEnd` in the Like parser. Since the terminating `sEnd` was handled in the `Block` rule, the `BeginStmt` rule was unnecessary and removed. 
+In the choices merged from `Statement`, `sBegin` handling was removed as it simply called the `BeginStmt` rule which was no longer needed.
 
-The Statement rule was modified such that it pushes a new scope, calls Block and pops the corresponding scope. `oSymbolTblPushScope` was used to create a new table scope to differentiate variables outside the current scope, then called @Block to handle the declarations and statements, then `oSymbolTblPopScope` was used to pop that scope. In Like, this is necessary because sequences of declarations and statements defines their own scope.
-
-In the Program rule, the Block call following the handling of program parameters was replaced with a call to Statement to allow nesting of program scopes.
+The `Statement` rule was modified such that it pushes a new scope, calls `Block` and pops the corresponding scope. `oSymbolTblPushScope` was used to create a new table scope to differentiate variables outside the current scope, then called `@Block` to handle the declarations and statements, then `oSymbolTblPopScope` was used to pop that scope. In Like, this is necessary because sequences of declarations and statements defines their own scope.
 
 ## Variables & Types
 All changes were made in `semantic.ssl`. 
@@ -469,15 +469,16 @@ If we do not encounter `sInitialValue`, processing proceeds with a call to `Type
 
 After this has been done, we clean up the type stack and symbol stack with `oTypeStkPop` and `oSymbolStkPop`, respectively.
 ## Packages
-A new rule called PackageDefinition was added to `semantic.ssl` to handle the declaration of packages. 
+A new rule called `PackageDefinition` was added to handle the Like languages declaration of packages with the `pkg` keyword. These changes were made in `semantic.ssl`.
 
 A new symbol kind called `syPackage` of type `SymbolKind` was added to `semantic.ssl` and is called when `sPackage` is encountered from the `Block` rule. 
 
-Boolean flags were then added to both the Symbol and Stack tables in `semantic.pt`. These flags, `symbolStkPublicFlag` and `symbolTblPublicFlag` denote whether or not the constant, variable or function in question is public. In order to set this flag, a new semantic operation called `oSymbolStkSetPublicFlag` was added to the `SymbolStk` mechanism in `semantic.ssl`. 
+To support the `public` keyword for declarations in Like packages, an array of boolean flags were then added to both the Symbol and Stack tables in `semantic.pt`. These flags, `symbolStkPublicFlag` and `symbolTblPublicFlag` denote whether or not the constant, variable or function in question is public (i.e. exported declared identifier unqualified from the package to the enclosing scope). In order to set this flag, a new semantic operation called `oSymbolStkSetPublicFlag` was added to the `SymbolStk` mechanism in `semantic.ssl`. 
 
-Next, the `ConstantDefinition`, `ProcedureDefinition` and `VariableDeclaration` rules were updated to check for `sPublic` and set the flag accordingly. 
+Next, the `ConstantDefinition`, `ProcedureDefinition` and `VariableDeclaration` rules were updated to check for the optional `sPublic` token following the declaration/definition, which sets the flag accordingly. 
 
-Finally, a new semantic operation called `oSymbolTblMergePublicScope` was added to the `SymbolTbl` mechanism that walks through all the symbols local to a scope and unlinks the identifier of each symbol, but ignores symbols that are public (have the previously mentioned boolean flag set to true). This semantic operation is identical to the `oSymbolTblPopScope` operation, with the exception of one `if-statement` check to avoid popping anything with the boolean public flag set.
+Finally, a new semantic operation called `oSymbolTblMergePublicScope` was added to the `SymbolTbl` mechanism. We used the `oSymbolTblPopScope` mechanism as a base for this rule. This mechanism walks through all the symbols local to a scope and unlinks the identifier of each symbol unless said symbol has the corresponding public flag set (have the previously mentioned boolean flag in `symbolTblPublicFlag` set true). Unlike `oSymbolTblPopScope`, we do not pop entries from the symbol table or type table because doing so would remove said entries from the enclosing scope.
+
 ## Statements
 All changes were made in `semantic.ssl`. No changes were necessary in the semantic phase for shortform assignments, repeat-while loops or elseif handling as the parser still emits the same tokens as if it were PT. 
 
@@ -487,31 +488,31 @@ Choose statements were masked as Case statements, and changes were made to the `
 
 __In `semantic.pt`:__
 
-`stringSize` was added to type `Integer` with a value of 256 bytes
+`stringSize` was added to type `Integer` with a value of 256 bytes as it is now its own type.
 
-The traps `trReadString` and `trWriteString` to `TrapKind` with a value of 108 and 109 respectively
-`tpString` was removed from `TypeKind`
+The traps `trReadString` and `trWriteString` to `TrapKind` with a value of 108 and 109 respectively. This allows for proper IO for strings.
 
-The handling of strings in the `oAllocateVariable` was changed to the proper handling of `stringSize` for the `tpChar` case
-In `oAllocateVariable`, the handling of tpChar arrays was chanegd to handle `stringSize`, implementing arrays of strings
+`tpString` was removed from `TypeKind` as it is no longer used.
 
-`oValuePushChar` was changed to push `codeAreaEnd` to signify end of strings as per the Like language spec
+The handling of strings in the `oAllocateVariable` was changed to the proper handling of `stringSize` for the `tpChar` case from the fake char arrays present in PT.
 
-`oEmitString` was changed to emit a `0` token at the end of a string
+In `oAllocateVariable`, the handling of tpChar arrays was changed to handle `stringSize`, implementing arrays of strings.
+
+`oValuePushChar` was changed to push `codeAreaEnd` to signify end of strings, since they are now longer than 1 character.
+
+`oEmitString` was changed to emit a `0` token at the end of a string to allow for recognition of string bounds.
 
 __In `semantic.ssl`:__
 
-Removed all mentions and alternatives concerning `tpString` as it has been removed from the langauge
+Removed all mentions and alternatives concerning `tpString` as it has been removed from the langauge.
 
-Removed the handling of char arrays from `WriteText` and `AssignProcedure`. In both cases stringSize is pushed to give the length of the string. Also, occurences of tpString are replaced where needed with tpChar to ensure consistency in the token stream.
+Removed the handling of char arrays from `WriteText` and `AssignProcedure`. In both cases `stringSize` is pushed onto the value stack to give the length of the string. Also, occurences of tpString are replaced where needed with `tpChar` to ensure consistency in the token stream. `ReadText` rule was updated to use `trReadString` and `WriteText` rule was updated to use `trWriteString`.
 
-The `StringLiteral` rule was changed to remove length 0 and length 1 cases. `tpChar` is pushed onto the Type Stack and a linking to the `stdChar` type
+The `StringLiteral` rule was changed to remove length 0 and length 1 cases. `tpChar` is pushed onto the Type Stack and a linking to the `stdChar` type. This replaces the pushing of a fake string char array.
 
-The `Operand` rule was altered to emit `codeAddress` followed by `tFetchChar` in the `tpChar` case
+The `Operand` rule was altered to emit `tLiteralAddress codeAddress` followed by `tFetchChar` in the `tpChar` case, this is done for the reasons listed above.
 
-The `sStringLiteral` was added to the `SimpleType` rule
-
-`ReadText` rule was updated to use `trReadString` and `WriteText` rule was updated to use `trWriteString` 
+The `sStringLiteral` was added to the `SimpleType` rule, as it is now one of the true simple types.
 
 ## String Operations
 
@@ -532,18 +533,18 @@ The specification above is implemented in a modular way across three rules, thos
 
 The following list details the changes that were made to implement each operation.
 
-1. __String Length (#):__
+1. __String Length__ _(#tpChar)_:
     - Implemented in `UnaryOperator`
     - If we encounter an `sLength` token, we know we have a string length operation. Emit the `tLength` T-code
     - Verify our (single) operand is a string `tpChar` with `oTypeStkChooseKind`. If it isn't, emit a `eOperandOperatorTypeMismatch` error
     - Pop the type stack entry (whether it was `tpChar` or not) and place a new entry of the result type, `tpInteger`
     - The choice exits and modifies the symbol stack entry (which previously corresponded with the operand) by `oSymbolStkSetKind` to `syExpression`
-2. __String Concatenate (|):__
+2. __String Concatenate__ _(tpChar | tpChar)_:
     - Implemented in `BinaryOperator`
     - If we encounter an `sConcatenate` token, we know it's a string concatenate operation. Emit the `tConcatenate` T-code
     - Because this operation has same operand types and reult type (all `tpChar`), we can use treat it similar to an `sAdd` operation. To do this, we push the result type `tpChar` with `oTypeStkPush` and call `CompareOperandAndResultTypes`
     - This rule verifies the two operands and result type (top three entries on type stack) are of the same type, leaves the result type on the type stack, removes one of two operand symbols and sets the remaining one to `syExpression`
-3. __String Repeat (||):__
+3. __String Repeat__ _(tpChar || tpInteger)_:
     - Implemented in `BinaryOperator`
     - If we encounter an `sRepeatString` token, we know we have a string length operation. Emit the `tRepeatString` T-code
     - Verify our second operand is a string `tpInteger` with `oTypeStkChooseKind`. If it isn't, emit a `eOperandOperatorTypeMismatch` error
@@ -551,17 +552,17 @@ The following list details the changes that were made to implement each operatio
     - Verify our first operand is a string `tpChar` with `oTypeStkChooseKind`. If it isn't, emit a `eOperandOperatorTypeMismatch` error
     - Pop the type stack entry (whether it was `tpChar` or not) and place a new entry of the result type, `tpChar`
     - Clean up the symbol stack by popping second operand and modifying first to be `syExpression`
-4. __String Equality (==):__
+4. __String Equality__ _(tpChar == tpChar)_:
     - Implemented in `BinaryOperator`
     - If we encounter an `sEq` token, we know it is either a  `tEQ` or `tStringEQ` operation
     - Differentiate with `oTypeStkChooseKind`: If the first operand is of type `tpChar`, assume they both are and emit `tStringEQ`. Otherwise, emit `tEQ`
     - Allow previous call to `CompareEqualityOperandTypes`, which will verify both operands are of same type, then cleanup/set the type and symbol stacks such that the result is an `syExpression` of type `tpBoolean`
-5. __String Inequality (!=):__
+5. __String Inequality__ _(tpChar != tpChar)_:
     - Implemented in `BinaryOperator`
     - If we encounter an `sNE` token, we know it is either a  `tNE` or string inequality operation
     - Differentiate with `oTypeStkChooseKind`: If the first operand is of type `tpChar`, assume they both are and emit `tStringEQ` followed by `tNot`. Otherwise, emit `tEQ`
     - Allow previous call to `CompareEqualityOperandTypes`, which will verify both operands are of same type, then cleanup/set the type and symbol stacks such that the result is an `syExpression` of type `tpBoolean`
-6. __Substring (\_ / \_ : \_):__
+6. __Substring__ _(tpChar / tpInteger : tpInteger)_:
     - Implemented in `BinaryOperator`
     - If we encounter an `sSubstring` token, we know we have a string length operation. Emit the `tSubstring` T-code
     - Verify our third operand is a string `tpInteger` with `oTypeStkChooseKind`. If it isn't, emit a `eOperandOperatorTypeMismatch` error
@@ -571,7 +572,7 @@ The following list details the changes that were made to implement each operatio
     - Verify our first operand is a string `tpChar` with `oTypeStkChooseKind`. If it isn't, emit a `eOperandOperatorTypeMismatch` error
     - Pop the type stack entry (whether it was `tpChar` or not) and place a new entry of the result type, `tpChar`
     - Clean up the symbol stack by popping third and second operands, then modify the first to be `syExpression`
-7. __Relational Comparisons (<, <=, >, >=):__
+7. __Relational Comparisons__ _(<, <=, >, >=)_:
     - Implemented in `CompareRelationalOperandTypes`
     - Observe that all relational comparison operations (`sGT`, `sGE`, `sLT`, `sLE`) make a call to `CompareRelationalOperandTypes`. This rule verifies the operands are of the same type, having a seperate case for `tpChar` vs. other cases
     - By removing the `tpChar` case in the choice, we effectively force any relational comparisons between strings to the default choice, which which will emit `eOperandOperatorTypeMismatch` error
