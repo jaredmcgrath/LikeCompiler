@@ -427,10 +427,10 @@
 </tr>
 
 <tr>
-<td>6_else_positive.pt</td>
-<td>Test use of optional else following elseif chain</td>
-<td>Runs an if statement, multip</td>
-<td>6_else_positive.pt.eOutput</td><td></td>
+<td>6_nonboolean_cond_negative.pt</td>
+<td>Trigger #eBooleanExpnReqd</td>
+<td>Runs an if statement, elseif statement, repeat while, and while statement with arithmetic expressions rather than boolean expressions as their conditions</td>
+<td>6_nonboolean_cond_negative.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
