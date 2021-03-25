@@ -534,7 +534,8 @@ __Note__: All line numbers referenced in the following table are referring their
 <td>7_strings_TooLong_negative.pt</td>
 <td>Testing max string length</td>
 <td>String is declared with length over 255, and the proper parser error is thrown on line 3</td>
-<td>7_strings_TooLong_negative.pt.eOutput</td><td></td>
+<td>7_strings_TooLong_negative.pt.eOutput</td><td>Line 3: scan/parse error, line 3: syntax error at: toolong
+ scan/parse error, line 3: identifier or string too long </td>
 </tr>
 
 <tr>
@@ -555,7 +556,7 @@ __Note__: All line numbers referenced in the following table are referring their
 <td>7_stringsAssign_negative.pt</td>
 <td>Test the assign IO function</td>
 <td>Use assign function without a string parameter, produces a semantic error on line 5.</td>
-<td>7_stringsAssign_negative.pt.eOutput</td><td></td>
+<td>7_stringsAssign_negative.pt.eOutput</td><td>Line 5: Semantic error #eFileNameReqd</td>
 </tr>
 
 </table>
