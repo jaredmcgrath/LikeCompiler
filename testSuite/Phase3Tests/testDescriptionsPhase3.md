@@ -434,17 +434,17 @@
 </tr>
 
 <tr>
-<td>6_elseif_negative.pt</td>
-<td>Test elseif preceding if</td>
-<td>Runs an elseif statement on its own</td>
-<td>6_elseif_negative.pt.eOutput</td><td></td>
+<td>6_inscope_positive.pt</td>
+<td>Test whether variables and constants within scope are accessible from a nested scope and an uplevel transition to an outer scope.</td>
+<td>Declare a global variable and constant, uses the constant as the condition to an if statement, accesses the variable within the if statement, and after the if block.</td>
+<td>6_inscope_positive.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
-<td>6_else_negative.pt</td>
-<td>Test else preceding with no if</td>
-<td>Runs an else statement on its own</td>
-<td>6_else_negative.pt.eOutput</td><td></td>
+<td>6_outscope_negative.pt</td>
+<td>Test whether variables and constants declared within a nested scope are accessible from an outer scope</td>
+<td>Declares a variable within the if statement and attempt to access it outside of the if statement</td>
+<td>6_outscope_negative.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
