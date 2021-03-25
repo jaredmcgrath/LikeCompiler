@@ -399,52 +399,52 @@
 </tr>
 
 <tr>
-<td>6_ifnoelse_positive.pt</td>
-<td>Test behaviour of one if statement</td>
-<td>Runs a single if statement</td>
-<td>6_ifnoelse_positive.pt.eOutput</td><td></td>
+<td>6_choose_intreqd_negative.pt</td>
+<td>Trigger #eIntegerConstReqd for a defined constant and an integer constant as the condition</td>
+<td>Runs two separate choose statements: one with a string constant condition and the other with an integer variable condition - both are different logical paths in semantic.ssl</td>
+<td>6_choose_intreqd_negative.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
-<td>6_ifelse_positive.pt</td>
-<td>Test behaviour of if-else statement</td>
-<td>Runs an if statement followed by an else statement</td>
-<td>6_ifelse_positive.pt.eOutput</td><td></td>
+<td>6_choose_undefined_negative.pt</td>
+<td>Trigger #eUndefinedIdentifier</td>
+<td>Runs a choose statement with an undefined identifier as the condition</td>
+<td>6_choose_undefined_negative.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
-<td>6_elseif_positive.pt</td>
-<td>Test behaviour of elseif statement</td>
-<td>Runs an if-elseif chain then an equivalent nested if statement</td>
-<td>6_elseif_positive.pt.eOutput</td><td></td>
+<td>6_chooseselector_negative.pt</td>
+<td>Trigger #eIntegerExpnReqd</td>
+<td>Runs a choose statement with the selector as a non-integer expression - as a string</td>
+<td>6_chooseselector_negative.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
-<td>6_chained_elseif_positive.pt</td>
-<td>Test behaviour of multiple elseif statements</td>
-<td>Runs an if statement and multiple elseif statements</td>
-<td>6_chained_elseif_positive.pt.eOutput</td><td></td>
+<td>6_duplicatecase_negative.pt</td>
+<td>Trigger #eDuplicateLabel</td>
+<td>Runs a choose statement with multiple of the same case conditions</td>
+<td>6_duplicatecase_negative.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
-<td>6_else_positive.pt</td>
-<td>Test use of optional else following elseif chain</td>
-<td>Runs an if statement, multip</td>
-<td>6_else_positive.pt.eOutput</td><td></td>
+<td>6_nonboolean_cond_negative.pt</td>
+<td>Trigger #eBooleanExpnReqd</td>
+<td>Runs an if statement, elseif statement, repeat while, and while statement with arithmetic expressions rather than boolean expressions as their conditions</td>
+<td>6_nonboolean_cond_negative.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
-<td>6_elseif_negative.pt</td>
-<td>Test elseif preceding if</td>
-<td>Runs an elseif statement on its own</td>
-<td>6_elseif_negative.pt.eOutput</td><td></td>
+<td>6_inscope_positive.pt</td>
+<td>Test whether variables and constants within scope are accessible from a nested scope and an uplevel transition to an outer scope.</td>
+<td>Declare a global variable and constant, uses the constant as the condition to an if statement, accesses the variable within the if statement, and after the if block.</td>
+<td>6_inscope_positive.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
-<td>6_else_negative.pt</td>
-<td>Test else preceding with no if</td>
-<td>Runs an else statement on its own</td>
-<td>6_else_negative.pt.eOutput</td><td></td>
+<td>6_outscope_negative.pt</td>
+<td>Test whether variables and constants declared within a nested scope are accessible from an outer scope</td>
+<td>Declares a variable within the if statement and attempt to access it outside of the if statement</td>
+<td>6_outscope_negative.pt.eOutput</td><td></td>
 </tr>
 
 <tr>

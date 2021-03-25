@@ -1,0 +1,9 @@
+using output;
+val const = 0;
+var variable = "string";
+
+if const == 0 then
+    variable = "replacement";
+end;
+
+var str = variable;

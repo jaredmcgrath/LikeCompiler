@@ -1,0 +1,6 @@
+using output;
+var i = 0;
+choose i of
+    when x then //triggers #eUndefinedIndentifier
+     i += 1;
+end;

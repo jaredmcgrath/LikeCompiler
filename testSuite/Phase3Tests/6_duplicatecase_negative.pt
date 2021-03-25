@@ -1,0 +1,18 @@
+using output;
+
+var i = 10;
+
+choose i of
+    when 0 then //triggers #eDuplicateLabel for int constant
+     i += 1;
+    when 0 then
+     i += 1;
+end;
+
+val x = 0;
+choose i of
+    when x then //triggers #eDuplicateLabel for val
+     i += 1;
+    when x then
+     i += 1;
+end;

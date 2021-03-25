@@ -1,0 +1,9 @@
+using output;
+val const = 0;
+
+if const == 0 then
+    var x = 15;
+end;
+
+put(x);
+putln;

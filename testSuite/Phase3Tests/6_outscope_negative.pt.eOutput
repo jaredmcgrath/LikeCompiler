@@ -1,0 +1,1088 @@
+Input token accepted 47;  Line 1;  Next input token 3
+Table index 0;  Operation 5;  Argument 3
+Input token accepted 3;  Line 1;  Next input token 0
+Table index 2;  Operation 12;  Argument 4
+Table index 4;  Operation 21;  Argument 16
+Table index 5;  Operation 16;  Argument 12
+Table index 6;  Operation 12;  Argument 3
+Table index 8;  Operation 81;  Argument 7
+Table index 9;  Operation 7;  Argument 5
+Choice tag 0 (not matched)
+Table index 18;  Operation 0;  Argument 45
+Table index 45;  Operation 5;  Argument 0
+Input token accepted 0;  Line 1;  Next input token 5
+Table index 47;  Operation 23;  Argument 31
+Table index 48;  Operation 31;  Argument 10
+Table index 49;  Operation 10;  Argument 52
+Choice tag 9 (matched)
+Table index 51;  Operation 32;  Argument 10
+Table index 52;  Operation 10;  Argument 31
+Choice tag 1 (matched)
+Table index 69;  Operation 12;  Argument 2
+Table index 71;  Operation 26;  Argument 12
+Table index 72;  Operation 12;  Argument 5
+Table index 74;  Operation 38;  Argument 12
+Table index 75;  Operation 12;  Argument 3
+Table index 77;  Operation 44;  Argument 30
+Table index 78;  Operation 30;  Argument 12
+Table index 79;  Operation 12;  Argument 2
+Table index 81;  Operation 65;  Argument 4
+Table index 82;  Operation 4;  Argument 14
+Table index 97;  Operation 0;  Argument 740
+Table index 740;  Operation 31;  Argument 10
+Table index 741;  Operation 10;  Argument 6
+Choice tag 2 (not matched)
+Table index 751;  Operation 50;  Argument 10
+Table index 752;  Operation 10;  Argument 56
+Choice tag 5 (matched)
+Table index 792;  Operation 8;  Argument 41
+Output token emitted 41
+Table index 794;  Operation 61;  Argument 29
+Table index 795;  Operation 29;  Argument 8
+Table index 796;  Operation 8;  Argument 67
+Output token emitted 67
+Table index 798;  Operation 56;  Argument 8
+Output token emitted 2
+Table index 799;  Operation 8;  Argument 42
+Output token emitted 42
+Table index 801;  Operation 8;  Argument 66
+Output token emitted 66
+Table index 803;  Operation 58;  Argument 8
+Output token emitted 0
+Table index 804;  Operation 8;  Argument 32
+Output token emitted 32
+Table index 806;  Operation 64;  Argument 4
+Table index 807;  Operation 4;  Argument 15
+Table index 823;  Operation 1;  Argument 5
+Table index 99;  Operation 14;  Argument 4
+Table index 100;  Operation 4;  Argument 6
+Table index 107;  Operation 34;  Argument 54
+Table index 108;  Operation 54;  Argument 76
+Table index 109;  Operation 76;  Argument 1
+Table index 110;  Operation 1;  Argument 5
+Table index 20;  Operation 3;  Argument 12
+Table index 9;  Operation 7;  Argument 5
+Choice tag 5 (matched)
+Input token accepted 5;  Line 1;  Next input token 10
+Table index 11;  Operation 4;  Argument 10
+Table index 22;  Operation 83;  Argument 0
+Table index 23;  Operation 0;  Argument 1042
+Table index 1042;  Operation 16;  Argument 0
+Table index 1043;  Operation 0;  Argument 111
+Table index 111;  Operation 5;  Argument 10
+Input token accepted 10;  Line 2;  Next input token 6
+Table index 113;  Operation 7;  Argument 43
+Choice tag 6 (matched)
+Input token accepted 6;  Line 2;  Next input token 0
+Table index 123;  Operation 0;  Argument 187
+Table index 187;  Operation 12;  Argument 0
+Table index 189;  Operation 81;  Argument 7
+Table index 190;  Operation 7;  Argument 31
+Choice tag 0 (matched)
+Input token accepted 0;  Line 2;  Next input token 1
+Table index 192;  Operation 23;  Argument 31
+Table index 193;  Operation 31;  Argument 10
+Table index 194;  Operation 10;  Argument 7
+Choice tag 9 (matched)
+Table index 196;  Operation 4;  Argument 12
+Table index 209;  Operation 12;  Argument 0
+Table index 211;  Operation 26;  Argument 0
+Table index 212;  Operation 0;  Argument 268
+Table index 268;  Operation 7;  Argument 72
+Choice tag 1 (matched)
+Input token accepted 1;  Line 2;  Next input token 25
+Table index 270;  Operation 12;  Argument 0
+Table index 272;  Operation 38;  Argument 12
+Table index 273;  Operation 12;  Argument 0
+Table index 275;  Operation 44;  Argument 66
+Table index 276;  Operation 66;  Argument 7
+Table index 277;  Operation 7;  Argument 4
+Choice tag 25 (not matched)
+Table index 285;  Operation 4;  Argument 66
+Table index 352;  Operation 1;  Argument 7
+Table index 214;  Operation 30;  Argument 54
+Table index 215;  Operation 54;  Argument 27
+Table index 216;  Operation 27;  Argument 76
+Table index 217;  Operation 76;  Argument 14
+Table index 218;  Operation 14;  Argument 84
+Table index 219;  Operation 84;  Argument 4
+Table index 220;  Operation 4;  Argument 6
+Table index 227;  Operation 3;  Argument 38
+Table index 190;  Operation 7;  Argument 31
+Choice tag 25 (not matched)
+Table index 225;  Operation 4;  Argument 3
+Table index 229;  Operation 7;  Argument 19
+Choice tag 25 (not matched)
+Table index 252;  Operation 86;  Argument 10
+Table index 253;  Operation 10;  Argument 5
+Choice tag 1 (not matched)
+Table index 262;  Operation 34;  Argument 85
+Table index 263;  Operation 85;  Argument 3
+Table index 264;  Operation 3;  Argument 13
+Table index 252;  Operation 86;  Argument 10
+Table index 253;  Operation 10;  Argument 5
+Choice tag 0 (matched)
+Table index 255;  Operation 4;  Argument 10
+Table index 266;  Operation 83;  Argument 1
+Table index 267;  Operation 1;  Argument 7
+Table index 125;  Operation 4;  Argument 56
+Table index 182;  Operation 3;  Argument 70
+Table index 113;  Operation 7;  Argument 43
+Choice tag 25 (matched)
+Input token accepted 25;  Line 4;  Next input token 0
+Table index 139;  Operation 0;  Argument 1368
+Table index 1368;  Operation 8;  Argument 43
+Output token emitted 43
+Table index 1370;  Operation 0;  Argument 3786
+Table index 3786;  Operation 0;  Argument 1603
+Table index 1603;  Operation 0;  Argument 1631
+Table index 1631;  Operation 7;  Argument 81
+Choice tag 0 (matched)
+Input token accepted 0;  Line 4;  Next input token 1
+Table index 1633;  Operation 22;  Argument 31
+Table index 1634;  Operation 31;  Argument 10
+Table index 1635;  Operation 10;  Argument 5
+Choice tag 0 (not matched)
+Table index 1644;  Operation 31;  Argument 10
+Table index 1645;  Operation 10;  Argument 15
+Choice tag 0 (matched)
+Table index 1647;  Operation 0;  Argument 2373
+Table index 2373;  Operation 39;  Argument 69
+Table index 2374;  Operation 69;  Argument 50
+Table index 2375;  Operation 50;  Argument 10
+Table index 2376;  Operation 10;  Argument 16
+Choice tag 0 (matched)
+Table index 2378;  Operation 8;  Argument 67
+Output token emitted 67
+Table index 2380;  Operation 56;  Argument 4
+Output token emitted 0
+Table index 2381;  Operation 4;  Argument 21
+Table index 2403;  Operation 76;  Argument 1
+Table index 2404;  Operation 1;  Argument 50
+Table index 1649;  Operation 4;  Argument 26
+Table index 1676;  Operation 4;  Argument 45
+Table index 1722;  Operation 1;  Argument 68
+Table index 1605;  Operation 0;  Argument 1751
+Table index 1751;  Operation 7;  Argument 39
+Choice tag 1 (not matched)
+Table index 1798;  Operation 1;  Argument 12
+Table index 1607;  Operation 0;  Argument 1803
+Table index 1803;  Operation 7;  Argument 220
+Choice tag 1 (not matched)
+Table index 2061;  Operation 1;  Argument 12
+Table index 1609;  Operation 7;  Argument 11
+Choice tag 1 (not matched)
+Table index 1628;  Operation 3;  Argument 26
+Table index 1603;  Operation 0;  Argument 1631
+Table index 1631;  Operation 7;  Argument 81
+Choice tag 1 (matched)
+Input token accepted 1;  Line 4;  Next input token 31
+Table index 1678;  Operation 66;  Argument 12
+Table index 1679;  Operation 12;  Argument 7
+Table index 1681;  Operation 21;  Argument 12
+Table index 1682;  Operation 12;  Argument 0
+Table index 1684;  Operation 38;  Argument 12
+Table index 1685;  Operation 12;  Argument 0
+Table index 1687;  Operation 44;  Argument 8
+Table index 1688;  Operation 8;  Argument 67
+Output token emitted 67
+Table index 1690;  Operation 56;  Argument 76
+Output token emitted 0
+Table index 1691;  Operation 76;  Argument 4
+Table index 1692;  Operation 4;  Argument 29
+Table index 1722;  Operation 1;  Argument 68
+Table index 1605;  Operation 0;  Argument 1751
+Table index 1751;  Operation 7;  Argument 39
+Choice tag 31 (not matched)
+Table index 1798;  Operation 1;  Argument 12
+Table index 1607;  Operation 0;  Argument 1803
+Table index 1803;  Operation 7;  Argument 220
+Choice tag 31 (matched)
+Input token accepted 31;  Line 4;  Next input token 19
+Table index 1849;  Operation 50;  Argument 10
+Table index 1850;  Operation 10;  Argument 5
+Choice tag 0 (not matched)
+Table index 1859;  Operation 8;  Argument 5
+Output token emitted 5
+Table index 1861;  Operation 0;  Argument 2197
+Table index 2197;  Operation 50;  Argument 10
+Table index 2198;  Operation 10;  Argument 42
+Choice tag 0 (matched)
+Table index 2200;  Operation 54;  Argument 50
+Table index 2201;  Operation 50;  Argument 10
+Table index 2202;  Operation 10;  Argument 3
+Choice tag 0 (matched)
+Table index 2204;  Operation 4;  Argument 8
+Table index 2213;  Operation 4;  Argument 39
+Table index 2253;  Operation 54;  Argument 12
+Table index 2254;  Operation 12;  Argument 2
+Table index 2256;  Operation 38;  Argument 34
+Table index 2257;  Operation 34;  Argument 12
+Table index 2258;  Operation 12;  Argument 7
+Table index 2260;  Operation 26;  Argument 1
+Table index 2261;  Operation 1;  Argument 31
+Table index 1863;  Operation 4;  Argument 198
+Table index 2062;  Operation 12;  Argument 7
+Table index 2064;  Operation 26;  Argument 1
+Table index 2065;  Operation 1;  Argument 50
+Table index 1609;  Operation 7;  Argument 11
+Choice tag 19 (matched)
+Input token accepted 19;  Line 4;  Next input token 26
+Table index 1611;  Operation 4;  Argument 18
+Table index 1630;  Operation 1;  Argument 7
+Table index 3788;  Operation 50;  Argument 10
+Table index 3789;  Operation 10;  Argument 3
+Choice tag 2 (matched)
+Table index 3791;  Operation 4;  Argument 6
+Table index 3798;  Operation 34;  Argument 54
+Table index 3799;  Operation 54;  Argument 1
+Table index 3800;  Operation 1;  Argument 82
+Table index 1372;  Operation 5;  Argument 26
+Input token accepted 26;  Line 5;  Next input token 10
+Table index 1374;  Operation 8;  Argument 73
+Output token emitted 73
+Table index 1376;  Operation 87;  Argument 55
+Table index 1377;  Operation 55;  Argument 0
+Output token emitted -32767
+Table index 1378;  Operation 0;  Argument 1042
+Table index 1042;  Operation 16;  Argument 0
+Table index 1043;  Operation 0;  Argument 111
+Table index 111;  Operation 5;  Argument 10
+Input token accepted 10;  Line 5;  Next input token 8
+Table index 113;  Operation 7;  Argument 43
+Choice tag 8 (matched)
+Input token accepted 8;  Line 5;  Next input token 0
+Table index 127;  Operation 0;  Argument 610
+Table index 610;  Operation 7;  Argument 79
+Choice tag 0 (matched)
+Input token accepted 0;  Line 5;  Next input token 54
+Table index 612;  Operation 23;  Argument 31
+Table index 613;  Operation 31;  Argument 10
+Table index 614;  Operation 10;  Argument 3
+Choice tag 9 (matched)
+Table index 616;  Operation 4;  Argument 8
+Table index 625;  Operation 7;  Argument 44
+Choice tag 54 (matched)
+Input token accepted 54;  Line 5;  Next input token 1
+Table index 627;  Operation 8;  Argument 62
+Output token emitted 62
+Table index 629;  Operation 0;  Argument 1603
+Table index 1603;  Operation 0;  Argument 1631
+Table index 1631;  Operation 7;  Argument 81
+Choice tag 1 (matched)
+Input token accepted 1;  Line 5;  Next input token 19
+Table index 1678;  Operation 66;  Argument 12
+Table index 1679;  Operation 12;  Argument 7
+Table index 1681;  Operation 21;  Argument 12
+Table index 1682;  Operation 12;  Argument 0
+Table index 1684;  Operation 38;  Argument 12
+Table index 1685;  Operation 12;  Argument 0
+Table index 1687;  Operation 44;  Argument 8
+Table index 1688;  Operation 8;  Argument 67
+Output token emitted 67
+Table index 1690;  Operation 56;  Argument 76
+Output token emitted 15
+Table index 1691;  Operation 76;  Argument 4
+Table index 1692;  Operation 4;  Argument 29
+Table index 1722;  Operation 1;  Argument 68
+Table index 1605;  Operation 0;  Argument 1751
+Table index 1751;  Operation 7;  Argument 39
+Choice tag 19 (not matched)
+Table index 1798;  Operation 1;  Argument 12
+Table index 1607;  Operation 0;  Argument 1803
+Table index 1803;  Operation 7;  Argument 220
+Choice tag 19 (not matched)
+Table index 2061;  Operation 1;  Argument 12
+Table index 1609;  Operation 7;  Argument 11
+Choice tag 19 (matched)
+Input token accepted 19;  Line 5;  Next input token 11
+Table index 1611;  Operation 4;  Argument 18
+Table index 1630;  Operation 1;  Argument 7
+Table index 631;  Operation 8;  Argument 63
+Output token emitted 63
+Table index 633;  Operation 34;  Argument 50
+Table index 634;  Operation 50;  Argument 10
+Table index 635;  Operation 10;  Argument 16
+Choice tag 0 (matched)
+Table index 637;  Operation 12;  Argument 0
+Table index 639;  Operation 44;  Argument 4
+Table index 640;  Operation 4;  Argument 18
+Table index 659;  Operation 0;  Argument 694
+Table index 694;  Operation 31;  Argument 10
+Table index 695;  Operation 10;  Argument 18
+Choice tag 9 (not matched)
+Table index 717;  Operation 12;  Argument 2
+Table index 719;  Operation 26;  Argument 50
+Table index 720;  Operation 50;  Argument 10
+Table index 721;  Operation 10;  Argument 10
+Choice tag 0 (not matched)
+Table index 735;  Operation 0;  Argument 740
+Table index 740;  Operation 31;  Argument 10
+Table index 741;  Operation 10;  Argument 6
+Choice tag 2 (not matched)
+Table index 751;  Operation 50;  Argument 10
+Table index 752;  Operation 10;  Argument 56
+Choice tag 0 (matched)
+Table index 754;  Operation 61;  Argument 29
+Table index 755;  Operation 29;  Argument 62
+Table index 756;  Operation 62;  Argument 4
+Table index 757;  Operation 4;  Argument 65
+Table index 823;  Operation 1;  Argument 5
+Table index 737;  Operation 30;  Argument 14
+Table index 738;  Operation 14;  Argument 1
+Table index 739;  Operation 1;  Argument 31
+Table index 661;  Operation 8;  Argument 66
+Output token emitted 66
+Table index 663;  Operation 69;  Argument 56
+Table index 664;  Operation 56;  Argument 76
+Output token emitted 4
+Table index 665;  Operation 76;  Argument 0
+Table index 666;  Operation 0;  Argument 1102
+Table index 1102;  Operation 50;  Argument 10
+Table index 1103;  Operation 10;  Argument 13
+Choice tag 0 (matched)
+Table index 1105;  Operation 8;  Argument 32
+Output token emitted 32
+Table index 1107;  Operation 4;  Argument 20
+Table index 1128;  Operation 1;  Argument 5
+Table index 668;  Operation 4;  Argument 8
+Table index 677;  Operation 7;  Argument 5
+Choice tag 11 (not matched)
+Table index 686;  Operation 54;  Argument 34
+Table index 687;  Operation 34;  Argument 4
+Table index 688;  Operation 4;  Argument 4
+Table index 693;  Operation 1;  Argument 31
+Table index 129;  Operation 4;  Argument 52
+Table index 182;  Operation 3;  Argument 70
+Table index 113;  Operation 7;  Argument 43
+Choice tag 11 (not matched)
+Table index 180;  Operation 4;  Argument 3
+Table index 184;  Operation 5;  Argument 11
+Input token accepted 11;  Line 6;  Next input token 23
+Table index 186;  Operation 1;  Argument 12
+Table index 1045;  Operation 17;  Argument 1
+Table index 1046;  Operation 1;  Argument 5
+Table index 1380;  Operation 7;  Argument 11
+Choice tag 23 (not matched)
+Table index 1395;  Operation 8;  Argument 44
+Output token emitted 44
+Table index 1397;  Operation 88;  Argument 1
+Table index 1398;  Operation 1;  Argument 8
+Table index 141;  Operation 4;  Argument 40
+Table index 182;  Operation 3;  Argument 70
+Table index 113;  Operation 7;  Argument 43
+Choice tag 23 (matched)
+Input token accepted 23;  Line 8;  Next input token 0
+Table index 135;  Operation 0;  Argument 1129
+Table index 1129;  Operation 5;  Argument 0
+Input token accepted 0;  Line 8;  Next input token 0
+Table index 1131;  Operation 22;  Argument 31
+Table index 1132;  Operation 31;  Argument 10
+Table index 1133;  Operation 10;  Argument 5
+Choice tag 4 (not matched)
+Table index 1142;  Operation 31;  Argument 10
+Table index 1143;  Operation 10;  Argument 109
+Choice tag 4 (matched)
+Table index 1145;  Operation 33;  Argument 10
+Table index 1146;  Operation 10;  Argument 68
+Choice tag 3 (matched)
+Table index 1181;  Operation 8;  Argument 52
+Output token emitted 52
+Table index 1183;  Operation 0;  Argument 2763
+Table index 2763;  Operation 7;  Argument 210
+Choice tag 0 (matched)
+Input token accepted 0;  Line 8;  Next input token 19
+Table index 2765;  Operation 22;  Argument 39
+Table index 2766;  Operation 39;  Argument 50
+Table index 2767;  Operation 50;  Argument 10
+Table index 2768;  Operation 10;  Argument 117
+Choice tag 6 (not matched)
+Table index 2889;  Operation 54;  Argument 12
+Table index 2890;  Operation 12;  Argument 1
+Table index 2892;  Operation 24;  Argument 31
+Table index 2893;  Operation 31;  Argument 10
+Table index 2894;  Operation 10;  Argument 8
+Choice tag 2 (not matched)
+Table index 2906;  Operation 69;  Argument 34
+Table index 2907;  Operation 34;  Argument 8
+Table index 2908;  Operation 8;  Argument 54
+Output token emitted 54
+Table index 2910;  Operation 8;  Argument 66
+Output token emitted 66
+Table index 2912;  Operation 56;  Argument 8
+Output token emitted 0
+Table index 2913;  Operation 8;  Argument 21
+Output token emitted 21
+Table index 2915;  Operation 8;  Argument 50
+Output token emitted 50
+Table index 2917;  Operation 76;  Argument 31
+Table index 2918;  Operation 31;  Argument 10
+Table index 2919;  Operation 10;  Argument 5
+Choice tag 9 (matched)
+Table index 2921;  Operation 9;  Argument 12
+semantic error, line 8: identifier not declared
+Table index 2923;  Operation 4;  Argument 4
+Table index 2928;  Operation 31;  Argument 10
+Table index 2929;  Operation 10;  Argument 15
+Choice tag 9 (not matched)
+Table index 2954;  Operation 9;  Argument 38
+semantic error, line 8: expression operand required
+Table index 2956;  Operation 34;  Argument 0
+Table index 2957;  Operation 0;  Argument 3843
+Table index 3843;  Operation 12;  Argument 2
+Table index 3845;  Operation 21;  Argument 12
+Table index 3846;  Operation 12;  Argument 0
+Table index 3848;  Operation 65;  Argument 27
+Table index 3849;  Operation 27;  Argument 76
+Table index 3850;  Operation 76;  Argument 12
+Table index 3851;  Operation 12;  Argument 0
+Table index 3853;  Operation 38;  Argument 12
+Table index 3854;  Operation 12;  Argument 0
+Table index 3856;  Operation 44;  Argument 30
+Table index 3857;  Operation 30;  Argument 54
+Table index 3858;  Operation 54;  Argument 1
+Table index 3859;  Operation 1;  Argument 7
+Table index 2959;  Operation 39;  Argument 0
+Table index 2960;  Operation 0;  Argument 1603
+Table index 1603;  Operation 0;  Argument 1631
+Table index 1631;  Operation 7;  Argument 81
+Choice tag 19 (not matched)
+Table index 1722;  Operation 1;  Argument 68
+Table index 1605;  Operation 0;  Argument 1751
+Table index 1751;  Operation 7;  Argument 39
+Choice tag 19 (not matched)
+Table index 1798;  Operation 1;  Argument 12
+Table index 1607;  Operation 0;  Argument 1803
+Table index 1803;  Operation 7;  Argument 220
+Choice tag 19 (not matched)
+Table index 2061;  Operation 1;  Argument 12
+Table index 1609;  Operation 7;  Argument 11
+Choice tag 19 (matched)
+Input token accepted 19;  Line 8;  Next input token 5
+Table index 1611;  Operation 4;  Argument 18
+Table index 1630;  Operation 1;  Argument 7
+Table index 2962;  Operation 8;  Argument 50
+Output token emitted 50
+Table index 2964;  Operation 0;  Argument 3030
+Table index 3030;  Operation 7;  Argument 19
+Choice tag 5 (not matched)
+Table index 3053;  Operation 50;  Argument 10
+Table index 3054;  Operation 10;  Argument 11
+Choice tag 0 (matched)
+Table index 3056;  Operation 12;  Argument 10
+Table index 3058;  Operation 65;  Argument 4
+Table index 3059;  Operation 4;  Argument 16
+Table index 3076;  Operation 8;  Argument 67
+Output token emitted 67
+Table index 3078;  Operation 56;  Argument 76
+Output token emitted 10
+Table index 3079;  Operation 76;  Argument 8
+Table index 3080;  Operation 8;  Argument 50
+Output token emitted 50
+Table index 3082;  Operation 50;  Argument 10
+Table index 3083;  Operation 10;  Argument 15
+Choice tag 0 (matched)
+Table index 3092;  Operation 8;  Argument 84
+Output token emitted 84
+Table index 3094;  Operation 12;  Argument 7
+Table index 3096;  Operation 59;  Argument 4
+Output token emitted 7
+Table index 3097;  Operation 4;  Argument 10
+Table index 3108;  Operation 34;  Argument 54
+Table index 3109;  Operation 54;  Argument 1
+Table index 3110;  Operation 1;  Argument 7
+Table index 2966;  Operation 0;  Argument 2984
+Table index 2984;  Operation 12;  Argument 1
+Table index 2986;  Operation 24;  Argument 31
+Table index 2987;  Operation 31;  Argument 10
+Table index 2988;  Operation 10;  Argument 8
+Choice tag 2 (not matched)
+Table index 3000;  Operation 69;  Argument 34
+Table index 3001;  Operation 34;  Argument 7
+Table index 3002;  Operation 7;  Argument 5
+Choice tag 5 (matched)
+Input token accepted 5;  Line 8;  Next input token 23
+Table index 3004;  Operation 4;  Argument 23
+Table index 3028;  Operation 76;  Argument 1
+Table index 3029;  Operation 1;  Argument 7
+Table index 2968;  Operation 4;  Argument 12
+Table index 2981;  Operation 8;  Argument 55
+Output token emitted 55
+Table index 2983;  Operation 1;  Argument 12
+Table index 1185;  Operation 4;  Argument 65
+Table index 1251;  Operation 4;  Argument 8
+Table index 1260;  Operation 34;  Argument 1
+Table index 1261;  Operation 1;  Argument 12
+Table index 137;  Operation 4;  Argument 44
+Table index 182;  Operation 3;  Argument 70
+Table index 113;  Operation 7;  Argument 43
+Choice tag 23 (matched)
+Input token accepted 23;  Line 9;  Next input token 0
+Table index 135;  Operation 0;  Argument 1129
+Table index 1129;  Operation 5;  Argument 0
+Input token accepted 0;  Line 9;  Next input token 5
+Table index 1131;  Operation 22;  Argument 31
+Table index 1132;  Operation 31;  Argument 10
+Table index 1133;  Operation 10;  Argument 5
+Choice tag 4 (not matched)
+Table index 1142;  Operation 31;  Argument 10
+Table index 1143;  Operation 10;  Argument 109
+Choice tag 4 (matched)
+Table index 1145;  Operation 33;  Argument 10
+Table index 1146;  Operation 10;  Argument 68
+Choice tag 4 (matched)
+Table index 1187;  Operation 8;  Argument 54
+Output token emitted 54
+Table index 1189;  Operation 0;  Argument 3195
+Table index 3195;  Operation 7;  Argument 47
+Choice tag 5 (matched)
+Input token accepted 5;  Line 9;  Next input token 11
+Table index 3197;  Operation 12;  Argument 1
+Table index 3199;  Operation 24;  Argument 31
+Table index 3200;  Operation 31;  Argument 10
+Table index 3201;  Operation 10;  Argument 5
+Choice tag 2 (not matched)
+Table index 3210;  Operation 69;  Argument 8
+Table index 3211;  Operation 8;  Argument 66
+Output token emitted 66
+Table index 3213;  Operation 56;  Argument 76
+Output token emitted 0
+Table index 3214;  Operation 76;  Argument 34
+Table index 3215;  Operation 34;  Argument 8
+Table index 3216;  Operation 8;  Argument 21
+Output token emitted 21
+Table index 3218;  Operation 8;  Argument 50
+Output token emitted 50
+Table index 3220;  Operation 4;  Argument 31
+Table index 3252;  Operation 1;  Argument 7
+Table index 1191;  Operation 8;  Argument 84
+Output token emitted 84
+Table index 1193;  Operation 12;  Argument 6
+Table index 1195;  Operation 59;  Argument 4
+Output token emitted 6
+Table index 1196;  Operation 4;  Argument 54
+Table index 1251;  Operation 4;  Argument 8
+Table index 1260;  Operation 34;  Argument 1
+Table index 1261;  Operation 1;  Argument 12
+Table index 137;  Operation 4;  Argument 44
+Table index 182;  Operation 3;  Argument 70
+Table index 113;  Operation 7;  Argument 43
+Choice tag 11 (not matched)
+Table index 180;  Operation 4;  Argument 3
+Table index 184;  Operation 5;  Argument 11
+Input token accepted 11;  Line 9;  Next input token 56
+Table index 186;  Operation 1;  Argument 12
+Table index 1045;  Operation 17;  Argument 1
+Table index 1046;  Operation 1;  Argument 5
+Table index 25;  Operation 19;  Argument 10
+Table index 26;  Operation 10;  Argument 5
+Choice tag 0 (not matched)
+Table index 35;  Operation 17;  Argument 34
+Table index 36;  Operation 34;  Argument 8
+Table index 37;  Operation 8;  Argument 54
+Output token emitted 54
+Table index 39;  Operation 8;  Argument 84
+Output token emitted 84
+Table index 41;  Operation 12;  Argument 0
+Table index 43;  Operation 59;  Argument 1
+Output token emitted 0
+Table index 44;  Operation 1;  Argument 5
+### END OF PTC OUTPUT ###
+@Program
+ ?sProgram (sProgram)
+ oSymbolStkPush(syProcedure)
+ oSymbolTblPushScope
+ oCountPush(three)
+ [ (sIdentifier)
+ | *:
+ @ProgramParameter
+  ?sIdentifier (sIdentifier)
+  oSymbolStkPushLocalIdentifier
+  [ oSymbolStkChooseKind (syUndefined)
+  | syUndefined:
+  [ oSymbolStkChooseStandardFile (stdOutput)
+  | stdOutput:
+  oSymbolStkSetKind(syVariable)
+  oTypeStkPush(tpFile)
+  oTypeStkLinkToStandardType(stdText)
+  oSymbolStkEnterTypeReference
+  oValuePush(two)
+  ] or >
+  @AllocateVar
+   [ oSymbolStkChooseKind (syVariable)
+   | *:
+   [ oTypeStkChooseKind (tpFile)
+   | tpFile:
+   .tFileDescriptor
+   oAllocateAlignOnWord
+   oSymbolStkEnterDataAddress
+   .tLiteralInteger
+   oEmitValue
+   % value emitted 2
+   .tFileBind
+   .tLiteralAddress
+   oEmitDataAddress
+   % value emitted 0
+   .tStoreInteger
+   oAllocateDescriptor
+   ] or >
+   >>
+  ;AllocateVar
+  oSymbolTblEnter
+  ] or >
+  oSymbolStkPop
+  oTypeStkPop
+  oValuePop
+  >>
+ ;ProgramParameter
+ }
+ [ (sParmEnd)
+ | sParmEnd:
+ ] or >
+ oCountPop
+ @Statement
+  oSymbolTblPushScope
+  @Block
+   ?sBegin (sBegin)
+   [ (sConst)
+   | sConst:
+   @ConstantDefinitions
+    oCountPush(zero)
+    [ (sIdentifier)
+    | sIdentifier:
+    oSymbolStkPushLocalIdentifier
+    [ oSymbolStkChooseKind (syUndefined)
+    | syUndefined:
+    ] or >
+    oSymbolStkSetKind(syConstant)
+    @ConstantValue
+     [ (sInteger)
+     | sInteger:
+     oTypeStkPush(tpInteger)
+     oTypeStkLinkToStandardType(stdInteger)
+     oValuePushInteger
+     [ (sIfStmt)
+     | *:
+     ] or >
+     >>
+    ;ConstantValue
+    oSymbolStkEnterTypeReference
+    oTypeStkPop
+    oSymbolStkEnterValue
+    oValuePop
+    oSymbolTblEnter
+    oCountIncrement
+    ] or >
+    }
+    [ (sIfStmt)
+    | *:
+    ] or >
+    [ (sIfStmt)
+    | *:
+    [ oCountChoose (one)
+    | *:
+    oSymbolStkPop
+    oCountDecrement
+    }
+    [ oCountChoose (zero)
+    | zero:
+    ] or >
+    oCountPop
+    >>
+   ;ConstantDefinitions
+   ] or >
+   }
+   [ (sIfStmt)
+   | sIfStmt:
+   @IfStmt
+    .tIfBegin
+    @BooleanControlExpression
+     @Expression
+      @Operand
+       [ (sIdentifier)
+       | sIdentifier:
+       oSymbolStkPushIdentifier
+       [ oSymbolStkChooseKind (syConstant)
+       | *:
+       [ oSymbolStkChooseKind (syConstant)
+       | syConstant:
+       @ConstantOperand
+        oTypeStkPushSymbol
+        oValuePushSymbol
+        [ oTypeStkChooseKind (tpInteger)
+        | tpInteger:
+        .tLiteralInteger
+        oEmitValue
+        % value emitted 0
+        ] or >
+        oValuePop
+        >>
+       ;ConstantOperand
+       ] or >
+       ] or >
+       >>
+      ;Operand
+      @UnaryOperator
+       [ (sInteger)
+       | *:
+       >>
+      ;UnaryOperator
+      @BinaryOperator
+       [ (sInteger)
+       | *:
+       >>
+      ;BinaryOperator
+      [ (sInteger)
+      | *:
+      }
+      @Operand
+       [ (sInteger)
+       | sInteger:
+       oValuePushInteger
+       oSymbolStkPush(syExpression)
+       oTypeStkPush(tpInteger)
+       oTypeStkLinkToStandardType(stdInteger)
+       .tLiteralInteger
+       oEmitValue
+       % value emitted 0
+       oValuePop
+       ] or >
+       >>
+      ;Operand
+      @UnaryOperator
+       [ (sEq)
+       | *:
+       >>
+      ;UnaryOperator
+      @BinaryOperator
+       [ (sEq)
+       | sEq:
+       [ oTypeStkChooseKind (tpInteger)
+       | *:
+       .tEQ
+       @CompareEqualityOperandTypes
+        [ oTypeStkChooseKind (tpInteger)
+        | tpInteger:
+        oTypeStkPop
+        [ oTypeStkChooseKind (tpInteger)
+        | tpInteger:
+        ] or >
+        ] or >
+        oTypeStkPop
+        oTypeStkPush(tpBoolean)
+        oSymbolStkPop
+        oSymbolStkSetKind(syExpression)
+        >>
+       ;CompareEqualityOperandTypes
+       ] or >
+       oSymbolStkSetKind(syExpression)
+       >>
+      ;BinaryOperator
+      [ (sExpnEnd)
+      | sExpnEnd:
+      ] or >
+      >>
+     ;Expression
+     [ oTypeStkChooseKind (tpBoolean)
+     | tpBoolean:
+     ] or >
+     oSymbolStkPop
+     oTypeStkPop
+     >>
+    ;BooleanControlExpression
+    ?sThen (sThen)
+    .tIfThen
+    oFixPushForwardBranch
+    oEmitNullAddress
+    % value emitted -32767
+    @Statement
+     oSymbolTblPushScope
+     @Block
+      ?sBegin (sBegin)
+      [ (sVar)
+      | sVar:
+      @VariableDeclarations
+       [ (sIdentifier)
+       | sIdentifier:
+       oSymbolStkPushLocalIdentifier
+       [ oSymbolStkChooseKind (syUndefined)
+       | syUndefined:
+       ] or >
+       [ (sInitialValue)
+       | sInitialValue:
+       .tInitialValue
+       @Expression
+        @Operand
+         [ (sInteger)
+         | sInteger:
+         oValuePushInteger
+         oSymbolStkPush(syExpression)
+         oTypeStkPush(tpInteger)
+         oTypeStkLinkToStandardType(stdInteger)
+         .tLiteralInteger
+         oEmitValue
+         % value emitted 15
+         oValuePop
+         ] or >
+         >>
+        ;Operand
+        @UnaryOperator
+         [ (sExpnEnd)
+         | *:
+         >>
+        ;UnaryOperator
+        @BinaryOperator
+         [ (sExpnEnd)
+         | *:
+         >>
+        ;BinaryOperator
+        [ (sExpnEnd)
+        | sExpnEnd:
+        ] or >
+        >>
+       ;Expression
+       .tInitEnd
+       oSymbolStkPop
+       [ oTypeStkChooseKind (tpInteger)
+       | tpInteger:
+       oTypeStkLinkToStandardType(stdInteger)
+       ] or >
+       @EnterVariableAttributes
+        [ oSymbolStkChooseKind (syUndefined)
+        | *:
+        oSymbolStkSetKind(syVariable)
+        [ oTypeStkChooseKind (tpInteger)
+        | *:
+        @AllocateVar
+         [ oSymbolStkChooseKind (syVariable)
+         | *:
+         [ oTypeStkChooseKind (tpInteger)
+         | tpInteger:
+         oAllocateAlignOnWord
+         oSymbolStkEnterDataAddress
+         oAllocateVariable
+         ] or >
+         >>
+        ;AllocateVar
+        oSymbolStkEnterTypeReference
+        oSymbolTblEnter
+        >>
+       ;EnterVariableAttributes
+       .tLiteralAddress
+       oValuePushSymbol
+       oEmitValue
+       % value emitted 4
+       oValuePop
+       @EmitStore
+        [ oTypeStkChooseKind (tpInteger)
+        | tpInteger:
+        .tStoreInteger
+        ] or >
+        >>
+       ;EmitStore
+       ] or >
+       [ (sEnd)
+       | *:
+       oTypeStkPop
+       oSymbolStkPop
+       ] or >
+       >>
+      ;VariableDeclarations
+      ] or >
+      }
+      [ (sEnd)
+      | *:
+      ] or >
+      ?sEnd (sEnd)
+      >>
+     ;Block
+     oSymbolTblPopScope
+     >>
+    ;Statement
+    [ (sCallStmt)
+    | *:
+    .tIfEnd
+    oFixPopForwardBranch
+    >>
+   ;IfStmt
+   ] or >
+   }
+   [ (sCallStmt)
+   | sCallStmt:
+   @CallStmt
+    ?sIdentifier (sIdentifier)
+    oSymbolStkPushIdentifier
+    [ oSymbolStkChooseKind (syProcedure)
+    | *:
+    [ oSymbolStkChooseKind (syProcedure)
+    | syProcedure:
+    [ oSymbolStkChooseStandardRoutine (rtWrite)
+    | rtWrite:
+    .tWriteBegin
+    @WriteProcedure
+     [ (sIdentifier)
+     | sIdentifier:
+     oSymbolStkPushIdentifier
+     oTypeStkPushSymbol
+     [ oTypeStkChooseKind (tpNull)
+     | *:
+     oTypeStkPop
+     oSymbolStkPushStandardVariable(stdOutput)
+     [ oSymbolStkChooseKind (syVariable)
+     | *:
+     oValuePushSymbol
+     oSymbolStkPop
+     .tTrapBegin
+     .tLiteralAddress
+     oEmitValue
+     % value emitted 0
+     .tVarParm
+     .tParmEnd
+     oValuePop
+     [ oSymbolStkChooseKind (syUndefined)
+     | syUndefined:
+     #eUndefinedIdentifier
+     semantic error, line 8: identifier not declared
+     ] or >
+     [ oSymbolStkChooseKind (syUndefined)
+     | *:
+     #eExpnOperandReqd
+     semantic error, line 8: expression operand required
+     oSymbolStkPop
+     @SymbolStkPushDefaultIntegerVariable
+      oSymbolStkPush(syVariable)
+      oValuePush(zero)
+      oSymbolStkEnterValue
+      oValuePop
+      oTypeStkPush(tpInteger)
+      oTypeStkLinkToStandardType(stdInteger)
+      oSymbolStkEnterTypeReference
+      oTypeStkPop
+      >>
+     ;SymbolStkPushDefaultIntegerVariable
+     oTypeStkPushSymbol
+     @Expression
+      @Operand
+       [ (sExpnEnd)
+       | *:
+       >>
+      ;Operand
+      @UnaryOperator
+       [ (sExpnEnd)
+       | *:
+       >>
+      ;UnaryOperator
+      @BinaryOperator
+       [ (sExpnEnd)
+       | *:
+       >>
+      ;BinaryOperator
+      [ (sExpnEnd)
+      | sExpnEnd:
+      ] or >
+      >>
+     ;Expression
+     .tParmEnd
+     @WriteText
+      [ (sParmEnd)
+      | *:
+      [ oTypeStkChooseKind (tpInteger)
+      | tpInteger:
+      oValuePush(ten)
+      ] or >
+      .tLiteralInteger
+      oEmitValue
+      % value emitted 10
+      oValuePop
+      .tParmEnd
+      [ oTypeStkChooseKind (tpInteger)
+      | tpInteger:
+      .tTrap
+      oEmitTrapKind(trWriteInteger)
+      % value emitted 7
+      ] or >
+      oSymbolStkPop
+      oTypeStkPop
+      >>
+     ;WriteText
+     @WriteStandardExpnList
+      oSymbolStkPushStandardVariable(stdOutput)
+      [ oSymbolStkChooseKind (syVariable)
+      | *:
+      oValuePushSymbol
+      oSymbolStkPop
+      [ (sParmEnd)
+      | sParmEnd:
+      ] or >
+      oValuePop
+      >>
+     ;WriteStandardExpnList
+     ] or >
+     .tWriteEnd
+     >>
+    ;WriteProcedure
+    ] or >
+    ] or >
+    oSymbolStkPop
+    >>
+   ;CallStmt
+   ] or >
+   }
+   [ (sCallStmt)
+   | sCallStmt:
+   @CallStmt
+    ?sIdentifier (sIdentifier)
+    oSymbolStkPushIdentifier
+    [ oSymbolStkChooseKind (syProcedure)
+    | *:
+    [ oSymbolStkChooseKind (syProcedure)
+    | syProcedure:
+    [ oSymbolStkChooseStandardRoutine (rtWriteln)
+    | rtWriteln:
+    .tTrapBegin
+    @WritelnProcedure
+     [ (sParmEnd)
+     | sParmEnd:
+     oSymbolStkPushStandardVariable(stdOutput)
+     [ oSymbolStkChooseKind (syVariable)
+     | *:
+     oValuePushSymbol
+     .tLiteralAddress
+     oEmitValue
+     % value emitted 0
+     oValuePop
+     oSymbolStkPop
+     .tVarParm
+     .tParmEnd
+     ] or >
+     >>
+    ;WritelnProcedure
+    .tTrap
+    oEmitTrapKind(trWriteln)
+    % value emitted 6
+    ] or >
+    ] or >
+    oSymbolStkPop
+    >>
+   ;CallStmt
+   ] or >
+   }
+   [ (sEnd)
+   | *:
+   ] or >
+   ?sEnd (sEnd)
+   >>
+  ;Block
+  oSymbolTblPopScope
+  >>
+ ;Statement
+ [ oSymbolTblLookupExternal (no)
+ | *:
+ oSymbolTblPopScope
+ oSymbolStkPop
+ .tTrapBegin
+ .tTrap
+ oEmitTrapKind(trHalt)
+ % value emitted 0
+ >>
+;Program
