@@ -16,7 +16,7 @@
 <tr>
 <td>5_packages_positive.pt</td>
 <td>Tests the behaviour when vars and vals are declared as public within a package and then accessed outside of the package</td>
-<td>Declares public vars and vals within a package and accesses them outisde the packages scope</td>
+<td>Declares a public var and public val within a package and accesses them outisde the package's scope</td>
 <td>5_packages_positive.pt.eOutput</td><td></td>
 </tr>
 
@@ -42,17 +42,17 @@
 </tr>
 
 <tr>
-<td>Alex5.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
+<td>5_package_positive_funInsidePkg.pt</td>
+<td>Tests the behaviour when a public function is declared inside a package and then accessed outisde</td>
+<td>A package containing a public function, followed by an attempt to access the function</td>
+<td>5_package_positive_funInsidePkg.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
-<td>Alex6.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
+<td>5_package_negative_funInsidePkg.pt</td>
+<td>Tests the behaviour when a private function is declared inside a package and then accessed outisde</td>
+<td>A package containing a private function, followed by an attempt to access the function</td>
+<td>5_package_negative_funInsidePkg.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
@@ -546,178 +546,66 @@
 </tr>
 
 <tr>
-<td>Travis1.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
+<td>7_stringBasic_positive.pt</td>
+<td>Testing the declaration of strings</td>
+<td>Strings of differing lengths and types are declared</td>
+<td>7_stringBasic_positive.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
-<td>Travis2.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
+<td>7_stringEmpty_positive.pt</td>
+<td>Testing an empty string implementation</td>
+<td>An empty string is declared</td>
+<td>7_stringEmpty_positive.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
-<td>Travis3.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
+<td>7_stringsArray_positive.pt</td>
+<td>Testing the declaration of a string array of different lengths</td>
+<td>Several different string arrays are declared</td>
+<td>7_stringsArray_positive.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
-<td>Travis4.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
+<td>7_stringsIO_positive.pt</td>
+<td>Testing IO for strings</td>
+<td>Using IO functions to test trap implementations</td>
+<td>7_stringsIO_positive.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
-<td>Travis5.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
+<td>7_stringsLike_positive.pt</td>
+<td>To test the functionality of the like command for strings</td>
+<td>A string is declared and assigned to using the "like" syntax</td>
+<td>7_stringsLike_positive.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
-<td>Travis6.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
+<td>7_strings_TooLong_negative.pt</td>
+<td>Testing max string length</td>
+<td>String is declared with length over 255, and the proper error is thrown</td>
+<td>7_strings_TooLong_negative.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
-<td>Travis7.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
+<td>7_stringsAssignments_positive.pt</td>
+<td>Test Assignments of Strings</td>
+<td>Various assignment methods are used.</td>
+<td>7_stringsAssignments_positive.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
-<td>Travis8.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
+<td>7_stringsAssign_positive.pt</td>
+<td>Test the assign IO function</td>
+<td>Proper use of assign function is used with file and string</td>
+<td>7_stringsAssignments_positive.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
-<td>Travis9.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
-</tr>
-
-<tr>
-<td>Travis10.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
-</tr>
-
-<tr>
-<td>Travis11.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
-</tr>
-
-<tr>
-<td>Travis12.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
-</tr>
-
-<tr>
-<td>Travis13.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
-</tr>
-
-<tr>
-<td>Travis14.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
-</tr>
-
-<tr>
-<td>Travis15.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
-</tr>
-
-<tr>
-<td>Travis16.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
-</tr>
-
-<tr>
-<td>Travis17.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
-</tr>
-
-<tr>
-<td>Travis18.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
-</tr>
-
-<tr>
-<td>Travis19.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
-</tr>
-
-<tr>
-<td>Travis20.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
-</tr>
-
-<tr>
-<td>Travis21.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
-</tr>
-
-<tr>
-<td>Travis22.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
-</tr>
-
-<tr>
-<td>Travis23.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
-</tr>
-
-<tr>
-<td>Travis24.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
-</tr>
-
-<tr>
-<td>Travis25.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>fileName.pt.eOutput</td><td></td>
+<td>7_stringsAssign_negative.pt</td>
+<td>Test the assign IO function</td>
+<td>Use assign function without a string parameter, produces a semantic error.</td>
+<td>7_stringsAssign_negative.pt.eOutput</td><td></td>
 </tr>
 
 </table>

@@ -3,7 +3,9 @@ using output;
 pkg myPackage1 is
   public val myVal = 1;
   public var myVar = 1;
+  fun myPrivateFun is
+    var myFunVar = 2; 
+  end;
 end;
 
-myVar = 2;
-val myVal2 = myVal;
+myValFun;

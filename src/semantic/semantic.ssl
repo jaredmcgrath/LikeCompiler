@@ -2366,42 +2366,27 @@ AssignProcedure :
                         #eFileNameReqd
                     | *:
                         @Expression                     % pushes symbol and type
-                        % [ oTypeStkChooseKind                              %% Remove handling of char array -T
-                        %     %% Removing tpString alternatives as it is deprecated -T
-                        %     | tpArray:
-                        %         % a char array with lower bound 1
-                        %         oTypeStkPushComponent
-                        %         [ oTypeStkChooseKind
-                        %             | tpChar:
-                        %             | *:
-                        %                 #eFileNameReqd
-                        %         ]
-                        %         oTypeStkPop
-                        %         oValuePushTypeStkLowerBound
-                        %         [ oValueChoose
-                        %             | one:
-                        %             | *:        
-                        %                 #eFileNameReqd
-                        %         ]
-                        %         oValuePop
-                        %         % need the address of the first element, not the array descriptor
-                        %         .tSubscriptBegin
-                        %         .tLiteralInteger
-                        %         oValuePush(one)
-                        %         oEmitValue
-                        %         oValuePop
-                        %         .tSubscriptChar
-                        %         .tVarParm
-                        %     | *:
-                        %         #eFileNameReqd
-                        %         @FlushActuals
-                        % ]
+                        %% Remove handling of char array -T
+                        [ oTypeStkChooseKind
+                            | tpChar:
+                                % literal string
+                            | *:
+                                #eFileNameReqd
+                                @FlushActuals
+                        ]
                         .tParmEnd
                         % need the length of the file name as well
                         [ oTypeStkChooseKind
                             | tpArray:  %% Removing tpString alternatives as it is deprecated -T 
                                 .tLiteralInteger
                                 oValuePushTypeStkUpperBound
+                                oEmitValue
+                                oValuePop
+                                sParmEnd
+                            | tpChar:
+                            %% Push the string length
+                                .tLiteralInteger
+                                oValuePush(stringSize)
                                 oEmitValue
                                 oValuePop
                                 sParmEnd
@@ -2596,6 +2581,9 @@ WriteText :
                     | tpInteger, tpSubrange:
                         oValuePush(ten)
                     %% Removing tpString alternatives as it is deprecated -T
+                    %% Replaced with tpChar and push stringSize -T
+                    | tpChar:
+                        oValuePush(stringSize)
                     | *:        
                         % error flagged below
                         oValuePush(zero)
@@ -2611,24 +2599,8 @@ WriteText :
                 oEmitTrapKind(trWriteString)
             | tpInteger, tpSubrange:
                 .tTrap
-                oEmitTrapKind(trWriteInteger)  % Removing tpString alternatives as it is deprecated
-            % | tpArray:                  %% must be a char array - Remove handling of char array's -T
-            %     oTypeStkPushComponent
-            %     [ oTypeStkChooseKind
-            %         | tpChar:
-            %         | *:
-            %             #eWriteExpn
-            %     ]
-            %     oTypeStkPop             % component type
-            %     oValuePushTypeStkLowerBound
-            %     [ oValueChoose
-            %         | one:
-            %         | *:                % strings have lower bound one
-            %             #eWriteExpn
-            %     ]
-            %     oValuePop
-            %     .tTrap
-            %     oEmitTrapKind(trWriteString)
+                oEmitTrapKind(trWriteInteger)  %% Removing tpString alternatives as it is deprecated
+            %% Char array alternative removed
             | *:
                 #eWriteExpn
         ]
