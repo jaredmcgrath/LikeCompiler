@@ -8,7 +8,13 @@ _TL;DR_: Phase 2 tests are Phase 3 tests. They will be described in `Phase3Tests
 
 ## Justification for Completeness
 
-2. (or whatever number) Complete package testing coverage is ensured with negative tests involving attempts to access a private package members (functions, vals and vars). Positive tests ensure that public members of a package are available outside of the packages scope as expected.
+1. Programs were tested explicitly by running a base program successfully. 
+
+2. Statements and declarations - affected by the changes to the `Block` and `Statement` rule - were tested iteratively with if statements, integer constants and integer output statements to ensure the positive logical paths behaved according to the Like specification. Upon this successful step, all other steps relied on combinations of declarations and statements. This includes intermixing declarations and statements, declaring multiple variables on a single line, and performing operations using expressions within statements. This provided full coverage of all the changes made to the `Block` and `Statement` rule. Negative and positive tests were developed to test the scope of intermixed declarations and statements, by trying to access variables of varying types both in and out of scope. 
+
+5. Complete package testing coverage is ensured with negative tests involving attempts to access a private package members (functions, vals and vars). Positive tests ensure that public members of a package are available outside of the packages scope as expected.
+
+6. Statement changes for the Like specification were tested thoroughly by running all of the previous tests in Phase 2 - which covered all positive and negative cases for shortform assignments, repeat while loops, elseif clauses and different choose statements. Additionally, to ensure proper behaviour when handling errors, each logical error path for the above statements was forced to output `eIntegerExpnReqd`, `eDuplicateLabel`, `eUndefinedInteger`,`eIntegerConstReqd` and `eBooleanExpnReqd` by developing negative cases with undesirable selectors, conditions, and duplicate cases. 
 
 7. String assignment testing is complete as all variations of assignment (var, val, like) have been tested. String IO has been tested for get, put, getln, putln and assign along with negative cases (where applicable). These functions have been verified to emit the proper traps and tokens. This covers the changes to WriteText and AssignProcedure. All other changes are covered implictly within these test cases.
 
@@ -389,97 +395,6 @@ __Note__: All line numbers referenced in the following table are referring their
 <td>Test whether variables and constants declared within a nested scope are accessible from an outer scope</td>
 <td>Declares a variable within the if statement and attempt to access it outside of the if statement</td>
 <td>6_outscope_negative.pt.eOutput</td><td>Identifier not declared on line 8 as it is out of scope.</td>
-</tr>
-
-<tr>
-<td>6_if_noend_negative.pt</td>
-<td>Test behaviour when if statement not terminated</td>
-<td>Runs a single if statement without an end</td>
-<td>6_if_noend_negative.pt.eOutput</td><td></td>
-</tr>
-
-<tr>
-<td>6_ifchain_noend_negative.pt</td>
-<td>Test behaviour of mismatched if statements and ends</td>
-<td>Runs a chain of if statements with only an end after the last one</td>
-<td>6_ifchain_noend_negative.pt.eOutput</td><td></td>
-</tr>
-
-<tr>
-<td>6_elseif_noend_negative.pt</td>
-<td>Test behaviour when if-elseif not terminated</td>
-<td>Runs an if and elseif statement with no end</td>
-<td>6_elseif_noend_negative.pt.eOutput</td><td></td>
-</tr>
-
-<tr>
-<td>6_ifelse_noend_negative.pt</td>
-<td>Test behaviour of if-else statement that is not terminated</td>
-<td>Runs an if and else statement with no end</td>
-<td>6_ifelse_noend_negative.pt.eOutput</td><td></td>
-</tr>
-
-<tr>
-<td>6_ifthen_negative.pt</td>
-<td>Test behaviour for missing then</td>
-<td>Runs an if statement with no then</td>
-<td>6_ifthen_negative.pt.eOutput</td><td></td>
-</tr>
-
-<tr>
-<td>6_elseifthen_negative.pt</td>
-<td>Test behaviour for missing then</td>
-<td>Runs an if and elseif statement with no then</td>
-<td>6_elseifthen_negative.pt.eOutput</td><td></td>
-</tr>
-
-<tr>
-<td>6_multiple_else_negative.pt</td>
-<td>Test behaviour with more than one else statement</td>
-<td>Runs an if followed by multiple else statements</td>
-<td>6_multiple_else_negative.pt.eOutput</td><td></td>
-</tr>
-
-<tr>
-<td>6_choose_negative_misplaced_then.pt</td>
-<td>Test behaviour of a choose statement lacking 'then' following 'when ...' or unneeded 'then' following 'else'</td>
-<td>Choose statement with no then after 'when', and extra 'then' following 'else'</td>
-<td>6_choose_negative_misplaced_then.pt.eOutput</td>
-</tr>
-
-<tr>
-<td>6_choose_negative_no_cases.pt</td>
-<td>Test behaviour of a choose statement without any cases</td>
-<td>Choose statement without any 'when' cases in body</td>
-<td>6_choose_negative_no_cases.pt.eOutput</td>
-</tr>
-
-<tr>
-<td>6_choose_negative_no_end.pt</td>
-<td>Test behaviour of choose statement with no 'end;' terminating the statement</td>
-<td>A choose statement with a single 'when' case and nothing following (i.e. pEndFile)</td>
-<td>6_choose_negative_no_end.pt.eOutput</td>
-</tr>
-
-<tr>
-<td>6_choose_negative_no_expression.pt</td>
-<td>Test behaviour of choose statement without an expression following 'choose'</td>
-<td>Choose statement with no expression or 'of' following 'choose', followed by multiple 'when' cases</td>
-<td>6_choose_negative_no_expression.pt.eOutput</td>
-</tr>
-
-<tr>
-<td>6_choose_negative_when_outside_choose.pt</td>
-<td>Test behaviour of a 'when' clause outside of a choose statement</td>
-<td>A when statement that isn't inside a choose</td>
-<td>6_choose_negative_when_outside_choose.pt.eOutput</td>
-</tr>
-
-<tr>
-<td>6_choose_positive.pt</td>
-<td>Test behaviour of valid choose statements, with or without default case</td>
-<td>Two choose statements: first with multiple 'when' and an 'else', second with a single 'when'</td>
-<td>6_choose_positive.pt.eOutput</td>
 </tr>
 
 <tr>
