@@ -1,5 +1,17 @@
 # Test Descriptions
 
+## Modifications for Phase 3
+
+If you haven't already read `testDescriptionsPhase3.md`, please do so first before reading this file.
+
+This file is copied verbatim from `Phase2Tests/` (we didn't need to modify any of our test descriptions). There are some positive tests here that passed parser phase which now fail on semantic phase; we leave them in for the sake of preserving the original Phase 2 tests.
+
+Note that the File Name and Expected Output Filename columns have not changed either, although their relative paths are no longer correct. The actual relative paths are as follows:
+
+- For a test with File Name `program_path.pt`, you can find the actual program at `../Phase2Tests/program_path.pt`
+- For a test with Expected Output Filename `program_path.pt.eOutput`, you can find the (semnatic phase) expected output at `phase2_eOutput/program_path.pt.eOutput`
+- For a test with Expected Output Filename `program_path.pt.eOutput`, you can find the original (parser phase) expected output at `../Phase2Tests/program_path.pt.eOutput`
+
 ## Justification for Completeness
 For each new language feature or revised syntax, we added at least one positive test case (often with overlap in larger test programs) that demonstrates correct parsing of valid Like code. Test cases were generated for each fork on new logic paths. Like operators have negative tests for invalid/missing operands (String operators, Short form assignment operators, Arithmetic operators, etc.). Multi-keyword statements have a negative test for each logic path where a keyword could be missing or invalid (If/Else, RepeatWhile, etc.). Also, deprecated PT keywords and operators were tested to ensure that their functionality had been invalidated. e.g. `program output;`.
 

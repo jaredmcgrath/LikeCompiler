@@ -8,9 +8,17 @@ _TL;DR_: Phase 2 tests are Phase 3 tests. They will be described in `Phase3Tests
 
 ## Justification for Completeness
 
+In general, coverage is ensured through a multitude of new tests created to test steps 1 through 8 in the Phase 3 specification. Items that are not explicitly listed here (e.g. T-code model extension, definitions, etc.) are tested implicitly through their use in the testing of each step. Moreover, there is a high degree of overlap between many of the tested parts (e.g. initial values relying on variable declarations, string operations relying on changes the strings, etc.)
+
 2. (or whatever number) Complete package testing coverage is ensured with negative tests involving attempts to access a private package members (functions, vals and vars). Positive tests ensure that public members of a package are available outside of the packages scope as expected.
 
+3. Variable declaration coverage achieved by testing that only one variable can be declared per line, and a negative test for multiple declarations on the same line. Type specification coverage by checking the `like` keyword with all types of valid expressions (literals, constants, scalar variables) of all types (`tpInteger`, `tpBoolean`, `tpChar`, `tpFile`, and `tpArray`). We test that the expression must be a simple type with a negative test for `like array`, where array is of type `tpArray`. We also ensure undefined or invalid identifiers can't be used for `like` (`syFunction`, `syUndefined`, etc.). Array bounds are tested to make sure that the they are: positive (non-zero), of type `tpInteger`, and the symbols used are `syConstant` (not variables). Function parameters are covered implicitly through the testing for `like`, and also by making sure non-scalar values cannot be passed as scalars, and non-scalar types cannot be used as value parameters.
+
+4. Initial values are tested by checking that: the result of every valid Expression can be assigned as an initial value, that `tpInteger`, `tpChar`, and `tpBoolean` types of kind constant, variable, literal, or from arrays can be supplied as an initial value, that a `tpFile` variable can be assigned as an initial value, and that `tpArray` cannot be assigned as initial value.
+
 7. String assignment testing is complete as all variations of assignment (var, val, like) have been tested. String IO has been tested for get, put, getln, putln and assign along with negative cases (where applicable). These functions have been verified to emit the proper traps and tokens. This covers the changes to WriteText and AssignProcedure. All other changes are covered implictly within these test cases.
+
+8. String operation coverage is ensured by: checking positive examples of each new string operation (string length, string concatenate, string repeat, substring, string equality, string inequality), checking that the results of the aforementioned operations are `tpInteger`, `tpChar`, `tpChar`, `tpChar`, `tpBoolean`, and `tpBoolean`, respectively. Every possible combination of invalid operand types are checked (e.g. using `tpInteger` where there should be a `tpChar` and vice versa) to make sure type mismatch errors are emitted. Finally, we check to make sure that relational comparison operations are not valid for strings. This also implicitly tests the changes to the T-code machine model that were required to implemented strings and string operations
 
 ## Test Description Table
 

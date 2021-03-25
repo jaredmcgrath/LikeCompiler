@@ -460,9 +460,10 @@ In this case, we
 2. Call the `Expression` rule to translate the postfix expression into T-code. This verifies the validity of the expression (checks symbols are defined, operators are used correctly, etc.), creates an `syExpression` symbol on the symbol stack and a corresponding type stack entry which contains the type information of the expression result. 
 3. Emit a `tInitEnd` to mark the end of our initial value expression
 4. We don't need the expression symbol on the symbol stack, so we `oSymbolStkPop` (the symbol stack entry corresponding to our new variable is already on the stack from the `oSymbolStkPushLocalIdentifier` operation)
-5. We'll make use of the top type stack entry to set the type refernce of this variable. First, the type entry needs to be linked to a standard type before it can be entered to the type table (`Expression` doesn't link resultant type entries). To fix this, a simple choice will `oTypeStkLinkToStandardType` appropriately
-6. We can now call `EnterVariableAttributes`, which will (a) allocate space for our variable, (b) set the type reference of the symbol stack entry to our type entry, and (c) enter the symbol stack entry into the symbol table.
-7. Lastly, we must T-code to assign the initial value to our variable. We emit the address of our variable, then call the `EmitStore` rule to emit the storage of our inital value
+5. We check to make sure the expression's type is not `tpArray`, because we must assign a scalar (in Like, we allow the assignment of initial values of type `tpInteger`, `tpBoolean`, `tpChar`, and `tpFile`)
+6. We'll make use of the top type stack entry to set the type refernce of this variable. First, the type entry needs to be linked to a standard type before it can be entered to the type table (`Expression` doesn't link resultant type entries). To fix this, a simple choice will `oTypeStkLinkToStandardType` appropriately
+7. We can now call `EnterVariableAttributes`, which will (a) allocate space for our variable, (b) set the type reference of the symbol stack entry to our type entry, and (c) enter the symbol stack entry into the symbol table.
+8. Lastly, we must T-code to assign the initial value to our variable. We emit the address of our variable, then call the `EmitStore` rule to emit the storage of our inital value
 
 If we do not encounter `sInitialValue`, processing proceeds with a call to `TypeBody` to process the `like` statement, then `EnterVariableAttributes`.
 
