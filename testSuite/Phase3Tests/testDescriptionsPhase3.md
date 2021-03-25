@@ -8,7 +8,7 @@ _TL;DR_: Phase 2 tests are Phase 3 tests. They will be described in `Phase3Tests
 
 ## Justification for Completeness
 
-2. (or whatever number) Complete package testing coverage is ensured with negative tests involving missing package names, keywords and an attempts to access a private package members (functions, vals and vars). Positive tests ensure that public members of a package are available outside of the packages scope as expected.
+2. (or whatever number) Complete package testing coverage is ensured with negative tests involving attempts to access a private package members (functions, vals and vars). Positive tests ensure that public members of a package are available outside of the packages scope as expected.
 
 7. String assignment testing is complete as all variations of assignment (var, val, like) have been tested. String IO has been tested for get, put, getln, putln and assign along with negative cases (where applicable). These functions have been verified to emit the proper traps and tokens. This covers the changes to WriteText and AssignProcedure. All other changes are covered implictly within these test cases.
 
@@ -32,32 +32,19 @@ __Note__: All line numbers referenced in the following table are referring their
 <td>5_packages_positive.pt.eOutput</td><td></td>
 </tr>
 
-<tr>
-<td>5_package_negative_noPkgName.pt</td>
-<td>Tests the behaviour when a package is declared with no name</td>
-<td>A package with no declared name containing a declared function, val and var</td>
-<td>5_package_negative_noPkgName.pt.eOutput</td><td></td>
-</tr>
-
-<tr>
-<td>5_package_negative_noPkgEnd.pt</td>
-<td>Tests the behaviour when a package is declared with no terminating end statement</td>
-<td>A package with no end statement containing a declared function, val and var</td>
-<td>5_package_negative_noPkgEnd.pt.eOutput</td><td></td>
-</tr>
 
 <tr>
 <td>5_package_negative_noPublicAccess.pt</td>
 <td>Tests the behaviour when a var in a package is not declared public and accessed outside the package</td>
 <td>A package containing a non-public val, followed by an atempt to access this val from outside the package</td>
-<td>5_package_negative_noPublicAccess.pt.eOutput</td><td></td>
+<td>5_package_negative_noPublicAccess.pt.eOutput</td><td>semantic error, line 7: identifier not declared (not public so this is expected)</td>
 </tr>
 
 <tr>
 <td>5_package_positive_funInsidePkg.pt</td>
 <td>Tests the behaviour when a public function is declared inside a package and then accessed outisde</td>
 <td>A package containing a public function, followed by an attempt to access the function</td>
-<td>5_package_positive_funInsidePkg.pt.eOutput</td><td></td>
+<td>5_package_positive_funInsidePkg.pt.eOutput</td><td>semantic error, line 7: identifier not declared (not public so this is expected)</td>
 </tr>
 
 <tr>

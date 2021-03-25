@@ -1,8 +1,0 @@
-using output;
-
-pkg
-  public val myVal = 1;
-  public fun myFunction is
-    var i = myVal * 2;
-  end;
-end;
