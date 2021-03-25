@@ -1,0 +1,9 @@
+using output;
+
+pkg myPackage1 is
+  public var myVar = 1;
+end;
+
+pkg myPackage1 is 
+    public var myVar2 = 1;
+end;

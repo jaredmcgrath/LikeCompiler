@@ -2,19 +2,25 @@
 
 ## Previous Phase Tests
 
-Some or all of the tests written during Phase 2 are relevant and necessary to test language features developed during Phase 3. For this reason, we have modified the `test-phase.sh` and `generate-test-output.sh` scripts to execute all the tests located in `Phase2Tests/` using the semantic phase of our compiler. The program source for each Phase 2 test will remain in `Phase2Tests/`, however, our expected output will be located here in `Phase3Tests/phase2_eOutput/`. Most importantly, a revised `testDescriptionsPhase2.md` is located here to note any differences in test descriptions/expected output from Phase 2 (i.e. they are __NOT__ listed in this file).
+Some or all of the tests written during Phase 2 are relevant and necessary to test language features developed during Phase 3. For this reason, we have modified the `test-phase.sh` and `generate-test-output.sh` scripts to execute all the tests located in `Phase2Tests/` using the semantic phase of our compiler. The program source for each Phase 2 test will remain in `Phase2Tests/`, however, our expected output will be located here in `Phase3Tests/phase2_eOutput/`. This directory contains the semantic phase (Phase 3) output of the Phase 2 tests. Most importantly, a revised `testDescriptionsPhase2.md` is located here to note any differences in test descriptions/expected output from Phase 2 (i.e. they are __NOT__ listed in this file).
 
 _TL;DR_: Phase 2 tests are Phase 3 tests. They will be described in `Phase3Tests/testDescriptionsPhase2.md`. Their semantic phase expected output is in `Phase3Tests/phase2_eOutput/`. Test program source remains (unmodified) in `Phase2Tests/`.
 
 ## Justification for Completeness
 
-In general, coverage is ensured through a multitude of new tests created to test steps 1 through 8 in the Phase 3 specification. Items that are not explicitly listed here (e.g. T-code model extension, definitions, etc.) are tested implicitly through their use in the testing of each step. Moreover, there is a high degree of overlap between many of the tested parts (e.g. initial values relying on variable declarations, string operations relying on changes the strings, etc.)
+In general, coverage is ensured through a multitude of new tests created to test steps 1 through 8 in the Phase 3 specification. Items that are not explicitly listed here (e.g. T-code model extension, definitions, etc.) are tested implicitly through their use in the testing of each step. Moreover, there is a high degree of overlap between many of the tested parts (e.g. initial values relying on variable declarations, string operations relying on changes the strings, etc.).
 
-2. (or whatever number) Complete package testing coverage is ensured with negative tests involving attempts to access a private package members (functions, vals and vars). Positive tests ensure that public members of a package are available outside of the packages scope as expected.
+1. Programs were tested explicitly by running a base program successfully. 
+
+2. Statements and declarations - affected by the changes to the `Block` and `Statement` rule - were tested iteratively with if statements, integer constants and integer output statements to ensure the positive logical paths behaved according to the Like specification. Upon this successful step, all other steps relied on combinations of declarations and statements. This includes intermixing declarations and statements, declaring multiple variables on a single line, and performing operations using expressions within statements. This provided full coverage of all the changes made to the `Block` and `Statement` rule. Negative and positive tests were developed to test the scope of intermixed declarations and statements, by trying to access variables of varying types both in and out of scope. 
 
 3. Variable declaration coverage achieved by testing that only one variable can be declared per line, and a negative test for multiple declarations on the same line. Type specification coverage by checking the `like` keyword with all types of valid expressions (literals, constants, scalar variables) of all types (`tpInteger`, `tpBoolean`, `tpChar`, `tpFile`, and `tpArray`). We test that the expression must be a simple type with a negative test for `like array`, where array is of type `tpArray`. We also ensure undefined or invalid identifiers can't be used for `like` (`syFunction`, `syUndefined`, etc.). Array bounds are tested to make sure that the they are: positive (non-zero), of type `tpInteger`, and the symbols used are `syConstant` (not variables). Function parameters are covered implicitly through the testing for `like`, and also by making sure non-scalar values cannot be passed as scalars, and non-scalar types cannot be used as value parameters.
 
 4. Initial values are tested by checking that: the result of every valid Expression can be assigned as an initial value, that `tpInteger`, `tpChar`, and `tpBoolean` types of kind constant, variable, literal, or from arrays can be supplied as an initial value, that a `tpFile` variable can be assigned as an initial value, and that `tpArray` cannot be assigned as initial value.
+
+5. Complete package testing coverage is ensured with negative tests involving attempts to access a private package members (functions, vals and vars), as well as multiple packages with the same name. Positive tests ensure that public members of a package are available outside of the package's scope as expected.
+
+6. Statement changes for the Like specification were tested thoroughly by running all of the previous tests in Phase 2 - which covered all positive and negative cases for shortform assignments, repeat while loops, elseif clauses and different choose statements. Additionally, to ensure proper behaviour when handling errors, each logical error path for the above statements was forced to output `eIntegerExpnReqd`, `eDuplicateLabel`, `eUndefinedInteger`,`eIntegerConstReqd` and `eBooleanExpnReqd` by developing negative cases with undesirable selectors, conditions, and duplicate cases. 
 
 7. String assignment testing is complete as all variations of assignment (var, val, like) have been tested. String IO has been tested for get, put, getln, putln and assign along with negative cases (where applicable). These functions have been verified to emit the proper traps and tokens. This covers the changes to WriteText and AssignProcedure. All other changes are covered implictly within these test cases.
 
@@ -60,6 +66,14 @@ __Note__: All line numbers referenced in the following table are referring their
 <td>Tests the behaviour when a private function is declared inside a package and then accessed outisde</td>
 <td>A package containing a private function, followed by an attempt to access the function</td>
 <td>5_package_negative_funInsidePkg.pt.eOutput</td><td></td>
+</tr>
+
+<tr>
+<td>5_package_negative_multiName.pt</td>
+<td>Tests the behaviour when two packages are declared with the same name</td>
+<td>Two packages declared with the same name</td>
+<td>5_package_negative_multiName.pt.eOutput</td><td>    #eMultiplyDefined
+    semantic error, line 7: identifier declared twice</td>
 </tr>
 
 <tr>
@@ -354,35 +368,35 @@ __Note__: All line numbers referenced in the following table are referring their
 <td>6_choose_intreqd_negative.pt</td>
 <td>Trigger #eIntegerConstReqd for a defined constant and an integer constant as the condition</td>
 <td>Runs two separate choose statements: one with a string constant condition and the other with an integer variable condition - both are different logical paths in semantic.ssl</td>
-<td>6_choose_intreqd_negative.pt.eOutput</td><td></td>
+<td>6_choose_intreqd_negative.pt.eOutput</td><td>Throws #eIntegerConstReqd for lines 5 and 12 because x is a string and y is a variable</td>
 </tr>
 
 <tr>
 <td>6_choose_undefined_negative.pt</td>
 <td>Trigger #eUndefinedIdentifier</td>
 <td>Runs a choose statement with an undefined identifier as the condition</td>
-<td>6_choose_undefined_negative.pt.eOutput</td><td></td>
+<td>6_choose_undefined_negative.pt.eOutput</td><td>Throws #eUndefinedIndentifier for line 4 because x is undeclared</td>
 </tr>
 
 <tr>
 <td>6_chooseselector_negative.pt</td>
 <td>Trigger #eIntegerExpnReqd</td>
 <td>Runs a choose statement with the selector as a non-integer expression - as a string</td>
-<td>6_chooseselector_negative.pt.eOutput</td><td></td>
+<td>6_chooseselector_negative.pt.eOutput</td><td>Throws #eIntegerExpnReqd on line 6 because the selector must be an integer expression</td>
 </tr>
 
 <tr>
 <td>6_duplicatecase_negative.pt</td>
 <td>Trigger #eDuplicateLabel</td>
 <td>Runs a choose statement with multiple of the same case conditions</td>
-<td>6_duplicatecase_negative.pt.eOutput</td><td></td>
+<td>6_duplicatecase_negative.pt.eOutput</td><td>Throws #eDuplicateLabel for lines 8 and 16 because the cases are the same as the ones in the same scope</td>
 </tr>
 
 <tr>
 <td>6_nonboolean_cond_negative.pt</td>
 <td>Trigger #eBooleanExpnReqd</td>
 <td>Runs an if statement, elseif statement, repeat while, and while statement with arithmetic expressions rather than boolean expressions as their conditions</td>
-<td>6_nonboolean_cond_negative.pt.eOutput</td><td></td>
+<td>6_nonboolean_cond_negative.pt.eOutput</td><td>Throws #eBooleanExpnReqd for lines 6, 12 and 21 and #eTypeClash for line 18 because they are not boolean expressions and clash in Like with the sNot symbol.</td>
 </tr>
 
 <tr>
@@ -396,98 +410,7 @@ __Note__: All line numbers referenced in the following table are referring their
 <td>6_outscope_negative.pt</td>
 <td>Test whether variables and constants declared within a nested scope are accessible from an outer scope</td>
 <td>Declares a variable within the if statement and attempt to access it outside of the if statement</td>
-<td>6_outscope_negative.pt.eOutput</td><td></td>
-</tr>
-
-<tr>
-<td>6_if_noend_negative.pt</td>
-<td>Test behaviour when if statement not terminated</td>
-<td>Runs a single if statement without an end</td>
-<td>6_if_noend_negative.pt.eOutput</td><td></td>
-</tr>
-
-<tr>
-<td>6_ifchain_noend_negative.pt</td>
-<td>Test behaviour of mismatched if statements and ends</td>
-<td>Runs a chain of if statements with only an end after the last one</td>
-<td>6_ifchain_noend_negative.pt.eOutput</td><td></td>
-</tr>
-
-<tr>
-<td>6_elseif_noend_negative.pt</td>
-<td>Test behaviour when if-elseif not terminated</td>
-<td>Runs an if and elseif statement with no end</td>
-<td>6_elseif_noend_negative.pt.eOutput</td><td></td>
-</tr>
-
-<tr>
-<td>6_ifelse_noend_negative.pt</td>
-<td>Test behaviour of if-else statement that is not terminated</td>
-<td>Runs an if and else statement with no end</td>
-<td>6_ifelse_noend_negative.pt.eOutput</td><td></td>
-</tr>
-
-<tr>
-<td>6_ifthen_negative.pt</td>
-<td>Test behaviour for missing then</td>
-<td>Runs an if statement with no then</td>
-<td>6_ifthen_negative.pt.eOutput</td><td></td>
-</tr>
-
-<tr>
-<td>6_elseifthen_negative.pt</td>
-<td>Test behaviour for missing then</td>
-<td>Runs an if and elseif statement with no then</td>
-<td>6_elseifthen_negative.pt.eOutput</td><td></td>
-</tr>
-
-<tr>
-<td>6_multiple_else_negative.pt</td>
-<td>Test behaviour with more than one else statement</td>
-<td>Runs an if followed by multiple else statements</td>
-<td>6_multiple_else_negative.pt.eOutput</td><td></td>
-</tr>
-
-<tr>
-<td>6_choose_negative_misplaced_then.pt</td>
-<td>Test behaviour of a choose statement lacking 'then' following 'when ...' or unneeded 'then' following 'else'</td>
-<td>Choose statement with no then after 'when', and extra 'then' following 'else'</td>
-<td>6_choose_negative_misplaced_then.pt.eOutput</td>
-</tr>
-
-<tr>
-<td>6_choose_negative_no_cases.pt</td>
-<td>Test behaviour of a choose statement without any cases</td>
-<td>Choose statement without any 'when' cases in body</td>
-<td>6_choose_negative_no_cases.pt.eOutput</td>
-</tr>
-
-<tr>
-<td>6_choose_negative_no_end.pt</td>
-<td>Test behaviour of choose statement with no 'end;' terminating the statement</td>
-<td>A choose statement with a single 'when' case and nothing following (i.e. pEndFile)</td>
-<td>6_choose_negative_no_end.pt.eOutput</td>
-</tr>
-
-<tr>
-<td>6_choose_negative_no_expression.pt</td>
-<td>Test behaviour of choose statement without an expression following 'choose'</td>
-<td>Choose statement with no expression or 'of' following 'choose', followed by multiple 'when' cases</td>
-<td>6_choose_negative_no_expression.pt.eOutput</td>
-</tr>
-
-<tr>
-<td>6_choose_negative_when_outside_choose.pt</td>
-<td>Test behaviour of a 'when' clause outside of a choose statement</td>
-<td>A when statement that isn't inside a choose</td>
-<td>6_choose_negative_when_outside_choose.pt.eOutput</td>
-</tr>
-
-<tr>
-<td>6_choose_positive.pt</td>
-<td>Test behaviour of valid choose statements, with or without default case</td>
-<td>Two choose statements: first with multiple 'when' and an 'else', second with a single 'when'</td>
-<td>6_choose_positive.pt.eOutput</td>
+<td>6_outscope_negative.pt.eOutput</td><td>Identifier not declared on line 8 as it is out of scope.</td>
 </tr>
 
 <tr>
