@@ -1,0 +1,6 @@
+using output;
+
+var myFile = file like 1;
+assign(myFile, "file_path.txt");
+
+var fileInit = myFile;

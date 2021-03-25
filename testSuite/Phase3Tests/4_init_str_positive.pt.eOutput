@@ -92,7 +92,7 @@ Table index 629;  Operation 0;  Argument 1618
 Table index 1618;  Operation 0;  Argument 1646
 Table index 1646;  Operation 7;  Argument 81
 Choice tag 2 (matched)
-Input token accepted 2;  Line 3;  Next input token 1
+Input token accepted 2;  Line 3;  Next input token 19
 Table index 1709;  Operation 12;  Argument 7
 Table index 1711;  Operation 21;  Argument 0
 Table index 1712;  Operation 0;  Argument 1738
@@ -105,24 +105,25 @@ Output token emitted -32767
 Table index 1743;  Operation 8;  Argument 71
 Output token emitted 71
 Table index 1745;  Operation 56;  Argument 76
-Output token emitted 13
+Output token emitted 14
 Table index 1746;  Operation 76;  Argument 73
 Table index 1747;  Operation 73;  Argument 74
 Table index 1748;  Operation 74;  Argument 57
 Table index 1749;  Operation 57;  Argument 88
+Output token emitted 116
 Output token emitted 104
-Output token emitted 101
-Output token emitted 108
-Output token emitted 108
-Output token emitted 111
-Output token emitted 44
+Output token emitted 105
+Output token emitted 115
 Output token emitted 32
-Output token emitted 119
-Output token emitted 111
+Output token emitted 105
+Output token emitted 115
+Output token emitted 32
+Output token emitted 115
+Output token emitted 116
 Output token emitted 114
-Output token emitted 108
-Output token emitted 100
-Output token emitted 33
+Output token emitted 105
+Output token emitted 110
+Output token emitted 103
 Output token emitted 0
 Table index 1750;  Operation 88;  Argument 12
 Table index 1751;  Operation 12;  Argument 1
@@ -148,97 +149,12 @@ Table index 1720;  Operation 4;  Argument 16
 Table index 1737;  Operation 1;  Argument 68
 Table index 1620;  Operation 0;  Argument 1766
 Table index 1766;  Operation 7;  Argument 39
-Choice tag 1 (not matched)
+Choice tag 19 (not matched)
 Table index 1813;  Operation 1;  Argument 12
 Table index 1622;  Operation 0;  Argument 1818
 Table index 1818;  Operation 7;  Argument 217
-Choice tag 1 (not matched)
+Choice tag 19 (not matched)
 Table index 2073;  Operation 1;  Argument 12
-Table index 1624;  Operation 7;  Argument 11
-Choice tag 1 (not matched)
-Table index 1643;  Operation 3;  Argument 26
-Table index 1618;  Operation 0;  Argument 1646
-Table index 1646;  Operation 7;  Argument 81
-Choice tag 1 (matched)
-Input token accepted 1;  Line 3;  Next input token 1
-Table index 1693;  Operation 66;  Argument 12
-Table index 1694;  Operation 12;  Argument 7
-Table index 1696;  Operation 21;  Argument 12
-Table index 1697;  Operation 12;  Argument 0
-Table index 1699;  Operation 38;  Argument 12
-Table index 1700;  Operation 12;  Argument 0
-Table index 1702;  Operation 44;  Argument 8
-Table index 1703;  Operation 8;  Argument 67
-Output token emitted 67
-Table index 1705;  Operation 56;  Argument 76
-Output token emitted 1
-Table index 1706;  Operation 76;  Argument 4
-Table index 1707;  Operation 4;  Argument 29
-Table index 1737;  Operation 1;  Argument 68
-Table index 1620;  Operation 0;  Argument 1766
-Table index 1766;  Operation 7;  Argument 39
-Choice tag 1 (not matched)
-Table index 1813;  Operation 1;  Argument 12
-Table index 1622;  Operation 0;  Argument 1818
-Table index 1818;  Operation 7;  Argument 217
-Choice tag 1 (not matched)
-Table index 2073;  Operation 1;  Argument 12
-Table index 1624;  Operation 7;  Argument 11
-Choice tag 1 (not matched)
-Table index 1643;  Operation 3;  Argument 26
-Table index 1618;  Operation 0;  Argument 1646
-Table index 1646;  Operation 7;  Argument 81
-Choice tag 1 (matched)
-Input token accepted 1;  Line 3;  Next input token 52
-Table index 1693;  Operation 66;  Argument 12
-Table index 1694;  Operation 12;  Argument 7
-Table index 1696;  Operation 21;  Argument 12
-Table index 1697;  Operation 12;  Argument 0
-Table index 1699;  Operation 38;  Argument 12
-Table index 1700;  Operation 12;  Argument 0
-Table index 1702;  Operation 44;  Argument 8
-Table index 1703;  Operation 8;  Argument 67
-Output token emitted 67
-Table index 1705;  Operation 56;  Argument 76
-Output token emitted 5
-Table index 1706;  Operation 76;  Argument 4
-Table index 1707;  Operation 4;  Argument 29
-Table index 1737;  Operation 1;  Argument 68
-Table index 1620;  Operation 0;  Argument 1766
-Table index 1766;  Operation 7;  Argument 39
-Choice tag 52 (not matched)
-Table index 1813;  Operation 1;  Argument 12
-Table index 1622;  Operation 0;  Argument 1818
-Table index 1818;  Operation 7;  Argument 217
-Choice tag 52 (matched)
-Input token accepted 52;  Line 3;  Next input token 19
-Table index 1991;  Operation 8;  Argument 59
-Output token emitted 59
-Table index 1993;  Operation 50;  Argument 10
-Table index 1994;  Operation 10;  Argument 3
-Choice tag 0 (matched)
-Table index 1996;  Operation 4;  Argument 6
-Table index 2003;  Operation 54;  Argument 50
-Table index 2004;  Operation 50;  Argument 10
-Table index 2005;  Operation 10;  Argument 3
-Choice tag 0 (matched)
-Table index 2007;  Operation 4;  Argument 6
-Table index 2014;  Operation 54;  Argument 50
-Table index 2015;  Operation 50;  Argument 10
-Table index 2016;  Operation 10;  Argument 3
-Choice tag 1 (matched)
-Table index 2018;  Operation 4;  Argument 6
-Table index 2025;  Operation 54;  Argument 12
-Table index 2026;  Operation 12;  Argument 1
-Table index 2028;  Operation 38;  Argument 34
-Table index 2029;  Operation 34;  Argument 34
-Table index 2030;  Operation 34;  Argument 12
-Table index 2031;  Operation 12;  Argument 7
-Table index 2033;  Operation 26;  Argument 4
-Table index 2034;  Operation 4;  Argument 39
-Table index 2074;  Operation 12;  Argument 7
-Table index 2076;  Operation 26;  Argument 1
-Table index 2077;  Operation 1;  Argument 50
 Table index 1624;  Operation 7;  Argument 11
 Choice tag 19 (matched)
 Input token accepted 19;  Line 3;  Next input token 11
@@ -402,24 +318,25 @@ Table index 44;  Operation 1;  Argument 5
        % value emitted -32767
        .tStringData
        oEmitValue
-       % value emitted 13
+       % value emitted 14
        oValuePop
        oValuePushCodeAddress
        oValueNegate
        oEmitString
+       % value emitted 116
        % value emitted 104
-       % value emitted 101
-       % value emitted 108
-       % value emitted 108
-       % value emitted 111
-       % value emitted 44
+       % value emitted 105
+       % value emitted 115
        % value emitted 32
-       % value emitted 119
-       % value emitted 111
+       % value emitted 105
+       % value emitted 115
+       % value emitted 32
+       % value emitted 115
+       % value emitted 116
        % value emitted 114
-       % value emitted 108
-       % value emitted 100
-       % value emitted 33
+       % value emitted 105
+       % value emitted 110
+       % value emitted 103
        % value emitted 0
        oFixPopForwardBranch
        oTypeStkPush(tpChar)
@@ -441,86 +358,13 @@ Table index 44;  Operation 1;  Argument 5
       >>
      ;Operand
      @UnaryOperator
-      [ (sInteger)
+      [ (sExpnEnd)
       | *:
       >>
      ;UnaryOperator
      @BinaryOperator
-      [ (sInteger)
+      [ (sExpnEnd)
       | *:
-      >>
-     ;BinaryOperator
-     [ (sInteger)
-     | *:
-     }
-     @Operand
-      [ (sInteger)
-      | sInteger:
-      oValuePushInteger
-      oSymbolStkPush(syExpression)
-      oTypeStkPush(tpInteger)
-      oTypeStkLinkToStandardType(stdInteger)
-      .tLiteralInteger
-      oEmitValue
-      % value emitted 1
-      oValuePop
-      ] or >
-      >>
-     ;Operand
-     @UnaryOperator
-      [ (sInteger)
-      | *:
-      >>
-     ;UnaryOperator
-     @BinaryOperator
-      [ (sInteger)
-      | *:
-      >>
-     ;BinaryOperator
-     [ (sInteger)
-     | *:
-     }
-     @Operand
-      [ (sInteger)
-      | sInteger:
-      oValuePushInteger
-      oSymbolStkPush(syExpression)
-      oTypeStkPush(tpInteger)
-      oTypeStkLinkToStandardType(stdInteger)
-      .tLiteralInteger
-      oEmitValue
-      % value emitted 5
-      oValuePop
-      ] or >
-      >>
-     ;Operand
-     @UnaryOperator
-      [ (sSubstring)
-      | *:
-      >>
-     ;UnaryOperator
-     @BinaryOperator
-      [ (sSubstring)
-      | sSubstring:
-      .tSubstring
-      [ oTypeStkChooseKind (tpInteger)
-      | tpInteger:
-      ] or >
-      oTypeStkPop
-      [ oTypeStkChooseKind (tpInteger)
-      | tpInteger:
-      ] or >
-      oTypeStkPop
-      [ oTypeStkChooseKind (tpChar)
-      | tpChar:
-      ] or >
-      oTypeStkPop
-      oTypeStkPush(tpChar)
-      oSymbolStkPop
-      oSymbolStkPop
-      oSymbolStkSetKind(syExpression)
-      ] or >
-      oSymbolStkSetKind(syExpression)
       >>
      ;BinaryOperator
      [ (sExpnEnd)

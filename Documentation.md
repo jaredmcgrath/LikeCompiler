@@ -501,3 +501,5 @@ In `semantic.ssl`:
 * The `sStringLiteral` was added to the `SimpleType` rule
 * `ReadText` rule was updated to use `trReadString` and `WriteText` rule was updated to use `trWriteString` 
 
+## String Operations
+

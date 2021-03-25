@@ -273,91 +273,98 @@
 </tr>
 
 <tr>
-<td>Jared13.pt</td>
+<td>8_concat_neg.pt</td>
 <td>Purpose</td>
 <td>Function</td>
 <td>fileName.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
-<td>Jared14.pt</td>
+<td>8_concat_positive.pt</td>
 <td>Purpose</td>
 <td>Function</td>
 <td>fileName.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
-<td>Jared15.pt</td>
+<td>8_equality_neg.pt</td>
 <td>Purpose</td>
 <td>Function</td>
 <td>fileName.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
-<td>Jared16.pt</td>
+<td>8_equality_positive.pt</td>
 <td>Purpose</td>
 <td>Function</td>
 <td>fileName.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
-<td>Jared17.pt</td>
+<td>8_inequality_neg.pt</td>
 <td>Purpose</td>
 <td>Function</td>
 <td>fileName.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
-<td>Jared18.pt</td>
+<td>8_inequality_positive.pt</td>
 <td>Purpose</td>
 <td>Function</td>
 <td>fileName.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
-<td>Jared19.pt</td>
+<td>8_repeat_neg.pt</td>
 <td>Purpose</td>
 <td>Function</td>
 <td>fileName.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
-<td>Jared20.pt</td>
+<td>8_repeat_positive.pt</td>
 <td>Purpose</td>
 <td>Function</td>
 <td>fileName.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
-<td>Jared21.pt</td>
+<td>8_str_relational_neg.pt</td>
 <td>Purpose</td>
 <td>Function</td>
 <td>fileName.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
-<td>Jared22.pt</td>
+<td>8_string_ops_pos.pt</td>
 <td>Purpose</td>
 <td>Function</td>
 <td>fileName.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
-<td>Jared23.pt</td>
+<td>8_strlen_neg.pt</td>
 <td>Purpose</td>
 <td>Function</td>
 <td>fileName.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
-<td>Jared24.pt</td>
+<td>8_strlen_positive.pt</td>
 <td>Purpose</td>
 <td>Function</td>
 <td>fileName.pt.eOutput</td><td></td>
 </tr>
 
 <tr>
-<td>Jared25.pt</td>
+<td>8_substring_neg.pt</td>
+<td>Purpose</td>
+<td>Function</td>
+<td>fileName.pt.eOutput</td><td></td>
+</tr>
+
+<tr>
+<td>8_substring_positive.pt</td>
 <td>Purpose</td>
 <td>Function</td>
 <td>fileName.pt.eOutput</td><td></td>
