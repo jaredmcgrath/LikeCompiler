@@ -1,0 +1,7 @@
+using output;
+
+fun F is
+  var T: like 1;
+end;
+
+F;

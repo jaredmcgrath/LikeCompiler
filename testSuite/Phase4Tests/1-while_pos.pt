@@ -1,0 +1,8 @@
+using output;
+var i: like 5;
+i = 5;
+repeat while i > 0
+  i = i - 1;
+  put(i);
+  putln;
+end;

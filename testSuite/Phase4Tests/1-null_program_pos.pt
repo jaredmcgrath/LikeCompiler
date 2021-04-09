@@ -5,3 +5,4 @@
  * working. Don't try new Like features such as strings, initial values, 
  * packages and mixed declarations and statements yet.
  */
+using output;

@@ -82,9 +82,11 @@ ptc -o4 -t4 -L $pt_lib_path $src_path > $out_file_path
 echo '### END OF PTC OUTPUT ###' >> $out_file_path
 # Finally, run ssltrace
 ssltrace "ptc -o4 -t4 -L $pt_lib_path $src_path" $pt_lib_path/coder.def -t >> $out_file_path
+# out_asm_path="$out_dir/$(basename $src_path).s"
+# Generate executable
+ptc -L $pt_lib_path $src_path
 # Generate the assembly output
-out_asm_path="$out_dir/$(basename $src_path).s"
-ptc -S -L $pt_lib_path $src_path > $out_asm_path
+ptc -S -L $pt_lib_path $src_path
 
 if [ $quiet = "no" ]; then
   echo ""
@@ -104,12 +106,12 @@ if [ -z ${save_output_in_dir+x} ]; then
 fi
 if [ $save_output_in_dir = "yes" ]; then
   cp $out_file_path "$saved_out_dir/$(basename $src_path).eOutput"
-  cp $out_asm_path "$saved_out_dir/$(basename $src_path).s"
+  # cp $out_asm_path "$saved_out_dir/$(basename $src_path).s"
 fi
 
 # See if user wants to compare generated output to eOutput, if not supplied in args
 output_diff_path="$out_dir/$(basename $src_path).eOutputDiff"
-output_asm_diff_path "$out_dir/$(basename $src_path).sDiff"
+# output_asm_diff_path "$out_dir/$(basename $src_path).sDiff"
 if [ -z ${compare_output+x} ]; then
   compare_output="yes"
   read -p "Compare output to existing $(basename $src_path).eOutput + $(basename $src_path).s? ([Y]/n) " user_response
@@ -121,16 +123,16 @@ fi
 
 if [ $compare_output = "yes" ]; then
   diff -b "$saved_out_dir/$(basename $src_path).eOutput" $out_file_path > $output_diff_path
-  diff -b "$saved_out_dir/$(basename $src_path).s" $out_asm_path > $output_asm_diff_path
+  # diff -b "$saved_out_dir/$(basename $src_path).s" $out_asm_path > $output_asm_diff_path
 	echo $src_path
   # If output diff has non-zero size, must be a diff
-  if [ -s $output_diff_path ] || [ -s $output_asm_diff_path ]; then
+  if [ -s $output_diff_path ]; then
     echo "TEST FAILED - difference between expected and actual"
     echo "See $output_diff_path for diff"
     read -p "View diff now? ([Y]/n) " user_response
     case "$user_response" in
       n|N ) echo "  --> Won't show diff"; echo "";;
-      * ) cat $output_diff_path; cat $output_asm_diff_path;;
+      * ) cat $output_diff_path;;
     esac
   else
     echo "TEST PASSED - no diff"

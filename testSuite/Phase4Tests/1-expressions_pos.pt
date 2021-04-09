@@ -1,0 +1,7 @@
+using output;
+
+var myInt: like 2;
+var myBool: like true;
+
+myInt = 3 * 10 - 22;
+myBool = myInt <= 21;

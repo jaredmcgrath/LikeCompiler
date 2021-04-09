@@ -1,0 +1,9 @@
+using output;
+
+fun F (X : like 7, Y : like 14) is
+  var T: like 1;
+end;
+
+val myVal = 3;
+
+F(1, myVal);

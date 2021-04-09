@@ -1,0 +1,6 @@
+using output;
+
+val int1 = 42;
+val int2 = -2148;
+val bool1 = true;
+val bool2 = false;

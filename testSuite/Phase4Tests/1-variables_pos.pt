@@ -1,0 +1,5 @@
+using output;
+
+var int2: like -2148;
+var bool1: like true;
+var bool2: like false;
