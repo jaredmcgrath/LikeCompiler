@@ -550,11 +550,11 @@ type TrapKind :
         trReadln = 4
         trWrite = 5
         trWriteln = 6
-        trWriteInteger = 7
-        trWriteChar = 8
-        trReadInteger = 9
-        trReadChar = 10
-        trAssign = 11
+        trWriteInteger = 8
+        trWriteChar = 9
+        trReadInteger = 10
+        trReadChar = 11
+        trAssign = 12
         trReadString = 108 %% Added trReadString and trWriteString to deal with strings
         trWriteString = 109; 
 
@@ -2582,8 +2582,7 @@ WriteText :
                         oValuePush(ten)
                     %% Removing tpString alternatives as it is deprecated -T
                     %% Replaced with tpChar and push stringSize -T
-                    | tpChar:
-                        oValuePush(stringSize)
+                    %% FIXED: We shouldn't have pushed stringSize. Should be 0
                     | *:        
                         % error flagged below
                         oValuePush(zero)

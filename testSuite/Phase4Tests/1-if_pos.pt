@@ -1,0 +1,12 @@
+using output;
+
+var result: like 1;
+val myVal = 30;
+
+if myVal > 50 then
+  result = 50;
+elseif myVal > 25 then
+  result = 25;
+else
+  result = 10;
+end;

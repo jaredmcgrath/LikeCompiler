@@ -578,3 +578,91 @@ The following list details the changes that were made to implement each operatio
     - By removing the `tpChar` case in the choice, we effectively force any relational comparisons between strings to the default choice, which which will emit `eOperandOperatorTypeMismatch` error
 
 There are many optimizations that could be performed in these implementations, but we refrain from doing so as per the Phase 3 specification.
+
+# Phase 3 Corrections
+
+In `semantic.ssl`, it was noticed that the `TrapKind` entries had numbers that did not line up properly with those seen in `ptruntime/ptruntime.c`.
+
+In the submission from Phase 3, the following was listed:
+
+```ssl
+type TrapKind :
+    trHalt = 0
+    trReset = 1
+    trRewrite = 2
+    trRead = 3
+    trReadln = 4
+    trWrite = 5
+    trWriteln = 6
+    trWriteInteger = 7
+    trWriteChar = 8
+    trReadInteger = 9
+    trReadChar = 10
+    trAssign = 11
+    trReadString = 108 %% Added trReadString and trWriteString to deal with strings
+    trWriteString = 109; 
+```
+
+Which has since been changed to:
+
+```ssl
+type TrapKind :
+    trHalt = 0
+    trReset = 1
+    trRewrite = 2
+    trRead = 3
+    trReadln = 4
+    trWrite = 5
+    trWriteln = 6
+    trWriteInteger = 8
+    trWriteChar = 9
+    trReadInteger = 10
+    trReadChar = 11
+    trAssign = 12
+    trReadString = 108 %% Added trReadString and trWriteString to deal with strings
+    trWriteString = 109; 
+```
+
+In lines 2579-2590 of `semantic.ssl`, incorrect field width defaults were specified for strings (_tpChar_). Previously, we had
+
+```ssl
+    % No field width specified, supply a default
+    [ oTypeStkChooseKind    % of expression being written
+        | tpInteger, tpSubrange:
+            oValuePush(ten)
+        %% Removing tpString alternatives as it is deprecated -T
+        %% Replaced with tpChar and push stringSize -T
+        | tpChar:
+            oValuePush(stringSize)
+        | *:        
+            % error flagged below
+            oValuePush(zero)
+    ]
+```
+
+Which has since been changed to:
+
+```ssl
+    % No field width specified, supply a default
+    [ oTypeStkChooseKind    % of expression being written
+        | tpInteger, tpSubrange:
+            oValuePush(ten)
+        %% Removing tpString alternatives as it is deprecated -T
+        %% Replaced with tpChar and push stringSize -T
+        %% FIXED: We shouldn't have pushed stringSize. Should be 0
+        | *:        
+            % error flagged below
+            oValuePush(zero)
+    ]
+```
+
+# Phase 4 Documentation
+
+## Semantic Phase Interface
+
+The modified `ptruntime.c` was copied into `ptruntime/ptruntime.c`, which implements the string operations and traps for Like.
+
+Semantic phase output tokens in `semantic.ssl` were copied in exact order to input tokens section of `coder.ssl`. Trap codes were updated within the _Integer_ type of `coder.ssl`, corresponding to all the traps in `ptruntime.c` to support Like string operations. The _string_ data kind was added to _Integer_ with a value of 3. The constant length of Like strings was also added to _Integer_, _twofiftysix_, with a value of 256.
+
+The compiler was made, `*.def` outputs were copied as needed, and test programs were created and run to ensure existing language features work properly.
+

@@ -1,0 +1,8 @@
+/**
+ * Make sure that integer and boolean constants, variables, expressions and I/O 
+ * are still working. Make sure that assignments, ifs and repeat-while loop 
+ * statements, are working. Make sure that routines and parameters are still 
+ * working. Don't try new Like features such as strings, initial values, 
+ * packages and mixed declarations and statements yet.
+ */
+using output;

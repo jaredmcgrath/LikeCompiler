@@ -95,8 +95,19 @@ type INSTRUCTION :      % corresponds to semantic.ssl output
         tTrapBegin
         tWriteEnd
         tReadEnd
+        %% MARK: The following non-compound T-codes were added for Like
+        tConcatenate
+        tRepeatString
+        tSubstring
+        tLength
+        tStringEQ
+        tInitialValue
+        tInitEnd
+        tCaseElse
+        tCaseElseEnd
+        %% MARK: End of new non-compund T-codes
 
-        % Compound T-codes are those that take operands
+        % Compound T-codes - T-code operations that take an operand
         tLiteralAddress 
         firstCompoundTcode = tLiteralAddress
         tLiteralInteger
@@ -119,6 +130,7 @@ type INSTRUCTION :      % corresponds to semantic.ssl output
         tTrap
         lastCompoundTcode = tTrap
 
+        % End of file marker T-code
         tEndOfFile
         lastTcode = tEndOfFile;
 

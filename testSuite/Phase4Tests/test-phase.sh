@@ -42,16 +42,18 @@ fi
 
 for i in *.pt
 do
-  # Output file path
-  out_file_path="$out_dir/$i.eOutput"
-  # First, run ptc alone and send output to outfile (overwrite any existing)
-  ptc -o4 -t4 -L $pt_lib_path $i > $out_file_path
-  # Next, append the marker to seperate ptc output from ssltrace output
-  echo '### END OF PTC OUTPUT ###' >> $out_file_path
-  # Finally, run ssltrace
-	ssltrace "ptc -o4 -t4 -L $pt_lib_path $i" $pt_lib_path/semantic.def -t >> $out_file_path
-	diff -b "$i.eOutput" $out_file_path > $out_dir/$i.eOutputDiff
+  echo $i
+  printf "$BLUE  Generating output for $i$NC\n"
+  ./test-single.sh -L $pt_lib_path -f $i -s no -c yes -o . -q
 done
+
+# for i in ../Phase2Tests/*.pt
+# do
+#   echo $i
+#   printf "$BLUE  Generating output for $i$NC\n"
+#   ./test-single.sh -L $pt_lib_path -f $i -s no -c yes -o phase2_eOutput -q
+# done
+
 cd $out_dir
 all_passed="true"
 for i in *.eOutputDiff

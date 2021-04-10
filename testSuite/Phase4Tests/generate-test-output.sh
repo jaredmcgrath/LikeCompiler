@@ -32,14 +32,14 @@ if [ -z ${pt_lib_path+x} ]; then
 	pt_lib_path="../../src/lib/pt"
 fi
 
-printf "\n---------------\n$GREEN PHASE 2 TESTS $NC\n---------------\n\n"
+# printf "\n---------------\n$GREEN PHASE 2 TESTS $NC\n---------------\n\n"
 
-for i in ../Phase2Tests/*.pt
-do
-  echo $i
-  printf "$BLUE  Generating output for $i$NC\n"
-  ./test-single.sh -L ../../src/lib/pt -f $i -s yes -c no -o phase2_eOutput -q
-done
+# for i in ../Phase2Tests/*.pt
+# do
+#   echo $i
+#   printf "$BLUE  Generating output for $i$NC\n"
+#   ./test-single.sh -L ../../src/lib/pt -f $i -s yes -c no -o phase2_eOutput -q
+# done
 
 printf "\n---------------\n$GREEN PHASE 4 TESTS $NC\n---------------\n\n"
 
@@ -57,19 +57,19 @@ case "$user_response" in
 esac
 
 if [ $display_ssltrace_errors = "yes" ]; then
-  printf "\n------------------------------\n$GREEN PHASE 2 SSLTRACE ERROR CHECK $NC\n------------------------------\n\n"
-  for i in phase2_eOutput/*.pt.eOutput
-  do
-    printf "$BLUE$i$NC\n"
-    num_errors=$(cat $i | grep -c -E '(.*)error(.*)\n')
+  # printf "\n------------------------------\n$GREEN PHASE 2 SSLTRACE ERROR CHECK $NC\n------------------------------\n\n"
+  # for i in phase2_eOutput/*.pt.eOutput
+  # do
+  #   printf "$BLUE$i$NC\n"
+  #   num_errors=$(cat $i | grep -c -E '(.*)error(.*)\n')
 
-    if [ $num_errors -ne 0 ]; then
-      printf "$RED  $num_errors ERRORS$NC\n"
-      echo "$(cat $i | grep -n error)"
-    else
-      printf "$GREEN  NO ERRORS$NC\n"
-    fi
-  done
+  #   if [ $num_errors -ne 0 ]; then
+  #     printf "$RED  $num_errors ERRORS$NC\n"
+  #     echo "$(cat $i | grep -n error)"
+  #   else
+  #     printf "$GREEN  NO ERRORS$NC\n"
+  #   fi
+  # done
 
   printf "\n------------------------------\n$GREEN PHASE 4 SSLTRACE ERROR CHECK $NC\n------------------------------\n\n"
   for i in *.pt.eOutput

@@ -81,6 +81,17 @@ Input:
         tTrapBegin
         tWriteEnd
         tReadEnd
+        %% MARK: The following non-compound T-codes were added for Like
+        tConcatenate
+        tRepeatString
+        tSubstring
+        tLength
+        tStringEQ
+        tInitialValue
+        tInitEnd
+        tCaseElse
+        tCaseElseEnd
+        %% MARK: End of new non-compund T-codes
 
         % Compound T-codes - T-code operations that take an operand
         tLiteralAddress
@@ -125,6 +136,7 @@ type Integer:
         four = 4
         eight = 8
         twelve = 12
+        twofiftysix = 256
 
         % Temporary registers
         regAX = 1   %eax
@@ -140,7 +152,6 @@ type Integer:
         trReadln = 4
         trWrite = 5
         trWriteln = 6
-        trWriteString = 7
         trWriteInteger = 8
         trWriteChar = 9
         trReadInteger = 10
@@ -150,10 +161,22 @@ type Integer:
         trCaseAbort = 14
         trEoln = 15
         trEof = 16
+        %% MARK: New string trap codes
+        trAssignString = 101
+        trChrString = 102
+        trConcatenate = 103
+        trSubstring = 104
+        trLength = 105
+        trStringEqual = 107
+        trReadString = 108
+        trWriteString = 109
+        trRepeatString = 110
+        %% MARK: End new string trap codes
 
         % Data kinds
         byte = 1
-        word = 2;   % 4 bytes on x86
+        word = 2   % 4 bytes on x86
+        string = 3;
 
 
 type Boolean:
