@@ -1,0 +1,4 @@
+using output;
+fun f (var j: like 1, k: like j) is
+    j = k+10;
+end;
