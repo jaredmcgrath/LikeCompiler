@@ -476,6 +476,7 @@ program Coder (output, coderSsl, tCode, object, options);
 
         { Machine word size }
         wordSize = 4;           { longword (4 bytes) on SUN }
+        stringSize = 256;       { ADDED -T}
 
         { Temporary regs - %ebx, %ecx, %esi, %edi }
         firstTempReg = 1;       
@@ -1784,6 +1785,10 @@ program Coder (output, coderSsl, tCode, object, options);
                     if operandStkLength[operandStkTop-1] = word then
                         { Convert a byte offset to a word offset }
                         subscript := subscript * wordSize;
+                    { Added case for string size -T }
+                    else if operandStkLength[operandStkTop-1] = string then
+                        { Convert a byte offset to a string offset }
+                        subscript := subscript * stringSize;
                     { Set the subscripted varable's address.  Note that the array variable's 
                       address points to the base of a 2 word descriptor (lower, upper bound). }
                     operandStkValue[operandStkTop-1] := 
@@ -1837,10 +1842,10 @@ program Coder (output, coderSsl, tCode, object, options);
                     compoundToken := acceptedToken;
                     read (tCode, compoundTokenValue);
                     nextTCodeAddress := nextTCodeAddress + 1;
-
+                    { Removed tLiteralChar andf tLiteralString -T }
                     case compoundToken of
-                        tLiteralAddress, tLiteralInteger, tLiteralChar,
-                        tLiteralBoolean, tLiteralString, tSkipString,
+                        tLiteralAddress, tLiteralInteger,
+                        tLiteralBoolean, tSkipString,
                         tWhileTest, tWhileEnd, tRepeatTest, tCallEnd,
                         tLineNumber, tTrap, tIfThen, tIfMerge, tSkipProc,
                         tCaseSelect, tCaseMerge:
@@ -1868,7 +1873,10 @@ program Coder (output, coderSsl, tCode, object, options);
                                         read (tCode, compoundTokenText[i]);
                                         i := i + 1
                                     end;
-                                nextTCodeAddress := nextTCodeAddress + compoundTokenLength;
+                                { ADDED -T , read 0 and add extra 1 since we read 0 }
+                                read(tCode, compoundTokenText[i]);
+
+                                nextTCodeAddress := nextTCodeAddress + compoundTokenLength + 1;
                             end;
                     end         { case compoundToken }
                 end;
@@ -2218,11 +2226,11 @@ program Coder (output, coderSsl, tCode, object, options);
                             Assert ( (compoundToken = tLiteralInteger), assert18);
                             OperandPush (mManifest, compoundTokenValue, undefined, word)
                         end;
-
+                    { Updated oOperandPushChar to implement strings -T }
                     oOperandPushChar:
                         begin
                             Assert ( (compoundToken = tLiteralChar), assert19);
-                            OperandPush (mManifest, compoundTokenValue, undefined, byte)
+                            OperandPush (mStatic, compoundTokenValue, undefined, word)
                         end;
 
                     oOperandPushBoolean:
