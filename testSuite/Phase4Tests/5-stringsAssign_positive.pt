@@ -1,3 +1,9 @@
 using output;
 
+val str1 = "strinval";
+put(str1);
+putln;
+
 var str = "string";
+put(str);
+putln;

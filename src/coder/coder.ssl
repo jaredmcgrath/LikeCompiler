@@ -23,11 +23,18 @@ Input:
         % T-code tokens - must match output tokens in semantic.ssl exactly!
 
         % Non-compound T-codes - T-code operations take no operands
-        tMultiply
+        tMultiply 
         firstTcode = tMultiply
         tDivide
         tModulus
         tAdd
+%% ADDED
+        tStringEQ
+        tConcatenate
+        tRepeatString
+        tSubstring
+        tLength
+%% END
         tSubtract
         tEQ
         tNE
@@ -67,9 +74,17 @@ Input:
         tArrayDescriptor
         tFileDescriptor
         tFileBind
+%% ADDED
+        tInitialValue
+        tInitEnd
+%% END
         tIfBegin
         tIfEnd
         tCaseBegin
+%% ADDED
+        tCaseElse
+        tCaseElseEnd
+%% END
         tWhileBegin
         tRepeatBegin
         tRepeatControl
@@ -81,17 +96,6 @@ Input:
         tTrapBegin
         tWriteEnd
         tReadEnd
-        %% MARK: The following non-compound T-codes were added for Like
-        tConcatenate
-        tRepeatString
-        tSubstring
-        tLength
-        tStringEQ
-        tInitialValue
-        tInitEnd
-        tCaseElse
-        tCaseElseEnd
-        %% MARK: End of new non-compund T-codes
 
         % Compound T-codes - T-code operations that take an operand
         tLiteralAddress
@@ -2613,7 +2617,7 @@ OperandEolnFunction:
     @SaveTempRegsToStack        %       pushl %eax .. %edx
 
     % Now send the arguments
-    @OperandForcetoStack        % The file descriptor 
+    @OperandForceToStack        % The file descriptor 
     oOperandPop
 
     % Call the eoln trap routine to test the end of line condition
@@ -2686,7 +2690,7 @@ OperandEofFunction:
     @SaveTempRegsToStack        %       pushl %eax .. %edx
 
     % Now send the arguments
-    @OperandForcetoStack        % The file descriptor 
+    @OperandForceToStack        % The file descriptor 
     oOperandPop
 
     % Call the eof trap routine to test the end of file condition
@@ -2853,15 +2857,15 @@ OperandAssignCharPopPop:
 
     %% Now send the arguments
     oOperandSwap
-    @OperandForcetoStack        % The file descriptor 
+    @OperandForceToStack        % The file descriptor 
     oOperandPop
-    @OperandForcetoStack        % The file descriptor 
+    @OperandForceToStack        % The file descriptor 
     oOperandPop
 
     %% Call the string trap routine 
     oOperandPushMode(mTrap)
     oOperandSetValue(trAssignString)
-    oOperandSetLength(string)
+    oOperandSetLength(word)
     oEmitSingle(iCall)          %       call    pttrapNN
     oOperandPop
 
@@ -3237,7 +3241,7 @@ OperandForceToStack:
         %% Added alternative for string length -T
         | string:
             @OperandForceAddressIntoTemp
-            oOperandSetLength(string) %% Not sure about this  -T  
+            oOperandSetLength(word) %% Not sure about this  -T  
     ]
     oEmitSingle(iPush)
     @OperandPopAndFreeTemp

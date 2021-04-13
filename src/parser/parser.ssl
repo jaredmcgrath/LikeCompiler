@@ -2,6 +2,7 @@
 %
 % Date:  30 Jun 1980
 %        (Revised v5.0 - 10 Dec 2020)
+%        (Revised for Like - JC 31 Dec 2020 - Changes marked %%)
 %
 % Author:  Alan Rosselet
 %
@@ -17,32 +18,58 @@ Input :
         % Keywords must be first both here and in stdIdentifiers,
         % and they must appear in the exact same order
 
-        pChoose                 'choose'    
-        firstKeywordToken = pChoose
-        pElseif                 'elseif'        
+%% CHANGED
+%%      pDiv                    'div'
+%%      firstKeywordToken = pDiv
+%%      pMod                    'mod'
+%%      pOr                     'or'
+%%      pAnd                    'and'
+%%      pNot                    'not'
+%%      pThen                   'then'
+%%      pElse                   'else'
+%%      pOf                     'of'
+%%      pEnd                    'end'
+%%      pUntil                  'until'
+%%      pDo                     'do'
+%%      pArray                  'array'
+%%      pFile                   'file'
+%%      pProgram                'program'
+%%      pConst                  'const'
+%%      pVar                    'var'
+%%      pType                   'type'
+%%      pProcedure              'procedure'
+%%      pBegin                  'begin'
+%%      pIf                     'if'
+%%      pCase                   'case'
+%%      pWhile                  'while'
+%%      pRepeat                 'repeat'
+%%      lastKeywordToken = pRepeat 
+%% TO
+        pUsing                  'using'
+        firstKeywordToken = pUsing
+        pPublic                 'public'
+        pVal                    'val'
+        pVar                    'var'
+        pFile                   'file'
+        pLike                   'like'
         pFun                    'fun'
         pIs                     'is'
-        pLike                   'like'
         pPkg                    'pkg'
-        pPublic                 'public'
-        pUsing                  'using'
-        pVal                    'val'
-        pWhen                   'when'
-        % All of the above associated symbols were added to their respective tokens
-        pOr                     'or'
-        pAnd                    'and'
-        pNot                    'not'
-        pThen                   'then'
-        pElse                   'else'
-        pOf                     'of'
-        pEnd                    'end'
-        % Removed old parser input tokens
-        pFile                   'file'
-        pVar                    'var'
         pIf                     'if'
-        pWhile                  'while'
+        pThen                   'then'
+        pElseif                 'elseif'
+        pElse                   'else'
+        pEnd                    'end'
         pRepeat                 'repeat'
-        lastKeywordToken = pRepeat 
+        pWhile                  'while'
+        pChoose                 'choose'
+        pOf                     'of'
+        pWhen                   'when'
+        pAnd                    'and'
+        pOr                     'or'
+        pNot                    'not'
+        lastKeywordToken = pNot
+%% END
 
         % Scanner tokens -
         %   These are the tokens actually recognized by the Scanner itself.
@@ -57,29 +84,32 @@ Input :
 
         % Non-compound tokens - 
         %   These tokens simply represent themselves.
-        pSlash                  '/'
-        pPercent                '%'
-        pHash                   '#'
-        pOrBar                  '|'
-        pDoubleOrBar            '||'
+        pNewLine
+        pEndFile
+        pPlus                   '+'
+        pMinus                  '-'
+        pStar                   '*'
+%% DELETED
+%%      pColonEquals            ':='
+%% END
+        pDot                    '.'
+        pComma                  ','
+        pSemicolon              ';'
+        pColon                  ':'
+        pEquals                 '='
+%% ADDED
         pPlusEquals             '+='
         pMinusEquals            '-='
         pStarEquals             '*='
         pSlashEquals            '/='
         pPercentEquals          '%='
         pDoubleEquals           '=='
-        % All of the above syntax tokens were added
-        pNewLine
-        pEndFile
-        pPlus                   '+'
-        pMinus                  '-'
-        pStar                   '*'
-        % Removed old PT input tokens
-        pComma                  ','
-        pSemicolon              ';'
-        pColon                  ':'
-        pEquals                 '='
-        pNotEqual               '!='        % Changed to != from <>
+%% END
+%% CHANGED
+%%      pNotEqual               '<>'
+%% TO
+        pNotEqual               '!='
+%% END
         pLess                   '<'
         pLessEqual              '<='
         pGreaterEqual           '>='
@@ -88,7 +118,15 @@ Input :
         pRightParen             ')'
         pLeftBracket            '['
         pRightBracket           ']'
-        lastSyntaxToken = pRightBracket;
+%% ADDED
+        pSlash                  '/'
+        pPercent                '%'
+        pHash                   '#'
+        pOrBar                  '|'
+        pDoubleOrBar            '||'
+%% END
+        pDotDot                 '..'
+        lastSyntaxToken = pDotDot;
 
 Output :
         sIdentifier 
@@ -102,8 +140,16 @@ Output :
         sParmBegin
         sParmEnd
         sConst
-        sLike       % Changed from sType to sLike
+%% DELETED
+%%      sType
+%% END
         sVar
+%% ADDED
+        sPublic
+        sLike
+        sInitialValue
+        sPackage
+%% END
         sProcedure
         sBegin
         sEnd
@@ -112,6 +158,9 @@ Output :
         sFile
         sRange
         sCaseStmt
+%% ADDED
+	sCaseElse
+%% END
         sCaseEnd
         sLabelEnd
         sExpnEnd
@@ -142,26 +191,32 @@ Output :
         sInfixAnd
         sAnd
         sNot
-        sNewLine
-        % All output tokens below were added (aside from sEndOfFile)
-        sPackage
-        sPublic
+%% ADDED
         sConcatenate
         sRepeatString
         sSubstring
         sLength
-        sInitialValue
-        sCaseElse
+%% END
+        sNewLine
         sEndOfFile
         lastSemanticToken = sEndOfFile;
 
 
 rules
 
-% Updated program rule, brackets and keyword 'using' added -T
 Program :
+%% CHANGED
+%%      'program'  .sProgram
+%%      % program name
+%%      pIdentifier
+%% TO
         'using'  .sProgram
+        % no program name
+%% END
         % program parameters
+%% DELETED
+%%      '('
+%% END
         {
             pIdentifier  .sIdentifier
             [
@@ -170,99 +225,151 @@ Program :
                     >
             ]
         }
+%% DELETED
+%%      ')'
+%% END
         .sParmEnd
+%% CHANGED
+%%      ';'  @Block  '.';
+%% TO
         ';'  @Block ;
+%% END
 
 Block :
-        % Merged statement and beginStmt rule into block rule -T
         % Strictly speaking, standard Pascal requires that declarations
         % appear only in the order consts, types, vars, procedures.
         % We allow arbitrary intermixing of these instead to preserve
         % programmer sanity.
+%% ADDED
         .sBegin
+%% END
         {[
-            | 'pkg': % Added pkg identifier here
-                .sPackage
-                @Package
-            | 'val':        % Changed const to val
+%% CHANGED
+%%          | 'const':
+%% TO
+            | 'val':
+%% END
                 .sConst
                 @ConstantDefinitions
+%% DELETED
+%%          | 'type':
+%%              .sType
+%%              @TypeDefinitions
+%% END
             | 'var':
                 .sVar
                 @VariableDeclarations
-            | 'public': % Allows for optional public identifier
-                [
-                    | 'var' :                       % If no cases match, syntax recovery will assume 'var' 
-                        .sVar
-                        @VariableDeclarations
-                        .sPublic 
-                    | 'val' :
-                        .sConst
-                        @ConstantDefinitions
-                        .sPublic
-                    | 'fun' :
-                        .sProcedure
-                        % procedure name
-                        pIdentifier  .sIdentifier
-                        .sPublic % Emit token here, as per phase 2 spec
-                        @ProcedureHeading
-                        pIs
-                        @Block  
-                        pEnd pSemicolon
-                ]
-            | 'fun': % changed from procedure to function for like, left procedure token to minimize semantic phase changes
+%% CHANGED
+%%          | 'procedure':
+%% TO 
+            | 'fun':
+%% END
                 .sProcedure
                 % procedure name
                 pIdentifier  .sIdentifier
                 @ProcedureHeading
-                pIs  
-                @Block
-                pEnd pSemicolon
-            % Merged statement rule below, with changes for 'choose' and 'repeat'
+%% CHANGED
+%%              @Block  ';'
+%% TO 
+                'is' 
+                @Block  
+                'end' ';'
+%% END
+%% ADDED
+            | 'public':
+                [
+                    | 'val':
+                        .sConst 
+                        @PublicConstantDefinitions
+                    | 'var':
+                        .sVar 
+                        @PublicVariableDeclarations
+                    | 'fun':
+                        .sProcedure 
+                        % procedure name
+                        pIdentifier  .sIdentifier
+                        .sPublic
+                        @ProcedureHeading
+                        'is' 
+                        @Block  
+                        'end' ';'
+                ]
+            | 'pkg':
+                .sPackage
+                pIdentifier .sIdentifier
+                'is' 
+                @Block  
+                'end' ';'
+%% END
+%% ADDED
             | pIdentifier:
                 @AssignmentOrCallStmt
             | 'if':
                 @IfStmt
-            | 'choose': % Changed from 'case' to Like's 'choose'
-                @ChooseStmt
-            | 'repeat': % We have 'repeat while <cond> ...' = WhileStmt and 'repeat ... while <cond>' = RepeatStmt
+            | 'repeat':
                 [
-                    | pWhile:
+                    | 'while':
                         @WhileStmt
                     | *:
                         @RepeatStmt
                 ]
+            | 'choose':
+                @CaseStmt
             | ';':
                 .sNullStmt
+%% END
             | *:
                 >
         ]}
+%% CHANGED
+%%      'begin'
+%%      @BeginStmt;
+%% TO 
         .sEnd;
-
-Package :
-        % Package rule handle parsing of Like pkg
-        % Assumes that 'pkg' has been identified and sPackage has already been emitted
-        
-        % Parse identifier (package name)
-        pIdentifier .sIdentifier
-        pIs
-        @Block
-        % Block will have emitted sBegin, DeclarationsAndStatements, and sEnd,
-        % but we still need to ensure the 'end;' terminates the pkg
-        pEnd
-        pSemicolon;
+%% END
 
 ConstantDefinitions :
         % Accept one or more named constant definitions
         pIdentifier  .sIdentifier
-        '=' @ConstantValue                      % Modified to separate by commas
+%% CHANGED
+%%      '=' @ConstantValue ';'
+%%      {[
+%%          | pIdentifier:
+%%              .sIdentifier
+%%              '=' @ConstantValue ';'
+%%          | *:
+%%              >
+%%      ]};
+%% TO 
+        '=' @ConstantValue
         {[
-            | ';':
-                >
             | ',':
-                pIdentifier .sIdentifier
+                pIdentifier
+                .sIdentifier
                 '=' @ConstantValue
-        ]};
+            | *:
+                >
+        ]}
+        ';';
+%% END
+
+%% ADDED
+PublicConstantDefinitions :
+        % Accept one or more named constant definitions
+        pIdentifier  .sIdentifier
+        .sPublic
+        '=' @ConstantValue
+        {[
+            | ',':
+                pIdentifier
+                .sIdentifier
+                .sPublic
+                '=' @ConstantValue
+            | *:
+                >
+        ]}
+        ';';
+%% END
 
 ConstantValue :
         [
@@ -287,7 +394,50 @@ UnsignedIntegerConstant :
                 .sInteger
         ];
 
-%Removed parsing of PT type defenitions: TypeDefenitions TypeBody and SimpleType
+%% DELETED
+%% TypeDefinitions :
+%%      % Accept one or more named type definitions.
+%%      pIdentifier  .sIdentifier
+%%      '='  @TypeBody  ';'
+%%      {[
+%%          | pIdentifier:
+%%              .sIdentifier
+%%              '='  @TypeBody  ';'
+%%          | *:
+%%              >
+%%      ]};
+%% 
+%% TypeBody :
+%%      [
+%%          | 'array':
+%%              .sArray
+%%              '['  @SimpleType  ']'
+%%              'of'  @SimpleType
+%%          | 'file':
+%%              .sFile
+%%              'of'  @SimpleType
+%%          | *:
+%%              @SimpleType
+%%      ];
+%% 
+%% SimpleType :
+%%      % A simple type is a named type (possibly predefined)
+%%      % or a subrange type specification
+%%      [
+%%          | pIdentifier:
+%%              .sIdentifier
+%%              [
+%%                  | '..':
+%%                      .sRange         %% this may be unnecessary
+%%                      @OptionallySignedIntegerConstant
+%%                  | *:
+%%              ]
+%%          | *:
+%%              @OptionallySignedIntegerConstant
+%%              '..'  .sRange
+%%              @OptionallySignedIntegerConstant
+%%      ];
+%% END
 
 OptionallySignedIntegerConstant :
         [
@@ -300,130 +450,204 @@ OptionallySignedIntegerConstant :
                 @UnsignedIntegerConstant
         ];
 
+%% CHANGED
+%% VariableDeclarations :
+%%      % Accept one or more variable declarations.
+%%      pIdentifier  .sIdentifier
+%%      ':'  @TypeBody  ';'
+%%      {[
+%%          | pIdentifier:
+%%              .sIdentifier
+%%              ':'  @TypeBody  ';'
+%%          | *:
+%%              >
+%%      ]};
+%% TO
 VariableDeclarations :
-        pIdentifier  .sIdentifier                       % Changed to only allow for 1 variable, rather than a list
-        @ValueOrLike         % Removed call to TypeBody, changed to ValueOrLike
-        ';'
-        ;
+        % Accept one variable declaration
+        pIdentifier  .sIdentifier
+        @ValueOrLike
+        ';';
+%% END
 
-ValueOrLike :      % Either assigns an initial value to the declared variable, or calls LikeClause to handle Like keyword 
-        % Like uses either an initial value or a like clause to specify the variables type
+%% ADDED
+PublicVariableDeclarations :
+        % Accept one variable declaration
+        pIdentifier  .sIdentifier
+        .sPublic
+        @ValueOrLike
+        ';';
+%% END
+
+%% ADDED
+ValueOrLike :
         [
             | '=':
-                .sInitialValue      % Need to emit sInitialValue
+                .sInitialValue
                 @Expression
-                .sExpnEnd 
+                .sExpnEnd
             | *:
-                [   
-                    | '[':                  % Checks for optional array bounds
-                        .sArray
-                        @ConstantValue ']' 
-                    | *:
-                ]
-                ':'
-                [
-                    | 'file':
-                        .sFile
-                    | *:
-                ]
-                @LikeClause         % Call LikeClause
+                @LikeClause
+        ];
+
+LikeClause :
+        [
+            | '[':
+                .sArray
+                @ConstantValue
+                ']'
+            | *:
         ]
-        ;
+        ':' 
+        [
+            | 'file':
+                .sFile
+            | *:
+        ]
+        'like' .sLike
+        @VariableOrConstant;
 
-LikeClause :    % Rule that allows for an array to be declared with bounds
-        'like'
-        .sLike
-        @ConstantValue      % This handles a variable or a constant value
-        ;
-
+VariableOrConstant :
+        [
+            | pIdentifier:
+                .sIdentifier
+            | *:
+                @ConstantValue
+        ];
+%% END
 
 ProcedureHeading :
-        % Accept zero or more procedure formal parameter declarations, separated by commas
+        % Accept zero or more procedure formal parameter declarations.
         [
-            | '(':                  % Open bracket expects one or more parameters, accept the first parameter always
-                @ParameterDeclaration
-                {                       % Loop to accept second (or more) parameter(s)
+            | '(':
+                {
+                    % formal parameter identifier
                     [
+                        | 'var':
+                            pIdentifier  .sIdentifier
+                            .sVar
+                        | *:
+                            pIdentifier  .sIdentifier
+                    ]
+%% CHANGED
+%%                  ':'
+%%                  % type identifier
+%%                  pIdentifier  .sIdentifier
+%% TO 
+                    @LikeClause
+%% END
+                    [
+%% CHANGED
+%%                      | ';':
+%% TO 
                         | ',':
-                            @ParameterDeclaration
+%% END
                         | *:
                             >
                     ]
                 }
-                ')'             % If there were parameters, accept close bracket
-            | *:                % If there were no paremeters, exit
+                ')'
+            | *:
         ]
+%% DELETED
+%%      ';'
+%% END
         .sParmEnd;
 
-ParameterDeclaration:
-    % Handles the parsing of each parameter in a given Procedureheading
-        [
-            | 'var': % Variable case
-                pIdentifier  .sIdentifier
-                .sVar
-            | *: % Val case
-                pIdentifier  .sIdentifier
-        ]
-        ':'     % Like statement is always preceded by colon
-        @LikeClause;
+%% CHANGED
+%% Statement :
+%%      [
+%%          | pIdentifier:
+%%              @AssignmentOrCallStmt
+%%          | 'begin':
+%%              @BeginStmt
+%%          | 'if':
+%%              @IfStmt
+%%          | 'while':
+%%              @WhileStmt
+%%          | 'case':
+%%              @CaseStmt
+%%          | 'repeat':
+%%              @RepeatStmt
+%%          | *:
+%%              .sNullStmt
+%%      ];
+%% TO 
+Statement :
+        @Block;
+%% END
 
-
-AssignmentOrCallStmt :          % Added short form assignment rules
+AssignmentOrCallStmt :
         [
-            | '=':                  % Changed := to =
+%% CHANGED
+%%          | ':=':
+%%              .sAssignmentStmt
+%%              .sIdentifier    % identifier accepted in the Statement rule
+%%              @Expression
+%%              .sExpnEnd
+%% TO 
+            | '=':
                 .sAssignmentStmt
                 .sIdentifier    % identifier accepted in the Statement rule
                 @Expression
                 .sExpnEnd
+            | '+=':
+                .sAssignmentStmt
+                .sIdentifier    % identifier accepted in the Statement rule
+                .sIdentifier    
+                @Expression
+                .sAdd
+                .sExpnEnd
+            | '-=':
+                .sAssignmentStmt
+                .sIdentifier    % identifier accepted in the Statement rule
+                .sIdentifier    
+                @Expression
+                .sSubtract
+                .sExpnEnd
+            | '*=':
+                .sAssignmentStmt
+                .sIdentifier    % identifier accepted in the Statement rule
+                .sIdentifier    
+                @Expression
+                .sMultiply
+                .sExpnEnd
+            | '/=':
+                .sAssignmentStmt
+                .sIdentifier    % identifier accepted in the Statement rule
+                .sIdentifier    
+                @Expression
+                .sDivide
+                .sExpnEnd
+            | '%=':
+                .sAssignmentStmt
+                .sIdentifier    % identifier accepted in the Statement rule
+                .sIdentifier    
+                @Expression
+                .sModulus
+                .sExpnEnd
+%% END
             | '[':
                 .sAssignmentStmt
                 .sIdentifier
                 .sSubscript
                 @Expression
                 .sExpnEnd
-                ']'  '='
+		']'
+%% CHANGED
+%%              ':='
+%% TO 
+                '='
+%% END
                 @Expression
-                .sExpnEnd
-            | '+=':                 % Added all choices below
-                .sAssignmentStmt
-                .sIdentifier
-                .sIdentifier
-                @Expression
-                .sAdd
-                .sExpnEnd
-            | '-=':
-                .sAssignmentStmt
-                .sIdentifier
-                .sIdentifier
-                @Expression
-                .sSubtract
-                .sExpnEnd
-            | '*=':
-                .sAssignmentStmt
-                .sIdentifier
-                .sIdentifier
-                @Expression
-                .sMultiply
-                .sExpnEnd
-            | '/=':
-                .sAssignmentStmt
-                .sIdentifier
-                .sIdentifier
-                @Expression
-                .sDivide
-                .sExpnEnd
-            | '%=':
-                .sAssignmentStmt
-                .sIdentifier
-                .sIdentifier
-                @Expression
-                .sModulus
                 .sExpnEnd
             | *:
                 @CallStmt
-        ]
-        ';';
-
+%% CHANGED
+%%      ];
+%% TO 
+        ] ';';
+%% END
 
 CallStmt :
         .sCallStmt
@@ -454,100 +678,154 @@ CallStmt :
         ]
         .sParmEnd;
 
-IfStmt : %IfStmt changed for new Like specification
+%% DELETED
+%% BeginStmt :
+%%      .sBegin
+%%      {
+%%          @Statement
+%%          [
+%%              | ';':
+%%              | 'end':
+%%                  .sEnd
+%%                  >
+%%          ]
+%%      };
+%% END
+
+IfStmt :
         .sIfStmt
         @Expression
         .sExpnEnd
         'then'  .sThen
-        @Block                      %get sBegin for the if stmt
+        @Statement
+%% ADDED
         [
-            | 'elseif':             % do not add new token, option b
-                .sElse
-                .sBegin             % sBegin and sEnd need to be emitted here for proper nesting
-                @IfStmt             % Treat like nested if statement, recursively call this function, which includes call to Block
+            | 'elseif':
+                .sElse 
+                .sBegin
+                @IfStmt
                 .sEnd
-            | 'else':               % Optional 'else' statement
-                .sElse
-                @Block              % No expression for the condition, just a call to Block
-                pEnd pSemicolon     % If we reach an else, then we expect to end the 'if' with 'end;'
-            | *:                    % Default for no 'elseif' or 'else' statements
-                pEnd pSemicolon     % If we just have asingle 'if', (i.e. no else/elseif) then we expect to end the 'if' with 'end;'
+            | *:
+%% END
+		[
+		    | 'else':
+			.sElse
+			@Statement
+		    | *:
+		]
+%% ADDED
+                'end' ';'
+%% END
         ];
 
-ChooseStmt :
-        % Choose statement replaces the PT case statement.
-        % Assumes the 'choose' keyword has already been consumed
+CaseStmt :
         .sCaseStmt
         @Expression
         .sExpnEnd
-        pOf
-
-        % We know there will be at least one ChooseAlternative following 'of'
-        pWhen
-        @ChooseAlternative
-
-        % Parse 0 or more extra ChooseAlternatives
+        'of'
+%% ADDED
+        'when'
+%% END
+        @CaseAlternative 
         {[
-            | pWhen:                % If we encounter another 'when', there must be another ChooseAlternative
-                @ChooseAlternative
+%% CHANGED
+%%          | ';':
+%%              % since case alternatives cannot be null, allow
+%%              % for the common situation of an extra semicolon
+%%              % at the end of the list of case alternatives.
+%%              [
+%%                  | 'end':
+%%                      >
+%%                  | *:
+%%                      @CaseAlternative
+%%              ]
+%%          | 'end':
+%% TO 
+            | 'when':
+                @CaseAlternative 
             | *:
-                .sCaseEnd
+%% END
                 >
         ]}
-
-        % Parse the optional else alternative
+        .sCaseEnd
+%% ADDED
         [
-            | pElse:                    
+            | 'else':
                 .sCaseElse
-                @Block
+                @Statement
             | *:
         ]
-        pEnd pSemicolon;            % Make sure we parse a proper ending to the choose 'end;'
+        'end' ';';
+%% END
 
-ChooseAlternative :
-        % A choose alternative is a Block labelled by
+CaseAlternative :
+        % A case alternative is a statement labelled by
         % one or more optionally signed integer constants
-        % We assume the 'when' has already been consumed
+
         {
-            % I'm assuming the const values in choose must still be of this type
             @OptionallySignedIntegerConstant
             [
-                | ',':              % If we get a ',', continue loop and expect another const
-                | *:                % Otherwise, exit loop
+                | ',':
+                | *:
                     >
             ]
         }
-        .sLabelEnd                  % Emit sLabelEnd before consuming pThen
-        pThen                       % Make sure to consume pThen before block
-        @Block;                     % Block will handle emission of sBegin/sEnd as usual
+        .sLabelEnd
+%% CHANGED
+%%      ':'  
+%% TO 
+        'then'  
+%% END
+        @Statement;
 
 WhileStmt :
         .sWhileStmt
         @Expression
         .sExpnEnd
-        % Previous Statement -> Block
-        @Block
-        % Handle the end stuff
-        pEnd
-        pSemicolon;
+%% DELETED
+%%      'do'
+%% END
+        @Statement
+%% ADDED
+        'end' ';';
+%% END
 
 RepeatStmt :
         .sRepeatStmt
-        @Block              % Block will return when it encounters 'while', after emitting sBegin and sEnd 
-        pWhile
-        .sRepeatEnd
-        @Expression
-        .sNot               % We negate the expression since sRepeatStmt terminates loop on true expression
-        .sExpnEnd
-        pSemicolon;         % Consume expected semicolon (this was a bug in Professor's expected output - I found it! Bonus marks for this?)
+        {
+            @Statement
+            [
+%% CHANGED
+%%              | ';':
+%%              | 'until':
+%% TO 
+                | 'while':
+%% END
+                    .sRepeatEnd
+                    >
+            ]
+        }
+        @Expression 
+%% ADDED
+	';'
+        .sNot
+%% END
+        .sExpnEnd;
 
 Expression :
         @SimpleExpression
         [
-            | '==':     % Changed = to ==
+%% CHANGED
+%%          | '=':
+%%              @SimpleExpression  .sEq
+%%          | '<>':
+%%              @SimpleExpression  .sNE
+%% TO 
+            | '==':
                 @SimpleExpression  .sEq
-            | '!=':     % Changed <> to !=
+            | '!=':
                 @SimpleExpression  .sNE
+%% END
             | '<':
                 @SimpleExpression  .sLT
             | '<=':
@@ -575,10 +853,12 @@ SimpleExpression :
                 @Term  .sSubtract
             | 'or':
                 .sInfixOr  @Term  .sOr
-            | '||':                         % Added string repeat operator
-                @Term .sRepeatString
-            | '|':                          % Added string concatenation operator
-                @Term .sConcatenate
+%% ADDED
+            | '|':
+                @Term  .sConcatenate
+            | '||':
+                @Term  .sRepeatString
+%% END
             | *:
                 >
         ]};
@@ -588,20 +868,23 @@ Term :
         {[
             | '*':
                 @Factor  .sMultiply
-            % For '/', it's either integer division or substring
+%% CHANGED
+%%          | 'div':
+%%              @Factor  .sDivide
+%%          | 'mod':
+%%              @Factor  .sModulus
+%% TO 
             | '/':
-                % unit following '/' will be Factor in either case
-                @Factor
+                @Factor  
                 [
-                    % If following token is ':', then it must be substring
                     | ':':
                         @Factor .sSubstring
-                    % Anything else means this was integer division
                     | *:
                         .sDivide
                 ]
             | '%':
                 @Factor  .sModulus
+%% END
             | 'and':
                 .sInfixAnd  @Factor  .sAnd
             | *:
@@ -620,9 +903,11 @@ Factor :
             | 'not':
                 @Factor
                 .sNot
-            | '#': % Added string length operator
+%% ADDED
+            | '#':
                 @Factor
                 .sLength
+%% END
             | pStringLiteral:
                 .sStringLiteral
             | 'file':
