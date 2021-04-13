@@ -2853,15 +2853,19 @@ OperandAssignCharPopPop:
 
     %% Now send the arguments
     oOperandSwap
+
+    @OperandForceAddressIntoTemp
     @OperandForcetoStack        % The file descriptor 
-    oOperandPop
+    @OperandPopAndFreeTemp
+
+    @OperandForceAddressIntoTemp
     @OperandForcetoStack        % The file descriptor 
-    oOperandPop
+    @OperandPopAndFreeTemp
 
     %% Call the string trap routine 
     oOperandPushMode(mTrap)
     oOperandSetValue(trAssignString)
-    oOperandSetLength(string)
+    oOperandSetLength(word)
     oEmitSingle(iCall)          %       call    pttrapNN
     oOperandPop
 
@@ -3237,7 +3241,7 @@ OperandForceToStack:
         %% Added alternative for string length -T
         | string:
             @OperandForceAddressIntoTemp
-            oOperandSetLength(string) %% Not sure about this  -T  
+            oOperandSetLength(word) %% Not sure about this  -T  
     ]
     oEmitSingle(iPush)
     @OperandPopAndFreeTemp

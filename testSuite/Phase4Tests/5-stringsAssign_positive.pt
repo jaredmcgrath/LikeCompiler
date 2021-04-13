@@ -1,3 +1,5 @@
 using output;
 
-var str = "string";
+val str = "string";
+put(str);
+putln;

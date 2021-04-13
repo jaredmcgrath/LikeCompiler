@@ -2179,8 +2179,9 @@ ConstantOperand :
                 .tLiteralInteger
                 oEmitValue
             | tpChar:
-                .tLiteralChar
+                .tLiteralAddress
                 oEmitValue
+                .tFetchChar
             | tpBoolean:
                 .tLiteralBoolean
                 oEmitValue
