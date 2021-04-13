@@ -2852,8 +2852,6 @@ OperandAssignCharPopPop:
     @SaveTempRegsToStack        %%       pushl %eax .. %edx
 
     %% Now send the arguments
-    oOperandSwap
-
     @OperandForceAddressIntoTemp
     @OperandForcetoStack        % The file descriptor 
     @OperandPopAndFreeTemp
@@ -2869,7 +2867,7 @@ OperandAssignCharPopPop:
     oEmitSingle(iCall)          %       call    pttrapNN
     oOperandPop
 
-    % % Pop argument
+    % %% Pop argument
     % oOperandPushMode(mStackReg)
     % oOperandSetLength(word)
     % oOperandPushMode(mManifest)
