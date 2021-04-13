@@ -2857,10 +2857,14 @@ OperandAssignCharPopPop:
 
     %% Now send the arguments
     oOperandSwap
-    @OperandForceToStack        % The file descriptor 
-    oOperandPop
-    @OperandForceToStack        % The file descriptor 
-    oOperandPop
+
+    @OperandForceAddressIntoTemp
+    @OperandForcetoStack        % The file descriptor 
+    @OperandPopAndFreeTemp
+
+    @OperandForceAddressIntoTemp
+    @OperandForcetoStack        % The file descriptor 
+    @OperandPopAndFreeTemp
 
     %% Call the string trap routine 
     oOperandPushMode(mTrap)
@@ -2868,6 +2872,16 @@ OperandAssignCharPopPop:
     oOperandSetLength(word)
     oEmitSingle(iCall)          %       call    pttrapNN
     oOperandPop
+
+    % % Pop argument
+    % oOperandPushMode(mStackReg)
+    % oOperandSetLength(word)
+    % oOperandPushMode(mManifest)
+    % oOperandSetLength(word)
+    % oOperandSetValue(eight)      % ... %esp, 1arg*4
+    % oEmitDouble(iAdd)           %       addl    $4, %esp
+    % oOperandPop
+    % oOperandPop
 
     % Restore temp regs
     @RestoreTempRegsFromStack;   %       popl    %edx .. $eax 

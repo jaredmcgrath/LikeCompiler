@@ -510,7 +510,6 @@ program SemanticAnalysis (output, semanticSsl, parseStream, temp, tCode, options
         minSslTableValue = -32767;
         maxSslTableValue = 32767;
 
-
 { ===== End of contents of semantic.def }
 
         { firstFatalErrorCode MUST be bigger than lastSslErrorCode }
