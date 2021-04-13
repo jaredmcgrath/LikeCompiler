@@ -1216,16 +1216,36 @@ EmitDefaultCaseAbort:
     oFixSwapAddresses                   % (keep branch around case body on top)
     oEmitMergeSourceCoordinate
 
-    % Call case abort trap (never returns)
-    oOperandPushMode(mLineNum)          % ... n
-    oOperandSetLength(word)
-    @OperandForceToStack                %       pushl   n
-    oOperandPop                         % ...
-    oOperandPushMode(mTrap)
-    oOperandSetValue(trCaseAbort)
-    oEmitSingle(iCall)                  %       call  caseAbort
+    %% Added choice block here -nic
+    [ 
+        | tCaseElse:    %% If there's an else statement, handle its statements and accept the end of the else
+        @Statements
+        tCaseElseEnd
+        oEmitCaseMergeBranch    %% emit case merge branch to continue execution
 
-    oOperandPop;
+        | *:        %% no case label matches
+        % Call case abort trap (never returns)
+        oOperandPushMode(mLineNum)          % ... n
+        oOperandSetLength(word)
+        @OperandForceToStack                %       pushl   n
+        oOperandPop                         % ...
+        oOperandPushMode(mTrap)
+        oOperandSetValue(trCaseAbort)
+        oEmitSingle(iCall)                  %       call  caseAbort
+
+        oOperandPop        
+    ];
+
+    %% Below has been moved to the default case above
+%%    oOperandPushMode(mLineNum)          % ... n
+%%    oOperandSetLength(word)
+%%    @OperandForceToStack                %       pushl   n
+%%    oOperandPop                         % ...
+%%    oOperandPushMode(mTrap)
+%%    oOperandSetValue(trCaseAbort)
+%%    oEmitSingle(iCall)                  %       call  caseAbort
+
+%%    oOperandPop;
 
 
 EmitCaseSubscriptJump:
