@@ -2840,14 +2840,12 @@ OperandAssignCharPopPop:
 
     %% Call the string trap routine 
     oOperandPushMode(mTrap)
-    oOperandSetValue(trString)
+    oOperandSetValue(trAssignString)
     oOperandSetLength(string)
     oEmitSingle(iCall)          %       call    pttrapNN
     oOperandPop
 
-
-
-    %% Old stuff
+    %% Old stuff probably unneeded
     % oOperandSetLength(string)
     % @EmitMove                   %       movb    y, x
     % @OperandPopAndFreeTemp

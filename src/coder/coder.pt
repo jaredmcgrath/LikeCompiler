@@ -2232,7 +2232,7 @@ program Coder (output, coderSsl, tCode, object, options);
                             Assert ( (compoundToken = tLiteralChar), assert19);
                             OperandPush (mStatic, compoundTokenValue, undefined, word)
                         end;
-
+                    
                     oOperandPushBoolean:
                         begin
                             Assert ( (compoundToken = tLiteralBoolean), assert20);
