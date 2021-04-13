@@ -222,26 +222,26 @@ __Note__: All line numbers referenced in the following table are referring their
 </tr>
 
 <tr>
-<td>Nicole_1</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>Expected_Output_Filename</td>
+<td>4-choose-else_pos.pt</td>
+<td>Ensure trCaseAbort not called and execution continues with else statement</td>
+<td>Runs choose block with an else statement where the expression does not match any case selectors</td>
+<td>4-choose-else_pos.pt.eOutput</td>
 <td>Notes_For_Neg_Tests</td>
 </tr>
 
 <tr>
-<td>Nicole_2</td>
+<td>4-choose-noelse_pos.pt</td>
 <td>Purpose</td>
 <td>Function</td>
-<td>Expected_Output_Filename</td>
+<td>4-choose-noelse_pos.pt.eOutput</td>
 <td>Notes_For_Neg_Tests</td>
 </tr>
 
 <tr>
-<td>Nicole_3</td>
+<td>4-choose-nomatch_pos.pt</td>
 <td>Purpose</td>
 <td>Function</td>
-<td>Expected_Output_Filename</td>
+<td>4-choose-nomatch_pos.pt.eOutput</td>
 <td>Notes_For_Neg_Tests</td>
 </tr>
 
