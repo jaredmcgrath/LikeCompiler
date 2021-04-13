@@ -1,0 +1,5 @@
+using output;
+
+var strArr[3] : like "string";
+put(strArr[0]);
+putln;

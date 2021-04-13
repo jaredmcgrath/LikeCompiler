@@ -6,6 +6,8 @@
 
 All language features that did not require changes in Phase 4 (boolean + integer constants and variables, if-elseif-else, expressions, I/O, null program, repeat + repeat while loops, routines and routines with parameters) were tested with simple positive test cases to ensure the correctness of the interface with the semantic phase.
 
+TODO: Write step 3 tests after step 2 (pos + neg) and then write justification
+
 ## Test Description Table
 
 __Note__: All line numbers referenced in the following table are referring their respective test files.

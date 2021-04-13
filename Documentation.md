@@ -669,4 +669,9 @@ The compiler was made, `*.def` outputs were copied as needed, and test programs 
 ## Mixed Declarations and Statements
 
 The `Block` rule was modified to accept all statement T-codes directly in it's main body. The alternative cases were copied over from the `Statements` rule. Following this, the `Statements` rule was updated and now consists solely of a call to the `Block` rule.
+## Initial Values
+
+The following changes were made in the _Block_ rule of `coder.ssl`.
+
+A case alternative was added to handle _tInitialValue_. When this is encountered, we call the _OperandPushExpression_ rule to encode the expression of the initial value, then expect _tInitEnd_ followed by _tLiteralAddress_. This is the address of the variable we will store the expression in. This is pushed onto the operand stack. The top two operands are swapped (so that expression is on top, followed by variable), then the appropriate length and _OperandAssignXPopPop_ rule is called depending on the type of the T-code store instruction (e.g. _tStoreInteger_, _tStoreBoolean_).
 

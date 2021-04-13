@@ -1,0 +1,29 @@
+Group: cisc458n
+Phase 3 Total Mark: 9.5/10
+TA: Dimitrios Economou d.economou@queensu.ca
+
+Documentation
+Mark: 2/2
+- Perfect.
+
+Structure and Clarity
+Mark: 4/4
+- Excellent.
+- Why does `VariableDeclarations` have an outer choice block?
+
+Testing and Correctness
+Mark: 3.5/4
+- Excellent, fairly comprehensive test suite, documentation and scripts. In particular, I'm impressed by your argument for completeness of the test suite, although there are some missing tests that should have caught the issues below.
+- Non-exhaustive testing for function declarations. What happens when you have a variable parameter first, like in the test in the bullet point immediately below?
+- This should not give a semantic error (-0.25):
+  ```
+  using output;
+  fun f (var j: like 1, k: like j) is
+      j = k+10;
+  end;
+  ```
+- This should not give a semantic error (I think there's a scoping error in your `Program` rule) (-0.25):
+  ```
+  using other;
+  var other : file like 2;
+  ```

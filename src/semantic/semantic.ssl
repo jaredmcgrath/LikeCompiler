@@ -752,7 +752,7 @@ Program :
                 @ProgramParameter
         ]}
         oCountPop
-        @Statement %% replaced @Block with @Statement to nest program scope
+        @Block
         % Check that all file parameters have been declared
         [ oSymbolTblLookupExternal
             | yes:
@@ -1020,6 +1020,8 @@ SimpleType :
                         oTypeStkPushSymbol          %% Create type stack entry
                     | syConstant:                   %% Handle constant symbol
                         oTypeStkPushSymbol          %% Create type stack entry
+                    | syVarParameter:               %% If it's a var parameter identifier
+                        oTypeStkPushSymbol          %% Create type stack entry from the var param
                     | syUndefined:                  %% If we get an undefined identifier, error
                         #eUndefinedIdentifier
                         oTypeStkPush(tpInteger)     %% Default to an integer type
@@ -1368,7 +1370,8 @@ ProcedureParameterType :
         ]
         oSymbolStkEnterTypeReference
         @AllocateVar                            % allocate formal parameter
-        oSymbolTblEnter;
+        oSymbolTblEnter
+        ;
 
 ProcedurePrologue :
         % Now all the formal parameter symbols are stacked on top of the
@@ -2176,8 +2179,9 @@ ConstantOperand :
                 .tLiteralInteger
                 oEmitValue
             | tpChar:
-                .tLiteralChar
+                .tLiteralAddress
                 oEmitValue
+                .tFetchChar
             | tpBoolean:
                 .tLiteralBoolean
                 oEmitValue

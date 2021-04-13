@@ -1,7 +1,10 @@
 using output;
 val x = 1;
+var y: like 1;
 if x == 1 then
-    val y = 0;
+    y = 0;
+else
+    y = 1;
 end;
 put(y);
 putln;

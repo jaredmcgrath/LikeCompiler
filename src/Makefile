@@ -7,7 +7,7 @@ all:
 	cd semantic; make $(ACTION)
 	cd coder; make $(ACTION)
 	cd ptruntime; make $(ACTION)
-	cd ptam; make $(ACTION)
+	# cd ptam; make $(ACTION)
 
 scanner:
 	cd cmd; make $(ACTION)

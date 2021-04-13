@@ -1,0 +1,3 @@
+using output;
+var myBool = true;
+myBool = not (1 < 2);

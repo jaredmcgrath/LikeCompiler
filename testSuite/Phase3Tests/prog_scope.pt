@@ -1,0 +1,2 @@
+using other;
+var other : file like 2;
