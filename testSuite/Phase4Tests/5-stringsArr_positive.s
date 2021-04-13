@@ -21,6 +21,7 @@ s35:    .asciz  "testing"
     lea    u+4,%eax
     pushl    %eax
     call    pttrap101
+    addl    $8,%esp
     popl    %edx
     popl    %ecx
     popl    %ebx
@@ -38,6 +39,7 @@ s60:    .asciz  "testing2"
     lea    u+12,%eax
     pushl    %eax
     call    pttrap101
+    addl    $8,%esp
     popl    %edx
     popl    %ecx
     popl    %ebx
@@ -55,6 +57,7 @@ s86:    .asciz  "testing3"
     lea    u+268,%eax
     pushl    %eax
     call    pttrap101
+    addl    $8,%esp
     popl    %edx
     popl    %ecx
     popl    %ebx
@@ -105,6 +108,7 @@ s205:    .asciz  "testing4000000000000 craziness"
     lea    u+268,%eax
     pushl    %eax
     call    pttrap101
+    addl    $8,%esp
     popl    %edx
     popl    %ecx
     popl    %ebx

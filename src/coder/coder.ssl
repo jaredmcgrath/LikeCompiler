@@ -2867,15 +2867,15 @@ OperandAssignCharPopPop:
     oEmitSingle(iCall)          %       call    pttrapNN
     oOperandPop
 
-    % %% Pop argument
-    % oOperandPushMode(mStackReg)
-    % oOperandSetLength(word)
-    % oOperandPushMode(mManifest)
-    % oOperandSetLength(word)
-    % oOperandSetValue(eight)      % ... %esp, 1arg*4
-    % oEmitDouble(iAdd)           %       addl    $4, %esp
-    % oOperandPop
-    % oOperandPop
+    %% Pop arguments
+    oOperandPushMode(mStackReg)
+    oOperandSetLength(word)
+    oOperandPushMode(mManifest)
+    oOperandSetLength(word)
+    oOperandSetValue(eight)      % ... %esp, 1arg*8
+    oEmitDouble(iAdd)           %       addl    $8, %esp
+    oOperandPop
+    oOperandPop
 
     % Restore temp regs
     @RestoreTempRegsFromStack;   %       popl    %edx .. $eax 

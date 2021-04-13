@@ -32,6 +32,7 @@ s56:    .asciz  "otherstring"
     lea    u+4,%eax
     pushl    %eax
     call    pttrap101
+    addl    $8,%esp
     popl    %edx
     popl    %ecx
     popl    %ebx
