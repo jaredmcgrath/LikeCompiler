@@ -1,5 +1,9 @@
 using output;
 
-val str = "string";
+val str1 = "strang1111111";
+put(str1);
+putln;
+
+var str = "otherstrang";
 put(str);
 putln;

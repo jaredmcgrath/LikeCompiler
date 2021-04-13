@@ -81,7 +81,7 @@ ptc -o3 -t3 -L $pt_lib_path $src_path > $out_file_path
 # Next, append the marker to seperate ptc output from ssltrace output
 echo '### END OF PTC OUTPUT ###' >> $out_file_path
 # Finally, run ssltrace
-ssltrace "ptc -o3 -t3 -L $pt_lib_path $src_path" $pt_lib_path/semantic.def -e >> $out_file_path
+ssltrace "ptc -o3 -t3 -L $pt_lib_path $src_path" $pt_lib_path/semantic.def -t >> $out_file_path
 # out_asm_path="$out_dir/$(basename $src_path).s"
 # Generate executable
 ptc -L $pt_lib_path $src_path
