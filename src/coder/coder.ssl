@@ -722,6 +722,28 @@ Block:
     % and file descriptors, which are emitted as assignment statements, 
     % and nested procedure definitions.
     {[
+        %% Adding initial value handling
+        | tInitialValue:
+            @OperandPushExpression              %% ... expression
+            %% Flush the tInitEnd
+            tInitEnd
+            %% We expect a literal address
+            tLiteralAddress
+            %% From which, we push variable onto operand stack
+            oOperandPushVariable                %% ... expression, destination var
+            oOperandSwap                        %% ... destination var, expression
+            %% Then, we expect a T-code for the assignment type (int, string, bool, etc.)
+            [
+                | tStoreInteger, tStoreAddress:
+                    oOperandSetLength(word)
+                    @OperandAssignIntegerPopPop
+                | tStoreChar:
+                    oOperandSetLength(string)
+                    @OperandAssignCharPopPop
+                | tStoreBoolean:
+                    oOperandSetLength(byte)
+                    @OperandAssignBooleanPopPop
+            ]
         | tSkipString:
             % Branch around a string constant's character data 
             % in Linux we simply emit it to the data area instead
@@ -787,7 +809,7 @@ Block:
             @TrapStmt
         | *:
             >   % End of statement/declaration list or empty statement/declaration
-    ]}
+    ]};
     %% Removed call to Statements rule as they are handled here now
 
 Routine:
@@ -854,7 +876,7 @@ OperandNextArgument:
 
 Statements:
     % Previous passes have removed redundant begin-end markers.
-    @Block          %% Replaced body with a call to the block rule
+    @Block;         %% Replaced body with a call to the block rule
 
 
 AssignStmt:
