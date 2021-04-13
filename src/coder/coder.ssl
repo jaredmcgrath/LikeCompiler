@@ -2852,6 +2852,7 @@ OperandAssignCharPopPop:
     @SaveTempRegsToStack        %%       pushl %eax .. %edx
 
     %% Now send the arguments
+    oOperandSwap
     @OperandForcetoStack        % The file descriptor 
     oOperandPop
     @OperandForcetoStack        % The file descriptor 
@@ -3235,7 +3236,7 @@ OperandForceToStack:
         | word:
         %% Added alternative for string length -T
         | string:
-            @OperandForceIntoTemp
+            @OperandForceAddressIntoTemp
             oOperandSetLength(string) %% Not sure about this  -T  
     ]
     oEmitSingle(iPush)
