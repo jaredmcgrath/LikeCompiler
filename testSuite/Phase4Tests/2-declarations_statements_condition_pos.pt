@@ -1,3 +1,12 @@
 using output;
 var x : like true;
-x = (1 == 0);
+x = (1 == 1);
+
+var y : like false;
+y = (1 == 0);
+
+var z : like true;
+z = (2 > 1);
+
+var a : like false;
+a = (2 < 1);
