@@ -1,9 +1,9 @@
 using output;
 
-val str1 = "strang1111111";
+val str1 = "string";
 put(str1);
 putln;
 
-var str = "otherstrang";
+var str = "otherstring";
 put(str);
 putln;

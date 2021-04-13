@@ -7,7 +7,7 @@ ptmain:    pushl   %ebp
         movl    %esp, %ebp    
     movl    $2,u+0
     .data    
-s15:    .asciz  "strang1111111"
+s15:    .asciz  "string"
     .text    
     movl    $4,n
     pushl    u+0
@@ -21,15 +21,15 @@ s15:    .asciz  "strang1111111"
     call    pttrap6
     addl    $4,%esp
     .data    
-s63:    .asciz  "otherstrang"
+s56:    .asciz  "otherstring"
     .text    
     pushl    %eax
     pushl    %ebx
     pushl    %ecx
     pushl    %edx
-    lea    u+4,%eax
+    lea    s56,%eax
     pushl    %eax
-    lea    s63,%eax
+    lea    u+4,%eax
     pushl    %eax
     call    pttrap101
     popl    %edx
