@@ -876,11 +876,7 @@ OperandNextArgument:
 
 Statements:
     % Previous passes have removed redundant begin-end markers.
-<<<<<<< HEAD
-    @Block;          %% Replaced body with a call to the block rule
-=======
     @Block;         %% Replaced body with a call to the block rule
->>>>>>> origin/phase4-strings
 
 
 AssignStmt:
