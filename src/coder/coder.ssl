@@ -2851,8 +2851,6 @@ OperandAssignCharPopPop:
     %% Save temp registers
     @SaveTempRegsToStack        %%       pushl %eax .. %edx
 
-    %% Now send the arguments
-    oOperandSwap
 
     @OperandForceAddressIntoTemp
     @OperandForcetoStack        % The file descriptor 
