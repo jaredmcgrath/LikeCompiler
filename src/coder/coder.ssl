@@ -767,12 +767,28 @@ Block:
             @Routine
             oFixForwardBranch   
             oFixPopAddress
-
+        | tAssignBegin:                 %% All cases below were copied from the Statements Rule
+            @AssignStmt
+        | tCallBegin:
+            @CallStmt
+        | tIfBegin:
+            @IfStmt
+        | tWhileBegin:
+            @WhileStmt
+        | tRepeatBegin:
+            @RepeatStmt
+        | tCaseBegin:
+            @CaseStmt
+        | tWriteBegin:
+            @WriteProc
+        | tReadBegin:
+            @ReadProc
+        | tTrapBegin:
+            @TrapStmt
         | *:
-            >
+            >   % End of statement/declaration list or empty statement/declaration
     ]}
-    @Statements;
-
+    %% Removed call to Statements rule as they are handled here now
 
 Routine:
     oEmitProcLabel(mProc)                       % pNN:
@@ -837,28 +853,7 @@ OperandNextArgument:
 
 Statements:
     % Previous passes have removed redundant begin-end markers.
-    {[
-        | tAssignBegin:
-            @AssignStmt
-        | tCallBegin:
-            @CallStmt
-        | tIfBegin:
-            @IfStmt
-        | tWhileBegin:
-            @WhileStmt
-        | tRepeatBegin:
-            @RepeatStmt
-        | tCaseBegin:
-            @CaseStmt
-        | tWriteBegin:
-            @WriteProc
-        | tReadBegin:
-            @ReadProc
-        | tTrapBegin:
-            @TrapStmt
-        | *:
-            >   % End of statement list or empty statement
-    ]};
+    @Block          %% Replaced body with a call to the block rule
 
 
 AssignStmt:
