@@ -787,7 +787,7 @@ Block:
             @TrapStmt
         | *:
             >   % End of statement/declaration list or empty statement/declaration
-    ]}
+    ]};
     %% Removed call to Statements rule as they are handled here now
 
 Routine:
@@ -853,7 +853,7 @@ OperandNextArgument:
 
 Statements:
     % Previous passes have removed redundant begin-end markers.
-    @Block          %% Replaced body with a call to the block rule
+    @Block;          %% Replaced body with a call to the block rule
 
 
 AssignStmt:
