@@ -23,16 +23,16 @@ __Note__: All line numbers referenced in the following table are referring their
 
 <tr>
 <td>2-declarations_statements_pos.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>Expected_Output_Filename</td>
+<td>Tests the behaviour when vars and vals are declared on the same line</td>
+<td>Declares vals and vars</td>
+<td>2-declarations_statements_pos.pt.eOutput</td>
 <td>Notes_For_Neg_Tests</td>
 </tr>
 
 <tr>
 <td>2-declarations_statements_neg.pt</td>
-<td>Purpose</td>
-<td>Function</td>
+<td>Tests the behaviour when vals are declared on the same line with two val keywords</td>
+<td>Declares two vals on the same line (keyword val written twice)</td>
 <td>Expected_Output_Filename</td>
 <td>Notes_For_Neg_Tests</td>
 </tr>
@@ -47,9 +47,9 @@ __Note__: All line numbers referenced in the following table are referring their
 
 <tr>
 <td>2-declarations_statements_condition_pos.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>Expected_Output_Filename</td>
+<td>Tests the behaviour when a variable is assigned the result of a boolean condition</td>
+<td>Declares and assigns variables to the result of boolean expression</td>
+<td>2-declarations_statements_condition_pos.pt.eOutput</td>
 <td>Notes_For_Neg_Tests</td>
 </tr>
 
