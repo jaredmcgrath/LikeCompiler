@@ -1,0 +1,7 @@
+using output;
+
+val myString = "";
+var badVal = myString / 1 : 1;
+
+put(badVal);
+putln;

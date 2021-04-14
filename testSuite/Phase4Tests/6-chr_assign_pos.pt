@@ -1,0 +1,7 @@
+using output;
+
+var myChr: like "string";
+myChr = chr(65);
+
+put(myChr);
+putln;

@@ -1,0 +1,35 @@
+using input, output;
+
+val str = "hello";
+val N = 5;
+var myIntArray[N]: like 1;
+var resultStr: like "foo";
+
+fun intArrayToStr(var intVals: like myIntArray) is
+  resultStr = "";
+  var i = 1;
+  repeat while i <= N
+    resultStr = resultStr | chr(myIntArray[i]);
+    i += 1;
+  end;
+  put("resultStr: ", resultStr);
+  putln;
+end;
+
+fun strToIntArray(string: like str) is
+  var i = 1;
+  var length = #string;
+  put("ord values: ");
+  repeat while i <= length
+    myIntArray[i] = ord(string / i : i);
+    put(myIntArray[i]);
+    i += 1;
+  end;
+  putln;
+end;
+
+put("original str: ", str);
+putln;
+
+strToIntArray(str);
+intArrayToStr(myIntArray);

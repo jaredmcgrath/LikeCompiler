@@ -1,0 +1,7 @@
+using output;
+
+val myStr = "this is my long string";
+var strLength: like 2;
+strLength = #myStr;
+put("the string '", myStr, "' has length ", strLength);
+putln;

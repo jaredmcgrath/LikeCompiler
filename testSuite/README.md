@@ -1,5 +1,9 @@
 # Like Compiler Test Suite
 
+## IMPORTANT
+
+The documentation below is not updated fully FOR PHASE 4 TEST SUITE ONLY. Please see `testDescriptionsPhase4.md` for a description of the changes and how to use/run the tests in that suite.
+
 This contains all our tests for each phase, both positive and negative cases, grouped by the phase in which they were written.
 
 Each phase directory has a corresponding test documentation file named `testDescriptionsPhaseN.md` (replace `N` with the appropriate phase number). E.g. for `Phase2Tests`, see `Phase2Tests/testDescriptionsPhase2.md`. This documentation provides a general overview arguing the completeness of the test suite. This is followed by a table of all tests, a brief description of what the test accomplishes (Purpose), and a brief description of how the test accomplishes this (Function).

@@ -1,0 +1,6 @@
+using output;
+
+var myStr: like "a string";
+myStr = "hello, world" / 1 : 5;
+put(myStr);
+putln;

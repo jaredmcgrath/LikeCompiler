@@ -58,11 +58,14 @@ fi
 if [ -z ${saved_out_dir+x} ]; then
   saved_out_dir="."
 fi
+saved_out_dir=$(realpath $saved_out_dir)
 
 # Determine path to lib/pt, if not supplied in args
 if [ -z ${pt_lib_path+x} ]; then
 	pt_lib_path="../../src/lib/pt"
 fi
+# either way, convert to absolute path
+pt_lib_path=$(realpath $pt_lib_path)
 
 # Make sure the output directory exists
 if [ ! -d "$out_dir" ]; then
@@ -75,55 +78,76 @@ if [ ! -d "$saved_out_dir" ]; then
 fi
 
 # Output file path
-out_file_path="$out_dir/$(basename $src_path).eOutput"
-# First, run ptc alone and send output to outfile (overwrite any existing)
-ptc -o4 -t4 -L $pt_lib_path $src_path > $out_file_path
-# Next, append the marker to seperate ptc output from ssltrace output
-echo '### END OF PTC OUTPUT ###' >> $out_file_path
-# Finally, run ssltrace
-ssltrace "ptc -o4 -t4 -L $pt_lib_path $src_path" $pt_lib_path/coder.def -t >> $out_file_path
-# out_asm_path="$out_dir/$(basename $src_path).s"
+base_src_path=$(basename $src_path)
+prog_filename="${base_src_path%.*}"
+eoutput_path=$(realpath "$out_dir/$base_src_path.eOutput")
+
+# do the compiling in out_dir
+# copy the source program
+cp $src_path "$out_dir/$base_src_path"
+cd $out_dir
 # Generate executable
-ptc -L $pt_lib_path $src_path
-# Generate the assembly output
-ptc -S -L $pt_lib_path $src_path
+ptc -L $pt_lib_path $base_src_path > /dev/null
+executable_src_path=$(realpath $prog_filename.out)
+# Run executable, send output to top of eOutput
+echo '### START OF PROGRAM OUTPUT ###' > $eoutput_path
+$executable_src_path >> $eoutput_path
+echo '### END OF PROGRAM OUTPUT ###' >> $eoutput_path
+
+# Next, generate assembly source and append to eOuptut
+ptc -S -L $pt_lib_path $base_src_path
+assembly_src_path=$(realpath $prog_filename.s)
+echo '### START OF ASSEMBLY SOURCE ###' >> $eoutput_path
+cat $assembly_src_path >> $eoutput_path
+echo '### END OF ASSEMBLY SOURCE ###' >> $eoutput_path
+
+# Finally, append ssltrace
+echo '### START OF SSLTRACE ###' >> $eoutput_path
+ssltrace "ptc -o4 -t4 -L $pt_lib_path $base_src_path" $pt_lib_path/coder.def -t >> $eoutput_path
+echo '### END OF SSLTRACE ###' >> $eoutput_path
+
+# Move back out a directory
+cd ..
 
 if [ $quiet = "no" ]; then
-  echo ""
-  echo "Output:"
-  cat $out_file_path
-  echo ""
+  read -p "View generated output? (y/[N]) " user_response
+  case "$user_response" in
+    y|Y ) echo; cat $eoutput_path; echo;;
+    * ) echo "  --> Won't show output"; echo;;
+  esac
 fi
 
 # See if user wants to save the eOutput, if not supplied in args
 if [ -z ${save_output_in_dir+x} ]; then
   save_output_in_dir="yes"
-  read -p "Save output in $src_path.eOutput + $src_path.s? ([Y]/n) " user_response
+  read -p "Save expected output + executable? ([Y]/n) " user_response
   case "$user_response" in
     n|N ) echo "  --> Won't save expected output"; echo ""; save_output_in_dir="no";;
     * ) echo "  --> Will save expected output"; echo "";;
   esac
 fi
 if [ $save_output_in_dir = "yes" ]; then
-  cp $out_file_path "$saved_out_dir/$(basename $src_path).eOutput"
-  # cp $out_asm_path "$saved_out_dir/$(basename $src_path).s"
+  cp $eoutput_path "$saved_out_dir/"
+  cp $executable_src_path "$saved_out_dir/"
 fi
 
 # See if user wants to compare generated output to eOutput, if not supplied in args
-output_diff_path="$out_dir/$(basename $src_path).eOutputDiff"
-# output_asm_diff_path "$out_dir/$(basename $src_path).sDiff"
+output_diff_path=$(realpath "$out_dir/$base_src_path.eOutputDiff")
 if [ -z ${compare_output+x} ]; then
-  compare_output="yes"
-  read -p "Compare output to existing $(basename $src_path).eOutput + $(basename $src_path).s? ([Y]/n) " user_response
-  case "$user_response" in
-    n|N ) echo "  --> Won't compare to expected output"; echo ""; compare_output="no";;
-    * ) echo "  --> Comparing expected output:"; echo "";;
-  esac
+  # Don't allow output comparison if no existing eOutput or we just made it
+  if [ ! -f "$saved_out_dir/$base_src_path.eOutput" ] || [ $save_output_in_dir = "yes" ]; then
+    compare_output="no"
+  else
+    read -p "Compare output to existing $base_src_path.eOutput? ([Y]/n) " user_response
+    case "$user_response" in
+      n|N ) echo "  --> Won't compare to expected output"; echo ""; compare_output="no";;
+      * ) echo "  --> Comparing expected output:"; echo ""; compare_output="yes";;
+    esac
+  fi
 fi
 
 if [ $compare_output = "yes" ]; then
-  diff -b "$saved_out_dir/$(basename $src_path).eOutput" $out_file_path > $output_diff_path
-  # diff -b "$saved_out_dir/$(basename $src_path).s" $out_asm_path > $output_asm_diff_path
+  diff -b "$saved_out_dir/$base_src_path.eOutput" $eoutput_path > $output_diff_path
 	echo $src_path
   # If output diff has non-zero size, must be a diff
   if [ -s $output_diff_path ]; then

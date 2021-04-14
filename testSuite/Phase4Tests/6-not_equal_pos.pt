@@ -1,0 +1,14 @@
+using output;
+
+fun stringEqTest(str1: like "foo", str2: like "bar") is
+  if str1 != str2 then
+    put("strings not equal");
+    putln;
+  else
+    put("strings equal");
+    putln;
+  end;
+end;
+
+stringEqTest("equal", "equal");
+stringEqTest("equal", "notequal");

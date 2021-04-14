@@ -1,0 +1,6 @@
+using output;
+
+var ordInt: like 1;
+ordInt = ord("String");
+put(ordInt);
+putln;

@@ -1,0 +1,5 @@
+using output;
+
+var myStr = "hello, world" / 1 : 5;
+put(myStr);
+putln;

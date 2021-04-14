@@ -1,0 +1,6 @@
+using output;
+
+var myStr: like "foo";
+myStr = "hello " || 3;
+put(myStr);
+putln;

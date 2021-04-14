@@ -1499,6 +1499,18 @@ OperandPushExpression:
             tStringData
             oEmitString                         % sNNN: .asciz  "SSSSS"
             oEmitNone(iText)                    %       .text
+%% ADDED: step 7 string operations
+        | tConcatenate:
+            @OperandConcatenatePop
+        | tRepeatString:
+            @OperandRepeatStringPop
+        | tSubstring:
+            @OperandSubstringPopPop
+        | tLength:
+            @OperandLength
+        | tStringEQ:
+            @OperandStringEqualPop
+%% END
         | tNegate:
             @OperandNegate
         | tAdd:
@@ -1551,6 +1563,278 @@ OperandPushExpression:
             >
     ]};
 
+%% ADDED: step 7 string operations
+OperandConcatenatePop:
+    % Expects two operands of type string on the operand stack. Emits code to
+    % push operands to stack, call the trConcatenate, place resultant string on
+    % operand stack,
+    % then clean up the arguments placed on the stack
+
+    %% Save temp registers
+    @SaveTempRegsToStack        %%       pushl %eax .. %edx
+
+    %% Now send the arguments
+    @OperandForceAddressIntoTemp
+    @OperandForcetoStack        % Push string operand 1 onto stack
+    @OperandPopAndFreeTemp
+
+    @OperandForceAddressIntoTemp
+    @OperandForcetoStack        % Push string operand 2 onto stack
+    @OperandPopAndFreeTemp
+
+    %% Call the concatenate string trap routine 
+    oOperandPushMode(mTrap)
+    oOperandSetValue(trConcatenate)
+    oOperandSetLength(word)
+    oEmitSingle(iCall)          %       call    pttrapNN
+    oOperandPop
+
+    %% Pop arguments
+    oOperandPushMode(mStackReg)
+    oOperandSetLength(word)
+    oOperandPushMode(mManifest)
+    oOperandSetLength(word)
+    oOperandSetValue(eight)     % ... %esp, 2arg*4
+    oEmitDouble(iAdd)           %       addl    $8, %esp
+    oOperandPop
+    oOperandPop
+
+    %% The result of our concat call is the address of a string in memory,
+    %% which will be located in the return register (%eax, aka mResultReg).
+    %% We need to move this to a scratch register (%esi, aka mScrathReg1) before
+    %% restoring temp registers
+    oOperandPushMode(mScratchReg1)
+    oOperandSetLength(word)
+    oOperandPushMode(mResultReg)
+    oOperandSetLength(word)                                                                           
+    oEmitDouble(iMov)           %       movl    %eax, %S1
+    oOperandPop %eax
+    %% at this point, operand stack has resultant string on it, stored in %esi
+
+    % Restore temp regs
+    @RestoreTempRegsFromStack   %       popl    %edx .. $eax
+
+    %% Move the resulting string from %esi to any available temp register
+    @OperandForceIntoTemp       %       movl %S1, %T
+    %% And mark it's length as string
+    oOperandSetLength(string);
+
+OperandSubstringPopPop:
+    % Expects 3 operands on operand stack: ... srcString, startIdx, endIdx
+    % Emits code to push operands to stack, call the trSubstring, place
+    % resultant string on operand stack,
+    % then clean up the arguments placed on the stack
+
+    %% Save temp registers
+    @SaveTempRegsToStack        %%       pushl %eax .. %edx
+
+    %% Now send the arguments
+    @OperandForceToStack        % Push substring end integer
+    oOperandPop                 %       ... srcString, startIdx
+
+    @OperandForceToStack        % Push substring start integer
+    oOperandPop                 %       ... srcString
+
+    @OperandForceAddressIntoTemp
+    @OperandForcetoStack        % Push string operand onto stack
+    @OperandPopAndFreeTemp      %       ...
+
+    %% Call the concatenate string trap routine 
+    oOperandPushMode(mTrap)
+    oOperandSetValue(trSubstring)
+    oOperandSetLength(word)
+    oEmitSingle(iCall)          %       call    pttrapNN
+    oOperandPop
+
+    %% Pop arguments
+    oOperandPushMode(mStackReg)
+    oOperandSetLength(word)
+    oOperandPushMode(mManifest)
+    oOperandSetLength(word)
+    oOperandSetValue(twelve)      % ... %esp, 3arg*4
+    oEmitDouble(iAdd)           %       addl    $12, %esp
+    oOperandPop
+    oOperandPop
+
+    %% The result of our substring call is the address of a string in memory,
+    %% which will be located in the return register (%eax, aka mResultReg).
+    %% We need to move this to a scratch register (%esi, aka mScrathReg1) before
+    %% restoring temp registers
+    oOperandPushMode(mScratchReg1)
+    oOperandSetLength(word)
+    oOperandPushMode(mResultReg)
+    oOperandSetLength(word)                                                                           
+    oEmitDouble(iMov)           %       movl    %eax, %S1
+    oOperandPop %eax
+    %% at this point, operand stack has resultant string on it, stored in %esi
+
+    % Restore temp regs
+    @RestoreTempRegsFromStack   %       popl    %edx .. $eax
+
+    %% Move the resulting string from %esi to any available temp register
+    @OperandForceIntoTemp       %       movl %S1, %T
+    %% And mark it's length as string
+    oOperandSetLength(string);
+
+OperandRepeatStringPop:
+    % Expects 2 operands on operand stack: ... srcString, repeatCount
+    % Emits code to push operands to stack, call the trRepeatString, place
+    % resultant string on operand stack,
+    % then clean up the arguments placed on the stack
+
+    %% Save temp registers
+    @SaveTempRegsToStack        %%       pushl %eax .. %edx
+
+    %% Now send the arguments
+    @OperandForceToStack        % Push repeatCount integer
+    oOperandPop                 %       ... srcString
+
+    @OperandForceAddressIntoTemp
+    @OperandForcetoStack        % Push string operand onto stack
+    @OperandPopAndFreeTemp      %       ...
+
+    %% Call the concatenate string trap routine 
+    oOperandPushMode(mTrap)
+    oOperandSetValue(trRepeatString)
+    oOperandSetLength(word)
+    oEmitSingle(iCall)          %       call    pttrapNN
+    oOperandPop
+
+    %% Pop arguments
+    oOperandPushMode(mStackReg)
+    oOperandSetLength(word)
+    oOperandPushMode(mManifest)
+    oOperandSetLength(word)
+    oOperandSetValue(eight)      % ... %esp, 2arg*4
+    oEmitDouble(iAdd)           %       addl    $8, %esp
+    oOperandPop
+    oOperandPop
+
+    %% The result of our repeat call is the address of a string in memory,
+    %% which will be located in the return register (%eax, aka mResultReg).
+    %% We need to move this to a scratch register (%esi, aka mScrathReg1) before
+    %% restoring temp registers
+    oOperandPushMode(mScratchReg1)
+    oOperandSetLength(word)
+    oOperandPushMode(mResultReg)
+    oOperandSetLength(word)                                                                           
+    oEmitDouble(iMov)           %       movl    %eax, %S1
+    oOperandPop %eax
+    %% at this point, operand stack has resultant string on it, stored in %esi
+
+    % Restore temp regs
+    @RestoreTempRegsFromStack   %       popl    %edx .. $eax
+
+    %% Move the resulting string from %esi to any available temp register
+    @OperandForceIntoTemp       %       movl %S1, %T
+    %% And mark it's length as string
+    oOperandSetLength(string);
+
+OperandLength:
+    % Expects 1 operand on operand stack: ... srcString
+    % Emits code to push operands to stack, call the trLength, place
+    % resultant integer on operand stack,
+    % then clean up the arguments placed on the stack
+
+    %% Save temp registers
+    @SaveTempRegsToStack        %%       pushl %eax .. %edx
+
+    @OperandForceAddressIntoTemp
+    @OperandForcetoStack        % Push string operand onto stack
+    @OperandPopAndFreeTemp      %       ...
+
+    %% Call the concatenate string trap routine 
+    oOperandPushMode(mTrap)
+    oOperandSetValue(trLength)
+    oOperandSetLength(word)
+    oEmitSingle(iCall)          %       call    pttrapNN
+    oOperandPop
+
+    %% Pop arguments
+    oOperandPushMode(mStackReg)
+    oOperandSetLength(word)
+    oOperandPushMode(mManifest)
+    oOperandSetLength(word)
+    oOperandSetValue(four)      % ... %esp, 1arg*4
+    oEmitDouble(iAdd)           %       addl    $4, %esp
+    oOperandPop
+    oOperandPop
+
+    %% The result of our repeat call is the address of a string in memory,
+    %% which will be located in the return register (%eax, aka mResultReg).
+    %% We need to move this to a scratch register (%esi, aka mScrathReg1) before
+    %% restoring temp registers
+    oOperandPushMode(mScratchReg1)
+    oOperandSetLength(word)
+    oOperandPushMode(mResultReg)
+    oOperandSetLength(word)                                                                           
+    oEmitDouble(iMov)           %       movl    %eax, %S1
+    oOperandPop %eax
+    %% at this point, operand stack has resultant integer on it, stored in %esi
+
+    % Restore temp regs
+    @RestoreTempRegsFromStack   %       popl    %edx .. $eax
+
+    %% Move the resulting int from %esi to any available temp register
+    @OperandForceIntoTemp       %       movl %S1, %T
+    %% And mark it's length as word (it's an integer)
+    oOperandSetLength(word);
+
+OperandStringEqualPop:
+    % Expects two operands of type string on the operand stack. Emits code to
+    % push operands to stack, call the trStringEqual, place result boolean on
+    % operand stack,
+    % then clean up the arguments placed on the stack
+
+    %% Save temp registers
+    @SaveTempRegsToStack        %%       pushl %eax .. %edx
+
+    %% Now send the arguments
+    @OperandForceAddressIntoTemp
+    @OperandForcetoStack        % Push string operand 1 onto stack
+    @OperandPopAndFreeTemp
+
+    @OperandForceAddressIntoTemp
+    @OperandForcetoStack        % Push string operand 2 onto stack
+    @OperandPopAndFreeTemp
+
+    %% Call the concatenate string trap routine 
+    oOperandPushMode(mTrap)
+    oOperandSetValue(trStringEqual)
+    oOperandSetLength(word)
+    oEmitSingle(iCall)          %       call    pttrapNN
+    oOperandPop
+
+    %% Pop arguments
+    oOperandPushMode(mStackReg)
+    oOperandSetLength(word)
+    oOperandPushMode(mManifest)
+    oOperandSetLength(word)
+    oOperandSetValue(eight)     % ... %esp, 2arg*4
+    oEmitDouble(iAdd)           %       addl    $8, %esp
+    oOperandPop
+    oOperandPop
+
+    %% The result of our strEq call is the address of a string in memory,
+    %% which will be located in the return register (%eax, aka mResultReg).
+    %% We need to move this to a scratch register (%esi, aka mScrathReg1) before
+    %% restoring temp registers
+    oOperandPushMode(mScratchReg1)
+    oOperandSetLength(word)
+    oOperandPushMode(mResultReg)
+    oOperandSetLength(word)                                                                           
+    oEmitDouble(iMov)           %       movl    %eax, %S1
+    oOperandPop %eax
+    %% at this point, operand stack has resultant boolean on it, stored in %esi
+
+    % Restore temp regs
+    @RestoreTempRegsFromStack   %       popl    %edx .. $eax
+
+    %% Move the resulting boolean from %esi to any available temp register
+    @OperandForceIntoTemp       %       movl %S1, %T
+    %% And mark it's length as word (it's boolean, but result is an int)
+    oOperandSetLength(word);
+%% END
 
 EmitStringAddress:
     % Get the address of a string into a temp reg.
@@ -2019,6 +2303,24 @@ OperandPushExpressionAssignPopPop:
         | tAssignBoolean:
             @OperandAssignBooleanPopPop
             >
+%% ADDED: step 7 string operations
+%% Following the template of the operations below, we could add a choice to
+%% handle the assign T-code of the proper type if it immediately follows the
+%% operation. However, we're only implementing the basic rules 
+%% (e.g. OperandConcatenatePopPop), so we're not really gaining any runtime
+%% optimization. This means this loop will go around once more to reach the
+%% assignment T-code choice, which is fine.
+        | tConcatenate:
+            @OperandConcatenatePop
+        | tRepeatString:
+            @OperandRepeatStringPop
+        | tSubstring:
+            @OperandSubstringPopPop
+        | tLength:
+            @OperandLength
+        | tStringEQ:
+            @OperandStringEqualPop
+%% END
         | tNegate:
             [
                 | tAssignInteger:
@@ -2582,30 +2884,106 @@ OperandEmitDividePopPop:
     % finally, the result goes to a free temporary
     @OperandForceIntoTemp;                      % ... %T
 
-
+%% CHANGED: step 7, we implement chr() differently
+%% DELETED
+% OperandChr:
+%     % Assume operand's value is in range
+%     % Force integer (word) value to a register
+%     @OperandForceIntoTemp       
+%     % Treat the register as byte, to get the low order byte 
+%     oOperandSetLength(byte);    
+%% ADDED
 OperandChr:
-    % Assume operand's value is in range
-    % Force integer (word) value to a register
-    @OperandForceIntoTemp       
-    % Treat the register as byte, to get the low order byte 
-    oOperandSetLength(byte);    
+    % Expects 1 operand on operand stack: ... integer
+    % Emits code to push operand to stack, call the trChrString, place
+    % resultant string on operand stack,
+    % then clean up the arguments placed on the stack
 
+    %% Save temp registers
+    @SaveTempRegsToStack        %%       pushl %eax .. %edx
 
-OperandOrd:
-    % Byte operand is on top of operand stack
-    % Fill a register with integer zero
+    @OperandForcetoStack        % Push integer onto stack
+    oOperandPop                 % ...
+
+    %% Call the concatenate string trap routine 
+    oOperandPushMode(mTrap)
+    oOperandSetValue(trChrString)
+    oOperandSetLength(word)
+    oEmitSingle(iCall)          %       call    pttrapNN
+    oOperandPop
+
+    %% Pop arguments
+    oOperandPushMode(mStackReg)
+    oOperandSetLength(word)
     oOperandPushMode(mManifest)
+    oOperandSetLength(word)
+    oOperandSetValue(four)      % ... %esp, 1arg*4
+    oEmitDouble(iAdd)           %       addl    $4, %esp
+    oOperandPop
+    oOperandPop
+
+    %% The result of our chr call is the address of a string in memory,
+    %% which will be located in the return register (%eax, aka mResultReg).
+    %% We need to move this to a scratch register (%esi, aka mScrathReg1) before
+    %% restoring temp registers
+    oOperandPushMode(mScratchReg1)
+    oOperandSetLength(word)
+    oOperandPushMode(mResultReg)
+    oOperandSetLength(word)                                                                           
+    oEmitDouble(iMov)           %       movl    %eax, %S1
+    oOperandPop %eax
+    %% at this point, operand stack has resultant string on it, stored in %esi
+
+    % Restore temp regs
+    @RestoreTempRegsFromStack   %       popl    %edx .. $eax
+
+    %% Move the resulting string from %esi to any available temp register
+    @OperandForceIntoTemp       %       movl %S1, %T
+    %% And mark it's length as string
+    oOperandSetLength(string);
+%% END
+
+%% CHANGED: step 7, we implement ord() differently
+%% DELETED
+% OperandOrd:
+%     % Byte operand is on top of operand stack
+%     % Fill a register with integer zero
+%     oOperandPushMode(mManifest)
+%     oOperandSetValue(zero)
+%     oOperandSetLength(word)
+%     @OperandForceIntoTemp       %       movl    $0, %T
+%     % Move the character value into the low order byte
+%     oOperandSetLength(byte)
+%     oOperandSwap
+%     oEmitDouble(iMov)           %       movb    y, %T
+%     @OperandPopAndFreeTemp
+%     % Treat the register as word, to get the character's integer value
+%     oOperandSetLength(word);
+%% ADDED
+OperandOrd:
+    % String operand is on top of operand stack: ... y
+
+    % First, manipulate the string operand in a register so we select the first char
+    @OperandForceAddressIntoTemp    %       lea  y, %T1
+    oOperandSetMode(mTempIndirect)  % Mark the string address in our temp reg as indirect access
+    oOperandSetLength(byte)         % Set length of our indirect item to one byte (i.e. just grab first char from string)
+    @OperandForceIntoTemp           %       movb (%T1), %T1
+    % At this point, %T1 low-order byte contains the char value. However, the rest of %T1 contains other data
+    % To fix this, we'll push literal 0 into another temp
+    oOperandPushMode(mManifest)     %       ... %T1, $0
     oOperandSetValue(zero)
     oOperandSetLength(word)
-    @OperandForceIntoTemp       %       movl    $0, %T
-    % Move the character value into the low order byte
-    oOperandSetLength(byte)
-    oOperandSwap
-    oEmitDouble(iMov)           %       movb    y, %T
-    @OperandPopAndFreeTemp
-    % Treat the register as word, to get the character's integer value
-    oOperandSetLength(word);
+    @OperandForceIntoTemp           %       movl    $0, %T2
+                                    %       ... %T1, %T2
+    % Then we move the character value in the low order byte of %T1 into the low order byte of %T2
+    oOperandSetLength(byte)         % Have to set size of %T2 to a byte so that iMov emits movb
+    oOperandSwap                    %       ... %T2, %T1
+    oEmitDouble(iMov)               %       movb    %T1, %T2
+    @OperandPopAndFreeTemp          %       ... %T2
 
+    %% And mark length of %T2 as word (it's an integer we want to return)
+    oOperandSetLength(word);
+%% END
 
 OperandEolnFunction:
     % First save the temp registers, since we are called in an

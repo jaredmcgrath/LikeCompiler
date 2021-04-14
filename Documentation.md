@@ -672,3 +672,8 @@ The following changes were made in the _Block_ rule of `coder.ssl`.
 
 A case alternative was added to handle _tInitialValue_. When this is encountered, we call the _OperandPushExpression_ rule to encode the expression of the initial value, then expect _tInitEnd_ followed by _tLiteralAddress_. This is the address of the variable we will store the expression in. This is pushed onto the operand stack. The top two operands are swapped (so that expression is on top, followed by variable), then the appropriate length and _OperandAssignXPopPop_ rule is called depending on the type of the T-code store instruction (e.g. _tStoreInteger_, _tStoreBoolean_).
 
+## String Operations
+
+The following changes were made in `coder.ssl`.
+
+In the _OperandPushExpression_ and _OperandPushExpressionAssignPopPop_ rules

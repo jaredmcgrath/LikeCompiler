@@ -1,5 +1,31 @@
 # Test Descriptions
 
+## Modifications to Testing for Phase 4
+
+We now have a functioning Like compiler. To enhance our test suite, we have revised the format of our expected output (`*.eOutput`) files to take advantage of this and demonstrate it's functionality.
+
+All expected output files now have the following format:
+
+```
+### START OF PROGRAM OUTPUT ###
+<stdout from execution of compiled program (./program_name.out)>
+### END OF PROGRAM OUTPUT ###
+### START OF ASSEMBLY SOURCE ###
+<x86 assembly source of compiled program (program_name.s)>
+### END OF ASSEMBLY SOURCE ###
+### START OF SSLTRACE ###
+<ssltrace output>
+### END OF SSLTRACE ###
+```
+
+This format allows us to verify:
+
+- the computed output of a test program
+- the validity of the generated x86 assembly, and
+- the trace of the S/SL program during the compilation process, if needed
+
+We have also left the compiled executable here alongside each of the expected output files. As usual, both of these can be generated with the `test-single.sh` script, supplying your own PT lib path or using ours (default), from which the outputs can be compared to our expected output.
+
 ## Previous Phase Tests
 
 ## Justification for Completeness
@@ -7,6 +33,8 @@
 All language features that did not require changes in Phase 4 (boolean + integer constants and variables, if-elseif-else, expressions, I/O, null program, repeat + repeat while loops, routines and routines with parameters) were tested with simple positive test cases to ensure the correctness of the interface with the semantic phase.
 
 TODO: Write step 3 tests after step 2 (pos + neg) and then write justification
+
+Testing for string operations is ensured through 100% code coverage in the test suite. All lines of code that were added to implement the various string operations have one or more tests dedicated to ensuring proper functionality of code generated. See the individual test descriptions (those prefixed with `6-`) for details of which lines in `coder.ssl` the test program covers.
 
 ## Test Description Table
 

@@ -1,0 +1,5 @@
+using output;
+
+var letter = chr(65);
+put(letter);
+putln;

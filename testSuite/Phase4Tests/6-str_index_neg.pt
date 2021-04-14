@@ -1,0 +1,6 @@
+using output;
+
+var myChar = "hello world" / 5 : 1;
+
+put(myChar);
+putln;
