@@ -672,6 +672,14 @@ The following changes were made in the _Block_ rule of `coder.ssl`.
 
 A case alternative was added to handle _tInitialValue_. When this is encountered, we call the _OperandPushExpression_ rule to encode the expression of the initial value, then expect _tInitEnd_ followed by _tLiteralAddress_. This is the address of the variable we will store the expression in. This is pushed onto the operand stack. The top two operands are swapped (so that expression is on top, followed by variable), then the appropriate length and _OperandAssignXPopPop_ rule is called depending on the type of the T-code store instruction (e.g. _tStoreInteger_, _tStoreBoolean_).
 
+## Choose Statement Else Clauses
+
+The following changes were made in the _EmitDefaultCaseAbort_ rule of `coder.ssl`.
+
+A choice block was added with two options:
+* If a _tCaseElse_ was the next input token, the _Statements_ rule is called to handle its statements. The next input token after handling its statements would be _tCaseElseEnd_ to terminate the else clause. This was accepted, followed by emitting a case merge branch to continue execution of the program following the choice block by calling _oEmitCaseMergeBranch_.
+* The default case is entered when there is no else statement present. This indicates that no case label matched the selector and a call to _trCaseAbort_ is made. This is done by pushing the mode to save the line number (_mLineNum_). The length is set to a word length and the line number is forced onto the stack via _OperandForceToStack_. The operand is popped from the stack as it is now saved on the stack (_oOperandPop_) and the trap mode (_mTrap_) is pushed onto the stack, followed by its value set as the _trCaseAbort_ trap instruction. Then, it is called via _oEmitSingle(iCall)_. Finally, the trap instruction is popped from the stack as it has now been called and isn't needed. This trap call will no longer execute the remainder of the program and will not return as this is the desired functionality in Like. 
+
 ## String Operations
 
 The following changes were made in `coder.ssl`.
