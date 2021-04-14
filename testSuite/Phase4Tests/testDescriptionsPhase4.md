@@ -456,11 +456,259 @@ __Note__: All line numbers referenced in the following table are referring their
 </tr>
 
 <tr>
-<td>Jared_1</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>Expected_Output_Filename</td>
-<td>Notes_For_Neg_Tests</td>
+<td>1-constants_pos.pt</td>
+<td>Test functionality of constant values</td>
+<td>Makes some constants and prints them</td>
+<td>1-constants_pos.pt.eOutput</td>
+<td></td>
+</tr>
+
+<tr>
+<td>1-expressions_pos.pt</td>
+<td>Test functionality of expressions evaluations</td>
+<td>Makes some variables, assigns expressions to them, then prints them</td>
+<td>1-expressions_pos.pt.eOutput</td>
+<td></td>
+</tr>
+
+<tr>
+<td>1-if_pos.pt</td>
+<td>Test functionality of if-else if-else statements</td>
+<td>Assign value to a variable based on if blocks, then prints result</td>
+<td>1-if_pos.pt.eOutput</td>
+<td></td>
+</tr>
+
+<tr>
+<td>1-io_pos.pt</td>
+<td>Test functionality of input (get, getln) and output (put, putln)</td>
+<td>Prompts user for input, gets input, computes stuff, outputs result</td>
+<td>1-io_pos.pt.eOutput</td>
+<td></td>
+</tr>
+
+<tr>
+<td>1-null_program_pos.pt</td>
+<td>Test functionality of null program</td>
+<td>Just a null program</td>
+<td>1-null_program_pos.pt.eOutput</td>
+<td></td>
+</tr>
+
+<tr>
+<td>1-repeat_pos.pt</td>
+<td>Test functionality of a repeat ... while loop</td>
+<td>A repeat whiile loop that prints a loop variable</td>
+<td>1-repeat_pos.pt.eOutput</td>
+<td></td>
+</tr>
+
+<tr>
+<td>1-routines_params_pos.pt</td>
+<td>Test functionality of a routine with paramaters</td>
+<td>Defines a procedure that takes some paramaters and prints them. Calls said procedure</td>
+<td>1-routines_params_pos.pt.eOutput</td>
+<td></td>
+</tr>
+
+<tr>
+<td>1-routines_pos.pt</td>
+<td>Test functionality of a basic procedure</td>
+<td>Defines a procedure that prints a value. Calls said procedure</td>
+<td>1-routines_pos.pt.eOutput</td>
+<td></td>
+</tr>
+
+<tr>
+<td>1-variables_pos.pt</td>
+<td>Test functionality of variables without initial values</td>
+<td>Defines variables using like clause</td>
+<td>1-variables_pos.pt.eOutput</td>
+<td></td>
+</tr>
+
+<tr>
+<td>1-while_pos.pt</td>
+<td>Test functionality repeat while ... loop</td>
+<td>Runs a repeat while ... loop that prints a loop variable</td>
+<td>1-while_pos.pt.eOutput</td>
+<td></td>
+</tr>
+
+<tr>
+<td>3-init_val_bool_pos.pt</td>
+<td>Test initial value of boolean (doesn't work, bug in PT Pascal)</td>
+<td>Can't actually test initial value, so defines var then assigns bool to it</td>
+<td>3-init_val_bool_pos.pt.eOutput</td>
+<td></td>
+</tr>
+
+<tr>
+<td>3-init_val_int_pos.pt</td>
+<td>Test initial value of integer</td>
+<td>Define an variable with an initial value of an integer, prints it</td>
+<td>3-init_val_int_pos.pt.eOutput</td>
+<td></td>
+</tr>
+
+<tr>
+<td>3-init_val_string_pos.pt</td>
+<td>Test initial value of string</td>
+<td>Define an variable with an initial value of a string, prints it</td>
+<td>3-init_val_string_pos.pt.eOutput</td>
+<td></td>
+</tr>
+
+<tr>
+<td>6-all_ops.pt</td>
+<td>Test all string operations in a larger program</td>
+<td>Defines some functions to manipulate strings and their ord values</td>
+<td>6-all_ops.pt.eOutput</td>
+<td></td>
+</tr>
+
+<tr>
+<td>6-chr_assign_pos.pt</td>
+<td>Test chr() under the OperandPushExpressionAssignPopPop rule</td>
+<td>Defines var like 1, then assigns a chr of a string to it, then prints result</td>
+<td>6-chr_assign_pos.pt.eOutput</td>
+<td></td>
+</tr>
+
+<tr>
+<td>6-chr_pos.pt</td>
+<td>Test chr() under the OperandPushExpression rule</td>
+<td>Defines var with initial value of chr, then prints result</td>
+<td>6-chr_pos.pt.eOutput</td>
+<td></td>
+</tr>
+
+<tr>
+<td>6-concat_assign_pos.pt</td>
+<td>Test string concat under the OperandPushExpressionAssignPopPop rule</td>
+<td>Defines var like string, then assigns concat of strings to it, then prints result</td>
+<td>6-concat_assign_pos.pt.eOutput</td>
+<td></td>
+</tr>
+
+<tr>
+<td>6-concat_pos.pt</td>
+<td>Test string concat under the OperandPushExpression rule</td>
+<td>Defines var with initial value of string concat, then prints result</td>
+<td>6-concat_pos.pt.eOutput</td>
+<td></td>
+</tr>
+
+<tr>
+<td>6-equal_assign_pos.pt</td>
+<td>Test string equality under the OperandPushExpressionAssignPopPop rule</td>
+<td>Defines function that assigns string equality result to it, then if statement prints result</td>
+<td>6-equal_assign_pos.pt.eOutput</td>
+<td></td>
+</tr>
+
+<tr>
+<td>6-equal_pos.pt</td>
+<td>Test string equality under the OperandPushExpression rule</td>
+<td>Defines function that checks string equality in if statement, prints result</td>
+<td>6-equal_pos.pt.eOutput</td>
+<td></td>
+</tr>
+
+<tr>
+<td>6-length_assign_pos.pt</td>
+<td>Test string length under the OperandPushExpressionAssignPopPop rule</td>
+<td>Defines var like int, assigns string length to var, prints var</td>
+<td>6-length_assign_pos.pt.eOutput</td>
+<td></td>
+</tr>
+
+<tr>
+<td>6-length_pos.pt</td>
+<td>Test string length under the OperandPushExpression rule</td>
+<td>Defines var with initial value of string length, prints var</td>
+<td>6-length_pos.pt.eOutput</td>
+<td></td>
+</tr>
+
+<tr>
+<td>6-not_equal_assign_pos.pt</td>
+<td>Test string inequality under the OperandPushExpressionAssignPopPop rule</td>
+<td>Defines function that assigns string inequality result to it, then if statement prints result</td>
+<td>6-not_equal_assign_pos.pt.eOutput</td>
+<td></td>
+</tr>
+
+<tr>
+<td>6-not_equal_pos.pt</td>
+<td>Test string inequality under the OperandPushExpression rule</td>
+<td>Defines function that checks string inequality in if statement, prints result</td>
+<td>6-not_equal_pos.pt.eOutput</td>
+<td></td>
+</tr>
+
+<tr>
+<td>6-ord_assign_pos.pt</td>
+<td>Test ord() under the OperandPushExpressionAssignPopPop rule</td>
+<td>Defines var like string, then assigns ord of an integer to it, then prints result</td>
+<td>6-ord_assign_pos.pt.eOutput</td>
+<td></td>
+</tr>
+
+<tr>
+<td>6-ord_pos.pt</td>
+<td>Test ord() under the OperandPushExpression rule</td>
+<td>Defines var with initial value of ord, then prints result</td>
+<td>6-ord_pos.pt.eOutput</td>
+<td></td>
+</tr>
+
+<tr>
+<td>6-repeat_assign_pos.pt</td>
+<td>Test string repeat under the OperandPushExpressionAssignPopPop rule</td>
+<td>Defines var like string, assigns string repeat to var, prints var</td>
+<td>6-repeat_assign_pos.pt.eOutput</td>
+<td></td>
+</tr>
+
+<tr>
+<td>6-repeat_pos.pt</td>
+<td>Test string repeat under the OperandPushExpression rule</td>
+<td>Defines var with initial value of string repeat, prints var</td>
+<td>6-repeat_pos.pt.eOutput</td>
+<td></td>
+</tr>
+
+<tr>
+<td>6-substring_assign_pos.pt</td>
+<td>Test substring under the OperandPushExpressionAssignPopPop rule</td>
+<td>Defines var like string, assigns substring to var, prints var</td>
+<td>6-substring_assign_pos.pt.eOutput</td>
+<td></td>
+</tr>
+
+<tr>
+<td>6-substring_pos.pt</td>
+<td>Test substring under the OperandPushExpression rule</td>
+<td>Defines var with initial value of substring, prints var</td>
+<td>6-substring_pos.pt.eOutput</td>
+<td></td>
+</tr>
+
+<tr>
+<td>6-str_index_neg.pt</td>
+<td>Test behaviour of substring with startIdx > endIdx</td>
+<td>Defines substring var with startIdx > endIdx, prints result</td>
+<td>6-str_index_neg.pt.eOutput</td>
+<td>Generates code just fine, but behaviour is undefined</td>
+</tr>
+
+<tr>
+<td>6-substring_neg.pt</td>
+<td>Test substring behaviour with out-of-bounds indexes</td>
+<td>Defines empty string, then take substring at index 1 to 1</td>
+<td>6-substring_neg.pt.eOutput</td>
+<td>Generates code jsut fine, but behaviour is undefined</td>
 </tr>
 
 <tr>
