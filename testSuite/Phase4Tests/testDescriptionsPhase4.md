@@ -6,6 +6,8 @@
 
 All language features that did not require changes in Phase 4 (boolean + integer constants and variables, if-elseif-else, expressions, I/O, null program, repeat + repeat while loops, routines and routines with parameters) were tested with simple positive test cases to ensure the correctness of the interface with the semantic phase.
 
+All types of string assignment, including variables, constants and arrays were tested using simple positive tests, with their outputs being printed. As well string input was also tested. Incorret array bounds were tried and behaved as expected.
+
 TODO: Write step 3 tests after step 2 (pos + neg) and then write justification
 
 ## Test Description Table
@@ -622,43 +624,50 @@ __Note__: All line numbers referenced in the following table are referring their
 </tr>
 
 <tr>
-<td>Travis_1</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>Expected_Output_Filename</td>
-<td>Notes_For_Neg_Tests</td>
+<td>5-stringsArr_negative</td>
+<td>Testing improper subscripting of arrays</td>
+<td>Assigns a string value to an out of bounds index</td>
+<td>5-stringsArr_negative.pt.eOutput</td>
+<td>Error occurs on line 5, out of bounds message can be seen in eOutput</td>
 </tr>
 
 <tr>
-<td>Travis_2</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>Expected_Output_Filename</td>
-<td>Notes_For_Neg_Tests</td>
+<td>5-stringsAssign_positive.pt</td>
+<td>Testing string assignment </td>
+<td>Assigns a string to constant and variable  and then assigns from a const to var</td>
+<td>5-stringsAssign_positive.pt.eOutput</td>
+<td>string
+otherstring
+string</td>
 </tr>
 
 <tr>
-<td>Travis_3</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>Expected_Output_Filename</td>
-<td>Notes_For_Neg_Tests</td>
+<td>5-stringsArr_positive.pt</td>
+<td>Tests the string implementation of arrays</td>
+<td>Assigns to arrays different string values</td>
+<td>5-stringsArr_positive.pt.eOutput</td>
+<td>testing
+testing2
+testing3
+testing4000000000000 craziness</td>
 </tr>
 
 <tr>
-<td>Travis_4</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>Expected_Output_Filename</td>
-<td>Notes_For_Neg_Tests</td>
+<td>5-stringsArrAssign_positive.pt</td>
+<td>Test assignment from one string array to another</td>
+<td>Assigns from one string array to another</td>
+<td>5-stringsArrAssign_positive.pt.eOutput</td>
+<td>strteststr</td>
 </tr>
 
 <tr>
-<td>Travis_5</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>Expected_Output_Filename</td>
-<td>Notes_For_Neg_Tests</td>
+<td>5-stringsInputOutput_positive.pt</td>
+<td>Test input and output for strings</td>
+<td>Has user input a command, and then echoes it back to them</td>
+<td>5-stringsInputOutput_positive.pt.eOutput</td>
+<td>inputString
+echoing:
+inputString</td>
 </tr>
 
 <tr>

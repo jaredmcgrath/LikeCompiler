@@ -1886,7 +1886,7 @@ OperandCheckedSubscriptNonManifestCharPop:
     oOperandSwapLeftAndDest                     % ... arraydesc, %T, lower
     @OperandSubtractPop                         %       subl lower, %T
 
-    %% Added -T
+    %% Added -T WIP
     %% Scale subscript by string size              % ... arraydesc, %T
     oOperandPushMode(mManifest)
     oOperandSetLength(string)                   %% Not sure about this -T

@@ -1,0 +1,12 @@
+using input, output;
+
+var str : like "stringy!";
+val echo = "echoing:";
+
+get (str);
+getln;
+
+put(echo);
+putln;
+put(str);
+putln;
