@@ -4,4 +4,6 @@ pkg myPackage1 is
   public val myVal = 1, myVal2 = 2;
 end;
 
-var myVar = myVal;
+var myVar = myVal2;
+put(myVar);
+putln;
