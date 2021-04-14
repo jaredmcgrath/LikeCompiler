@@ -288,11 +288,11 @@ __Note__: All line numbers referenced in the following table are referring their
 </tr>
 
 <tr>
-<td>Nicole_5</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>Expected_Output_Filename</td>
-<td>Notes_For_Neg_Tests</td>
+<td>4-choose-string_neg.pt</td>
+<td>Ensure integer constant expr required in case selector</td>
+<td>Runs choose block with constant strings as selectors</td>
+<td>4-choose-string_neg.pt.eOutput</td>
+<td>line 6: integer type expression req'd, line 7,10: integer constant required</td>
 </tr>
 
 <tr>
