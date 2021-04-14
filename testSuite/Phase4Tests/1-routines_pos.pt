@@ -1,7 +1,10 @@
 using output;
 
 fun F is
-  var T: like 1;
+  var T: like "hi";
+  T = "val inside function";
+  put(T);
+  putln;
 end;
 
 F;

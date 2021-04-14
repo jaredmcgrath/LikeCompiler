@@ -1828,7 +1828,7 @@ OperandStringEqualPop:
     oOperandPop
     oOperandPop
 
-    %% The result of our strEq call is the address of a string in memory,
+    %% The result of our strEq call is a boolean (which is an int in c),
     %% which will be located in the return register (%eax, aka mResultReg).
     %% We need to move this to a scratch register (%esi, aka mScrathReg1) before
     %% restoring temp registers
@@ -1844,9 +1844,9 @@ OperandStringEqualPop:
     @RestoreTempRegsFromStack   %       popl    %edx .. $eax
 
     %% Move the resulting boolean from %esi to any available temp register
-    @OperandForceIntoTemp       %       movl %S1, %T
-    %% And mark it's length as word (it's boolean, but result is an int)
-    oOperandSetLength(word);
+    @OperandForceIntoTemp       %       movb %S1, %T
+    %% And mark it's length as byte (it's boolean)
+    oOperandSetLength(byte);
 %% END
 
 EmitStringAddress:

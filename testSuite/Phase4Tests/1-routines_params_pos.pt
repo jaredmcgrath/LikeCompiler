@@ -2,6 +2,8 @@ using output;
 
 fun F (X : like 7, Y : like 14) is
   var T: like 1;
+  put(X, Y);
+  putln;
 end;
 
 val myVal = 3;

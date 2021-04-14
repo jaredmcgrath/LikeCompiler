@@ -9,7 +9,7 @@ n:    .long    0
 ptmain:    pushl   %ebp
         movl    %esp, %ebp    
     movl    $2,u+0
-    movl    $9,n
+    incl    n
     call    pttrap0
     leave    
     ret    

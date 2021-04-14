@@ -5,3 +5,13 @@ var myBool: like true;
 
 myInt = 3 * 10 - 22;
 myBool = myInt <= 21;
+
+var myBoolStr: like "foo";
+if myBool then
+  myBoolStr = "myBool = true";
+else
+  myBoolStr = "myBool = false";
+end;
+
+put(myInt, myBoolStr);
+putln;

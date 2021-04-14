@@ -4,3 +4,21 @@ val int1 = 42;
 val int2 = -2148;
 val bool1 = true;
 val bool2 = false;
+val str1 = "hello world!";
+
+var bool1strVal: like "foo";
+var bool2strVal: like "foo";
+
+if bool1 then
+  bool1strVal = "bool1 = true";
+else
+  bool1strVal = "bool1 = false";
+end;
+if bool2 then
+  bool2strVal = "bool2 = true";
+else
+  bool2strVal = "bool2 = false";
+end;
+
+put(int1, int2, bool1strVal, bool2strVal, str1);
+putln;

@@ -1,13 +1,15 @@
 using input, output;
 
-val myVal = 1;
-
 var width : like 5; 
 var height : like 5;
-put (myVal);
+put ("enter a width: ");
 putln;
-get (width, height);
+get (width);
+getln;
+put ("enter a height: ");
+putln;
+get (height);
 getln;
 
-put(width, height);
+put("area = ", width * height);
 putln;

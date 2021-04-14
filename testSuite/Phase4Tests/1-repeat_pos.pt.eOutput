@@ -1,4 +1,5 @@
 ### START OF PROGRAM OUTPUT ###
+         2         4         6         8        10
 ### END OF PROGRAM OUTPUT ###
 ### START OF ASSEMBLY SOURCE ###
     .data    
@@ -14,11 +15,20 @@ ptmain:    pushl   %ebp
 b1:    movl    $5,n
     movl    $2,%eax
     addl    %eax,u+4
+    incl    n
+    pushl    u+0
+    pushl    u+4
+    pushl    $10
+    call    pttrap8
+    addl    $12,%esp
     movl    $10,%eax
     cmpl    u+4,%eax
     jle    f2
     jmp    b1
-f2:    movl    $7,n
+f2:    movl    $8,n
+    pushl    u+0
+    call    pttrap6
+    addl    $4,%esp
     call    pttrap0
     leave    
     ret    
@@ -284,6 +294,145 @@ f2:    movl    $7,n
      ;AssignStmt
      ] or >
      }
+     [ (tWriteBegin)
+     | tWriteBegin:
+     @WriteProc
+      oEmitSourceCoordinate
+      [ (tTrapBegin)
+      | *:
+      @WriteParameter
+       ?tTrapBegin (tTrapBegin)
+       ?tLiteralAddress (tLiteralAddress)
+       @OperandPushVariable
+        oOperandPushVariable
+        [ (tVarParm)
+        | *:
+        [ (tVarParm)
+        | *:
+        [ (tVarParm)
+        | *:
+        >>
+       ;OperandPushVariable
+       @OperandForceToStack
+        [ oOperandChooseLength (two)
+        | two:
+        ] or >
+        oEmitSingle(iPush)
+        @OperandPopAndFreeTemp
+         [ oOperandChooseMode (mStatic)
+         | *:
+         oOperandPop
+         >>
+        ;OperandPopAndFreeTemp
+        oOperandPushMode(mStack)
+        >>
+       ;OperandForceToStack
+       @OperandPopAndFreeTemp
+        [ oOperandChooseMode (mStack)
+        | *:
+        oOperandPop
+        >>
+       ;OperandPopAndFreeTemp
+       ?tVarParm (tVarParm)
+       ?tParmEnd (tParmEnd)
+       @OperandPushExpression
+        [ (tLiteralAddress)
+        | tLiteralAddress:
+        @OperandPushVariable
+         oOperandPushVariable
+         [ (tFetchInteger)
+         | *:
+         [ (tFetchInteger)
+         | *:
+         [ (tFetchInteger)
+         | tFetchInteger:
+         ] or >
+         >>
+        ;OperandPushVariable
+        ] or >
+        }
+        [ (tParmEnd)
+        | *:
+        ] or >
+        >>
+       ;OperandPushExpression
+       [ (tParmEnd)
+       | *:
+       @OperandForceToStack
+        [ oOperandChooseLength (two)
+        | two:
+        ] or >
+        oEmitSingle(iPush)
+        @OperandPopAndFreeTemp
+         [ oOperandChooseMode (mStatic)
+         | *:
+         oOperandPop
+         >>
+        ;OperandPopAndFreeTemp
+        oOperandPushMode(mStack)
+        >>
+       ;OperandForceToStack
+       @OperandPopAndFreeTemp
+        [ oOperandChooseMode (mStack)
+        | *:
+        oOperandPop
+        >>
+       ;OperandPopAndFreeTemp
+       ?tParmEnd (tParmEnd)
+       @OperandPushExpression
+        [ (tLiteralInteger)
+        | tLiteralInteger:
+        oOperandPushInteger
+        ] or >
+        }
+        [ (tParmEnd)
+        | *:
+        ] or >
+        >>
+       ;OperandPushExpression
+       @OperandForceToStack
+        [ oOperandChooseLength (two)
+        | two:
+        ] or >
+        oEmitSingle(iPush)
+        @OperandPopAndFreeTemp
+         [ oOperandChooseMode (mManifest)
+         | *:
+         oOperandPop
+         >>
+        ;OperandPopAndFreeTemp
+        oOperandPushMode(mStack)
+        >>
+       ;OperandForceToStack
+       @OperandPopAndFreeTemp
+        [ oOperandChooseMode (mStack)
+        | *:
+        oOperandPop
+        >>
+       ;OperandPopAndFreeTemp
+       ?tParmEnd (tParmEnd)
+       ?tTrap (tTrap)
+       oOperandPushTrap
+       oEmitSingle(iCall)
+       oOperandPop
+       oOperandPushMode(mStackReg)
+       oOperandSetLength(two)
+       oOperandPushMode(mManifest)
+       oOperandSetLength(two)
+       oOperandSetValue(twelve)
+       oEmitDouble(iAdd)
+       oOperandPop
+       oOperandPop
+       >>
+      ;WriteParameter
+      }
+      [ (tWriteEnd)
+      | tWriteEnd:
+      ] or >
+      >>
+     ;WriteProc
+     ] or >
+     }
      [ (tRepeatControl)
      | *:
      ] or >
@@ -447,6 +596,65 @@ f2:    movl    $7,n
    oOperandPop
    >>
   ;RepeatStmt
+  ] or >
+  }
+  [ (tTrapBegin)
+  | tTrapBegin:
+  @TrapStmt
+   oEmitSourceCoordinate
+   [ (tLiteralAddress)
+   | tLiteralAddress:
+   @OperandPushVariable
+    oOperandPushVariable
+    [ (tVarParm)
+    | *:
+    [ (tVarParm)
+    | *:
+    [ (tVarParm)
+    | *:
+    >>
+   ;OperandPushVariable
+   oOperandPushCopy
+   @OperandForceToStack
+    [ oOperandChooseLength (two)
+    | two:
+    ] or >
+    oEmitSingle(iPush)
+    @OperandPopAndFreeTemp
+     [ oOperandChooseMode (mStatic)
+     | *:
+     oOperandPop
+     >>
+    ;OperandPopAndFreeTemp
+    oOperandPushMode(mStack)
+    >>
+   ;OperandForceToStack
+   oOperandPop
+   ?tVarParm (tVarParm)
+   ?tParmEnd (tParmEnd)
+   [ (tTrap)
+   | tTrap:
+   @OperandPopAndFreeTemp
+    [ oOperandChooseMode (mStatic)
+    | *:
+    oOperandPop
+    >>
+   ;OperandPopAndFreeTemp
+   oOperandPushTrap
+   oEmitSingle(iCall)
+   oOperandPop
+   oOperandPushMode(mStackReg)
+   oOperandSetLength(two)
+   oOperandPushMode(mManifest)
+   oOperandSetLength(two)
+   oOperandSetValue(four)
+   oEmitDouble(iAdd)
+   oOperandPop
+   oOperandPop
+   ] or >
+   ] or >
+   >>
+  ;TrapStmt
   ] or >
   }
   [ (tTrapBegin)

@@ -59,7 +59,7 @@ p13:    pushl   %ebp
     popl    %ebx
     popl    %eax
     movl    %esi,%eax
-    cmpl    $0,%eax
+    cmpb    $0,%al
     je    f2
     incl    n
     pushl    u+0
@@ -696,7 +696,7 @@ s188:    .asciz  "notequal"
          oOperandSetMode(mTemp)
          >>
         ;OperandForceIntoTemp
-        oOperandSetLength(two)
+        oOperandSetLength(one)
         >>
        ;OperandStringEqualPop
        ] or >
@@ -712,11 +712,11 @@ s188:    .asciz  "notequal"
        [ oOperandChooseManifestValue ()
        | *:
        @EmitTst
-        [ oOperandChooseLength (two)
-        | two:
+        [ oOperandChooseLength (one)
+        | one:
         oOperandPushMode(mManifest)
         oOperandSetValue(zero)
-        oOperandSetLength(two)
+        oOperandSetLength(one)
         ] or >
         @EmitCmp
          oOperandSwap

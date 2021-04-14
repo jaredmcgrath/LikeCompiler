@@ -685,12 +685,6 @@ A choice block was added with two options:
 * If a _tCaseElse_ was the next input token, the _Statements_ rule is called to handle its statements. The next input token after handling its statements would be _tCaseElseEnd_ to terminate the else clause. This was accepted, followed by emitting a case merge branch to continue execution of the program following the choice block by calling _oEmitCaseMergeBranch_.
 * The default case is entered when there is no else statement present. This indicates that no case label matched the selector and a call to _trCaseAbort_ is made. This is done by pushing the mode to save the line number (_mLineNum_). The length is set to a word length and the line number is forced onto the stack via _OperandForceToStack_. The operand is popped from the stack as it is now saved on the stack (_oOperandPop_) and the trap mode (_mTrap_) is pushed onto the stack, followed by its value set as the _trCaseAbort_ trap instruction. Then, it is called via _oEmitSingle(iCall)_. Finally, the trap instruction is popped from the stack as it has now been called and isn't needed. This trap call will no longer execute the remainder of the program and will not return as this is the desired functionality in Like. 
 
-## String Operations
-
-The following changes were made in `coder.ssl`.
-
-In the _OperandPushExpression_ and _OperandPushExpressionAssignPopPop_ rules
-
 ## String Constants, Variables and Arrays
 
 The following changes were made in `coder.pt`:
@@ -700,3 +694,53 @@ Added reading of the trailing `null` character implemented in Like strings to th
 The following changes were made in `coder.ssl`:
 
 All alternatives involving `tLiteralChar` and `tLiteralString` were removed as these tokens are no longer valid. `OperandPushExpressionAssignPopPop` an alternative was added to handle the token `tSkipString`. In `OperandPushVariable` the alternative for `tFetchChar` had its length changed to string to update the rule for newly implemented strings as a primitive type. Similarly, in the `Routine` rule the operand length of `tStoreChar` was changed to string. The operand sizes of `OperandSubscriptCharPop` was also changed from byte to string. In `OperandForceToStack` and `OperandForceIntoTemp` an alternative was added for type string to allow for the proper actions to be taken, more detailed comments can be seen in the file. To implement proper array subscripting for string arrays, subscript scaling by `256` was added in `OperandCheckedSubscriptNonManifestCharPop` and `OperandCheckedSubscriptNonManifestCharPop`. This was accomplished through a bitwise shift left of 8. Additionally, in `OperandCheckedSubscriptNonManifestCharPop` lower bound normalizing before the subtraction was added in a similar fashion. Finally, in `OperandAssignCharPopPop`, the rule was changed to assign the values of strings using the trap `trAssignString` this involved saving the temp registers, sending both arguments to the trap, calling the trap and then popping both arguments in order to clean the operand stack before reloading the temp registers.
+
+## String Operations
+
+The following changes were made in `coder.ssl`.
+
+In the _OperandPushExpression_ and _OperandPushExpressionAssignPopPop_ rules, alternatives for all string-related operations were added. In both rules, each choice alternative call one new rules. These pairings are noted in the table below
+
+| T-code | Rule Called |
+|--------|-------------|
+| _tConcatenate_ | _OperandConcatenatePop_ |
+| _tRepeatString_ | _OperandRepeatStringPop_ |
+| _tSubstring_ | _OperandSubstringPopPop_ |
+| _tLength_ | _OperandLength_ |
+| _tStringEQ_ | _OperandStringEqualPop_ |
+
+Unlike the other alternatives in _OperandPushExpressionAssignPopPop_, no optimizations for the string T-codes were added in the case where an assignment token immediately follows the operation token. This is because we don't implement an optimized version of the string rules. Thus, on the next iteration of the loop, the assignment token will call the appropriate assignment rule, which generates code that is just as efficient at runtime.
+
+Each of the aforementioned rules as well as _OperandChr_ and _OperandOrd_ were implemented or modified as follows:
+
+### OperandConcatenatePop
+
+This rule expects two string operands on the operand stack. We save all temp registers, then force the address of the string operands onto the stack using some temp registers. Then, the string concatenate trap is called (_trConcatenate_). The 2 arguments are popped off the stack, and the address of the resulting string (located in the result register, `%eax`) is moved to a scratch register (`%esi`). Temp registers are restored, and the resulting string address is forced from the scratch register into another temp register with length of _string_.
+
+### OperandSubstringPopPop
+
+This rule expects three operands on the operand stack: `... srcString, startIdx, endIdx`. We save all temp registers, then force the integer operands (`endIdx` and `startIdx`) onto the stack, followed by the address of the string operand (using a temp register for the string). Then, the substring trap is called (_trSubstring_). The 3 arguments are popped off the stack, and the address of the resulting string (located in the result register, `%eax`) is moved to a scratch register (`%esi`). Temp registers are restored, and the resulting string address is forced from the scratch register into another temp register with length of _string_.
+
+### OperandRepeatStringPop
+
+This rule expects two operands on the operand stack: `... srcString, repeatCount`. We save all temp registers, then force the integer operand (`repeatCount`) onto the stack, followed by the address of the string operand (using a temp register). Then, the string repeat trap is called (_trRepeat_). The 2 arguments are popped off the stack, and the address of the resulting string (located in the result register, `%eax`) is moved to a scratch register (`%esi`). Temp registers are restored, and the resulting string address is forced from the scratch register into another temp register with length of _string_.
+
+### OperandLength
+
+This rule expects one string operand on the operand stack. We save all temp registers, then force the address of the string operand onto the stack using a temp register. Then, the string length trap is called (trLength). The argument is popped off the stack, and the resulting length (an integer, located in the result register, `%eax`) is moved to a scratch register (`%esi`). Temp registers are restored, and the resulting integer is forced from the scratch register into another temp register with length of _word_.
+
+### OperandStringEqualPop
+
+This rule expects two string operands on the operand stack. We save all temp registers, then force the address of the string operands onto the stack using some temp registers. Then, the string equality trap is called (_trStringEqual_). The 2 arguments are popped off the stack, and the resulting boolean (an integer, which will be later shortened to a byte, located in the result register, `%eax`) is moved to a scratch register (`%esi`). Temp registers are restored, and the resulting boolean is forced from the scratch register into another temp register with length of _byte_.
+
+### OperandChr
+
+The existing _OperandChr_ rule was removed, as we now deal with strings as first-class values in like. To implement the `chr(x: like 1)` function, we use a trap, and the function result is a string of length one.
+
+This rule expects one integer operand on the operand stack. We save all temp registers, then force value of the operand onto the stack. Then, the chr string trap is called (trChrString). The argument is popped off the stack, and the address of the resulting string (located in the result register, `%eax`) is moved to a scratch register (`%esi`). Temp registers are restored, and the resulting string address is forced from the scratch register into another temp register with length of _string_.
+
+### OperandOrd
+
+The existing _OperandOrd_ rule was removed. To implement the `ord(x: like "string")` function, we will make use of clever addressing to take the integer value of the first byte from the string.
+
+This rule expects one string operand on the operand stack. We force the address of this string into a temp register, set its addressing mode to temp indirect (_mTempIndirect_) and the length to _byte_ to indicate that it is an address of a single byte located in memory. We then call _OperandForceIntoTemp_ to realize this byte value in the temp register (denote this register `%T1`). However, the higher order bytes of the register still contain garbage from the address. To fix this, we zero a second temp register (denote this register `%T2`), then move the low order byte from `%T1` into `%T2`. We then pop and free `%T1`, and set the length of the resultant ord value to _word_.

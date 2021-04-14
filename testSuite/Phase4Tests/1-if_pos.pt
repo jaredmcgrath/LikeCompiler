@@ -10,3 +10,6 @@ elseif myVal > 25 then
 else
   result = 10;
 end;
+
+put(result);
+putln;

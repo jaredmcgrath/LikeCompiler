@@ -1,3 +1,10 @@
 using output;
-var myBool = true;
-myBool = not (1 < 2);
+var myBool: like false;
+myBool = 1 < 2;
+
+if myBool then
+  put("true");
+else
+  put("false");
+end;
+putln;
