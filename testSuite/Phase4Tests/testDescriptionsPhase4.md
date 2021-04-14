@@ -454,28 +454,5 @@ echoing:
 inputString</td>
 </tr>
 
-<tr>
-<td>Travis_6</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>Expected_Output_Filename</td>
-<td>Notes_For_Neg_Tests</td>
-</tr>
-
-<tr>
-<td>Travis_7</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>Expected_Output_Filename</td>
-<td>Notes_For_Neg_Tests</td>
-</tr>
-
-<tr>
-<td>Travis_8</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>Expected_Output_Filename</td>
-<td>Notes_For_Neg_Tests</td>
-</tr>
 </table>
 
