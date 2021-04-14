@@ -1,8 +1,8 @@
-%  PT Code Generator for Linux x86 Version 5.0
+%  PT Code Generator for Linux x86 Version 5.1
 %
 %  Date:  30 Jun 1980
 %        (x86 conversion Jan 2011)
-%        (Revised v5.0 - 10 Dec 2020)
+%        (Revised v5.1 - 8 Feb 2021)
 %
 %  Author:  Alan Rosselet, University of Toronto
 %           VAX, SUN, MIPS and x86 conversions by J.R. Cordy, Queen's University
@@ -1937,6 +1937,14 @@ OperandSubscriptCharPop:
     ]
     oOperandSetLength(string);
 
+OperandSubscriptNonManifestBooleanPop:
+    [ oOptionTestChecking
+        | yes:
+            @OperandCheckedSubscriptNonManifestBooleanPop
+        | *:
+            @OperandUncheckedSubscriptNonManifestBooleanPop
+    ];
+
 
 OperandSubscriptBooleanPop:
     % similar to above
@@ -1946,7 +1954,7 @@ OperandSubscriptBooleanPop:
             [ oOperandChooseMode
                 | mTempIndirect:
                     oOperandSwap
-                    @OperandSubscriptNonManifestCharPop
+                    @OperandSubscriptNonManifestBooleanPop
                 | *:
                     % tell the folder we are working on bytes
                     oOperandSetLength(byte)     
@@ -1955,10 +1963,102 @@ OperandSubscriptBooleanPop:
                     oOperandPop
             ]
         | *:
-            @OperandSubscriptNonManifestCharPop
+            @OperandSubscriptNonManifestBooleanPop
     ]
     oOperandSetLength(byte);
 
+
+OperandCheckedSubscriptNonManifestBooleanPop:
+    % Default bounds checking subscript operation
+
+    % Get subscript                             % ... arraydesc, subscript
+    @OperandForceIntoTemp                       % ... arraydesc, %T
+
+    % Check range if checking, otherwise don't bother
+    [ oOptionTestChecking
+        | yes:
+            @EmitSubscriptRangeCheck
+        | *:
+    ]
+
+    % Normalize subscript                       % ... arraydesc, %T
+    oOperandSwap                                % ... %T, arraydesc
+    @OperandPushArrayLowerBound                 % ... %T, arraydesc, lower
+    oOperandSwapLeftAndDest                     % ... arraydesc, %T, lower
+    @OperandSubtractPop                         %       subl lower, %T
+
+    % Add normalized subscript to array address
+    oOperandSwap                                % ... %T, arraydesc
+    [ oOperandChooseMode
+        | mStatic:
+            % Optimize by folding array offset into array descriptor address 
+            oOperandPushMode(mManifest)
+            oOperandSetLength(word)
+            oOperandSetValue(eight)
+            oOperandAddManifestValues           % ... %T, arraydesc+8, 8
+            oOperandPop                         % ... %T, arraydesc+8
+            @OperandForceAddressIntoTemp        %       mov     $arraydesc+8, %T2
+                                                % ... %T, %T2
+            % Add array address to normalized and scaled subscript
+            oEmitDouble(iAdd)                   %       addl    %T2, %T
+            @OperandPopAndFreeTemp              % ... %T
+        | *:
+            % Can't optimize
+            @OperandForceAddressIntoTemp        % ... %T, %T2
+            oOperandPushMode(mManifest)
+            oOperandSetLength(word)
+            oOperandSetValue(eight)             % ... %T, %T2, 8
+            oEmitDouble(iAdd)                   %       addl    $8, %T2
+            oOperandPop                         % ... %T, %T2
+            oEmitDouble(iAdd)                   %       addl    %T2, %T
+            @OperandPopAndFreeTemp              % ... %T
+    ]
+
+    % Result element address is in %T
+    oOperandSetMode(mTempIndirect)              % ... (%T)
+    oOperandSetLength(byte);
+
+
+OperandUncheckedSubscriptNonManifestBooleanPop:
+    % Optimized non-bounds checking subscript operation
+    oOperandSwap                                % ... subscript, arraydesc
+
+    [ oOperandChooseMode
+        | mTempIndirect:
+            % Var parameter array - don't know the characteristics
+            % until run time, so give up and use regular checked subscripting
+            oOperandSwap
+            @OperandCheckedSubscriptNonManifestBooleanPop
+
+        | mStatic:
+            % Any other array - know all the characteristics now,
+            % so optimize subscripting as best we can
+            oOperandSwap                        % ... arraydesc, subscript
+            @OperandForceIntoTemp               %       movl    subscript, %T
+            oOperandSwap                        % ... %T, arraydesc
+
+            % Fold lower bound into array address to avoid normalizing
+            % subscript at run time
+            oOperandPushArrayLowerBound         % ... %T, arraydesc, lower
+            oOperandSwap                        % ... %T, lower, arraydesc
+            oOperandSetMode(mManifest)          % (eliminate indirection)
+            oOperandPushMode(mManifest)         % ... %T, lower, arraydesc, 8
+            oOperandSetLength(word)
+            oOperandSetValue(eight)
+            oOperandAddManifestValues           % ... %T, lower, arraydesc+8, 8
+            oOperandPop                         % ... %T, lower, arraydesc+8
+            oOperandSwap                        % ... %T, arraydesc+8, lower
+            oOperandSubtractManifestValues      % ... %T, arraydesc+8-lower
+
+            % Add array base to subscript
+            oOperandSetMode(mStaticManifest)    % (u+normalizedArrayBase)
+            oEmitDouble(iAdd)                   %       addl    $u+normalizedArrayBase, %T
+            oOperandPop                         % ... %T
+
+            % Element address is in %T
+            oOperandSetMode(mTempIndirect)      % ... (%T)
+            oOperandSetLength(byte)
+    ];
 
 OperandSubscriptNonManifestIntegerPop:
     [ oOptionTestChecking

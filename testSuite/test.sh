@@ -25,8 +25,20 @@ if [ -z ${pt_lib_path+x} ]; then
 	pt_lib_path="../../src/lib/pt"
 fi
 
+this_dir=$(realpath .)
+
 cd Phase1Tests
 ./test-phase.sh -L $pt_lib_path
+cd $this_dir
 
-cd ../Phase2Tests
+cd Phase2Tests
 ./test-phase.sh -L $pt_lib_path
+cd $this_dir
+
+cd Phase3Tests
+./test-phase.sh -L $pt_lib_path
+cd $this_dir
+
+cd Phase4Tests
+./test-phase.sh -L $pt_lib_path
+cd $this_dir
