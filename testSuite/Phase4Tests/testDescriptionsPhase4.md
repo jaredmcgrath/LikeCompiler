@@ -284,7 +284,7 @@ __Note__: All line numbers referenced in the following table are referring their
 <td>Ensure trCaseAbort is called</td>
 <td>Runs choose block with no matching case selector and no else statement</td>
 <td>4-choose-nomatch_neg.pt.eOutput</td>
-<td>Notes_For_Neg_Tests</td>
+<td>line 10: case selector does not match a label</td>
 </tr>
 
 <tr>
