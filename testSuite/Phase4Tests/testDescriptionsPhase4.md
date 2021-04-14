@@ -36,7 +36,7 @@ We have also left the compiled executable here alongside each of the expected ou
 
 All language features that did not require changes in Phase 4 (boolean + integer constants and variables, if-elseif-else, expressions, I/O, null program, repeat + repeat while loops, routines and routines with parameters) were tested with simple positive test cases to ensure the correctness of the interface with the semantic phase.
 
-All types of string assignment, including variables, constants and arrays were tested using simple positive tests, with their outputs being printed. As well string input was also tested. Incorret array bounds were tried and behaved as expected.
+All types of string assignment, including variables, constants and arrays were tested using simple positive tests, with their outputs being printed. As well string input was also tested. Incorrect array bounds were tried and behaved as expected.
 
 TODO: Write step 3 tests after step 2 (pos + neg) and then write justification
 
