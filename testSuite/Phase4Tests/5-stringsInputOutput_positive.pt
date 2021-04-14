@@ -3,6 +3,9 @@ using input, output;
 var str : like "stringy!";
 val echo = "echoing:";
 
+put("Please enter string:");
+putln;
+
 get (str);
 getln;
 

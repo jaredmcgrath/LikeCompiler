@@ -1,0 +1,17 @@
+### START OF PROGRAM OUTPUT ###
+error: program failed to compile
+### END OF PROGRAM OUTPUT ###
+### START OF ASSEMBLY SOURCE ###
+error: program failed to compile
+### END OF ASSEMBLY SOURCE ###
+### START OF SSLTRACE ###
+@Program
+ semantic error, line 19: text file required
+ semantic error, line 34: text file required
+ semantic error, line 34: text file required
+### Semantic pass S/SL program failure:  syntax error in semantic token stream
+    (parser output stream does not match expected input stream)
+while processing line         49
+### Semantic assertion 3 failed: 
+while processing line         49
+### END OF SSLTRACE ###

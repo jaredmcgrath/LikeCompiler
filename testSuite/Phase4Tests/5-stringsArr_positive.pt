@@ -1,18 +1,18 @@
 using output;
 
 var strArr[3] : like "string";
-strArr[0] = "testing";
-strArr[1] = "testing2";
-strArr[2] = "testing3";
-put(strArr[0]);
-putln;
-
+strArr[1] = "testing";
+strArr[2] = "testing2";
+strArr[3] = "testing3";
 put(strArr[1]);
 putln;
 
 put(strArr[2]);
 putln;
 
-strArr[2] = "testing4000000000000 craziness";
-put(strArr[2]);
+put(strArr[3]);
+putln;
+
+strArr[3] = "testing4000000000000 craziness";
+put(strArr[3]);
 putln;
