@@ -6,6 +6,7 @@ var width : like 5;
 var height : like 5;
 put (myVal);
 putln;
+put("Please enter two integers:");
 get (width, height);
 getln;
 

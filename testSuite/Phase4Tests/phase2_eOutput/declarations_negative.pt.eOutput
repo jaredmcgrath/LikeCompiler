@@ -1,0 +1,14 @@
+### START OF PROGRAM OUTPUT ###
+error: program failed to compile
+### END OF PROGRAM OUTPUT ###
+### START OF ASSEMBLY SOURCE ###
+error: program failed to compile
+### END OF ASSEMBLY SOURCE ###
+### START OF SSLTRACE ###
+@Program
+ scan/parse error, line 3: illegal character - deleted
+ scan/parse error, line 3: illegal character - deleted
+ scan/parse error, line 3: syntax error at: ;
+ scan/parse error, line 5: syntax error at: ]
+ scan/parse error, line 7: syntax error at: output
+### END OF SSLTRACE ###
