@@ -6,6 +6,5 @@ error: program failed to compile
 ### END OF ASSEMBLY SOURCE ###
 ### START OF SSLTRACE ###
 @Program
- semantic error, line 12: identifier not declared
- semantic error, line 12: expression operand required
+ scan/parse error, line 5: syntax error at: public
 ### END OF SSLTRACE ###

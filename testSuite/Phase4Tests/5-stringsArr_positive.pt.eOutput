@@ -1,5 +1,3 @@
-### COMPILER WARNINGS ###
-line 4: subscript [0] out of bounds [1 .. 3] line 7: subscript [0] out of bounds [1 .. 3]
 ### START OF PROGRAM OUTPUT ###
 testing
 testing2
@@ -27,7 +25,7 @@ s35:    .asciz  "testing"
     pushl    %edx
     lea    s35,%eax
     pushl    %eax
-    lea    u+4,%eax
+    lea    u+12,%eax
     pushl    %eax
     call    pttrap101
     addl    $8,%esp
@@ -45,7 +43,7 @@ s60:    .asciz  "testing2"
     pushl    %edx
     lea    s60,%eax
     pushl    %eax
-    lea    u+12,%eax
+    lea    u+268,%eax
     pushl    %eax
     call    pttrap101
     addl    $8,%esp
@@ -63,7 +61,7 @@ s86:    .asciz  "testing3"
     pushl    %edx
     lea    s86,%eax
     pushl    %eax
-    lea    u+268,%eax
+    lea    u+524,%eax
     pushl    %eax
     call    pttrap101
     addl    $8,%esp
@@ -72,17 +70,6 @@ s86:    .asciz  "testing3"
     popl    %ebx
     popl    %eax
     incl    n
-    pushl    u+0
-    lea    u+4,%eax
-    pushl    %eax
-    pushl    $0
-    call    pttrap109
-    addl    $12,%esp
-    incl    n
-    pushl    u+0
-    call    pttrap6
-    addl    $4,%esp
-    movl    $10,n
     pushl    u+0
     lea    u+12,%eax
     pushl    %eax
@@ -93,9 +80,20 @@ s86:    .asciz  "testing3"
     pushl    u+0
     call    pttrap6
     addl    $4,%esp
-    movl    $13,n
+    movl    $10,n
     pushl    u+0
     lea    u+268,%eax
+    pushl    %eax
+    pushl    $0
+    call    pttrap109
+    addl    $12,%esp
+    incl    n
+    pushl    u+0
+    call    pttrap6
+    addl    $4,%esp
+    movl    $13,n
+    pushl    u+0
+    lea    u+524,%eax
     pushl    %eax
     pushl    $0
     call    pttrap109
@@ -114,7 +112,7 @@ s205:    .asciz  "testing4000000000000 craziness"
     pushl    %edx
     lea    s205,%eax
     pushl    %eax
-    lea    u+268,%eax
+    lea    u+524,%eax
     pushl    %eax
     call    pttrap101
     addl    $8,%esp
@@ -124,7 +122,7 @@ s205:    .asciz  "testing4000000000000 craziness"
     popl    %eax
     incl    n
     pushl    u+0
-    lea    u+268,%eax
+    lea    u+524,%eax
     pushl    %eax
     pushl    $0
     call    pttrap109
@@ -333,7 +331,6 @@ s205:    .asciz  "testing4000000000000 craziness"
      oOperandSetLength(regCX)
      oOperandSwap
      oOperandFoldManifestSubscript
-     line 4: subscript [0] out of bounds [1 .. 3]
      oOperandPop
      ] or >
      oOperandSetLength(regCX)
@@ -973,7 +970,6 @@ s205:    .asciz  "testing4000000000000 craziness"
        oOperandSetLength(regCX)
        oOperandSwap
        oOperandFoldManifestSubscript
-       line 7: subscript [0] out of bounds [1 .. 3]
        oOperandPop
        ] or >
        oOperandSetLength(regCX)

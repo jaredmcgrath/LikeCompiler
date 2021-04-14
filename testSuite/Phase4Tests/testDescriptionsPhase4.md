@@ -32,15 +32,23 @@ We have also left the compiled executable here alongside each of the expected ou
 
 ## Previous Phase Tests
 
+Some tests written from Phase 2 and 3 are relevant and necessary to test the fully functioning compiler as a result of Phase4. For this reason, we have modified the `test-phase.sh` and `generate-test-output.sh` scripts to execute all the tests located in `Phase2Tests/` and `Phase3Tests/` using the full compiler. The program source for each phase's respective tests will remain in their folders, `PhaseXTests/` where X is the phase number. However, our expected output will be located here in `Phase4Tests/phaseX_eOutput/`. This directory contains the full compiler output of the Phase 2 and 3 tests. Most importantly, a revised `testDescriptionsPhaseX.md` is located here to note any differences in test descriptions/expected output from Phase 2 and 3 (i.e. they are __NOT__ listed in this file).
+
+_TL;DR_: Phase 2 and 3 tests are Phase 4 tests. They will be described in `Phase4Tests/testDescriptionsPhase2.md` and `Phase4Tests/testDescriptionsPhase3.md`. Their respective expected outputs are in `Phase4Tests/phas23_eOutput/` and `Phase4Tests/phase3_eOutput/`. Test program sources remain unmodified in `Phase2Tests/` and `Phase3Tests/`.
+
 ## Justification for Completeness
 
-All language features that did not require changes in Phase 4 (boolean + integer constants and variables, if-elseif-else, expressions, I/O, null program, repeat + repeat while loops, routines and routines with parameters) were tested with simple positive test cases to ensure the correctness of the interface with the semantic phase.
+1. All language features that did not require changes in Phase 4 (boolean + integer constants and variables, if-elseif-else, expressions, I/O, null program, repeat + repeat while loops, routines and routines with parameters) were tested with simple positive test cases to ensure the correctness of the interface with the semantic phase. 
 
-All types of string assignment, including variables, constants and arrays were tested using simple positive tests, with their outputs being printed. As well string input was also tested. Incorrect array bounds were tried and behaved as expected.
+2. Mixed declarations and statements were tested by giving both variables and constants of varying types an initial value based on some expression/statement. The completeness of testing was ensured through previous phases, which ensure that initial values and variable declarations are working as expected. Testing of mixed declarations and statements was further tested implicitly through test cases made for proceeding steps.
 
 3. Testing coverage of initial values was ensured by testing the assignment of an initial value of each possible type (`tStoreInteger`, `tStoreChar`, and `tStoreBoolean`). Note that an initial value of type boolean does not work because of a bug in the original PT Pascal implementation of the _oFixAndFreeShuntList_ rule. This will not be fixed.
 
-Testing for string operations is ensured through 100% code coverage in the test suite. All lines of code that were added to implement the various string operations have one or more tests dedicated to ensuring proper functionality of code generated. See the individual test descriptions (those prefixed with `6-`) for details of which lines in `coder.ssl` the test program covers.
+4. Choose statement else clauses were tested by triggering the _trCaseAbort_ instruction and disobeying restrictions on case selector types in negative tests. Positive tests were used to ensure cases behaved as expected with single cases, multiple cases, and else statements included.
+
+5. All types of string assignment, including variables, constants and arrays were tested using simple positive tests, with their outputs being printed. As well string input was also tested. Incorrect array bounds were tried and behaved as expected. 
+
+6. Testing for string operations is ensured through 100% code coverage in the test suite. All lines of code that were added to implement the various string operations have one or more tests dedicated to ensuring proper functionality of code generated. See the individual test descriptions (those prefixed with `6-`) for details of which lines in `coder.ssl` the test program covers.
 
 ## Test Description Table
 
@@ -60,23 +68,15 @@ __Note__: All line numbers referenced in the following table are referring their
 <td>Tests the behaviour when vars and vals are declared on the same line</td>
 <td>Declares vals and vars</td>
 <td>2-declarations_statements_pos.pt.eOutput</td>
-<td>Notes_For_Neg_Tests</td>
-</tr>
-
-<tr>
-<td>2-declarations_statements_neg.pt</td>
-<td>Tests the behaviour when vals are declared on the same line with two val keywords</td>
-<td>Declares two vals on the same line (keyword val written twice)</td>
-<td>Expected_Output_Filename</td>
-<td>Notes_For_Neg_Tests</td>
+<td>2</td>
 </tr>
 
 <tr>
 <td>2-declarations_statements_pkgs_pos.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>Expected_Output_Filename</td>
-<td>Notes_For_Neg_Tests</td>
+<td>Tests the behaviour when a var is given an initial value of a public val inside a package</td>
+<td>Declares a variable and gives initial value obtained from public member of package</td>
+<td>2-declarations_statements_pkgs_pos.pt.eOutput</td>
+<td>2</td>
 </tr>
 
 <tr>
@@ -84,23 +84,23 @@ __Note__: All line numbers referenced in the following table are referring their
 <td>Tests the behaviour when a variable is assigned the result of a boolean condition</td>
 <td>Declares and assigns variables to the result of boolean expression</td>
 <td>2-declarations_statements_condition_pos.pt.eOutput</td>
-<td>Notes_For_Neg_Tests</td>
+<td></td>
 </tr>
 
 <tr>
-<td>Alex_5</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>Expected_Output_Filename</td>
-<td>Notes_For_Neg_Tests</td>
+<td>2-declarations_statements_strOps_pos.pt</td>
+<td>Tests behavior when variable is assigned the result of string operation</td>
+<td>Declares two strings and sets variable to the result of boolean expression</td>
+<td>2-declarations_statements_strOps_pos.pt.eOutput</td>
+<td></td>
 </tr>
 
 <tr>
-<td>Alex_6</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>Expected_Output_Filename</td>
-<td>Notes_For_Neg_Tests</td>
+<td>2-declarations_statements_public_pos.pt</td>
+<td>Tests behavior of declaring multiple public vals on one line</td>
+<td>Declares a series of public vals on the same line</td>
+<td>2-declarations_statements_public_pos.pt.eOutput</td>
+<td>2</td>
 </tr>
 
 <tr>
@@ -284,15 +284,15 @@ __Note__: All line numbers referenced in the following table are referring their
 <td>Ensure trCaseAbort is called</td>
 <td>Runs choose block with no matching case selector and no else statement</td>
 <td>4-choose-nomatch_neg.pt.eOutput</td>
-<td>Notes_For_Neg_Tests</td>
+<td>line 10: case selector does not match a label</td>
 </tr>
 
 <tr>
-<td>Nicole_5</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>Expected_Output_Filename</td>
-<td>Notes_For_Neg_Tests</td>
+<td>4-choose-string_neg.pt</td>
+<td>Ensure integer constant expr required in case selector</td>
+<td>Runs choose block with constant strings as selectors</td>
+<td>4-choose-string_neg.pt.eOutput</td>
+<td>line 6: integer type expression req'd, line 7,10: integer constant required</td>
 </tr>
 
 <tr>

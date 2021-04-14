@@ -6,5 +6,6 @@ error: program failed to compile
 ### END OF ASSEMBLY SOURCE ###
 ### START OF SSLTRACE ###
 @Program
- scan/parse error, line 3: syntax error at: val
+ scan/parse error, line 11: unexpected end of file
+ translation aborted
 ### END OF SSLTRACE ###

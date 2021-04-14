@@ -2,13 +2,9 @@ using input, output;
 
 var width : like 5; 
 var height : like 5;
-put ("enter a width: ");
+put("Please enter two integers:");
 putln;
-get (width);
-getln;
-put ("enter a height: ");
-putln;
-get (height);
+get (width, height);
 getln;
 
 put("area = ", width * height);

@@ -1,0 +1,13 @@
+using output;
+
+var x = "string";
+val str1 = "hello";
+val str2 = "string";
+choose x of
+    when str1 then
+        put("hello");
+        putln;
+    when str2 then
+        put(x);
+        putln;
+end;
