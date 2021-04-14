@@ -1503,15 +1503,9 @@ OperandPushExpression:
         | tLiteralInteger:
             oOperandPushInteger
         %% Removing alterantives for tLiteralChar -T
-        % | tLiteralChar:
-        %     oOperandPushChar
         | tLiteralBoolean:
             oOperandPushBoolean
         %% Removing alterantives for tLiteralString -T
-        % | tLiteralString:
-        %     % Get a string literal's address
-        %     oOperandPushStringAddress
-        %     @EmitStringAddress                  %       lea     sNNN, %T
         | tSkipString:
             % Emit string literal to data area
             oEmitNone(iData)                    %       .data
@@ -2189,10 +2183,10 @@ OperandCheckedSubscriptNonManifestCharPop:
     oOperandSwapLeftAndDest                     % ... arraydesc, %T, lower
     @OperandSubtractPop                         %       subl lower, %T
 
-    %% Added -T WIP
+    %% Added -T 
     %% Scale subscript by string size              % ... arraydesc, %T
     oOperandPushMode(mManifest)
-    oOperandSetLength(string)                   %% Not sure about this -T
+    oOperandSetLength(string)                   
     oOperandSetValue(eight)                     % ... arraydesc, %T, 8
     oEmitDouble(iShl)                           %       shll    $8, %T
     oOperandPop                                 % ... arraydesc, %T
@@ -2248,7 +2242,7 @@ OperandUncheckedSubscriptNonManifestCharPop:
             %% Added -T
             %% Scale subscript by string size              % ... arraydesc, %T
             oOperandPushMode(mManifest)
-            oOperandSetLength(string)                   %% Not sure about this -T
+            oOperandSetLength(string)                   
             oOperandSetValue(eight)                     % ... arraydesc, %T, 8
             oEmitDouble(iShl)                           %       shll    $8, %T
             oOperandPop                                 % ... arraydesc, %T
@@ -2302,8 +2296,6 @@ OperandPushExpressionAssignPopPop:
         | tLiteralInteger:
             oOperandPushInteger
         %% Removing alterantives for tLiteralChar -T
-        % | tLiteralChar:
-        %     oOperandPushChar
         %% New alternative for tSkipString -T
         | tSkipString:
             % Emit string literal to data area
@@ -3242,8 +3234,7 @@ OperandAssignIntegerPopPop:
 OperandAssignCharPopPop:
     % Generate code to assign the right (top) operand's value to
     % the left (second) operand and pop both operands.
-    %% Modelled after the OperandEolnFunction
-    %% WIP -T
+    %% Modelled after the OperandEolnFunction -T
 
     %% Save temp registers
     @SaveTempRegsToStack        %%       pushl %eax .. %edx
@@ -3646,7 +3637,7 @@ OperandForceToStack:
         %% Added alternative for string length -T
         | string:
             @OperandForceAddressIntoTemp
-            oOperandSetLength(word) %% Not sure about this  -T  
+            oOperandSetLength(word)  
     ]
     oEmitSingle(iPush)
     @OperandPopAndFreeTemp
