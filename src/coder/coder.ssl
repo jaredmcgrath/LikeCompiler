@@ -1230,7 +1230,7 @@ EmitDefaultCaseAbort:
             oOperandSetValue(trCaseAbort)
             oEmitSingle(iCall)                  %       call  caseAbort
 
-            oOperandPop;
+            oOperandPop
     ];
 
 %% the call to case abort trap is removed below and moved to the default case above
