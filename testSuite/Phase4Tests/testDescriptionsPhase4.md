@@ -38,9 +38,16 @@ _TL;DR_: Phase 2 and 3 tests are Phase 4 tests. They will be described in `Phase
 
 ## Justification for Completeness
 
-All language features that did not require changes in Phase 4 (boolean + integer constants and variables, if-elseif-else, expressions, I/O, null program, repeat + repeat while loops, routines and routines with parameters) were tested with simple positive test cases to ensure the correctness of the interface with the semantic phase.
+1. All language features that did not require changes in Phase 4 (boolean + integer constants and variables, if-elseif-else, expressions, I/O, null program, repeat + repeat while loops, routines and routines with parameters) were tested with simple positive test cases to ensure the correctness of the interface with the semantic phase. 
 
-All types of string assignment, including variables, constants and arrays were tested using simple positive tests, with their outputs being printed. As well string input was also tested. Incorrect array bounds were tried and behaved as expected.
+2. Mixed declarations and statements were tested by giving both variables and constants of varying types an initial value based on some expression/statement. The completeness of testing was ensured through previous phases, which ensure that initial values and variable declarations are working as expected. Testing of mixed declarations and statements was further tested implicitly through test cases made for proceeding steps.
+
+3. 
+
+4. Choose statement else clauses were tested by triggering the _trCaseAbort_ instruction and disobeying restrictions on case selector types in negative tests. Positive tests were used to ensure cases behaved as expected with single cases, multiple cases, and else statements included.
+
+5. All types of string assignment, including variables, constants and arrays were tested using simple positive tests, with their outputs being printed. As well string input was also tested. Incorrect array bounds were tried and behaved as expected. 
+
 
 TODO: Write step 3 tests after step 2 (pos + neg) and then write justification
 
