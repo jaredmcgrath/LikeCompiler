@@ -6,6 +6,7 @@ echo "Generating expected test output - PHASE 4"
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 BLUE='\033[0;34m'
+YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
 POSITIONAL=()
@@ -75,12 +76,17 @@ if [ $display_ssltrace_errors = "yes" ]; then
   for i in *.pt.eOutput
   do
     printf "$BLUE$i$NC\n"
-    num_errors=$(cat $i | grep -c -E '(.*)error(.*)\n')
-
+    num_errors=$(cat $i | grep -c -E '(.*)?error(.*)\n')
+    compiler_warn=$(cat $i | grep -c '### COMPILER WARNINGS ###')
     if [ $num_errors -ne 0 ]; then
       printf "$RED  $num_errors ERRORS$NC\n"
       echo "$(cat $i | grep -n error)"
-    else
+    fi
+    if [ $compiler_warn -ne 0 ]; then
+      printf "$YELLOW  COMPILE WARNINGS PRESENT$NC\n"
+      sed -n '/### COMPILER WARNINGS ###/,/### START OF PROGRAM OUTPUT ###/{/### COMPILER WARNINGS ###/b;/### START OF PROGRAM OUTPUT ###/b;p}' $i
+    fi
+    if [ $num_errors -eq 0 ] && [ $compiler_warn -eq 0 ]; then
       printf "$GREEN  NO ERRORS$NC\n"
     fi
   done

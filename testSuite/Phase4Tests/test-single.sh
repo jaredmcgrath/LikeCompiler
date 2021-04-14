@@ -87,18 +87,38 @@ eoutput_path=$(realpath "$out_dir/$base_src_path.eOutput")
 cp $src_path "$out_dir/$base_src_path"
 cd $out_dir
 # Generate executable
-ptc -L $pt_lib_path $base_src_path > /dev/null
+compile_msg=$(ptc -L $pt_lib_path $base_src_path)
 executable_src_path=$(realpath $prog_filename.out)
-# Run executable, send output to top of eOutput
-echo '### START OF PROGRAM OUTPUT ###' > $eoutput_path
-$executable_src_path >> $eoutput_path
+# Check to see if compilation was successful
+if [ -f $executable_src_path ]; then
+  # Add compiler warnings/messages if there were any
+  if [ ${#compile_msg} -ne 0 ]; then
+    echo '### COMPILER WARNINGS ###' > $eoutput_path
+    echo $compile_msg >> $eoutput_path
+    # Run executable, send output to top of eOutput
+    echo '### START OF PROGRAM OUTPUT ###' >> $eoutput_path
+    $executable_src_path >> $eoutput_path
+  else
+    # Run executable, send output to top of eOutput
+    echo '### START OF PROGRAM OUTPUT ###' > $eoutput_path
+    $executable_src_path >> $eoutput_path
+  fi
+else
+  echo '### START OF PROGRAM OUTPUT ###' > $eoutput_path
+  echo "error: program failed to compile" >> $eoutput_path
+fi
 echo '### END OF PROGRAM OUTPUT ###' >> $eoutput_path
 
 # Next, generate assembly source and append to eOuptut
-ptc -S -L $pt_lib_path $base_src_path
+ptc -S -L $pt_lib_path $base_src_path > /dev/null
 assembly_src_path=$(realpath $prog_filename.s)
 echo '### START OF ASSEMBLY SOURCE ###' >> $eoutput_path
-cat $assembly_src_path >> $eoutput_path
+# Check to see if compilation was successful
+if [ -f $assembly_src_path ]; then
+  cat $assembly_src_path >> $eoutput_path
+else
+  echo "error: program failed to compile" >> $eoutput_path
+fi
 echo '### END OF ASSEMBLY SOURCE ###' >> $eoutput_path
 
 # Finally, append ssltrace
@@ -128,7 +148,10 @@ if [ -z ${save_output_in_dir+x} ]; then
 fi
 if [ $save_output_in_dir = "yes" ]; then
   cp $eoutput_path "$saved_out_dir/"
-  cp $executable_src_path "$saved_out_dir/"
+  # Only copy executable if it exists
+  if [ -f $executable_src_path ]; then
+    cp $executable_src_path "$saved_out_dir/"
+  fi
 fi
 
 # See if user wants to compare generated output to eOutput, if not supplied in args

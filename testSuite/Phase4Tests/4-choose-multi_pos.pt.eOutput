@@ -1,5 +1,5 @@
 ### START OF PROGRAM OUTPUT ###
-         1
+         2
 ### END OF PROGRAM OUTPUT ###
 ### START OF ASSEMBLY SOURCE ###
     .data    
@@ -10,27 +10,33 @@ n:    .long    0
 ptmain:    pushl   %ebp
         movl    %esp, %ebp    
     movl    $2,u+0
-    movl    $0,u+4
-    movl    $4,n
+    movl    $1,u+4
+    movl    $5,n
     jmp    f1
-v26:    movl    $4,n
-    movl    $6,n
+v26:    movl    $5,n
+    movl    $7,n
+    decl    u+4
+    jmp    m22
+v42:    movl    $8,n
+    incl    n
     incl    u+4
     jmp    m22
-a22:b2:    movl    $7,n
-    pushl    n
-    call    pttrap14
+a22:b2:    movl    $10,n
+    incl    n
+    movl    $10,u+4
+    jmp    m22
 f1:    movl    u+4,%eax
-    cmpl    $0,%eax
+    cmpl    $1,%eax
     ja    b2
     shl    $2,%eax
     movl    c22(%eax),%eax
     jmp    *%eax
     .data    
 c22:    .long    v26
+    .long    v42
     .text    
-m22:    movl    $7,n
-    movl    $9,n
+m22:    movl    $12,n
+    movl    $14,n
     pushl    u+0
     pushl    u+4
     pushl    $10
@@ -257,6 +263,94 @@ m22:    movl    $7,n
         oOperandPushInteger
         ] or >
         }
+        [ (tSubtract)
+        | tSubtract:
+        [ (tAssignInteger)
+        | tAssignInteger:
+        @OperandSubtractAssignPopPopPop
+         oOperandSwap
+         [ oOperandCompareRightAndDest (yes)
+         | yes:
+         oOperandPop
+         @OperandSubtractRightFromLeftPop
+          [ oOperandChooseManifestValue (one)
+          | one:
+          oOperandPop
+          oEmitSingle(iDec)
+          ] or >
+          >>
+         ;OperandSubtractRightFromLeftPop
+         @OperandPopAndFreeTemp
+          [ oOperandChooseMode (mStatic)
+          | *:
+          oOperandPop
+          >>
+         ;OperandPopAndFreeTemp
+         ] or >
+         >>
+        ;OperandSubtractAssignPopPopPop
+        ] or >
+        >>
+       ;OperandPushExpressionAssignPopPop
+       >>
+      ;AssignStmt
+      ] or >
+      }
+      [ (tCaseMerge)
+      | *:
+      ] or >
+      >>
+     ;Block
+     >>
+    ;Statements
+    ?tCaseMerge (tCaseMerge)
+    oEmitCaseMergeBranch
+    >>
+   ;CaseVariant
+   }
+   [ (tAssignBegin)
+   | *:
+   @CaseVariant
+    oCaseEnterVariantAddress
+    oEmitMergeSourceCoordinate
+    @Statements
+     @Block
+      [ (tAssignBegin)
+      | tAssignBegin:
+      @AssignStmt
+       oEmitSourceCoordinate
+       ?tLiteralAddress (tLiteralAddress)
+       @OperandPushVariable
+        oOperandPushVariable
+        [ (tLiteralAddress)
+        | *:
+        [ (tLiteralAddress)
+        | *:
+        [ (tLiteralAddress)
+        | *:
+        >>
+       ;OperandPushVariable
+       @OperandPushExpressionAssignPopPop
+        [ (tLiteralAddress)
+        | tLiteralAddress:
+        @OperandPushVariable
+         oOperandPushVariable
+         [ (tFetchInteger)
+         | *:
+         [ (tFetchInteger)
+         | *:
+         [ (tFetchInteger)
+         | tFetchInteger:
+         ] or >
+         >>
+        ;OperandPushVariable
+        ] or >
+        }
+        [ (tLiteralInteger)
+        | tLiteralInteger:
+        oOperandPushInteger
+        ] or >
+        }
         [ (tAdd)
         | tAdd:
         [ (tAssignInteger)
@@ -313,29 +407,86 @@ m22:    movl    $7,n
      oFixPushAddress
      oFixSwapAddresses
      oEmitMergeSourceCoordinate
-     [ (tWriteBegin)
-     | *:
-     oOperandPushMode(mLineNum)
-     oOperandSetLength(two)
-     @OperandForceToStack
-      [ oOperandChooseLength (two)
-      | two:
-      ] or >
-      oEmitSingle(iPush)
-      @OperandPopAndFreeTemp
-       [ oOperandChooseMode (mLineNum)
+     [ (tCaseElse)
+     | tCaseElse:
+     @Statements
+      @Block
+       [ (tAssignBegin)
+       | tAssignBegin:
+       @AssignStmt
+        oEmitSourceCoordinate
+        ?tLiteralAddress (tLiteralAddress)
+        @OperandPushVariable
+         oOperandPushVariable
+         [ (tLiteralInteger)
+         | *:
+         [ (tLiteralInteger)
+         | *:
+         [ (tLiteralInteger)
+         | *:
+         >>
+        ;OperandPushVariable
+        @OperandPushExpressionAssignPopPop
+         [ (tLiteralInteger)
+         | tLiteralInteger:
+         oOperandPushInteger
+         ] or >
+         }
+         [ (tAssignInteger)
+         | tAssignInteger:
+         @OperandAssignIntegerPopPop
+          [ oOperandCompareLeftAndRight (no)
+          | no:
+          @EmitMove
+           @OperandLeftOrRightIsTemp
+            [ oOperandChooseMode (mManifest)
+            | *:
+            oOperandSwap
+            [ oOperandChooseMode (mStatic)
+            | *:
+            oOperandSwap
+            >>no
+           ;OperandLeftOrRightIsTemp
+           [@OperandLeftOrRightIsTemp (no)
+           | *:
+           [ oOperandChooseMode (mManifest)
+           | mManifest:
+           oEmitDouble(iMov)
+           ] or >
+           >>
+          ;EmitMove
+          @OperandPopAndFreeTemp
+           [ oOperandChooseMode (mManifest)
+           | *:
+           oOperandPop
+           >>
+          ;OperandPopAndFreeTemp
+          @OperandPopAndFreeTemp
+           [ oOperandChooseMode (mStatic)
+           | *:
+           oOperandPop
+           >>
+          ;OperandPopAndFreeTemp
+          ] or >
+          >>
+         ;OperandAssignIntegerPopPop
+         ] or >
+         >>
+        ;OperandPushExpressionAssignPopPop
+        >>
+       ;AssignStmt
+       ] or >
+       }
+       [ (tCaseElseEnd)
        | *:
-       oOperandPop
+       ] or >
        >>
-      ;OperandPopAndFreeTemp
-      oOperandPushMode(mStack)
+      ;Block
       >>
-     ;OperandForceToStack
-     oOperandPop
-     oOperandPushMode(mTrap)
-     oOperandSetValue(trCaseAbort)
-     oEmitSingle(iCall)
-     oOperandPop
+     ;Statements
+     ?tCaseElseEnd (tCaseElseEnd)
+     oEmitCaseMergeBranch
+     ] or >
      >>
     ;EmitDefaultCaseAbort
     oFixForwardBranch

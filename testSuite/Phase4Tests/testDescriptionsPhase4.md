@@ -7,6 +7,8 @@ We now have a functioning Like compiler. To enhance our test suite, we have revi
 All expected output files now have the following format:
 
 ```
+### COMPILER WARNINGS ###
+<compiler warnings, if there were any>
 ### START OF PROGRAM OUTPUT ###
 <stdout from execution of compiled program (./program_name.out)>
 ### END OF PROGRAM OUTPUT ###
@@ -17,6 +19,8 @@ All expected output files now have the following format:
 <ssltrace output>
 ### END OF SSLTRACE ###
 ```
+
+Note that if there are no compiler warnings, the `### COMPILER WARNINGS ###` header will not be present in the output file.
 
 This format allows us to verify:
 
