@@ -231,25 +231,25 @@ __Note__: All line numbers referenced in the following table are referring their
 
 <tr>
 <td>4-choose-noelse_pos.pt</td>
-<td>Purpose</td>
-<td>Function</td>
+<td>Ensure a single choose case can execute</td>
+<td>Runs a choose statement with one case</td>
 <td>4-choose-noelse_pos.pt.eOutput</td>
 <td>Notes_For_Neg_Tests</td>
 </tr>
 
 <tr>
-<td>4-choose-nomatch_pos.pt</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>4-choose-nomatch_pos.pt.eOutput</td>
+<td>4-choose-multi_pos.pt</td>
+<td>Ensures multiple choose cases can execute</td>
+<td>Runs choose block with multiple possible cases</td>
+<td>4-choose-multi_pos.pt.eOutput</td>
 <td>Notes_For_Neg_Tests</td>
 </tr>
 
 <tr>
-<td>Nicole_4</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>Expected_Output_Filename</td>
+<td>4-choose-nomatch_neg.pt</td>
+<td>Ensure trCaseAbort is called</td>
+<td>Runs choose block with no matching case selector and no else statement</td>
+<td>4-choose-nomatch_neg.pt.eOutput</td>
 <td>Notes_For_Neg_Tests</td>
 </tr>
 

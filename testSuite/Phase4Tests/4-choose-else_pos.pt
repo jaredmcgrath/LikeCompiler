@@ -7,3 +7,6 @@ choose i of
     else
         i -= 1;
 end;
+
+put(i);
+putln;
