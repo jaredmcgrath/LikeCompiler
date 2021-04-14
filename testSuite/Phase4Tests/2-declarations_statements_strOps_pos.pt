@@ -4,4 +4,4 @@ var x : like true;
 val str1 = "string";
 val str2 = "string";
 
-var x = (str1 == str2);
+x = (str1 == str2);

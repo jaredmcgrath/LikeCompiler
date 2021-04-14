@@ -88,10 +88,10 @@ __Note__: All line numbers referenced in the following table are referring their
 </tr>
 
 <tr>
-<td>Alex_5</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>Expected_Output_Filename</td>
+<td>2-declarations_statements_strOps_pos.pt</td>
+<td>Tests behavior when variable is assigned the result of string operation</td>
+<td>Declares two strings and sets variable to the result of boolean expression</td>
+<td>2-declarations_statements_strOps_pos.pt.eOutput</td>
 <td>Notes_For_Neg_Tests</td>
 </tr>
 
