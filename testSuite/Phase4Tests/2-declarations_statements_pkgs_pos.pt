@@ -1,0 +1,7 @@
+using output;
+
+pkg myPackage1 is
+  public val myVal = 1, myVal2 = 2;
+end;
+
+var myVar = myVal;

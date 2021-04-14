@@ -1,0 +1,7 @@
+using output;
+
+val num = 0, num1 = 1, num2 = 2;
+
+var myVar1 = 1; var myVar2 = 2;
+
+

@@ -666,6 +666,11 @@ Semantic phase output tokens in `semantic.ssl` were copied in exact order to inp
 
 The compiler was made, `*.def` outputs were copied as needed, and test programs were created and run to ensure existing language features work properly.
 
+## Mixed Declarations and Statements
+
+The `Block` rule was modified to accept all statement T-codes directly in it's main body. The alternative cases were copied over from the `Statements` rule. Following this, the `Statements` rule was updated and now consists solely of a call to the `Block` rule.
+
+
 ## Initial Values
 
 The following changes were made in the _Block_ rule of `coder.ssl`.
