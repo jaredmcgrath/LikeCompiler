@@ -60,7 +60,7 @@ __Note__: All line numbers referenced in the following table are referring their
 <td>Tests the behaviour when vars and vals are declared on the same line</td>
 <td>Declares vals and vars</td>
 <td>2-declarations_statements_pos.pt.eOutput</td>
-<td>Notes_For_Neg_Tests</td>
+<td>2</td>
 </tr>
 
 <tr>
@@ -68,7 +68,7 @@ __Note__: All line numbers referenced in the following table are referring their
 <td>Tests the behaviour when a var is given an initial value of a public val inside a package</td>
 <td>Declares a variable and gives initial value obtained from public member of package</td>
 <td>2-declarations_statements_pkgs_pos.pt.eOutput</td>
-<td>Notes_For_Neg_Tests</td>
+<td>2</td>
 </tr>
 
 <tr>
@@ -76,7 +76,7 @@ __Note__: All line numbers referenced in the following table are referring their
 <td>Tests the behaviour when a variable is assigned the result of a boolean condition</td>
 <td>Declares and assigns variables to the result of boolean expression</td>
 <td>2-declarations_statements_condition_pos.pt.eOutput</td>
-<td>Notes_For_Neg_Tests</td>
+<td></td>
 </tr>
 
 <tr>
@@ -84,15 +84,15 @@ __Note__: All line numbers referenced in the following table are referring their
 <td>Tests behavior when variable is assigned the result of string operation</td>
 <td>Declares two strings and sets variable to the result of boolean expression</td>
 <td>2-declarations_statements_strOps_pos.pt.eOutput</td>
-<td>Notes_For_Neg_Tests</td>
+<td></td>
 </tr>
 
 <tr>
-<td>Alex_6</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>Expected_Output_Filename</td>
-<td>Notes_For_Neg_Tests</td>
+<td>2-declarations_statements_public_pos.pt</td>
+<td>Tests behavior of declaring multiple public vals on one line</td>
+<td>Declares a series of public vals on the same line</td>
+<td>2-declarations_statements_public_pos.pt.eOutput</td>
+<td>2</td>
 </tr>
 
 <tr>
