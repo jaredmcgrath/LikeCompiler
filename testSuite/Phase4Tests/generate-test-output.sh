@@ -33,14 +33,22 @@ if [ -z ${pt_lib_path+x} ]; then
 	pt_lib_path="../../src/lib/pt"
 fi
 
-# printf "\n---------------\n$GREEN PHASE 2 TESTS $NC\n---------------\n\n"
+printf "\n---------------\n$GREEN PHASE 2 TESTS $NC\n---------------\n\n"
 
-# for i in ../Phase2Tests/*.pt
-# do
-#   echo $i
-#   printf "$BLUE  Generating output for $i$NC\n"
-#   ./test-single.sh -L ../../src/lib/pt -f $i -s yes -c no -o phase2_eOutput -q
-# done
+for i in ../Phase2Tests/*.pt
+do
+  echo $i
+  printf "$BLUE  Generating output for $i$NC\n"
+  ./test-single.sh -L $pt_lib_path -f $i -s yes -c no -o phase2_eOutput -q
+done
+
+printf "\n---------------\n$GREEN PHASE 3 TESTS $NC\n---------------\n\n"
+
+for i in ../Phase3Tests/*.pt
+do
+  printf "$BLUE  Generating output for $i$NC\n"
+  ./test-single.sh -L $pt_lib_path -f $i -s yes -c no -o phase3_eOutput -q
+done
 
 printf "\n---------------\n$GREEN PHASE 4 TESTS $NC\n---------------\n\n"
 
@@ -57,55 +65,41 @@ case "$user_response" in
   * ) echo "  --> Performing error check!"; echo "";;
 esac
 
-# printf "\n---------------\n$GREEN PHASE 2 TESTS $NC\n---------------\n\n"
-
-# for i in ../Phase2Tests/*.pt
-# do
-#   echo $i
-#   printf "$BLUE  Generating output for $i$NC\n"
-#   ./test-single.sh -L ../../src/lib/pt -f $i -s yes -c no -o phase2_eOutput -q
-# done
-
-printf "\n---------------\n$GREEN PHASE 3 TESTS $NC\n---------------\n\n"
-
-for i in *.pt
-do
-  printf "$BLUE  Generating output for $i$NC\n"
-  ./test-single.sh -L $pt_lib_path -f $i -s yes -c no -q
-done
-
-display_ssltrace_errors="yes"
-read -p "Check for ssltrace errors? ([Y]/n) " user_response
-case "$user_response" in
-  n|N ) echo "  --> Won't check for errors."; echo ""; display_ssltrace_errors="no";;
-  * ) echo "  --> Performing error check!"; echo "";;
-esac
-
 if [ $display_ssltrace_errors = "yes" ]; then
-  # printf "\n------------------------------\n$GREEN PHASE 2 SSLTRACE ERROR CHECK $NC\n------------------------------\n\n"
-  # for i in phase2_eOutput/*.pt.eOutput
-  # do
-  #   printf "$BLUE$i$NC\n"
-  #   num_errors=$(cat $i | grep -c -E '(.*)error(.*)\n')
-
-  #   if [ $num_errors -ne 0 ]; then
-  #     printf "$RED  $num_errors ERRORS$NC\n"
-  #     echo "$(cat $i | grep -n error)"
-  #   else
-  #     printf "$GREEN  NO ERRORS$NC\n"
-  #   fi
-  # done
-
-  printf "\n------------------------------\n$GREEN PHASE 3 SSLTRACE ERROR CHECK $NC\n------------------------------\n\n"
-  for i in *.pt.eOutput
+  printf "\n------------------------------\n$GREEN PHASE 2 SSLTRACE ERROR CHECK $NC\n------------------------------\n\n"
+  for i in phase2_eOutput/*.pt.eOutput
   do
     printf "$BLUE$i$NC\n"
-    num_errors=$(cat $i | grep -c -E '(.*)error(.*)\n')
-
+    num_errors=$(cat $i | grep -c -E '(.*)?error(.*)\n')
+    compiler_warn=$(cat $i | grep -c '### COMPILER WARNINGS ###')
     if [ $num_errors -ne 0 ]; then
       printf "$RED  $num_errors ERRORS$NC\n"
       echo "$(cat $i | grep -n error)"
-    else
+    fi
+    if [ $compiler_warn -ne 0 ]; then
+      printf "$YELLOW  COMPILE WARNINGS PRESENT$NC\n"
+      sed -n '/### COMPILER WARNINGS ###/,/### START OF PROGRAM OUTPUT ###/{/### COMPILER WARNINGS ###/b;/### START OF PROGRAM OUTPUT ###/b;p}' $i
+    fi
+    if [ $num_errors -eq 0 ] && [ $compiler_warn -eq 0 ]; then
+      printf "$GREEN  NO ERRORS$NC\n"
+    fi
+  done
+
+  printf "\n------------------------------\n$GREEN PHASE 3 SSLTRACE ERROR CHECK $NC\n------------------------------\n\n"
+  for i in phase3_eOutput/*.pt.eOutput
+  do
+    printf "$BLUE$i$NC\n"
+    num_errors=$(cat $i | grep -c -E '(.*)?error(.*)\n')
+    compiler_warn=$(cat $i | grep -c '### COMPILER WARNINGS ###')
+    if [ $num_errors -ne 0 ]; then
+      printf "$RED  $num_errors ERRORS$NC\n"
+      echo "$(cat $i | grep -n error)"
+    fi
+    if [ $compiler_warn -ne 0 ]; then
+      printf "$YELLOW  COMPILE WARNINGS PRESENT$NC\n"
+      sed -n '/### COMPILER WARNINGS ###/,/### START OF PROGRAM OUTPUT ###/{/### COMPILER WARNINGS ###/b;/### START OF PROGRAM OUTPUT ###/b;p}' $i
+    fi
+    if [ $num_errors -eq 0 ] && [ $compiler_warn -eq 0 ]; then
       printf "$GREEN  NO ERRORS$NC\n"
     fi
   done

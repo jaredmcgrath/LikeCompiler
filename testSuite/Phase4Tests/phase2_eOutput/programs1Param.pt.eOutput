@@ -1,10 +1,164 @@
 ### START OF PROGRAM OUTPUT ###
-error: program failed to compile
 ### END OF PROGRAM OUTPUT ###
 ### START OF ASSEMBLY SOURCE ###
-error: program failed to compile
+    .data    
+    .comm    u,12
+n:    .long    0
+    .text    
+    .globl    ptmain
+ptmain:    pushl   %ebp
+        movl    %esp, %ebp    
+    movl    $2,u+0
+    movl    $3,u+4
+    movl    $3,n
+    call    pttrap0
+    leave    
+    ret    
 ### END OF ASSEMBLY SOURCE ###
 ### START OF SSLTRACE ###
 @Program
- semantic error, line 2: undeclared external file (program parameter)
+ @EmitProgramPrologue
+  oEmitNone(iData)
+  oOperandPushMode(mWord)
+  oOperandSetLength(two)
+  oOperandEnterValueFromDataAreaSize
+  oOperandPushMode(mGlobalBase)
+  oEmitDouble(iSpace)
+  oOperandPop
+  oOperandPop
+  oEmitProcLabel(mLineNum)
+  oOperandPushMode(mWord)
+  oOperandSetLength(two)
+  oOperandSetValue(zero)
+  oEmitSingle(iWord)
+  oOperandPop
+  oEmitNone(iText)
+  oOperandPushMode(mMainProc)
+  oEmitSingle(iGlobl)
+  oEmitProcLabel(mMainProc)
+  oOperandPop
+  oEmitNone(iEnter)
+  >>
+ ;EmitProgramPrologue
+ @Block
+  [ (tFileDescriptor)
+  | tFileDescriptor:
+  ?tLiteralInteger (tLiteralInteger)
+  oOperandPushInteger
+  ?tFileBind (tFileBind)
+  ?tLiteralAddress (tLiteralAddress)
+  oOperandPushVariable
+  ?tStoreInteger (tStoreInteger)
+  oOperandSwap
+  @OperandAssignIntegerPopPop
+   [ oOperandCompareLeftAndRight (no)
+   | no:
+   @EmitMove
+    @OperandLeftOrRightIsTemp
+     [ oOperandChooseMode (mManifest)
+     | *:
+     oOperandSwap
+     [ oOperandChooseMode (mStatic)
+     | *:
+     oOperandSwap
+     >>no
+    ;OperandLeftOrRightIsTemp
+    [@OperandLeftOrRightIsTemp (no)
+    | *:
+    [ oOperandChooseMode (mManifest)
+    | mManifest:
+    oEmitDouble(iMov)
+    ] or >
+    >>
+   ;EmitMove
+   @OperandPopAndFreeTemp
+    [ oOperandChooseMode (mManifest)
+    | *:
+    oOperandPop
+    >>
+   ;OperandPopAndFreeTemp
+   @OperandPopAndFreeTemp
+    [ oOperandChooseMode (mStatic)
+    | *:
+    oOperandPop
+    >>
+   ;OperandPopAndFreeTemp
+   ] or >
+   >>
+  ;OperandAssignIntegerPopPop
+  ] or >
+  }
+  [ (tFileDescriptor)
+  | tFileDescriptor:
+  ?tLiteralInteger (tLiteralInteger)
+  oOperandPushInteger
+  ?tFileBind (tFileBind)
+  ?tLiteralAddress (tLiteralAddress)
+  oOperandPushVariable
+  ?tStoreInteger (tStoreInteger)
+  oOperandSwap
+  @OperandAssignIntegerPopPop
+   [ oOperandCompareLeftAndRight (no)
+   | no:
+   @EmitMove
+    @OperandLeftOrRightIsTemp
+     [ oOperandChooseMode (mManifest)
+     | *:
+     oOperandSwap
+     [ oOperandChooseMode (mStatic)
+     | *:
+     oOperandSwap
+     >>no
+    ;OperandLeftOrRightIsTemp
+    [@OperandLeftOrRightIsTemp (no)
+    | *:
+    [ oOperandChooseMode (mManifest)
+    | mManifest:
+    oEmitDouble(iMov)
+    ] or >
+    >>
+   ;EmitMove
+   @OperandPopAndFreeTemp
+    [ oOperandChooseMode (mManifest)
+    | *:
+    oOperandPop
+    >>
+   ;OperandPopAndFreeTemp
+   @OperandPopAndFreeTemp
+    [ oOperandChooseMode (mStatic)
+    | *:
+    oOperandPop
+    >>
+   ;OperandPopAndFreeTemp
+   ] or >
+   >>
+  ;OperandAssignIntegerPopPop
+  ] or >
+  }
+  [ (tTrapBegin)
+  | tTrapBegin:
+  @TrapStmt
+   oEmitSourceCoordinate
+   [ (tTrap)
+   | *:
+   ?tTrap (tTrap)
+   oOperandPushTrap
+   oEmitSingle(iCall)
+   oOperandPop
+   >>
+  ;TrapStmt
+  ] or >
+  }
+  [ (tEndOfFile)
+  | *:
+  ] or >
+  >>
+ ;Block
+ @EmitProgramEpilogue
+  oEmitNone(iLeave)
+  oEmitNone(iReturn)
+  >>
+ ;EmitProgramEpilogue
+ >>
+;Program
 ### END OF SSLTRACE ###

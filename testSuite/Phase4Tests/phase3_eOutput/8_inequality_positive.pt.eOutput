@@ -9,20 +9,20 @@ n:    .long    0
 ptmain:    pushl   %ebp
         movl    %esp, %ebp    
     movl    $2,u+0
+    movl    $4,n
     .data    
-s15:    .asciz  "string"
+s18:    .asciz  "hello"
     .text    
     .data    
-s28:    .asciz  "string"
+s31:    .asciz  "goodbye"
     .text    
-    movl    $7,n
     pushl    %eax
     pushl    %ebx
     pushl    %ecx
     pushl    %edx
-    lea    s28,%eax
+    lea    s31,%eax
     pushl    %eax
-    lea    s15,%eax
+    lea    s18,%eax
     pushl    %eax
     call    pttrap107
     addl    $8,%esp
@@ -33,6 +33,9 @@ s28:    .asciz  "string"
     popl    %eax
     movl    %esi,%eax
     movb    %al,u+4
+    decl    u+4
+    negb    u+4
+    incl    n
     call    pttrap0
     leave    
     ret    
@@ -110,22 +113,6 @@ s28:    .asciz  "string"
   ;OperandAssignIntegerPopPop
   ] or >
   }
-  [ (tSkipString)
-  | tSkipString:
-  oEmitNone(iData)
-  ?tStringData (tStringData)
-  oEmitString
-  oEmitNone(iText)
-  ] or >
-  }
-  [ (tSkipString)
-  | tSkipString:
-  oEmitNone(iData)
-  ?tStringData (tStringData)
-  oEmitString
-  oEmitNone(iText)
-  ] or >
-  }
   [ (tAssignBegin)
   | tAssignBegin:
   @AssignStmt
@@ -133,15 +120,23 @@ s28:    .asciz  "string"
    ?tLiteralAddress (tLiteralAddress)
    @OperandPushVariable
     oOperandPushVariable
-    [ (tLiteralAddress)
+    [ (tSkipString)
     | *:
-    [ (tLiteralAddress)
+    [ (tSkipString)
     | *:
-    [ (tLiteralAddress)
+    [ (tSkipString)
     | *:
     >>
    ;OperandPushVariable
    @OperandPushExpressionAssignPopPop
+    [ (tSkipString)
+    | tSkipString:
+    oEmitNone(iData)
+    ?tStringData (tStringData)
+    oEmitString
+    oEmitNone(iText)
+    ] or >
+    }
     [ (tLiteralAddress)
     | tLiteralAddress:
     @OperandPushVariable
@@ -156,6 +151,14 @@ s28:    .asciz  "string"
      ] or >
      >>
     ;OperandPushVariable
+    ] or >
+    }
+    [ (tSkipString)
+    | tSkipString:
+    oEmitNone(iData)
+    ?tStringData (tStringData)
+    oEmitString
+    oEmitNone(iText)
     ] or >
     }
     [ (tLiteralAddress)
@@ -326,21 +329,22 @@ s28:    .asciz  "string"
       oOperandSetMode(mTemp)
       >>
      ;OperandForceIntoTemp
-     oOperandSetLength(two)
+     oOperandSetLength(one)
      >>
     ;OperandStringEqualPop
     ] or >
     }
+    [ (tNot)
+    | tNot:
     [ (tAssignBoolean)
     | tAssignBoolean:
-    @OperandAssignBooleanPopPop
-     @OperandConvertJumpConditionToData
-      [ oOperandIsJumpCondition (no)
-      | no:
-      ] or >
-      >>
-     ;OperandConvertJumpConditionToData
-     oOperandSetLength(one)
+    @OperandNotAssignPopPop
+     [ oOperandCompareLeftAndRight (no)
+     | no:
+     [ oOperandIsJumpCondition (no)
+     | no:
+     [ oOperandChooseMode (mTemp)
+     | *:
      @EmitMove
       @OperandLeftOrRightIsTemp
        [ oOperandChooseMode (mTemp)
@@ -361,14 +365,19 @@ s28:    .asciz  "string"
       oOperandPop
       >>
      ;OperandPopAndFreeTemp
+     oOperandSetLength(one)
+     oEmitSingle(iDec)
+     oEmitSingle(iNeg)
      @OperandPopAndFreeTemp
       [ oOperandChooseMode (mStatic)
       | *:
       oOperandPop
       >>
      ;OperandPopAndFreeTemp
+     ] or >
+     ] or >
      >>
-    ;OperandAssignBooleanPopPop
+    ;OperandNotAssignPopPop
     ] or >
     >>
    ;OperandPushExpressionAssignPopPop

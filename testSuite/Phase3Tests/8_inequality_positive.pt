@@ -1,3 +1,4 @@
 using output;
 
-var shouldBeTrue = "hello" != "goodbye";
+var shouldBeTrue: like false;
+shouldBeTrue = "hello" != "goodbye";

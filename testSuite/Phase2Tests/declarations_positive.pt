@@ -6,4 +6,4 @@ var y : like 1;
 
 var z [5] : like 1;
 
-var a : file like output;
+var a : file like 1;

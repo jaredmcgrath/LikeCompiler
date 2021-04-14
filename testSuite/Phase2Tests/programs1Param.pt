@@ -1,2 +1,3 @@
 using output, ident1;
+var ident1: file like 1;
 var T: like 1;

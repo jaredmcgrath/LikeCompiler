@@ -59,7 +59,7 @@ p13:    pushl   %ebp
     popl    %ebx
     popl    %eax
     movl    %esi,%eax
-    movl    %eax,u+516
+    movb    %al,u+516
     decl    u+516
     negb    u+516
     incl    n
@@ -710,7 +710,7 @@ s198:    .asciz  "notequal"
         oOperandSetMode(mTemp)
         >>
        ;OperandForceIntoTemp
-       oOperandSetLength(two)
+       oOperandSetLength(one)
        >>
       ;OperandStringEqualPop
       ] or >

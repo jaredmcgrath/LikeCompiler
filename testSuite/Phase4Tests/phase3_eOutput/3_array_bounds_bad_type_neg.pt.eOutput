@@ -1,0 +1,10 @@
+### START OF PROGRAM OUTPUT ###
+error: program failed to compile
+### END OF PROGRAM OUTPUT ###
+### START OF ASSEMBLY SOURCE ###
+error: program failed to compile
+### END OF ASSEMBLY SOURCE ###
+### START OF SSLTRACE ###
+@Program
+ semantic error, line 3: integer constant required
+### END OF SSLTRACE ###

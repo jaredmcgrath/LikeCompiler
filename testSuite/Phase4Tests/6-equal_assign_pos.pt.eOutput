@@ -708,7 +708,7 @@ s197:    .asciz  "notequal"
         oOperandSetMode(mTemp)
         >>
        ;OperandForceIntoTemp
-       oOperandSetLength(two)
+       oOperandSetLength(one)
        >>
       ;OperandStringEqualPop
       ] or >

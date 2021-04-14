@@ -326,7 +326,7 @@ s28:    .asciz  "string"
       oOperandSetMode(mTemp)
       >>
      ;OperandForceIntoTemp
-     oOperandSetLength(two)
+     oOperandSetLength(one)
      >>
     ;OperandStringEqualPop
     ] or >

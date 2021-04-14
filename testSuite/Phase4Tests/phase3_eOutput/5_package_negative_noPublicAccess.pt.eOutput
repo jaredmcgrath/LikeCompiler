@@ -1,0 +1,11 @@
+### START OF PROGRAM OUTPUT ###
+error: program failed to compile
+### END OF PROGRAM OUTPUT ###
+### START OF ASSEMBLY SOURCE ###
+error: program failed to compile
+### END OF ASSEMBLY SOURCE ###
+### START OF SSLTRACE ###
+@Program
+ semantic error, line 7: identifier not declared
+ semantic error, line 7: expression operand required
+### END OF SSLTRACE ###

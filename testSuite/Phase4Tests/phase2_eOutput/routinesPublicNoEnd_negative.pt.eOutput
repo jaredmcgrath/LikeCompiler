@@ -1,0 +1,11 @@
+### START OF PROGRAM OUTPUT ###
+error: program failed to compile
+### END OF PROGRAM OUTPUT ###
+### START OF ASSEMBLY SOURCE ###
+error: program failed to compile
+### END OF ASSEMBLY SOURCE ###
+### START OF SSLTRACE ###
+@Program
+ scan/parse error, line 3: unexpected end of file
+ translation aborted
+### END OF SSLTRACE ###

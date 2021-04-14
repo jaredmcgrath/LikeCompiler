@@ -40,19 +40,26 @@ if [ ! -d "$out_dir" ]; then
   mkdir $out_dir
 fi
 
+for i in ../Phase2Tests/*.pt
+do
+  echo $i
+  printf "$BLUE  Generating output for $i$NC\n"
+  ./test-single.sh -L $pt_lib_path -f $i -s no -c yes -o phase2_eOutput -q
+done
+
+for i in ../Phase3Tests/*.pt
+do
+  echo $i
+  printf "$BLUE  Generating output for $i$NC\n"
+  ./test-single.sh -L $pt_lib_path -f $i -s no -c yes -o phase3_eOutput -q
+done
+
 for i in *.pt
 do
   echo $i
   printf "$BLUE  Generating output for $i$NC\n"
   ./test-single.sh -L $pt_lib_path -f $i -s no -c yes -o . -q
 done
-
-# for i in ../Phase2Tests/*.pt
-# do
-#   echo $i
-#   printf "$BLUE  Generating output for $i$NC\n"
-#   ./test-single.sh -L $pt_lib_path -f $i -s no -c yes -o phase2_eOutput -q
-# done
 
 cd $out_dir
 all_passed="true"

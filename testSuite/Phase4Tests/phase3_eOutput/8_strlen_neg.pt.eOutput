@@ -1,0 +1,12 @@
+### START OF PROGRAM OUTPUT ###
+error: program failed to compile
+### END OF PROGRAM OUTPUT ###
+### START OF ASSEMBLY SOURCE ###
+error: program failed to compile
+### END OF ASSEMBLY SOURCE ###
+### START OF SSLTRACE ###
+@Program
+ semantic error, line 7: operand and operator types clash
+ semantic error, line 8: operand and operator types clash
+ semantic error, line 9: operand and operator types clash
+### END OF SSLTRACE ###

@@ -16,7 +16,8 @@ pkg myPkg is
   public fun greet is
     var i = 1;
     repeat
-      putln("Hello " | names[i]);
+      put("Hello " | names[i]);
+      putln;
       i += 1;
     while i < 5;
   end;
@@ -31,13 +32,16 @@ repeat while (myVar > 0) and (myVar < 15)
     greet;
     myVar = myVar + 3;
   elseif myVar == 10 then
-    putln(z || x);
-    putln(z / y : 3);
+    put(z || x);
+    putln;
+    put(z / y : 3);
+    putln;
     myVar /= 2;
   elseif myVar == 5 then
     myVar -= 1;
   else
-    putln(#z);
+    put(#z);
+    putln;
     myVar %= 3;
   end;
 end;
