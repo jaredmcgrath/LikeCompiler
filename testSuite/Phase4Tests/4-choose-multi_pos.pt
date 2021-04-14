@@ -1,0 +1,15 @@
+using output;
+
+var x = 1;
+
+choose x of
+    when 0 then
+        x -= 1;
+    when 1 then
+        x += 1;
+    else
+        x = 10;
+end;
+
+put(x);
+putln;

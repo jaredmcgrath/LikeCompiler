@@ -250,34 +250,34 @@ __Note__: All line numbers referenced in the following table are referring their
 </tr>
 
 <tr>
-<td>Nicole_1</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>Expected_Output_Filename</td>
+<td>4-choose-else_pos.pt</td>
+<td>Ensure trCaseAbort not called and execution continues with else statement</td>
+<td>Runs choose block with an else statement where the expression does not match any case selectors</td>
+<td>4-choose-else_pos.pt.eOutput</td>
 <td>Notes_For_Neg_Tests</td>
 </tr>
 
 <tr>
-<td>Nicole_2</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>Expected_Output_Filename</td>
+<td>4-choose-noelse_pos.pt</td>
+<td>Ensure a single choose case can execute</td>
+<td>Runs a choose statement with one case</td>
+<td>4-choose-noelse_pos.pt.eOutput</td>
 <td>Notes_For_Neg_Tests</td>
 </tr>
 
 <tr>
-<td>Nicole_3</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>Expected_Output_Filename</td>
+<td>4-choose-multi_pos.pt</td>
+<td>Ensures multiple choose cases can execute</td>
+<td>Runs choose block with multiple possible cases</td>
+<td>4-choose-multi_pos.pt.eOutput</td>
 <td>Notes_For_Neg_Tests</td>
 </tr>
 
 <tr>
-<td>Nicole_4</td>
-<td>Purpose</td>
-<td>Function</td>
-<td>Expected_Output_Filename</td>
+<td>4-choose-nomatch_neg.pt</td>
+<td>Ensure trCaseAbort is called</td>
+<td>Runs choose block with no matching case selector and no else statement</td>
+<td>4-choose-nomatch_neg.pt.eOutput</td>
 <td>Notes_For_Neg_Tests</td>
 </tr>
 

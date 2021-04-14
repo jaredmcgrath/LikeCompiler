@@ -1,0 +1,12 @@
+using output;
+
+var i = 1;
+choose i of 
+    when 0 then
+        i += 1;
+    else
+        i -= 1;
+end;
+
+put(i);
+putln;
