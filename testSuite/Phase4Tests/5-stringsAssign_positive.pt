@@ -7,3 +7,7 @@ putln;
 var str = "otherstring";
 put(str);
 putln;
+
+str = str1;
+put(str);
+putln;

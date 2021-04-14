@@ -690,3 +690,13 @@ A choice block was added with two options:
 The following changes were made in `coder.ssl`.
 
 In the _OperandPushExpression_ and _OperandPushExpressionAssignPopPop_ rules
+
+## String Constants, Variables and Arrays
+
+The following changes were made in `coder.pt`:
+
+Added reading of the trailing `null` character implemented in Like strings to the `tStringData` alternative in order to ensure proper reading of strings. `oOperandPushChar` was changed from the existing push of a byte, to pushing a string address of size `word` and type `mStatic`. A `stringSize` quantifier was added of size 256 adjacent to the existing `wordSize` declaration. An alternative for type string was added to `OperandFoldManifestSubscript` to scale by the newly added `stringSize` if the array was of type `string`. All alternatives were removed for `tLiteralChar` and `tLiteralString` where rules were still in use, this included the alternatives in `AcceptInputToken`.
+
+The following changes were made in `coder.ssl`:
+
+All alternatives involving `tLiteralChar` and `tLiteralString` were removed as these tokens are no longer valid. `OperandPushExpressionAssignPopPop` an alternative was added to handle the token `tSkipString`. In `OperandPushVariable` the alternative for `tFetchChar` had its length changed to string to update the rule for newly implemented strings as a primitive type. Similarly, in the `Routine` rule the operand length of `tStoreChar` was changed to string. The operand sizes of `OperandSubscriptCharPop` was also changed from byte to string. In `OperandForceToStack` and `OperandForceIntoTemp` an alternative was added for type string to allow for the proper actions to be taken, more detailed comments can be seen in the file. To implement proper array subscripting for string arrays, subscript scaling by `256` was added in `OperandCheckedSubscriptNonManifestCharPop` and `OperandCheckedSubscriptNonManifestCharPop`. This was accomplished through a bitwise shift left of 8. Additionally, in `OperandCheckedSubscriptNonManifestCharPop` lower bound normalizing before the subtraction was added in a similar fashion. Finally, in `OperandAssignCharPopPop`, the rule was changed to assign the values of strings using the trap `trAssignString` this involved saving the temp registers, sending both arguments to the trap, calling the trap and then popping both arguments in order to clean the operand stack before reloading the temp registers.
