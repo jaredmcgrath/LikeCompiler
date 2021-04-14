@@ -48,8 +48,7 @@ _TL;DR_: Phase 2 and 3 tests are Phase 4 tests. They will be described in `Phase
 
 5. All types of string assignment, including variables, constants and arrays were tested using simple positive tests, with their outputs being printed. As well string input was also tested. Incorrect array bounds were tried and behaved as expected. 
 
-
-TODO: Write step 3 tests after step 2 (pos + neg) and then write justification
+6. 
 
 Testing for string operations is ensured through 100% code coverage in the test suite. All lines of code that were added to implement the various string operations have one or more tests dedicated to ensuring proper functionality of code generated. See the individual test descriptions (those prefixed with `6-`) for details of which lines in `coder.ssl` the test program covers.
 
